@@ -13,6 +13,8 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
+#include <charconv>
+#include <sstream>
 #include <deque>
 #include <iostream>
 #include <memory>
@@ -559,12 +561,24 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
         if (kd == KvDtype::K8V4)     return "k8v4";
         return "fp16";
     }();
-    proto("INFO engine=strata-inkling-%s arch=inkling2_loop backend=%s model=%s layers=%d visits=%d vocab=%d chunk=%d batch_slots=%d slot_read=1 shared_prefix=%d kv_dtype=%s drafter=%s drafting=%s images=%d image_pad=%d parallel=%d ckpt_key=1",
+    // A positive budget opts the trusted native transport into one process-local snapshot.
+    unsigned snapshot_mib = 0;
+    if (const char* opt = std::getenv("TURBINE_SNAPSHOT_MIB")) {
+        const char* end = opt + std::strlen(opt);
+        const auto parsed = std::from_chars(opt, end, snapshot_mib);
+        if (parsed.ec != std::errc{} || parsed.ptr != end || snapshot_mib > 32768) {
+            std::fprintf(stderr, "TURBINE_SNAPSHOT_MIB must be 0..32768\n");
+            return 1;
+        }
+    }
+    const bool state_enabled = snapshot_mib && !use_dspark && P <= 2 &&
+        std::string(backend.backend_name()) == "metal" && std::string(kv_str) == "fp16" && cfg.vision_path.empty();
+    proto("INFO engine=strata-inkling-%s arch=inkling2_loop backend=%s model=%s layers=%d visits=%d vocab=%d chunk=%d batch_slots=%d slot_read=1 shared_prefix=%d kv_dtype=%s drafter=%s drafting=%s images=%d image_pad=%d parallel=%d ckpt_key=1 native_fork=%d",
           cfg.version.c_str(), backend.backend_name(), base.c_str(), c.n_phys, c.n_visits, V, chunk_sz,
           P, backend.supports_shared_checkpoint() ? 1 : 0, kv_str,
           mf.m.dspark.present ? "dspark" : "none",
           use_dspark ? "dspark" : "off",
-          images_ok ? 1 : 0, c.image_token_id, kMaxParallelSlots);
+          images_ok ? 1 : 0, c.image_token_id, kMaxParallelSlots, int(state_enabled));
     proto("READY %d stop hold holdb", eff_max_ctx);
 
     std::vector<ActiveReq> reqs(P);
@@ -736,9 +750,67 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
         return true;
     };
 
+    std::unique_ptr<InkPrefixCheckpoint> saved;
+    std::vector<int32_t> saved_ids;
+    uint64_t generation = 0;
+    if (state_enabled) {
+        std::random_device random;
+        generation = (uint64_t(random()) << 32) ^ random();
+    }
     bool quit_requested = false;
     auto handle_line = [&](const std::string& line) -> bool {
         if (line.empty()) return true;
+        if (line.rfind("STATE_", 0) == 0) {
+            if (!state_enabled) { proto("ERR native fork disabled"); return true; }
+            std::istringstream in(line);
+            std::string op, extra;
+            int slot = -1;
+            uint64_t handle = 0;
+            in >> op;
+            if (op == "STATE_DROP") {
+                if (!(in >> handle) || in >> extra || !saved || handle != generation) {
+                    proto("ERR invalid snapshot handle"); return true;
+                }
+                saved.reset();
+                std::vector<int32_t>().swap(saved_ids);
+                proto("DROPPED");
+                return true;
+            }
+            if ((op != "STATE_SAVE" && op != "STATE_RESTORE") || !(in >> slot) || slot < 0 || slot >= P ||
+                reqs[slot].active || (op == "STATE_RESTORE" && !(in >> handle)) || in >> extra) {
+                proto("ERR invalid command or busy slot"); return true;
+            }
+            auto& rq = reqs[slot];
+            try {
+                if (op == "STATE_SAVE") {
+                    const size_t budget = size_t(snapshot_mib) << 20;
+                    const size_t ids_bytes = rq.cached_prefix.size() * sizeof(int32_t);
+                    // A second live image must not make transient memory exceed the configured payload budget.
+                    if (saved || !ids_bytes || ids_bytes >= budget) {
+                        proto("ERR drop existing snapshot or check source and budget"); return true;
+                    }
+                    auto next = backend.save_prefix(slot, int(rq.cached_prefix.size()), budget - ids_bytes);
+                    if (!next) { proto("ERR snapshot unavailable or over budget"); return true; }
+                    saved_ids = rq.cached_prefix;
+                    saved = std::move(next);
+                    ++generation;
+                    proto("SAVED %llu %zu %zu", (unsigned long long)generation, saved_ids.size(), saved->payload_bytes + ids_bytes);
+                } else {
+                    if (!saved || handle != generation) { proto("ERR invalid snapshot handle"); return true; }
+                    // Allocate host metadata before touching any destination state.
+                    auto ids = saved_ids;
+                    saved->restore(slot);
+                    rq.cached_prefix.swap(ids);
+                    rq.prompt_ckpt_prefix.clear();
+                    rq.shared_prefix.clear();
+                    proto("RESTORED %zu", saved_ids.size());
+                }
+            } catch (const std::bad_alloc&) {
+                proto("ERR snapshot allocation failed");
+            }
+            return true;
+        }
+
         if (line == "QUIT") { quit_requested = true; return false; }
         if (line == "HELLO") {
             proto("HELLO ok engine=strata-inkling-%s arch=inkling2_loop backend=%s max_ctx=%d parallel=%d",
@@ -1063,7 +1135,11 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
         const int n_want = batch.count_logits();
         // Candidate rows (the 128 best logits of each wanted row, exact) instead of the full 200058-float rows, when the backend can and
         // no wanted slot needs its whole row (a penalty changes logits anywhere in it).  Many slots: 64 rows are 51 MB per step otherwise.
-        bool use_cand = cand_ok && n_want > 0 && backend.supports_candidates();
+        bool use_cand =
+#ifdef TURBINE_TEST_LOGITS
+            !std::getenv("TURBINE_TEST_LOGITS") &&
+#endif
+            cand_ok && n_want > 0 && backend.supports_candidates();
         for (int wi = 0; use_cand && wi < n_want; ++wi) if (reqs[logit_slots[wi]].s.penalties()) use_cand = false;
         std::string ferr;
         CandRows cand;
@@ -1167,6 +1243,19 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
                 ? sample_candidates(cand.val.data() + static_cast<size_t>(wi) * InkBackend::kInkCandidates,
                                     cand.idx.data() + static_cast<size_t>(wi) * InkBackend::kInkCandidates, V, rq.s, rq.rng)
                 : sample_logits(lg, V, rq.s, rq.hist, rq.rng);
+#ifdef TURBINE_TEST_LOGITS
+            if (lg && std::getenv("TURBINE_TEST_LOGITS") && rq.generated + 1 == rq.max_new) {
+                const auto* bytes = reinterpret_cast<const unsigned char*>(lg);
+                static constexpr char hex[] = "0123456789abcdef";
+                std::string out(2 * V * sizeof(float), '0');
+                for (size_t j = 0; j < out.size()/2; ++j) {
+                    out[2*j] = hex[bytes[j] >> 4];
+                    out[2*j+1] = hex[bytes[j] & 15];
+                }
+                std::cout << "LOGITS " << rq.req_id << " " << out << std::endl;
+            }
+#endif
+
             rq.hist.push_back(tok);
             rq.gen_ids.push_back(tok);
             rq.next_tok = tok;

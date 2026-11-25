@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+"""Atomic Turbine 0.1 local Metal engines and Strata-compatible HTTP gateway."""
+import argparse
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+import tempfile
+
+ROOT=Path(__file__).resolve().parent
+BIN=ROOT/"bin"
+
+
+def main():
+    if len(sys.argv)<2 or sys.argv[1] in ("-h","--help"):
+        print("Atomic Turbine 0.1 (macOS arm64)\n  inkling [native Inkling flags]\n  qwen [native Qwen flags]\n  api [Strata HTTP server flags]\n  serve-inkling --model FILE --tokenizer DIR [--port 8080] [--context 24576]\n  --version")
+        return
+    mode,*args=sys.argv[1:]
+    if mode=="--version":
+        print("Atomic Turbine 0.1.0");return
+    if mode in ("inkling","qwen"):
+        exe=BIN/("strata-inkling" if mode=="inkling" else "strata")
+        os.execv(str(exe),[str(exe),*args])
+    server=ROOT/"terminal/serve/server.py"
+    if mode=="api":
+        os.execv(sys.executable,[sys.executable,str(server),*args])
+    if mode!="serve-inkling":
+        raise SystemExit("unknown subcommand: "+mode)
+    p=argparse.ArgumentParser(prog="atomic-turbine serve-inkling")
+    p.add_argument("--model",type=Path,required=True)
+    p.add_argument("--tokenizer",type=Path,required=True)
+    p.add_argument("--port",type=int,default=8080)
+    p.add_argument("--context",type=int,default=24576)
+    a=p.parse_args(args)
+    if not a.model.is_file() or not (a.tokenizer/"merges.txt").is_file():
+        p.error("provide a readable .strata model and converted tokenizer directory")
+    cfg=dict(exe=str(BIN/"strata-inkling"),arch="inkling2_loop",tokenizer=str(a.tokenizer.resolve()),model_name="inkling",
+             args=["--serve","--native",str(a.model.resolve()),"--draft","off","--kv","fp16","--max-context",str(a.context),
+                   "--parallel","2","--chunk","128"],host="127.0.0.1",port=a.port,open_browser=False)
+    with tempfile.TemporaryDirectory(prefix="atomic-turbine-") as d:
+        path=Path(d)/"config.json";path.write_text(json.dumps(cfg))
+        proc=subprocess.Popen([sys.executable,str(server),"--engine","strata","--config",str(path),"--host","127.0.0.1",
+                               "--port",str(a.port),"--parallel","2","--offline","--no-api-key"])
+        try:
+            raise SystemExit(proc.wait())
+        except KeyboardInterrupt:
+            proc.terminate()
+            proc.wait()
+if __name__=="__main__":main()
