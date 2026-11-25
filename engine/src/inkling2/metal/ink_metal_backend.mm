@@ -180,6 +180,46 @@ public:
         }
     }
 
+    std::unique_ptr<InkPrefixCheckpoint> save_prefix(int slot, int tokens) override {
+        if (runner_.use_dspark || kv_dtype_ != KvDtype::FP16 || (slot < 0 || slot >= runner_.max_slots) ||
+            tokens <= 0 || tokens >= runner_.max_ctx) return nullptr;
+        // forward_batch has finished on the GPU when the idle server accepts SAVE.
+        // Keep the populated physical ring rows, including rows a longer sibling can overwrite.
+        struct Saved final : InkPrefixCheckpoint {
+            struct Slice {
+                uint8_t* base;
+                size_t slot_stride;
+                std::vector<uint8_t> bytes;
+            };
+            ink_metal::InkMetalRunner& runner;
+            ink_metal::InkMetalRunner::SlotSconvSnap conv;
+            std::vector<Slice> kv;
+            explicit Saved(ink_metal::InkMetalRunner& r) : runner(r) {}
+            void restore(int destination) const override {
+                for (const auto& slice : kv)
+                    std::memcpy(slice.base + destination * slice.slot_stride, slice.bytes.data(), slice.bytes.size());
+                runner.restore_slot(destination, conv);
+            }
+        };
+        auto saved = std::make_unique<Saved>(runner_);
+        runner_.snapshot_slot(slot, saved->conv);
+        const auto& sc = saved->conv;
+        saved->payload_bytes = (sc.k.size() + sc.v.size() + sc.attn.size() + sc.mlp.size()) * sizeof(float);
+        const auto& c = mod_.man.c;
+        const size_t row_bytes = (size_t)c.n_kv * c.head_dim * sizeof(uint16_t);
+        for (int v = 0; v < c.n_visits; ++v) {
+            const size_t count = std::min(tokens, runner_.visit_kv_stride[v]) * row_bytes;
+            for (auto* buf : {&runner_.kv_k[v], &runner_.kv_v[v]}) {
+                const size_t stride = row_bytes * runner_.visit_kv_stride[v];
+                auto* base = buf->as<uint8_t>();
+                auto* begin = base + slot * stride;
+                saved->kv.push_back({base, stride, std::vector<uint8_t>(begin, begin + count)});
+                saved->payload_bytes += count;
+            }
+        }
+        return saved;
+    }
+
     bool forward_batch(const StepBatch& batch, float* logits_out, TapCapture* taps_out, std::string& err) override {
         if (batch.n_tokens <= 0) return true;
         // Auto-slice oversized multi-slot prefill batches (e.g. --bench --parallel 64 --prompt-len 64 -> M=4096)

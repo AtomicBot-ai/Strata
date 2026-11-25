@@ -362,6 +362,8 @@ int main(int argc, char** argv) {
             mode_export = true; export_file = next(); export_dir = next();
         } else if (a == "--serve") {
             mode_serve = true;
+        } else if (a == "--research-checkpoint") {
+            cfg.research_checkpoint = true;
         } else if (a == "--bench") {
             mode_bench = true;
         } else if (a == "--selfcheck") {

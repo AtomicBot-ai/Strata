@@ -44,6 +44,13 @@ struct BackendStats {
     KvDtype kv_dtype = KvDtype::FP16;
 };
 
+// A process-local, immutable prefix. Restore only into an allocated slot of the owning backend.
+struct InkPrefixCheckpoint {
+    virtual ~InkPrefixCheckpoint() = default;
+    virtual void restore(int slot) const = 0;
+    size_t payload_bytes = 0;
+};
+
 class InkBackend {
 public:
     virtual ~InkBackend() = default;
@@ -62,6 +69,8 @@ public:
     // Speculative rollback: restore KV + ShortConv state to `keep_len` (requires snapshot taken before verify!)
     virtual void snapshot_slot(int slot) = 0;
     virtual void rollback_slot(int slot, int keep_len) = 0;
+
+    virtual std::unique_ptr<InkPrefixCheckpoint> save_prefix(int, int) { return nullptr; }
 
     // Batched 48-visit forward across 1..64 active slots!
     // logits_out: [batch.count_logits(), vocab_unpadded] FP32 (already softcapped by 30*tanh(z/30) and sliced to 200058).
