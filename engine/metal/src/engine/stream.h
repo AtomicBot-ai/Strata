@@ -70,6 +70,13 @@ public:
     void hold_region(bool hold);
     void report(FILE* f) const;
     void reset_stats();
+    // Queried between completed windows, on the host thread that owns where_.
+    uint64_t missing_bytes(int layer, int expert) const {
+        const int slot = where_[layer * 512 + expert];
+        if (slot >= 0 && slots_[slot].state.load() == 0) return 0;
+        const auto& layout = lay_[layer];
+        return layout.gs + layout.us + layout.ds;
+    }
 
 private:
     uint64_t shrink_to_ = 0;

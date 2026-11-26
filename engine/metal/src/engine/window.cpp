@@ -554,7 +554,35 @@ public:
     }
     int win_n_[MAXT + 1] = {};
     double win_ms_[MAXT + 1] = {}, win_gpu_[MAXT + 1] = {};
+    // Qwen Flash-Next PoC: bounded history from completed logical generation steps.
+    int affinity_owner[2] = {-1, -1};
+    struct RouteHistory {
+        int steps = 0;
+        int ids[4][48][TOPK] = {};
+    };
+    RouteHistory affinity_routes[8];
+    long long affinity_cost(int id) const {
+        const auto& h = affinity_routes[id];
+        const int count = std::min(4, h.steps);
+        if (!count || !st_ || !st_->ready()) return -1;
+        uint64_t bytes = 0;
+        for (int i = 0; i < count; ++i)
+            for (int layer = 0; layer < 48; ++layer)
+                for (int expert : h.ids[i][layer])
+                    bytes += st_->missing_bytes(layer, expert);
+        return (long long)(bytes / count);
+    }
     void at_cut(int s) {
+        if (rows_ && !cut_ids_ && s >= 0 && s < 48) {
+            for (int row = 0; row < seg_T_; ++row) {
+                const int slot = rows_set_[row] - 1;
+                if (slot < 0 || slot >= 2 || affinity_owner[slot] < 0) continue;
+                auto& h = affinity_routes[affinity_owner[slot]];
+                const auto* ids = ids_.as<int32_t>() + row * TOPK;
+                std::copy_n(ids, TOPK, h.ids[h.steps % 4][s]);
+                if (s == 47) ++h.steps;
+            }
+        }
         st_->at_layer(s, seg_T_, TOPK, cut_ids_ ? cut_ids_ : ids_.as<int32_t>(), st_pred_ && !cut_ids_ ? predL_.as<float>() + (size_t) s * MAXT * 512 : nullptr,
                       predL2_.ptr && !cut_ids_ ? predL2_.as<float>() + (size_t) s * MAXT * 512 : nullptr);
     }
@@ -3683,6 +3711,15 @@ bool window_run_slots(void* w, const int* rows, int S, const int32_t* tokens, co
     const bool ok = ((Window*) w)->run_slots(rows, S, tokens, pos, out, err);
     ((Window*) w)->prof_add(true, now_ms() - t0);
     return ok;
+}
+void affinity_bind(int slot, int seq) {
+    g_the_window->affinity_owner[slot] = seq;
+}
+void affinity_scores() {
+    std::printf("SCORES");
+    for (int id = 0; id < 8; ++id)
+        std::printf(" %d:%lld", std::min(4, g_the_window->affinity_routes[id].steps), g_the_window->affinity_cost(id));
+    std::puts("");
 }
 bool window_slot_copy_main(bool into_slot, int slot, int64_t upto, bool kv_only, std::string& err) {
     if (g_the_window == nullptr || !g_the_window->ready()) { err = "metal window: not up"; return false; }
