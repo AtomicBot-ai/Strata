@@ -154,13 +154,10 @@ def main():
                 binary = args.candidate if fork else args.stock
                 folder = args.out / f"{args.family}-{count}-{pair}" / ("fork" if fork else "stock")
                 path = folder / "result.json"
-                if path.exists():
-                    row = json.loads(path.read_text())
-                else:
-                    row = measure(binary, cfg, args.family, prefix, suffixes, 128 if is_ink else 16, fork, folder)
-                    row["sha256"] = hashlib.sha256(binary.read_bytes()).hexdigest()
-                    row["seed"] = 83101 + pair
-                    path.write_text(json.dumps(row, indent=2)+"\n")
+                row = measure(binary, cfg, args.family, prefix, suffixes, 128 if is_ink else 16, fork, folder)
+                row["sha256"] = hashlib.sha256(binary.read_bytes()).hexdigest()
+                row["seed"] = 83101 + pair
+                path.write_text(json.dumps(row, indent=2)+"\n")
                 runs.append(row)
                 print(folder, round(row["elapsed_s"], 3), flush=True)
             if runs[0]["outputs"] != runs[1]["outputs"]:

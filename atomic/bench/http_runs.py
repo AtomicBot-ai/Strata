@@ -67,8 +67,8 @@ def main():
     for pair in range(3):
         for native in ((False, True) if pair % 2 == 0 else (True, False)):
             destination = a.out / f"agent-{pair}-{'fork' if native else 'stock'}.json"
-            if destination.is_file():
-                continue
+            if destination.exists():
+                raise FileExistsError(f"Use a fresh results directory: {destination}")
             with tempfile.TemporaryDirectory() as tmp:
                 d = Path(tmp)
                 port = free_port()

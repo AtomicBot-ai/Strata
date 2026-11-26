@@ -129,6 +129,8 @@ class Checkpoints:
             p = self.lookup(ident, owner)
             if identity != p.identity or tuple(ids[:len(p.ids)]) != p.ids:
                 raise CheckpointError(409, "checkpoint prefix or model configuration differs")
+            if len(ids) <= len(p.ids):
+                raise CheckpointError(409, "checkpoint requires a continuation after the saved prefix")
             p.leases += 1
             return p
 

@@ -1646,6 +1646,9 @@ class StrataEngine:
             elif line.startswith("RESUME "):          # #4636: the reused prefix (the Monitor's Context gauge); read only there
                 try:
                     self.reused = int(line.split()[1])
+                    if getattr(self, "checkpoints", None) and not getattr(cancel, "_turbine_lease", None):
+                        turbine_state.event("prefix_resume", request_id=getattr(cancel, "_strata_request_id", None),
+                                            reused_tokens=self.reused)
                 except (IndexError, ValueError):
                     pass
             elif line.startswith("DONE"):
@@ -2371,7 +2374,7 @@ class StrataEngine:
                     try:
                         for x in self._control(cancel, arrived, on_quiet=lambda: (ask(), note_progress()),
                                                want_lp=want_lp, lines_q=lines_q):
-                            while pending:
+                            while pending and not fork:
                                 t = pending.pop(0)
                                 out.append(t)
                                 yield t
@@ -2399,11 +2402,16 @@ class StrataEngine:
                         slot = None
                         continue
                     cont = bool(self._ctl_result and self._ctl_result[1])
-                    if fork and self._ctl_result and self._ctl_result[0] == "badm":
-                        turbine_state.event("fork_admitted", request_id=live["request_id"], slot=slot,
-                                            active_slots=sum(self.slot_busy))
                     admission_pending = cont
                     phase = "slot" if cont else "none"
+                    if fork and not cancel.is_set():
+                        reused = (self.last or {}).get("reused", 0)
+                        if reused < len(fork[1].ids):
+                            turbine_state.event("fork_rejected", request_id=live["request_id"],
+                                                reason="native_prefix_not_reused", reused_tokens=reused)
+                            raise turbine_state.CheckpointError(409, "engine did not reuse the restored prefix")
+                        turbine_state.event("fork_admitted", request_id=live["request_id"], slot=slot,
+                                            active_slots=sum(self.slot_busy), reused_tokens=reused)
                     while pending:
                         t = pending.pop(0)
                         out.append(t)

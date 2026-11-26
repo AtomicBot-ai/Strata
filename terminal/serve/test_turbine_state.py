@@ -80,7 +80,8 @@ class StateLifecycle(unittest.TestCase):
         for owner, identity, ids, status in (
                 ("other", self.identity, self.ids, 404),
                 (self.owner, ("qwen",), self.ids, 409),
-                (self.owner, self.identity, [11, 12, 14], 409)):
+                (self.owner, self.identity, [11, 12, 14], 409),
+                (self.owner, self.identity, self.ids, 409)):
             with self.assertRaises(CheckpointError) as e:
                 self.state.acquire(key, owner, identity, ids)
             self.assertEqual(e.exception.status, status)
@@ -105,7 +106,7 @@ class StateLifecycle(unittest.TestCase):
 
     def test_disconnected_slot_holds_lease_until_backend_releases(self):
         key = self.create()
-        p = self.state.acquire(key, self.owner, self.identity, self.ids)
+        p = self.state.acquire(key, self.owner, self.identity, self.ids + [17])
         self.engine.slot_busy[1] = True
         self.state.finish(p, (1, 1))
         self.assertEqual(self.state.delete(key, self.owner), 202)
