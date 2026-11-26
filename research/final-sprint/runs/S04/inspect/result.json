@@ -1,0 +1,76 @@
+{
+  "argv": [
+    "/Applications/OpenCode.app/Contents/Resources/opencode-cli",
+    "run",
+    "--standalone",
+    "--format",
+    "json",
+    "-m",
+    "turbine/inkling",
+    "Inspect this Strata repository. Use grep and read. Where does shape_engine_fetch install the Inkling engine, and where does it obtain the update feed? Cite the exact files and function names. Keep the answer short."
+  ],
+  "seconds": 65.29454379202798,
+  "exit": 0,
+  "timed_out": false,
+  "tools": [
+    {
+      "name": "grep",
+      "state": "completed"
+    },
+    {
+      "name": "read",
+      "state": "completed"
+    },
+    {
+      "name": "grep",
+      "state": "error"
+    },
+    {
+      "name": "grep",
+      "state": "completed"
+    },
+    {
+      "name": "grep",
+      "state": "completed"
+    },
+    {
+      "name": "read",
+      "state": "completed"
+    },
+    {
+      "name": "read",
+      "state": "completed"
+    },
+    {
+      "name": "read",
+      "state": "completed"
+    },
+    {
+      "name": "grep",
+      "state": "completed"
+    },
+    {
+      "name": "read",
+      "state": "completed"
+    },
+    {
+      "name": "grep",
+      "state": "completed"
+    },
+    {
+      "name": "read",
+      "state": "completed"
+    }
+  ],
+  "text": [
+    "`shape_engine_fetch` is in `terminal/setup.py` (line 9498). It:\n\n- installs the Inkling engine via `shape_engine.ensure(shape, source, ...)` (`terminal/strata_control/shape_engine.py`, line 349), which fetches from the signed feed and installs into `shapes_dir(components)/shape` = `components/<shape>/` \u2014 the per-user component folder from `engine_component.components_dir()` (`terminal/strata_control/engine_component.py`, line 179; `STRATA_COMPONENTS_DIR` or `~/.local/share/strata/components` on Linux, `%LOCALAPPDATA%\\Strata\\components` on Windows).\n- obtains the update feed via `update_cmd._feed_source(argparse.Namespace(feed=<a.feed>), EC.components_dir())` (`terminal/strata_cli/update_cmd.py`, line 142): `--feed` if passed, else `STRATA_UPDATE_FEED` env var, else the remembered feed from `updater.State(root).data[\"feed\"][\"source\"]` (only `https://` addresses count as remembered; otherwise `default_feed()`).\n\nAfter fetch, `shape_engine.find(shape, full=False, title=title)` (`shape_engine.py` line 174) locates the installed engine (returns e.g. the exe path via `.exe`/folder)."
+  ],
+  "errors": [],
+  "saves": 0,
+  "restores": 0,
+  "reuse_events": 10,
+  "simultaneous_decode_slots": 2,
+  "engine_peak_bytes": 4363571472,
+  "fixture_base": "e83de74",
+  "diff": ""
+}

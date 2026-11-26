@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/b3-build/strata-inkling",
+    "--serve",
+    "--native",
+    "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/atomic-turbine/.work/models/Inkling-2-Mini-SQ-10.strata",
+    "--draft",
+    "off",
+    "--kv",
+    "fp16",
+    "--max-context",
+    "168",
+    "--chunk",
+    "128",
+    "--parallel",
+    "2",
+    "--no-anti-loop"
+  ],
+  "lab": false,
+  "endpoint_logits": false
+}

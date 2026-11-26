@@ -1,0 +1,52 @@
+{
+  "selection": "First two distinct tasks per difficulty in R02 schedule order; mode C child cancelled upon public success of its own parent.",
+  "model": "Inkling-2-Mini SQ-10",
+  "binary_sha256": "5c97fb5d39b3d03466ed100678d2443061e98171ac2cc7aa574bc1d369c57ef7",
+  "context": 4096,
+  "seed_rule": "reuse both archived seeds; regenerate live parent from original task",
+  "termination": "EOS or context limit for both; no fallback, timer, pruning, or early exit on checks",
+  "tasks": [
+    {
+      "task": "abc398_d",
+      "level": "hard",
+      "seed": 3203,
+      "old_parent": "1",
+      "old_child": "3"
+    },
+    {
+      "task": "abc344_b",
+      "level": "easy",
+      "seed": 3203,
+      "old_parent": "1",
+      "old_child": "3"
+    },
+    {
+      "task": "abc398_c",
+      "level": "medium",
+      "seed": 3203,
+      "old_parent": "0",
+      "old_child": "2"
+    },
+    {
+      "task": "abc306_b",
+      "level": "easy",
+      "seed": 3203,
+      "old_parent": "1",
+      "old_child": "3"
+    },
+    {
+      "task": "abc397_f",
+      "level": "hard",
+      "seed": 3203,
+      "old_parent": "1",
+      "old_child": "3"
+    },
+    {
+      "task": "abc376_b",
+      "level": "medium",
+      "seed": 3203,
+      "old_parent": "1",
+      "old_child": "3"
+    }
+  ]
+}

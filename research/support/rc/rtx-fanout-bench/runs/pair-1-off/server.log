@@ -1,0 +1,67 @@
+loading the model (the first start takes a minute or two) ...
+[strata] starting the engine: reading the model's weights ...
+[strata] still starting (20 s) - please wait ...
+[strata] loading the experts into RAM (tens of GB) and locking part of them for the GPU.
+         YOUR PC CAN BE SLOW OR STOP RESPONDING FOR 1-3 MINUTES NOW - this is normal.
+         Please wait and don't close this window; the server says when it is ready.
+[strata] filling the GPU's expert cache (84 experts, 0.14 GiB of VRAM) ...
+[strata] almost ready ...
+[strata] Monitor: watching GPU 0 (main) (as nvidia-smi numbers them)
+ready: http://127.0.0.1:59101/v1  (OpenAI: /v1/chat/completions, Anthropic: /v1/messages, context 512 tokens)
+       open http://127.0.0.1:59101/ in a browser to chat; close this window to stop the model
+[strata] reading the prompt: 8 of 15 tokens, 7 s so far
+[strata] reading the prompt: 14 of 15 tokens, 9 s so far
+[strata] done: 2 tokens in 10 s (3.2 tok/s) (stop, cancel=False), expert cache 2.0% hit
+[strata] reading the prompt: 172 tokens, 10 s so far
+[strata] reading the prompt: 172 tokens, 10 s so far
+[strata] reading the prompt: 175 tokens, 10 s so far
+[strata] reading the prompt: 173 tokens, 10 s so far
+[strata] reading the prompt: 172 tokens, 20 s so far
+[strata] reading the prompt: 172 tokens, 20 s so far
+[strata] reading the prompt: 175 tokens, 20 s so far
+[strata] reading the prompt: 173 tokens, 20 s so far
+[strata] reading the prompt: 172 tokens, 30 s so far
+[strata] reading the prompt: 172 tokens, 30 s so far
+[strata] reading the prompt: 175 tokens, 30 s so far
+[strata] reading the prompt: 173 tokens, 30 s so far
+[strata] reading the prompt: 166 of 173 tokens, 37 s so far
+[strata] reading the prompt: 172 of 173 tokens, 40 s so far
+[strata] reading the prompt: 172 of 173 tokens, 40 s so far
+[strata] reading the prompt: 172 of 173 tokens, 40 s so far
+[strata] reading the prompt: 172 of 173 tokens, 40 s so far
+[strata] answering: 2 of max 12 tokens, 2.1 tok/s, 41 s
+[strata] done: 3 tokens in 42 s (1.7 tok/s) (stop, cancel=False), expert cache 1.7% hit
+[strata] reading the prompt: 172 of 173 tokens, 50 s so far
+[strata] reading the prompt: 172 of 173 tokens, 50 s so far
+[strata] reading the prompt: 172 of 173 tokens, 52 s so far
+[strata] reading the prompt: 172 of 173 tokens, 60 s so far
+[strata] reading the prompt: 172 of 173 tokens, 60 s so far
+[strata] reading the prompt: 172 of 173 tokens, 62 s so far
+[strata] reading the prompt: 172 of 173 tokens, 70 s so far
+[strata] reading the prompt: 172 of 173 tokens, 71 s so far
+[strata] reading the prompt: 172 of 173 tokens, 72 s so far
+[strata] reading the prompt: 165 of 172 tokens, 75 s so far
+[strata] reading the prompt: 171 of 172 tokens, 77 s so far
+[strata] done: 2 tokens in 78 s (2.5 tok/s) (stop, cancel=False), expert cache 10.6% hit
+[strata] reading the prompt: 171 of 172 tokens, 81 s so far
+[strata] reading the prompt: 171 of 172 tokens, 88 s so far
+[strata] reading the prompt: 171 of 172 tokens, 91 s so far
+[strata] reading the prompt: 171 of 172 tokens, 98 s so far
+[strata] reading the prompt: 171 of 172 tokens, 101 s so far
+[strata] reading the prompt: 171 of 172 tokens, 108 s so far
+[strata] reading the prompt: 171 of 172 tokens, 111 s so far
+[strata] reading the prompt: 171 of 172 tokens, 118 s so far
+[strata] reading the prompt: 171 of 172 tokens, 121 s so far
+[strata] reading the prompt: 165 of 172 tokens, 124 s so far
+[strata] answering: 1 of max 12 tokens, 0.1 tok/s, 134 s
+[strata] reading the prompt: 171 of 172 tokens, 134 s so far
+[strata] answering: 1 of max 12 tokens, 0.0 tok/s, 144 s
+[strata] reading the prompt: 171 of 172 tokens, 144 s so far
+[strata] answering: 1 of max 12 tokens, 0.0 tok/s, 154 s
+[strata] reading the prompt: 171 of 172 tokens, 154 s so far
+[strata] done: 2 tokens in 163 s (1.8 tok/s) (stop, cancel=False), expert cache 11.0% hit
+[strata] reading the prompt: 168 of 175 tokens, 163 s so far
+[strata] done: 5 tokens in 163 s (2.2 tok/s) (stop, cancel=False), expert cache 11.0% hit
+
+[strata] stopping (Ctrl+C again to end the engine at once) ...
+[strata] stopped

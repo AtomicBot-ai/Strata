@@ -1,0 +1,4 @@
+{
+  "reply": "SERR invalid 0 session files do not support --batch (parallel requests)",
+  "shared_batch_capture_supported": false
+}

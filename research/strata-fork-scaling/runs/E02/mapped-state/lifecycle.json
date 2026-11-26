@@ -1,0 +1,68 @@
+{
+  "cross_slot": [
+    {
+      "source": 1,
+      "destination": 0,
+      "endpoint": {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      "nested": {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      "rng_equal": true,
+      "nested_tokens_equal": true
+    },
+    {
+      "source": 0,
+      "destination": 1,
+      "endpoint": {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      "nested": {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      "rng_equal": true,
+      "nested_tokens_equal": true
+    }
+  ],
+  "samples": [
+    {
+      "footprint": 2656160792,
+      "peak_footprint": 2686880816,
+      "rss": 2499133440,
+      "pageins": 33298
+    },
+    {
+      "footprint": 2656160792,
+      "peak_footprint": 2686880816,
+      "rss": 2499133440,
+      "pageins": 33298
+    },
+    {
+      "footprint": 2656160792,
+      "peak_footprint": 2686880816,
+      "rss": 2499133440,
+      "pageins": 33298
+    },
+    {
+      "footprint": 2656160792,
+      "peak_footprint": 2686880816,
+      "rss": 2499133440,
+      "pageins": 33298
+    }
+  ],
+  "retained": 0,
+  "tolerance_bytes": 16777216
+}

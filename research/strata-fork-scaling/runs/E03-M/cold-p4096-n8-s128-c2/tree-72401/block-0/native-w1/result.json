@@ -1,0 +1,254 @@
+{
+  "key": {
+    "config": [
+      4096,
+      8,
+      128,
+      false
+    ],
+    "seed": 72401,
+    "mode": "native",
+    "slots": 2,
+    "width": 1,
+    "diag": false,
+    "work": "18f01c9316a9d28fe8c0c189f5156a0a37357c8a0b3db8300b4d36354b64e63e"
+  },
+  "elapsed_ns": 23634029417,
+  "through_cleanup_ns": 23634310375,
+  "parent_prefill_ns": 0,
+  "initial_parent_in_elapsed": false,
+  "snapshot_create_ns": 0,
+  "restore_ns": 0,
+  "drop_ns": 0,
+  "postrun_slot_clear_ns": 280958,
+  "children_done_ns": 23634029333,
+  "snapshot_bytes": 0,
+  "memory": {
+    "before": {
+      "footprint": 2722450456,
+      "peak_footprint": 2722450456,
+      "rss": 2565095424,
+      "pageins": 61478
+    },
+    "parent": {
+      "footprint": 2722450456,
+      "peak_footprint": 2722450456,
+      "rss": 2565095424,
+      "pageins": 61478
+    },
+    "after_create": {
+      "footprint": 2722450456,
+      "peak_footprint": 2722450456,
+      "rss": 2565095424,
+      "pageins": 61478
+    },
+    "end": {
+      "footprint": 2916142248,
+      "peak_footprint": 2916961448,
+      "rss": 2746859520,
+      "pageins": 61478
+    },
+    "cleared": {
+      "footprint": 2916142248,
+      "peak_footprint": 2916961448,
+      "rss": 2746859520,
+      "pageins": 61478
+    }
+  },
+  "branches": [
+    {
+      "branch": 0,
+      "dispatch_ns": 28042,
+      "first_ns": 5961013292,
+      "done_ns": 8204658167,
+      "reused": 0,
+      "engine_prefill_ms": 5943.8,
+      "engine_decode_ms": 2243.6,
+      "endpoint": 68014
+    },
+    {
+      "branch": 1,
+      "dispatch_ns": 8204712042,
+      "first_ns": 8233536458,
+      "done_ns": 10412796208,
+      "reused": 4095,
+      "engine_prefill_ms": 17.2,
+      "engine_decode_ms": 2179.3,
+      "endpoint": 82
+    },
+    {
+      "branch": 2,
+      "dispatch_ns": 10412851375,
+      "first_ns": 10434298958,
+      "done_ns": 12625731917,
+      "reused": 4095,
+      "engine_prefill_ms": 17.2,
+      "engine_decode_ms": 2191.4,
+      "endpoint": 220
+    },
+    {
+      "branch": 3,
+      "dispatch_ns": 12625780000,
+      "first_ns": 12647223958,
+      "done_ns": 14824141083,
+      "reused": 4095,
+      "engine_prefill_ms": 17.2,
+      "engine_decode_ms": 2176.9,
+      "endpoint": 34
+    },
+    {
+      "branch": 4,
+      "dispatch_ns": 14824197250,
+      "first_ns": 14845319208,
+      "done_ns": 17028057375,
+      "reused": 4095,
+      "engine_prefill_ms": 16.9,
+      "engine_decode_ms": 2182.7,
+      "endpoint": 68014
+    },
+    {
+      "branch": 5,
+      "dispatch_ns": 17028109500,
+      "first_ns": 17050878958,
+      "done_ns": 19226494583,
+      "reused": 4095,
+      "engine_prefill_ms": 17.6,
+      "engine_decode_ms": 2175.6,
+      "endpoint": 34
+    },
+    {
+      "branch": 6,
+      "dispatch_ns": 19226548417,
+      "first_ns": 19248093917,
+      "done_ns": 21422827458,
+      "reused": 4095,
+      "engine_prefill_ms": 17.3,
+      "engine_decode_ms": 2174.7,
+      "endpoint": 82
+    },
+    {
+      "branch": 7,
+      "dispatch_ns": 21422881292,
+      "first_ns": 21446284042,
+      "done_ns": 23633992208,
+      "reused": 4095,
+      "engine_prefill_ms": 17.4,
+      "engine_decode_ms": 2187.7,
+      "endpoint": 64
+    }
+  ],
+  "waves": [
+    {
+      "first_branch": 0,
+      "size": 1,
+      "queue_ns": 28042,
+      "dispatch_to_first_ns": 5960985250,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2243644875,
+      "physical": {
+        "footprint": 2912193704,
+        "peak_footprint": 2916961448,
+        "rss": 2742910976,
+        "pageins": 61478
+      }
+    },
+    {
+      "first_branch": 1,
+      "size": 1,
+      "queue_ns": 8204712042,
+      "dispatch_to_first_ns": 28824416,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2179259750,
+      "physical": {
+        "footprint": 2916093096,
+        "peak_footprint": 2916961448,
+        "rss": 2746810368,
+        "pageins": 61478
+      }
+    },
+    {
+      "first_branch": 2,
+      "size": 1,
+      "queue_ns": 10412851375,
+      "dispatch_to_first_ns": 21447583,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2191432959,
+      "physical": {
+        "footprint": 2916125864,
+        "peak_footprint": 2916961448,
+        "rss": 2746843136,
+        "pageins": 61478
+      }
+    },
+    {
+      "first_branch": 3,
+      "size": 1,
+      "queue_ns": 12625780000,
+      "dispatch_to_first_ns": 21443958,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2176917125,
+      "physical": {
+        "footprint": 2916142248,
+        "peak_footprint": 2916961448,
+        "rss": 2746859520,
+        "pageins": 61478
+      }
+    },
+    {
+      "first_branch": 4,
+      "size": 1,
+      "queue_ns": 14824197250,
+      "dispatch_to_first_ns": 21121958,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2182738167,
+      "physical": {
+        "footprint": 2916142248,
+        "peak_footprint": 2916961448,
+        "rss": 2746859520,
+        "pageins": 61478
+      }
+    },
+    {
+      "first_branch": 5,
+      "size": 1,
+      "queue_ns": 17028109500,
+      "dispatch_to_first_ns": 22769458,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2175615625,
+      "physical": {
+        "footprint": 2916142248,
+        "peak_footprint": 2916961448,
+        "rss": 2746859520,
+        "pageins": 61478
+      }
+    },
+    {
+      "first_branch": 6,
+      "size": 1,
+      "queue_ns": 19226548417,
+      "dispatch_to_first_ns": 21545500,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2174733541,
+      "physical": {
+        "footprint": 2916142248,
+        "peak_footprint": 2916961448,
+        "rss": 2746859520,
+        "pageins": 61478
+      }
+    },
+    {
+      "first_branch": 7,
+      "size": 1,
+      "queue_ns": 21422881292,
+      "dispatch_to_first_ns": 23402750,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2187708166,
+      "physical": {
+        "footprint": 2916142248,
+        "peak_footprint": 2916961448,
+        "rss": 2746859520,
+        "pageins": 61478
+      }
+    }
+  ]
+}

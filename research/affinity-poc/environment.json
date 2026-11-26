@@ -1,0 +1,13 @@
+{
+  "fork_commit": "30aa2bf03c623fc7e6454f19740dd37845e99749",
+  "sha256": {
+    "research/affinity-poc/plan.json": "5f672c694f9205a1e5cfe6a2fa01b871530c71625d05d84aa6c153f61b7bdd0f",
+    "research/affinity-poc/engine.patch": "98fb0f9e67807f1597e0445fc0937e5b90a8e8e8b38f9f7ed1d9ca6e7bd6b8bc",
+    "research/affinity-poc/run.py": "39fdaeea8ffc7c2a1c600398b48a6b6211099c886628846ebe9c4ce9dab2cd32",
+    ".work/affinity/build/strata": "b3ff7baa86358b38da4fe81b8652b87a16d5b3c1d13266d21ca199a68e428f94",
+    ".work/final-sprint/qwen-release/strata": "18ce6b114dc0588e88374f20262aac2b297fc01d06d329b8960bcc08d1addfd2"
+  },
+  "harness_corrections": [
+    "Before any completed timed arm, tolerate REUSED, an informational native reply. DONE still checks every actual reused-token count. First attempt archived."
+  ]
+}

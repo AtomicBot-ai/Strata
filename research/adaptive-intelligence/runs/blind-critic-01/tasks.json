@@ -1,0 +1,136 @@
+[
+  {
+    "id": "test/algebra/1343.json",
+    "domain": "math",
+    "level": 4,
+    "question": "Let $f(x) = 2^x.$ Find $\\sqrt{f(f(f(f(1))))}.$",
+    "public": []
+  },
+  {
+    "id": "test/intermediate_algebra/776.json",
+    "domain": "math",
+    "level": 4,
+    "question": "If\n\\[\\sqrt[3]{2} = a + \\cfrac{1}{b + \\cfrac{1}{c + \\cfrac{1}{d + \\dotsb}}},\\]where $a,$ $b,$ $c,$ $d$ are positive integers, compute $b.$",
+    "public": []
+  },
+  {
+    "id": "test/algebra/873.json",
+    "domain": "math",
+    "level": 4,
+    "question": "For what value of $c$ will the circle with equation $x^2 - 10x + y^2 + 6y + c = 0$ have a radius of length 1?",
+    "public": []
+  },
+  {
+    "id": "test/algebra/776.json",
+    "domain": "math",
+    "level": 5,
+    "question": "Let $f(x)$ be the polynomial \\[f(x)=3x^4+5x^2-9x-2.\\] If $g(x)$ is equal to the polynomial $f(x-1)$, what is the sum of the coefficients of $g$?",
+    "public": []
+  },
+  {
+    "id": "test/prealgebra/1930.json",
+    "domain": "math",
+    "level": 5,
+    "question": "Below is a magic square, meaning that the sum of the numbers in each row, in each column, and in each of the $2$ main diagonals are equal. What is the value of $n$?\n\n[asy]size(125);\nfor(int i = 0; i<4; ++i)\n{\n\ndraw((0,i)--(3,i),linewidth(1));\n}\n\nfor(int j = 0; j<4; ++j)\n{\n\ndraw((j,0)--(j,3),linewidth(1));\n}\n\nlabel(\"$n-3$\",(.5,.5));\nlabel(\"3\",(.5,1.5));\nlabel(\"$n+1$\",(.5,2.5));\n\nlabel(\"$n+2$\",(1.5,.5));\nlabel(\"$2n-9$\",(1.5,1.5));\nlabel(\"$1$\",(1.5,2.5));\n\nlabel(\"$2$\",(2.5,.5));\nlabel(\"$n$\",(2.5,1.5));\nlabel(\"$n-1$\",(2.5,2.5));\n[/asy]",
+    "public": []
+  },
+  {
+    "id": "test/precalculus/675.json",
+    "domain": "math",
+    "level": 5,
+    "question": "Find the smallest positive real number $C$ for which\n\\[\\left\\| \\begin{pmatrix} 2 & 3 \\\\ 0 & -2 \\end{pmatrix} \\bold{v} \\right\\| \\le C \\|\\bold{v}\\|\\]for all two-dimensional vectors $\\bold{v}.$\n\nNote that for a two-dimensional vector $\\mathbf{a},$ $\\|\\mathbf{a}\\|$ is the magnitude of $\\mathbf{a}.$",
+    "public": []
+  },
+  {
+    "id": "abc393_b",
+    "domain": "code",
+    "level": "easy",
+    "question": "A string S is given.\nFind how many places in S have A, B, and C in this order at even intervals.\nSpecifically, find the number of triples of integers (i,j,k) that satisfy all of the following conditions. Here, |S| denotes the length of S, and S_x denotes the x-th character of S.\n\n- 1 \\leq i < j < k \\leq |S|\n- j - i = k - j\n- S_i = A\n- S_j = B\n- S_k = C\n\nInput\n\nThe input is given from Standard Input in the following format:\nS\n\nOutput\n\nPrint the answer.\n\nConstraints\n\n\n- S is an uppercase English string with length between 3 and 100, inclusive.\n\nSample Input 1\n\nAABCC\n\nSample Output 1\n\n2\r\n\nThere are two triples (i,j,k) = (1,3,5) and (2,3,4) that satisfy the conditions.\n\nSample Input 2\n\nARC\n\nSample Output 2\n\n0\n\nSample Input 3\n\nAABAAABBAEDCCCD\n\nSample Output 3\n\n4",
+    "public": [
+      {
+        "input": "AABCC",
+        "output": "2",
+        "testtype": "stdin"
+      },
+      {
+        "input": "ARC",
+        "output": "0",
+        "testtype": "stdin"
+      },
+      {
+        "input": "AABAAABBAEDCCCD",
+        "output": "4",
+        "testtype": "stdin"
+      }
+    ]
+  },
+  {
+    "id": "abc394_d",
+    "domain": "code",
+    "level": "medium",
+    "question": "You are given a string S consisting of six types of characters: (, ), [, ], <, >.\nA string T is called a colorful bracket sequence if it satisfies the following condition:\n\nIt is possible to turn T into an empty string by repeating the following operation any number of times (possibly zero):\n\n- If there exists a contiguous substring of T that is one of (), [], or <>, choose one such substring and delete it.\n- If the deleted substring was at the beginning or end of T, the remainder becomes the new T.\n- Otherwise, concatenate the part before the deleted substring and the part after the deleted substring, and that becomes the new T.\n\n\nDetermine whether S is a colorful bracket sequence.\n\nInput\n\nThe input is given from Standard Input in the following format:\nS\n\nOutput\n\nIf S is a colorful bracket sequence, print Yes; otherwise, print No.\n\nConstraints\n\n\n- S is a string of length between 1 and 2\\times 10^5, inclusive.\n- S consists of (, ), [, ], <, >.\n\nSample Input 1\n\n([])<>()\n\nSample Output 1\n\nYes\n\nFor S=([])<>(), it is possible to turn it into an empty string by repeating the operation as follows:\n\n- Delete the substring [] from the 2nd to the 3rd character in ([])<>(), then concatenate the parts before and after it. The string becomes ()<>().\n- Delete the substring () from the 1st to the 2nd character in ()<>(). The string becomes <>().\n- Delete the substring <> from the 1st to the 2nd character in <>(). The string becomes ().\n- Delete the substring () from the 1st to the 2nd character in (). The string becomes empty.\n\nThus, S=([])<>() is a colorful bracket sequence, so print Yes.\n\nSample Input 2\n\n([<)]>\n\nSample Output 2\n\nNo\n\nSince S=([<)]> does not contain (), [], or <> as a contiguous substring, we cannot perform the 1st operation, and in particular S is not a colorful bracket sequence. Therefore, print No.\n\nSample Input 3\n\n())\n\nSample Output 3\n\nNo\n\nIt is impossible to turn S into an empty string by repeating the operations.\nTherefore, S is not a colorful bracket sequence, so print No.",
+    "public": [
+      {
+        "input": "([])<>()",
+        "output": "Yes",
+        "testtype": "stdin"
+      },
+      {
+        "input": "([<)]>",
+        "output": "No",
+        "testtype": "stdin"
+      },
+      {
+        "input": "())",
+        "output": "No",
+        "testtype": "stdin"
+      }
+    ]
+  },
+  {
+    "id": "abc393_e",
+    "domain": "code",
+    "level": "hard",
+    "question": "You are given a sequence A = (A_1, A_2, \\dots, A_N) of length N and a positive integer K (at most N).\r\nFor each i = 1, 2, \\dots, N, solve the following problem:\n\n- When you choose K elements from A that include A_i, find the maximum possible GCD (greatest common divisor) of those chosen elements.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN K\r\nA_1 A_2 \\dots A_N\n\nOutput\n\nPrint N lines. The j-th line should contain the answer for i=j.\n\nConstraints\n\n\n- 1 \\leq K \\leq N \\leq 1.2 \\times 10^6\n- 1 \\leq A_i \\leq 10^6\n- All input values are integers.\n\nSample Input 1\n\n5 2\r\n3 4 6 7 12\n\nSample Output 1\n\n3\r\n4\r\n6\r\n1\r\n6\r\n\nFor i=1, choosing A_1 and A_3 yields \\gcd(\\lbrace 3,6 \\rbrace) = 3, which is the maximum.\r\nFor i=2, choosing A_2 and A_5 yields \\gcd(\\lbrace 4,12 \\rbrace) = 4, which is the maximum.\r\nFor i=3, choosing A_3 and A_5 yields \\gcd(\\lbrace 6,12 \\rbrace) = 6, which is the maximum.\r\nFor i=4, choosing A_4 and A_2 yields \\gcd(\\lbrace 7,4 \\rbrace) = 1, which is the maximum.\r\nFor i=5, choosing A_5 and A_3 yields \\gcd(\\lbrace 12,6 \\rbrace) = 6, which is the maximum.\n\nSample Input 2\n\n3 3\r\n6 10 15\n\nSample Output 2\n\n1\r\n1\r\n1\n\nSample Input 3\n\n10 3\r\n414003 854320 485570 52740 833292 625990 909680 885153 435420 221663\n\nSample Output 3\n\n59\r\n590\r\n590\r\n879\r\n879\r\n590\r\n20\r\n879\r\n590\r\n59",
+    "public": [
+      {
+        "input": "5 2\n3 4 6 7 12",
+        "output": "3\n4\n6\n1\n6",
+        "testtype": "stdin"
+      },
+      {
+        "input": "3 3\n6 10 15",
+        "output": "1\n1\n1",
+        "testtype": "stdin"
+      },
+      {
+        "input": "10 3\n414003 854320 485570 52740 833292 625990 909680 885153 435420 221663",
+        "output": "59\n590\n590\n879\n879\n590\n20\n879\n590\n59",
+        "testtype": "stdin"
+      }
+    ]
+  },
+  {
+    "id": "abc387_f",
+    "domain": "code",
+    "level": "hard",
+    "question": "You are given positive integers N, M, and a sequence A = (A_1, A_2, \\dots, A_N) of length N, each element being an integer between 1 and N, inclusive.\nFind the number, modulo 998244353, of sequences x = (x_1, x_2, \\dots, x_N) of length N, each element being an integer between 1 and M, inclusive, that satisfy the following condition:\n\n- x_i \\leq x_{A_i} for every i (1 \\leq i \\leq N).\n\nInput\n\nThe input is given from Standard Input in the following format:\nN M\r\nA_1 A_2 \\dots A_N\n\nOutput\n\nPrint the answer.\n\nConstraints\n\n\n- 1 \\leq N, M \\leq 2025\n- 1 \\leq A_i \\leq N\n- All input values are integers.\n\nSample Input 1\n\n3 3\r\n2 1 1\n\nSample Output 1\n\n6\r\n\nThe sequences x=(1,1,1),(2,2,1),(2,2,2),(3,3,1),(3,3,2),(3,3,3) satisfy the condition.\n\nSample Input 2\n\n4 9\r\n1 1 1 1\n\nSample Output 2\n\n2025\n\nSample Input 3\n\n10 5\r\n9 4 5 5 4 2 1 5 7 2\n\nSample Output 3\n\n10010",
+    "public": [
+      {
+        "input": "3 3\n2 1 1",
+        "output": "6",
+        "testtype": "stdin"
+      },
+      {
+        "input": "4 9\n1 1 1 1",
+        "output": "2025",
+        "testtype": "stdin"
+      },
+      {
+        "input": "10 5\n9 4 5 5 4 2 1 5 7 2",
+        "output": "10010",
+        "testtype": "stdin"
+      }
+    ]
+  }
+]

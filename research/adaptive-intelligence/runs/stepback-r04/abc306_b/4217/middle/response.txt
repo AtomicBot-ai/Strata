@@ -1,0 +1,20 @@
+Step 1: Read the 64 bits from the input, treating each token as a binary digit.
+Step 2: Interpret the bits as a binary number where A_0 is the least significant bit.
+Step 3: Output that integer.
+
+Final:
+```python
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    bits = data[:64]
+    value = 0
+    for i, b in enumerate(bits):
+        if b == '1':
+            value += 1 << i
+    print(value)
+
+if __name__ == "__main__":
+    main()
+```<|end_message|><|content_model_end_sampling|>

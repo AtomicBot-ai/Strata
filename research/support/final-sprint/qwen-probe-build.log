@@ -1,0 +1,19 @@
+[  2%] Built target strata_gpu_metal
+[ 17%] Built target strata_quant
+[ 21%] Built target mtl_rt
+[ 70%] Built target strata_metal_host
+[ 70%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/window.cpp.o
+[ 72%] Linking CXX static library libstrata_metal_kernels.a
+[ 95%] Built target strata_metal_kernels
+[ 97%] Building CXX object CMakeFiles/strata.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/engine/src/program/generate.cpp.o
+In file included from /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/engine/src/program/generate.cpp:65:
+/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/engine/include/strata/core/expert_source.hpp:1362:13: warning: 'reads' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+ 1362 |     int64_t reads() const { return reads_.load(std::memory_order_relaxed); }
+      |             ^
+/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/engine/include/strata/core/expert_source.hpp:233:21: note: overridden virtual function is here
+  233 |     virtual int64_t reads() const { return 0; }
+      |                     ^
+1 warning generated.
+[100%] Linking CXX executable strata
+ld: warning: ignoring duplicate libraries: 'libstrata_metal_host.a', 'libstrata_metal_kernels.a'
+[100%] Built target strata

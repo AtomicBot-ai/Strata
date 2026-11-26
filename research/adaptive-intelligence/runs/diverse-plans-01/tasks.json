@@ -1,0 +1,181 @@
+[
+  {
+    "id": "abc344_a",
+    "level": "easy",
+    "title": "Spoiler",
+    "question": "You are given a string S consisting of lowercase English letters and |. S is guaranteed to contain exactly two |s.\nRemove the characters between the two |s, including the |s themselves, and print the resulting string.\n\nInput\n\nThe input is given from Standard Input in the following format:\nS\n\nOutput\n\nPrint the answer.\n\nConstraints\n\n\n- S is a string of length between 2 and 100, inclusive, consisting of lowercase English letters and |.\n- S contains exactly two |s.\n\nSample Input 1\n\natcoder|beginner|contest\n\nSample Output 1\n\natcodercontest\r\n\nRemove all the characters between the two |s and print the result.\n\nSample Input 2\n\n|spoiler|\n\nSample Output 2\n\n\r\n\nIt is possible that all characters are removed.\n\nSample Input 3\n\n||xyz\n\nSample Output 3\n\nxyz",
+    "public": [
+      {
+        "input": "atcoder|beginner|contest\n",
+        "output": "atcodercontest\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "|spoiler|\n",
+        "output": "\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "||xyz\n",
+        "output": "xyz\n",
+        "testtype": "stdin"
+      }
+    ]
+  },
+  {
+    "id": "abc344_d",
+    "level": "hard",
+    "title": "String Bags",
+    "question": "You initially have an empty string S.\r\nAdditionally, there are bags 1, 2, \\dots, N, each containing some strings.\r\nBag i contains A_i strings S_{i,1}, S_{i,2}, \\dots, S_{i,A_i}.\nYou will repeat the following steps for i = 1, 2, \\dots, N:\n\n- Choose and perform one of the following two actions:\n- Pay 1 yen, select exactly one string from bag i, and concatenate it to the end of S.\n- Do nothing.\n\n\n\nGiven a string T, find the minimum amount of money required to make the final S equal T.\r\nIf there is no way to make the final S equal T, print -1.\n\nInput\n\nThe input is given from Standard Input in the following format:\nT\r\nN\r\nA_1 S_{1,1} S_{1,2} \\dots S_{1,A_1}\r\nA_2 S_{2,1} S_{2,2} \\dots S_{2,A_2}\r\n\\vdots\r\nA_N S_{N,1} S_{N,2} \\dots S_{N,A_N}\n\nOutput\n\nPrint the answer as an integer.\n\nConstraints\n\n\n- T is a string consisting of lowercase English letters with length between 1 and 100, inclusive.\n- N is an integer between 1 and 100, inclusive.\n- A_i is an integer between 1 and 10, inclusive.\n- S_{i,j} is a string consisting of lowercase English letters with length between 1 and 10, inclusive.\n\nSample Input 1\n\nabcde\r\n3\r\n3 ab abc abcd\r\n4 f c cd bcde\r\n2 e de\n\nSample Output 1\n\n2\r\n\nFor example, doing the following makes the final S equal T with two yen, which can be shown to be the minimum amount required.\n\n- For i=1, select abc from bag 1 and concatenate it to the end of S, making S= abc.\n- For i=2, do nothing.\n- For i=3, select de from bag 3 and concatenate it to the end of S, making S= abcde.\n\nSample Input 2\n\nabcde\r\n3\r\n2 ab abc\r\n3 f c bcde\r\n1 e\n\nSample Output 2\n\n-1\r\n\nThere is no way to make the final S equal T, so print -1.\n\nSample Input 3\n\naaabbbbcccc\r\n6\r\n2 aa aaa\r\n2 dd ddd\r\n2 ab aabb\r\n4 bbaa bbbc bbb bbcc\r\n2 cc bcc\r\n3 ccc cccc ccccc\n\nSample Output 3\n\n4",
+    "public": [
+      {
+        "input": "abcde\n3\n3 ab abc abcd\n4 f c cd bcde\n2 e de\n",
+        "output": "2\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "abcde\n3\n2 ab abc\n3 f c bcde\n1 e\n",
+        "output": "-1\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "aaabbbbcccc\n6\n2 aa aaa\n2 dd ddd\n2 ab aabb\n4 bbaa bbbc bbb bbcc\n2 cc bcc\n3 ccc cccc ccccc\n",
+        "output": "4\n",
+        "testtype": "stdin"
+      }
+    ]
+  },
+  {
+    "id": "abc356_a",
+    "level": "easy",
+    "title": "Subsegment Reverse",
+    "question": "You are given positive integers N, L, and R.\r\nFor a sequence A = (1, 2, \\dots, N) of length N, an operation of reversing the L-th through R-th elements was performed once.\r\nPrint the sequence after this operation.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN L R\n\nOutput\n\nLet A' = (A'_1, A'_2, \\dots, A'_N) be the sequence after the operation. Print it in the following format:\nA'_1 A'_2 \\dots A'_N\n\nConstraints\n\n\n- All input values are integers.\n- 1 \\leq L \\leq R \\leq N \\leq 100\n\nSample Input 1\n\n5 2 3\n\nSample Output 1\n\n1 3 2 4 5\r\n\nInitially, A = (1, 2, 3, 4, 5).\r\nAfter reversing the second through third elements, the sequence becomes (1, 3, 2, 4, 5), which should be printed.\n\nSample Input 2\n\n7 1 1\n\nSample Output 2\n\n1 2 3 4 5 6 7\r\n\nIt is possible that L = R.\n\nSample Input 3\n\n10 1 10\n\nSample Output 3\n\n10 9 8 7 6 5 4 3 2 1\r\n\nIt is possible that L = 1 or R = N.",
+    "public": [
+      {
+        "input": "5 2 3\n",
+        "output": "1 3 2 4 5\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "7 1 1\n",
+        "output": "1 2 3 4 5 6 7\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "10 1 10\n",
+        "output": "10 9 8 7 6 5 4 3 2 1\n",
+        "testtype": "stdin"
+      }
+    ]
+  },
+  {
+    "id": "abc356_d",
+    "level": "medium",
+    "title": "Masked Popcount",
+    "question": "Given integers N and M, compute the sum \\displaystyle \\sum_{k=0}^{N} \\rm{popcount}(k \\mathbin{\\&} M), modulo 998244353.\nHere, \\mathbin{\\&} represents the bitwise \\rm{AND} operation.\nWhat is the bitwise \\rm{AND} operation?\r\nThe result x = a \\mathbin{\\&} b of the bitwise \\rm{AND} operation between non-negative integers a and b is defined as follows:\n\n- x is the unique non-negative integer that satisfies the following conditions for all non-negative integers k:\n\n- If the 2^k place in the binary representation of a and the 2^k place in the binary representation of b are both 1, then the 2^k place in the binary representation of x is 1.\n- Otherwise, the 2^k place in the binary representation of x is 0.\n\n\r\n\r\nFor example, 3=11_{(2)} and 5=101_{(2)}, so 3 \\mathbin{\\&} 5 = 1.\r\n\nWhat is \\rm{popcount}?\n\\rm{popcount}(x) represents the number of 1s in the binary representation of x.\r\nFor example, 13=1101_{(2)}, so \\rm{popcount}(13) = 3.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN M\n\nOutput\n\nPrint the answer as an integer.\n\nConstraints\n\n\n- N is an integer between 0 and 2^{60} - 1, inclusive.\n- M is an integer between 0 and 2^{60} - 1, inclusive.\n\nSample Input 1\n\n4 3\n\nSample Output 1\n\n4\r\n\n\n- \\rm{popcount}(0\\mathbin{\\&}3) = 0\n- \\rm{popcount}(1\\mathbin{\\&}3) = 1\n- \\rm{popcount}(2\\mathbin{\\&}3) = 1\n- \\rm{popcount}(3\\mathbin{\\&}3) = 2\n- \\rm{popcount}(4\\mathbin{\\&}3) = 0\n\nThe sum of these values is 4.\n\nSample Input 2\n\n0 0\n\nSample Output 2\n\n0\r\n\nIt is possible that N = 0 or M = 0.\n\nSample Input 3\n\n1152921504606846975 1152921504606846975\n\nSample Output 3\n\n499791890\r\n\nRemember to compute the result modulo 998244353.",
+    "public": [
+      {
+        "input": "4 3\n",
+        "output": "4\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "0 0\n",
+        "output": "0\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "1152921504606846975 1152921504606846975\n",
+        "output": "499791890\n",
+        "testtype": "stdin"
+      }
+    ]
+  },
+  {
+    "id": "abc366_b",
+    "level": "easy",
+    "title": "Vertical Writing",
+    "question": "You are given a horizontally written text. Convert it to vertical writing, filling spaces with *.\n\nYou are given N strings S_1, S_2, \\dots, S_N consisting of lowercase English letters. Let M be the maximum length of these strings.\nPrint M strings T_1, T_2, \\dots, T_M that satisfy the following conditions:\n\n- Each T_i consists of lowercase English letters and *.\n- Each T_i does not end with *.\n- For each 1 \\leq i \\leq N, the following holds:\n- For each 1 \\leq j \\leq |S_i|, the (N-i+1)-th character of T_j exists, and the concatenation of the (N-i+1)-th characters of T_1, T_2, \\dots, T_{|S_i|} in this order equals S_i.\n- For each |S_i| + 1 \\leq j \\leq M, the (N-i+1)-th character of T_j either does not exist or is *.\n\n\n\nHere, |S_i| denotes the length of the string S_i.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN\nS_1\nS_2\n\\vdots\nS_N\n\nOutput\n\nPrint the answer in the following format:\nT_1\nT_2\n\\vdots\nT_M\n\nConstraints\n\n\n- N is an integer between 1 and 100, inclusive.\n- Each S_i is a string of lowercase English letters with length between 1 and 100, inclusive.\n\nSample Input 1\n\n3\nabc\nde\nfghi\n\nSample Output 1\n\nfda\ngeb\nh*c\ni\n\nPlacing * as the 2nd character of T_3 puts the c in the correct position.\nOn the other hand, placing * as the 2nd and 3rd characters of T_4 would make T_4 end with *, which violates the condition.\n\nSample Input 2\n\n3\natcoder\nbeginner\ncontest\n\nSample Output 2\n\ncba\noet\nngc\ntio\nend\nsne\nter\n*r",
+    "public": [
+      {
+        "input": "3\nabc\nde\nfghi\n",
+        "output": "fda\ngeb\nh*c\ni\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "3\natcoder\nbeginner\ncontest\n",
+        "output": "cba\noet\nngc\ntio\nend\nsne\nter\n*r\n",
+        "testtype": "stdin"
+      }
+    ]
+  },
+  {
+    "id": "abc366_f",
+    "level": "hard",
+    "title": "Maximum Composition",
+    "question": "You are given N linear functions f_1, f_2, \\ldots, f_N, where f_i(x) = A_i x + B_i.\nFind the maximum possible value of f_{p_1}(f_{p_2}(\\ldots f_{p_K}(1) \\ldots )) for a sequence p = (p_1, p_2, \\ldots, p_K) of K distinct integers between 1 and N, inclusive.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN K\nA_1 B_1\nA_2 B_2\n\\vdots\nA_N B_N\n\nOutput\n\nPrint the answer as an integer.\n\nConstraints\n\n\n- 1 \\leq N \\leq 2 \\times 10^{5}\n- 1 \\leq K \\leq \\text{min}(N,10)\n- 1 \\leq A_i, B_i \\leq 50 (1 \\leq i \\leq N)\n- All input values are integers.\n\nSample Input 1\n\n3 2\n2 3\n1 5\n4 2\n\nSample Output 1\n\n26\n\nHere are all possible p and the corresponding values of f_{p_1}(f_{p_2}(1)):\n\n- p= ( 1,2 ) : f_1(f_2(1))=15\n- p= ( 1,3 ) : f_1(f_3(1))=15\n- p= ( 2,1 ) : f_2(f_1(1))=10\n- p= ( 2,3 ) : f_2(f_3(1))=11\n- p= ( 3,1 ) : f_3(f_1(1))=22\n- p= ( 3,2 ) : f_3(f_2(1))=26\n\nTherefore, print 26.\n\nSample Input 2\n\n10 3\n48 40\n34 22\n24 37\n45 40\n48 31\n49 44\n45 40\n44 6\n35 22\n39 28\n\nSample Output 2\n\n216223",
+    "public": [
+      {
+        "input": "3 2\n2 3\n1 5\n4 2\n",
+        "output": "26\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "10 3\n48 40\n34 22\n24 37\n45 40\n48 31\n49 44\n45 40\n44 6\n35 22\n39 28\n",
+        "output": "216223\n",
+        "testtype": "stdin"
+      }
+    ]
+  },
+  {
+    "id": "abc375_e",
+    "level": "hard",
+    "title": "3 Team Division",
+    "question": "There are N people divided into three teams.\nThe people are numbered 1, 2, \\ldots, N, and the teams are numbered 1, 2, 3. Currently, person i belongs to team A_i.\nEach person has a value called strength; person i has a strength of B_i. The strength of a team is defined as the sum of the strengths of its members.\nDetermine whether it is possible for zero or more people to switch teams so that all teams have equal strength. If it is possible, find the minimum number of people who need to switch teams to achieve this.\nYou cannot create new teams other than teams 1, 2, 3.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN\r\nA_1 B_1\r\nA_2 B_2\r\n\\vdots\r\nA_N B_N\n\nOutput\n\nIf it is possible to make all teams have equal strength, print the minimum number of people who need to switch teams. Otherwise, print -1.\n\nConstraints\n\n\n- 3 \\leq N \\leq 100\n- A_i \\in \\lbrace 1, 2, 3 \\rbrace\n- For each x \\in \\lbrace 1, 2, 3 \\rbrace, there exists some i with A_i = x.\n- 1 \\leq B_i\n- \\displaystyle\\sum_{i = 1}^{N} B_i \\leq 1500 \n- All input values are integers.\n\nSample Input 1\n\n6\r\n1 2\r\n2 5\r\n1 5\r\n3 3\r\n1 3\r\n3 6\n\nSample Output 1\n\n2\r\n\nIf person 1 switches to team 3 and person 4 switches to team 2, all teams will have a strength of 8.\n\nSample Input 2\n\n4\r\n1 1\r\n1 2\r\n2 3\r\n3 4\n\nSample Output 2\n\n-1\n\nSample Input 3\n\n3\r\n1 1\r\n2 1\r\n3 1\n\nSample Output 3\n\n0\n\nSample Input 4\n\n12\r\n2 5\r\n1 4\r\n3 3\r\n2 3\r\n3 9\r\n1 2\r\n2 2\r\n3 9\r\n2 6\r\n1 9\r\n1 1\r\n3 1\n\nSample Output 4\n\n3",
+    "public": [
+      {
+        "input": "6\n1 2\n2 5\n1 5\n3 3\n1 3\n3 6\n",
+        "output": "2\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "4\n1 1\n1 2\n2 3\n3 4\n",
+        "output": "-1\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "3\n1 1\n2 1\n3 1\n",
+        "output": "0\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "12\n2 5\n1 4\n3 3\n2 3\n3 9\n1 2\n2 2\n3 9\n2 6\n1 9\n1 1\n3 1\n",
+        "output": "3\n",
+        "testtype": "stdin"
+      }
+    ]
+  },
+  {
+    "id": "abc394_f",
+    "level": "hard",
+    "title": "Alkane",
+    "question": "You are given an undirected tree T with N vertices, numbered 1, 2, \\ldots, N. The i-th edge is an undirected edge connecting vertices A_i and B_i.\nA graph is defined to be an alkane if and only if it satisfies the following conditions:\n\n- The graph is an undirected tree.\n- Every vertex has degree 1 or 4, and there is at least one vertex of degree 4.\n\nDetermine whether there exists a subgraph of T that is an alkane, and if so, find the maximum number of vertices in such a subgraph.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN\r\nA_1 B_1\r\nA_2 B_2\r\n\\vdots\r\nA_{N - 1} B_{N - 1}\n\nOutput\n\nIf there exists a subgraph of T that is an alkane, print the maximum number of vertices in such a subgraph. Otherwise, print -1.\n\nConstraints\n\n\n- 1 \\leq N \\leq 2 \\times 10^5\n- 1 \\leq A_i, B_i \\leq N\n- The given graph is an undirected tree.\n- All input values are integers.\n\nSample Input 1\n\n9\r\n1 2\r\n2 3\r\n3 4\r\n4 5\r\n2 6\r\n2 7\r\n3 8\r\n3 9\n\nSample Output 1\n\n8\r\n\nLet (u, v) denote an undirected edge between vertices u and v.\nA subgraph consisting of vertices 1,2,3,4,6,7,8,9 and edges (1,2),(2,3),(3,4),(2,6),(2,7),(3,8),(3,9) is an alkane.\n\nSample Input 2\n\n7\r\n1 2\r\n1 3\r\n2 4\r\n2 5\r\n3 6\r\n3 7\n\nSample Output 2\n\n-1\n\nSample Input 3\n\n15\r\n8 5\r\n2 9\r\n1 12\r\n6 11\r\n9 3\r\n15 1\r\n7 12\r\n7 13\r\n10 5\r\n6 9\r\n5 1\r\n1 9\r\n4 5\r\n6 14\n\nSample Output 3\n\n11",
+    "public": [
+      {
+        "input": "9\n1 2\n2 3\n3 4\n4 5\n2 6\n2 7\n3 8\n3 9",
+        "output": "8",
+        "testtype": "stdin"
+      },
+      {
+        "input": "7\n1 2\n1 3\n2 4\n2 5\n3 6\n3 7",
+        "output": "-1",
+        "testtype": "stdin"
+      },
+      {
+        "input": "15\n8 5\n2 9\n1 12\n6 11\n9 3\n15 1\n7 12\n7 13\n10 5\n6 9\n5 1\n1 9\n4 5\n6 14",
+        "output": "11",
+        "testtype": "stdin"
+      }
+    ]
+  }
+]

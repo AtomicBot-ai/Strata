@@ -1,0 +1,56 @@
+{
+  "models": {
+    "object": "list",
+    "data": [
+      {
+        "id": "inkling",
+        "object": "model",
+        "created": 1795642777,
+        "owned_by": "strata",
+        "status": {
+          "value": "loaded"
+        },
+        "max_model_len": 24576,
+        "context_length": 24576,
+        "max_context_length": 24576,
+        "limit": {
+          "context": 24576,
+          "output": 24568
+        },
+        "meta": {
+          "n_ctx": 24576,
+          "llamaswap": {
+            "max_output_tokens": 24568
+          }
+        },
+        "architecture": {
+          "input_modalities": [
+            "text"
+          ],
+          "output_modalities": [
+            "text"
+          ]
+        }
+      }
+    ]
+  },
+  "argv": [
+    "/Users/aleksejkalina/.pyenv/versions/3.11.11/bin/python3",
+    "-B",
+    "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/terminal/serve/server.py",
+    "--engine",
+    "strata",
+    "--config",
+    "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/final-sprint/s04-api.json",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "61836",
+    "--no-api-key",
+    "--offline",
+    "--parallel",
+    "2",
+    "--batch-telemetry"
+  ],
+  "cli": "opencode v2.0.24"
+}

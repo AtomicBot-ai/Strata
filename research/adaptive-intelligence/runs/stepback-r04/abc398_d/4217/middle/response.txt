@@ -1,0 +1,38 @@
+Step 1: Track smoke using a set of (r,c) cells. At each t, move every existing cell by the direction of S[t-1], then generate new smoke at (0,0) if no smoke is at (0,0) after the move.
+
+Step 2: Smoke can be many cells, but each generation adds only one new cell and every cell can split/multiply across multiple steps. However, because smoke generation only occurs when (0,0) is empty, the number of active cells is bounded by the number of generations, which is at most N, so we can simulate exactly with a set.
+
+Step 3: After the move, record whether (R,C) is in the set for each t, then output those bits as the answer.
+
+Final:
+```python
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    N = int(data[0])
+    R = int(data[1])
+    C = int(data[2])
+    S = data[3]
+    smoke = {(0, 0)}
+    ans = []
+    for ch in S:
+        moved = set()
+        for r, c in smoke:
+            if ch == 'N':
+                moved.add((r - 1, c))
+            elif ch == 'W':
+                moved.add((r, c - 1))
+            elif ch == 'S':
+                moved.add((r + 1, c))
+            else:
+                moved.add((r, c + 1))
+        if (0, 0) not in moved:
+            moved.add((0, 0))
+        ans.append('1' if (R, C) in moved else '0')
+        smoke = moved
+    sys.stdout.write(''.join(ans))
+
+if __name__ == '__main__':
+    main()
+```<|end_message|><|content_model_end_sampling|>

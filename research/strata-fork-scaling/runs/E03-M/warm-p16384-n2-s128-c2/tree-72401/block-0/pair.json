@@ -1,0 +1,44 @@
+{
+  "seed": 72401,
+  "block": 0,
+  "best": {
+    "native": 1,
+    "fork": 2
+  },
+  "order": [
+    [
+      "native",
+      2
+    ],
+    [
+      "native",
+      1
+    ],
+    [
+      "fork",
+      1
+    ],
+    [
+      "fork",
+      2
+    ]
+  ],
+  "config": [
+    16384,
+    2,
+    128,
+    true,
+    2
+  ],
+  "work": "8967a8fa8f268984db308954638eb0880e020decbc2cec7d53c804b8351d0c71",
+  "elapsed_ns": {
+    "native": 5038869667,
+    "fork": 3681706875
+  },
+  "ratio": 1.3686232603729487,
+  "fixed_width": {
+    "1": 0.9751708118510806,
+    "2": 13.235936626540916
+  },
+  "endpoints_equal": true
+}

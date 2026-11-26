@@ -1,0 +1,14 @@
+{
+  "base": "90ebd75b51210c85fdfcd2854f34bf7ddb41109c",
+  "product_at_end": "49a60a5f32a404b45360698c7ac68db7b3e41221",
+  "model": {
+    "file": "Inkling-2-Mini-SQ-10.strata",
+    "bytes": 10471526400,
+    "sha256": "ac4d452ad03e4930abd9d46f9c5eec22b2f75a1da45a1e49bd24ccd58b065934"
+  },
+  "binaries": {
+    "forced_and_short": "8740c7c883a0c6d2cae10e85be0f4a655aea2bd6b8d8a1d2b1cea60f496cbe59",
+    "adaptive_observer": "ba3689513941118f9d1b6ce0a6665fe082cab42d74ca199953fc1dc4bb8ed3e7",
+    "factor": "f54498c09a85dc8a9e91f4bd97eb15592f8a17f563ff4ca950e3c97449e6e244"
+  }
+}

@@ -1,0 +1,310 @@
+{
+  "drafts": 10,
+  "failed": 6,
+  "branches": 81,
+  "tasks": [
+    {
+      "task": "test/precalculus/989.json",
+      "draft_status": "graded",
+      "draft_stop": "stop",
+      "points": {
+        "step2": 37,
+        "step3": 124
+      },
+      "arms": {
+        "restart": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 0
+        },
+        "step2": {
+          "n": 3,
+          "correct_seeds": [
+            1307
+          ],
+          "equal_length_seeds": [
+            1307
+          ],
+          "no_final": 1
+        },
+        "step3": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 0
+        },
+        "extra_restart": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 1
+        }
+      },
+      "paired_wins": [
+        {
+          "seed": 1307,
+          "point": "step2",
+          "equal_length": true
+        }
+      ],
+      "only_rollback_in_sample": true,
+      "only_rollback_equal_length": true
+    },
+    {
+      "task": "test/algebra/2779.json",
+      "draft_status": "no_final",
+      "draft_stop": "length",
+      "points": {
+        "step2": 57
+      },
+      "arms": {
+        "restart": {
+          "n": 3,
+          "correct_seeds": [
+            1303
+          ],
+          "equal_length_seeds": [
+            1303
+          ],
+          "no_final": 1
+        },
+        "step2": {
+          "n": 3,
+          "correct_seeds": [
+            1303,
+            1307
+          ],
+          "equal_length_seeds": [
+            1307
+          ],
+          "no_final": 1
+        },
+        "continue": {
+          "n": 3,
+          "correct_seeds": [
+            1301,
+            1303,
+            1307
+          ],
+          "equal_length_seeds": [],
+          "no_final": 0
+        }
+      },
+      "paired_wins": [
+        {
+          "seed": 1307,
+          "point": "step2",
+          "equal_length": true
+        }
+      ],
+      "only_rollback_in_sample": false,
+      "only_rollback_equal_length": false
+    },
+    {
+      "task": "abc387_c",
+      "draft_status": "no_final",
+      "draft_stop": "length",
+      "points": {
+        "step2": 60,
+        "step3": 127
+      },
+      "arms": {
+        "restart": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 3
+        },
+        "step2": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 3
+        },
+        "step3": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 3
+        },
+        "continue": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 3
+        },
+        "extra_restart": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 3
+        }
+      },
+      "paired_wins": [],
+      "only_rollback_in_sample": false,
+      "only_rollback_equal_length": false
+    },
+    {
+      "task": "abc396_c",
+      "draft_status": "no_final",
+      "draft_stop": "length",
+      "points": {
+        "step2": 16,
+        "step3": 82
+      },
+      "arms": {
+        "restart": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 2
+        },
+        "step2": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 2
+        },
+        "step3": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 3
+        },
+        "continue": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 0
+        },
+        "extra_restart": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 3
+        }
+      },
+      "paired_wins": [],
+      "only_rollback_in_sample": false,
+      "only_rollback_equal_length": false
+    },
+    {
+      "task": "abc394_e",
+      "draft_status": "no_final",
+      "draft_stop": "length",
+      "points": {
+        "step2": 192,
+        "step3": 353
+      },
+      "arms": {
+        "restart": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 3
+        },
+        "step2": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 3
+        },
+        "step3": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 3
+        },
+        "continue": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 3
+        },
+        "extra_restart": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 3
+        }
+      },
+      "paired_wins": [],
+      "only_rollback_in_sample": false,
+      "only_rollback_equal_length": false
+    },
+    {
+      "task": "abc393_d",
+      "draft_status": "no_final",
+      "draft_stop": "length",
+      "points": {
+        "step2": 103,
+        "step3": 168
+      },
+      "arms": {
+        "restart": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 3
+        },
+        "step2": {
+          "n": 3,
+          "correct_seeds": [
+            1303
+          ],
+          "equal_length_seeds": [
+            1303
+          ],
+          "no_final": 2
+        },
+        "step3": {
+          "n": 3,
+          "correct_seeds": [
+            1301,
+            1303
+          ],
+          "equal_length_seeds": [
+            1303
+          ],
+          "no_final": 1
+        },
+        "continue": {
+          "n": 3,
+          "correct_seeds": [
+            1301,
+            1303,
+            1307
+          ],
+          "equal_length_seeds": [],
+          "no_final": 0
+        },
+        "extra_restart": {
+          "n": 3,
+          "correct_seeds": [],
+          "equal_length_seeds": [],
+          "no_final": 3
+        }
+      },
+      "paired_wins": [
+        {
+          "seed": 1303,
+          "point": "step2",
+          "equal_length": true
+        },
+        {
+          "seed": 1301,
+          "point": "step3",
+          "equal_length": false
+        },
+        {
+          "seed": 1303,
+          "point": "step3",
+          "equal_length": true
+        }
+      ],
+      "only_rollback_in_sample": true,
+      "only_rollback_equal_length": true
+    }
+  ]
+}

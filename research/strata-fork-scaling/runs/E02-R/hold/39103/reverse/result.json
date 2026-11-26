@@ -1,0 +1,70 @@
+{
+  "seed": 39103,
+  "boundary": 1025,
+  "arm": "reverse",
+  "restore": false,
+  "source": null,
+  "work": "41bfd3005852b2464887150cc1a266654645119b6e898892ec2e690e55be6184",
+  "raw": "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-logits/hold/39103/reverse.npy",
+  "sha256": "6d89ae8d8e6f83c9a367c4d816b0a081333dadff464ef1419f7fb8dc379f0726",
+  "binary_sha256": "18b8fd5577c50070d5956cc4ccfb277b68a1562e80847307caeffb1d4195609f",
+  "seconds": 4.814554458018392,
+  "shapes": [
+    [
+      0,
+      0,
+      0,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      0,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      1,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      8,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      8,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      32,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      32,
+      2,
+      2
+    ]
+  ]
+}

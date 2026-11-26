@@ -1,0 +1,118 @@
+[
+  {
+    "boundary": 1023,
+    "errors": [
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      }
+    ]
+  },
+  {
+    "boundary": 1024,
+    "errors": [
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      }
+    ]
+  },
+  {
+    "boundary": 1025,
+    "errors": [
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      }
+    ]
+  },
+  {
+    "boundary": 2049,
+    "errors": [
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      },
+      {
+        "maxabs": 0.0,
+        "rms": 0.0,
+        "same_argmax": true,
+        "exact": true
+      }
+    ]
+  }
+]

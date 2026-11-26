@@ -1,0 +1,31 @@
+loading the model (the first start takes a minute or two) ...
+[strata] Drafting: none in parallel slots (one token per request and step); a single request still drafts
+[strata] parallel requests: 3 asked, the engine runs 2 (its log says why)
+[strata] Monitor: watching GPU 0 (main) (as nvidia-smi numbers them)
+ready: http://127.0.0.1:61947/v1  (OpenAI: /v1/chat/completions, Anthropic: /v1/messages, context 2048 tokens)
+       open http://127.0.0.1:61947/ in a browser to chat; close this window to stop the model
+{"turbine":"checkpoint_created","tokens":808,"snapshot_bytes":null}
+{"turbine":"checkpoint_restored","request_id":"babf42759a4e","slot":0,"restore_ms":1.97,"queue_wait_ms":0.22}
+[strata] reading the prompt: 825 of 832 tokens, 2 s so far
+{"turbine":"fork_admitted","request_id":"babf42759a4e","slot":0,"active_slots":1}
+{"turbine":"checkpoint_restored","request_id":"1460a59a67ab","slot":1,"restore_ms":149.76,"queue_wait_ms":2527.94}
+[strata] reading the prompt: 824 of 831 tokens, 4 s so far
+{"turbine":"fork_admitted","request_id":"1460a59a67ab","slot":1,"active_slots":2}
+[strata] answering: 4 of max 32 tokens, 1.4 tok/s, 5 s
+[strata] answering: 3 of max 32 tokens, 6.3 tok/s, 6 s
+[strata] done: 5 tokens in 6 s (1.6 tok/s) (stop, cancel=False)
+{"turbine":"checkpoint_restored","request_id":"665d17fd2d92","slot":0,"restore_ms":80.25,"queue_wait_ms":5579.28}
+[strata] reading the prompt: 827 of 834 tokens, 8 s so far
+{"turbine":"fork_admitted","request_id":"665d17fd2d92","slot":0,"active_slots":2}
+[strata] answering: 6 of max 32 tokens, 1.6 tok/s, 9 s
+[strata] answering: 3 of max 32 tokens, 6.6 tok/s, 9 s
+[strata] done: 4 tokens in 9 s (5.8 tok/s) (stop, cancel=False)
+{"turbine":"checkpoint_restored","request_id":"797b7555f09b","slot":0,"restore_ms":82.83,"queue_wait_ms":9139.97}
+[strata] done: 10 tokens in 9 s (2.3 tok/s) (stop, cancel=False)
+[strata] reading the prompt: 825 of 832 tokens, 11 s so far
+{"turbine":"fork_admitted","request_id":"797b7555f09b","slot":0,"active_slots":1}
+[strata] done: 4 tokens in 12 s (9.1 tok/s) (stop, cancel=False)
+{"turbine":"checkpoint_dropped"}
+
+[strata] stopping (Ctrl+C again to end the engine at once) ...
+[strata] stopped

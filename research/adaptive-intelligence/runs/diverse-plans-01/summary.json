@@ -1,0 +1,74 @@
+{
+  "counts": {
+    "abc344_a": {
+      "direct": 3,
+      "independent_plans": 3,
+      "diverse_plans": 3
+    },
+    "abc344_d": {
+      "direct": 3,
+      "independent_plans": 2,
+      "diverse_plans": 3
+    },
+    "abc356_a": {
+      "direct": 3,
+      "independent_plans": 3,
+      "diverse_plans": 3
+    },
+    "abc356_d": {
+      "direct": 3,
+      "independent_plans": 3,
+      "diverse_plans": 1
+    },
+    "abc366_b": {
+      "direct": 3,
+      "independent_plans": 1,
+      "diverse_plans": 0
+    },
+    "abc366_f": {
+      "direct": 0,
+      "independent_plans": 0,
+      "diverse_plans": 0
+    },
+    "abc375_e": {
+      "direct": 0,
+      "independent_plans": 0,
+      "diverse_plans": 0
+    },
+    "abc394_f": {
+      "direct": 0,
+      "independent_plans": 0,
+      "diverse_plans": 0
+    }
+  },
+  "paired": {
+    "direct": {
+      "gained": [],
+      "lost": [
+        "abc366_b"
+      ]
+    },
+    "independent_plans": {
+      "gained": [],
+      "lost": [
+        "abc366_b"
+      ]
+    }
+  },
+  "coverage": {
+    "direct": 5,
+    "independent_plans": 5,
+    "diverse_plans": 4
+  },
+  "correct_programs": {
+    "direct": 15,
+    "independent_plans": 12,
+    "diverse_plans": 10
+  },
+  "processed": {
+    "direct": 27061,
+    "independent_plans": 38342,
+    "diverse_plans": 41313
+  },
+  "max_processed": 48810
+}

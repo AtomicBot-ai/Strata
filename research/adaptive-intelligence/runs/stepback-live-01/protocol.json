@@ -1,0 +1,23 @@
+{
+  "revision": "0fe84c3912ea0c4d4a78037083943e8f0c4dd505",
+  "sources": {
+    "stepback-test2-start.jsonl": "26fd746b784b538b3d0e3ca8e388c40193bf4a42f7b7db41a8fc4ea5f77fbbf6",
+    "stepback-test6-33575810.jsonl": "e0d40c7a7296b6ebb7f4bcb4d4ab8f13b2d034c0ade08e382b58a16d4a1a270d",
+    "stepback-test-313152443.jsonl": "77d354af9a7973041a62bf38ce66776f135963eb712ede373e49a8ddbfe2e2bc",
+    "stepback-test2-178344265.jsonl": "f7d8dd9bb41548104996d057e85d7cb06f10a883c534fd20e62046043f8492af",
+    "stepback-test5-139424824.jsonl": "b1a92f278f99ad6899465659124e652913a29cd9dd4d1a39252e2c092bce1f36",
+    "code6-mid.jsonl": "8fd870481e3ca7352593f5b60236f4260a96ae1cb69ce2a15117082504c818bf"
+  },
+  "seeds": [
+    3203,
+    3251,
+    3299
+  ],
+  "tasks_sha256": "758790d35cf686a353f2a4b72955d6e31b65606353b18860e8165e6fc07980d8",
+  "deadline_seconds": 30,
+  "cap_gib": 20,
+  "max_slots": 2,
+  "max_attempts": 4,
+  "primary": "D vs frozen calibration winner",
+  "gate": "+5pp and lower bound of paired task bootstrap above zero"
+}

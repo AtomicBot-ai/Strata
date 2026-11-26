@@ -1,0 +1,19 @@
+{
+  "binary_sha256": "9d3f426e4a35beb82605e6005bddd809c3e132833c69a9496a9c0111d6866deb",
+  "model": "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/atomic-turbine/.work/models/Inkling-2-Mini-SQ-10.strata",
+  "input_sha256": "1eae152671d23f17bd3861111cd91bea4aa3bdf16d74cbb0d83189a29e6052ce",
+  "modes": [
+    "replay",
+    "checkpoint",
+    "batch",
+    "independent"
+  ],
+  "tasks": [
+    "test/prealgebra/1238.json",
+    "test/algebra/2789.json",
+    "abc394_b",
+    "abc394_a"
+  ],
+  "anchor": 24,
+  "max_new": 320
+}

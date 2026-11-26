@@ -1,0 +1,26 @@
+{"family": "qwen", "mode": "stock", "label": "p01-a1", "start_utc": "2026-11-26T09:07:10.354+00:00", "event": "start"}
+{"family": "qwen", "mode": "stock", "label": "p01-a1", "start_utc": "2026-11-26T09:07:10.354+00:00", "event": "stop", "stop_utc": "2026-11-26T09:08:03.586+00:00", "seconds": 53.231148416991346, "exclusion": null}
+{"family": "qwen", "mode": "eight", "label": "p01-b1", "start_utc": "2026-11-26T09:08:03.696+00:00", "event": "start"}
+{"family": "qwen", "mode": "eight", "label": "p01-b1", "start_utc": "2026-11-26T09:08:03.696+00:00", "event": "stop", "stop_utc": "2026-11-26T09:08:30.195+00:00", "seconds": 26.498692749999464, "exclusion": null}
+{"family": "ink", "mode": "plain", "label": "p04-reference", "start_utc": "2026-11-26T09:08:30.308+00:00", "event": "start"}
+{"family": "ink", "mode": "plain", "label": "p04-reference", "start_utc": "2026-11-26T09:08:30.308+00:00", "event": "stop", "stop_utc": "2026-11-26T09:08:44.237+00:00", "seconds": 13.929014125023969, "exclusion": null}
+{"family": "ink", "mode": "stock", "label": "p04-reference", "start_utc": "2026-11-26T09:08:44.357+00:00", "event": "start"}
+{"family": "ink", "mode": "stock", "label": "p04-reference", "start_utc": "2026-11-26T09:08:44.357+00:00", "event": "stop", "stop_utc": "2026-11-26T09:08:55.284+00:00", "seconds": 10.926624957995955, "exclusion": null}
+{"family": "ink", "mode": "adaptive", "label": "p04-a1", "start_utc": "2026-11-26T09:08:55.416+00:00", "event": "start"}
+{"family": "ink", "mode": "adaptive", "label": "p04-a1", "start_utc": "2026-11-26T09:08:55.416+00:00", "event": "stop", "stop_utc": "2026-11-26T09:09:04.872+00:00", "seconds": 9.45601958403131, "exclusion": null}
+{"family": "ink", "mode": "dynamic", "label": "p04-b1", "start_utc": "2026-11-26T09:09:05.028+00:00", "event": "start"}
+{"family": "ink", "mode": "dynamic", "label": "p04-b1", "start_utc": "2026-11-26T09:09:05.028+00:00", "event": "stop", "stop_utc": "2026-11-26T09:09:15.062+00:00", "seconds": 10.03456224995898, "exclusion": null}
+{"family": "ink", "mode": "fixed-trace", "label": "p04-diag", "start_utc": "2026-11-26T09:09:15.183+00:00", "event": "start"}
+{"family": "ink", "mode": "fixed-trace", "label": "p04-diag", "start_utc": "2026-11-26T09:09:15.183+00:00", "event": "stop", "stop_utc": "2026-11-26T09:09:25.317+00:00", "seconds": 10.134696916968096, "exclusion": null}
+{"family": "ink", "mode": "dynamic-trace", "label": "p04-diag", "start_utc": "2026-11-26T09:09:25.436+00:00", "event": "start"}
+{"family": "ink", "mode": "dynamic-trace", "label": "p04-diag", "start_utc": "2026-11-26T09:09:25.436+00:00", "event": "stop", "stop_utc": "2026-11-26T09:09:34.484+00:00", "seconds": 9.047793374978937, "exclusion": null}
+{"family": "qwen", "mode": "without-lookup", "label": "p03-dflash", "start_utc": "2026-11-26T09:09:34.608+00:00", "event": "start"}
+{"family": "qwen", "mode": "without-lookup", "label": "p03-dflash", "start_utc": "2026-11-26T09:09:34.608+00:00", "event": "stop", "stop_utc": "2026-11-26T09:10:15.843+00:00", "seconds": 41.23505025001941, "exclusion": null}
+{"family": "qwen", "mode": "lookup-only", "label": "p03-lookup", "start_utc": "2026-11-26T09:10:15.980+00:00", "event": "start"}
+{"family": "qwen", "mode": "lookup-only", "label": "p03-lookup", "start_utc": "2026-11-26T09:10:15.980+00:00", "event": "stop", "stop_utc": "2026-11-26T09:10:45.000+00:00", "seconds": 29.020166000002064, "exclusion": null}
+{"family": "qwen", "mode": "eight", "label": "p01-b2", "start_utc": "2026-11-26T09:11:19.513+00:00", "event": "start"}
+{"family": "qwen", "mode": "eight", "label": "p01-b2", "start_utc": "2026-11-26T09:11:19.513+00:00", "event": "stop", "stop_utc": "2026-11-26T09:11:45.924+00:00", "seconds": 26.4101584579912, "exclusion": null}
+{"family": "qwen", "mode": "stock", "label": "p01-a2", "start_utc": "2026-11-26T09:11:46.011+00:00", "event": "start"}
+{"family": "qwen", "mode": "stock", "label": "p01-a2", "start_utc": "2026-11-26T09:11:46.011+00:00", "event": "stop", "stop_utc": "2026-11-26T09:12:12.556+00:00", "seconds": 26.54362041602144, "exclusion": null}
+{"family": "ink", "mode": "existing-probes", "label": "p04-isolate", "start_utc": "2026-11-26T09:13:49.046+00:00", "event": "start"}
+{"family": "ink", "mode": "existing-probes", "label": "p04-isolate", "start_utc": "2026-11-26T09:13:49.046+00:00", "event": "stop", "stop_utc": "2026-11-26T09:14:02.889+00:00", "seconds": 13.842793332994916, "exclusion": null}

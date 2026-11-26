@@ -1,0 +1,16 @@
+Step 1: Read all integers from standard input; since N is not given, parse the stream until EOF.
+Step 2: Keep the values in a list, then reverse the list (or output from the last element down to the first).
+Step 3: Print the reversed values, each on its own line.
+
+Final:
+```python
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    values = [int(x) for x in data]
+    for x in reversed(values):
+        print(x)
+
+main()
+```<|end_message|><|content_model_end_sampling|>

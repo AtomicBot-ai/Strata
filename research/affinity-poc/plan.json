@@ -1,0 +1,15 @@
+{
+ "base":"30aa2bf03c623fc7e6454f19740dd37845e99749",
+ "model":"Qwen3.8-Flash-Next GSQ-RCO IQ3_XXS, M4 Max Metal",
+ "arms":["fifo","parent","cache"],
+ "seeds":[86101,86102,86103],
+ "loads":{"mixed":{"returning":[0,1,4,5],"new_tokens":12},"resumed":{"returning":[0,1,2,3,4,5,6,7],"new_tokens":16}},
+ "resources":{"active_slots":2,"parent_banks":2,"allocated_slots":4,"context":512,"arena_decimal_gb":6,"process_peak_limit_gib":32},
+ "warmup":"Precompute two actual parents, then six-token histories of returning children from their own parent. Replace resident child slots with identical unrelated work before dispatch so every timed request reads only the suffix after the parent. Continuations include the actual first-turn tokens and a new instruction.",
+ "timing":"All arms start with an accumulated queue of 8. Actual arrival timestamps staggered by 80 ms; timer measures dispatch through final completion. Per-request latency begins at its own enqueue. Read the physical disk0 counter before dispatch and after the last completion. Restore and all scheduling overheads are on the clock.",
+ "fifo":"Oldest request at free slot. Same native copy and expert cache as v0.1; common two-bank extension across arms.",
+ "parent":"Prefer oldest queued child of the in-flight parent; otherwise take FIFO head.",
+ "cache":"At free-slot boundaries only, query current fully resident experts; score is mean missing GGUF expert bytes per step across last four completed decode steps, minus 16 MiB per waiting second. FIFO for unknowns; no request can jump over an older unknown. Admit oldest first when wait >=10 s or after 3 bypasses; if several overdue, break ties by queue age. No ground-truth future routes, no eviction of active children.",
+ "decision":"For each workload: median paired FIFO/candidate wall time >=1.10 OR median paired disk0 read reduction >=15%; median paired p95 completion latency ratio <=1.10 and worst per-ID median ratio <=1.10. Require equal output IDs, actual parent reuse, new prompt work, number of restores and generated tokens in all pairs, no budget breach or errors. INTEGRATE only if both loads pass. Otherwise DROP. A pair with zero baseline IO cannot support the IO criterion.",
+ "design":"Per workload/block shuffle request order with the fixed seed; counterbalance the three arm positions with a Latin rotation. Fresh process per arm. Keep failed attempts. No tuning after results."
+}

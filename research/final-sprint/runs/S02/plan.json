@@ -1,0 +1,21 @@
+{
+  "study": "S02",
+  "counts": [
+    2,
+    4
+  ],
+  "seeds": [
+    84201,
+    84202,
+    84203
+  ],
+  "tokens": 16,
+  "active_slots": 2,
+  "allocated_slots": 3,
+  "arena_gib": 6,
+  "engine_sha256": "4c79883b317202d1ffa9d20cb9dcf7cd7b8cd2ad53bff2285695631e9d672b92",
+  "qwen_revision": "b28ca95",
+  "admission": "FIFO to next free slot; all sequences available at time zero",
+  "s03_rule": "median paired speedup >=1.10 OR median physical device reads reduction >=15%; median paired p95 latency ratio <=1.10 and each request median latency ratio <=1.10, equal work and stable outputs",
+  "capture": "SSD_ROUTE counts cover routed decode rows exposed by the diagnostic hook; device IO covers the whole timed workload"
+}

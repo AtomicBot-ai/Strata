@@ -1,0 +1,13 @@
+Step 1: Read all lines from stdin.
+Step 2: Reverse the list of integers.
+Step 3: Print each reversed integer on its own line.
+
+Final:
+```python
+import sys
+
+lines = sys.stdin.read().splitlines()
+values = [int(line.strip()) for line in lines if line.strip()]
+for value in reversed(values):
+    print(value)
+```<|end_message|><|content_model_end_sampling|>

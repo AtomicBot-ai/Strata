@@ -1,0 +1,306 @@
+{
+  "S01": [
+    {
+      "cell": "p16384-n4",
+      "modes": {
+        "native-2": {
+          "wall_s": 52.626794418,
+          "parent_s": 25.539152,
+          "create_ms": 0.0,
+          "restore_ms": 0.0,
+          "cleanup_ms": 0.2355,
+          "marginal_s": 1.795505834,
+          "peak_gib": 3.6382483392953873
+        },
+        "fork-2": {
+          "wall_s": 7.292311584,
+          "parent_s": 25.591018542,
+          "create_ms": 61.300917,
+          "restore_ms": 82.590875,
+          "cleanup_ms": 7.42425,
+          "marginal_s": 1.7984411875,
+          "peak_gib": 4.131366938352585
+        },
+        "native-1": {
+          "wall_s": 10.170096541,
+          "parent_s": 25.694027417,
+          "create_ms": 0.0,
+          "restore_ms": 0.0,
+          "cleanup_ms": 0.243583,
+          "marginal_s": 2.538204687,
+          "peak_gib": 3.467914365231991
+        }
+      },
+      "baseline": "native-1",
+      "speed": 1.3946327476343885,
+      "marginal_saved_pct": 29.221342366364546,
+      "exact": 4,
+      "endpoints_equal": true
+    },
+    {
+      "cell": "p32768-n8",
+      "modes": {
+        "native-2": {
+          "wall_s": 91.110735583,
+          "parent_s": 54.894897792,
+          "create_ms": 0.0,
+          "restore_ms": 0.0,
+          "cleanup_ms": 0.247084,
+          "marginal_s": 1.9754435695,
+          "peak_gib": 4.638615287840366
+        },
+        "native-1": {
+          "wall_s": 22.92969225,
+          "parent_s": 54.837692958,
+          "create_ms": 0.0,
+          "restore_ms": 0.0,
+          "cleanup_ms": 0.240916,
+          "marginal_s": 2.8616431388333337,
+          "peak_gib": 4.469212055206299
+        },
+        "fork-2": {
+          "wall_s": 16.124209417,
+          "parent_s": 54.727453167,
+          "create_ms": 107.539416,
+          "restore_ms": 233.326207,
+          "cleanup_ms": 13.038084,
+          "marginal_s": 1.9933307291666666,
+          "peak_gib": 5.633580558001995
+        }
+      },
+      "baseline": "native-1",
+      "speed": 1.4224035030715454,
+      "marginal_saved_pct": 30.398558011409772,
+      "exact": 8,
+      "endpoints_equal": true
+    }
+  ],
+  "S02": [
+    {
+      "n": 2,
+      "stats": {
+        "D": {
+          "wall_s": 5.884355375,
+          "device_read": 17118580736.0,
+          "process_read": 17117564928.0,
+          "peak_footprint": 15789245864.0,
+          "routed_expert_read_bytes": 5239961600.0,
+          "hit_rate": 0.7556898121327484,
+          "useful_tps": 5.438148779380953,
+          "p95_latency_s": 5.88427930175
+        },
+        "A": {
+          "wall_s": 9.115145916,
+          "device_read": 24783966208.0,
+          "process_read": 24780541952.0,
+          "peak_footprint": 15794193688.0,
+          "routed_expert_read_bytes": 8030105600.0,
+          "hit_rate": 0.6865277777777777,
+          "useful_tps": 3.5106404543485974,
+          "p95_latency_s": 8.91353033715
+        },
+        "B": {
+          "wall_s": 7.063740458,
+          "device_read": 20223315968.0,
+          "process_read": 20206325760.0,
+          "peak_footprint": 15791605112.0,
+          "routed_expert_read_bytes": 8025241600.0,
+          "hit_rate": 0.6895833333333333,
+          "useful_tps": 4.530177770583088,
+          "p95_latency_s": 6.96590503475
+        },
+        "C": {
+          "wall_s": 7.721219458,
+          "device_read": 21398069248.0,
+          "process_read": 21379592192.0,
+          "peak_footprint": 15797568840.0,
+          "routed_expert_read_bytes": 5288908800.0,
+          "hit_rate": 0.7533725068277746,
+          "useful_tps": 4.144423063489617,
+          "p95_latency_s": 7.7211595476
+        }
+      },
+      "decision_supported": true,
+      "median_speed": 1.3122425142448164,
+      "physical_read_saving_pct": 19.99941425743348,
+      "token_identity_vs_baseline": {
+        "D": true,
+        "A": true,
+        "B": true,
+        "C": true
+      },
+      "same_decode_work": true,
+      "prompt_reuse": {
+        "D": [
+          44,
+          44,
+          44
+        ],
+        "A": [
+          22,
+          22,
+          22
+        ],
+        "B": [
+          44,
+          44,
+          44
+        ],
+        "C": [
+          22,
+          22,
+          22
+        ]
+      },
+      "same_prompt_work": false,
+      "p95_ratio": 0.7620503533538464,
+      "worst_sequence_median_latency_ratio": 0.7620504847981638
+    },
+    {
+      "n": 4,
+      "stats": {
+        "D": {
+          "wall_s": 9.389744125,
+          "device_read": 26389114880.0,
+          "process_read": 26385412096.0,
+          "peak_footprint": 15790982544.0,
+          "routed_expert_read_bytes": 13859660800.0,
+          "hit_rate": 0.6937879678620419,
+          "useful_tps": 6.81594718109531,
+          "p95_latency_s": 9.38966483575
+        },
+        "C": {
+          "wall_s": 14.604537875,
+          "device_read": 38303150080.0,
+          "process_read": 38283558912.0,
+          "peak_footprint": 15796045176.0,
+          "routed_expert_read_bytes": 13195136000.0,
+          "hit_rate": 0.7084460121497158,
+          "useful_tps": 4.382199597671282,
+          "p95_latency_s": 14.6044871411
+        },
+        "A": {
+          "wall_s": 16.522897041,
+          "device_read": 40965578752.0,
+          "process_read": 40956530688.0,
+          "peak_footprint": 15781266880.0,
+          "routed_expert_read_bytes": 14349388800.0,
+          "hit_rate": 0.7194791666666667,
+          "useful_tps": 3.8734127460329795,
+          "p95_latency_s": 15.942617199899999
+        },
+        "B": {
+          "wall_s": 11.038661917,
+          "device_read": 28769693696.0,
+          "process_read": 28762050560.0,
+          "peak_footprint": 15786444152.0,
+          "routed_expert_read_bytes": 16006169600.0,
+          "hit_rate": 0.6883680555555556,
+          "useful_tps": 5.797804161520458,
+          "p95_latency_s": 10.736761109
+        }
+      },
+      "decision_supported": true,
+      "median_speed": 1.5610685411398983,
+      "physical_read_saving_pct": 31.104583239541217,
+      "token_identity_vs_baseline": {
+        "D": true,
+        "C": true,
+        "A": true,
+        "B": true
+      },
+      "same_decode_work": true,
+      "prompt_reuse": {
+        "D": [
+          88,
+          88,
+          88
+        ],
+        "C": [
+          22,
+          22,
+          22
+        ],
+        "A": [
+          22,
+          22,
+          22
+        ],
+        "B": [
+          88,
+          88,
+          88
+        ]
+      },
+      "same_prompt_work": false,
+      "p95_ratio": 0.6405832912284811,
+      "worst_sequence_median_latency_ratio": 0.7883856230139166
+    }
+  ],
+  "S03": [
+    {
+      "n": 8,
+      "stats": {
+        "shuffled": {
+          "wall_s": 33.075373792,
+          "device_read": 88188047360.0,
+          "process_read": 88057417728.0,
+          "peak_footprint": 15459648720.0,
+          "routed_expert_read_bytes": 33356211200.0,
+          "hit_rate": 0.6470467596390485,
+          "useful_tps": 3.8699487057939037,
+          "p95_latency_s": 33.07531653585
+        },
+        "family": {
+          "wall_s": 31.336471416,
+          "device_read": 81582956544.0,
+          "process_read": 81309884416.0,
+          "peak_footprint": 15474214096.0,
+          "routed_expert_read_bytes": 26565811200.0,
+          "hit_rate": 0.7022760792442301,
+          "useful_tps": 4.084697294113493,
+          "p95_latency_s": 31.33556650165
+        },
+        "FIFO": {
+          "wall_s": 32.032168917,
+          "device_read": 84238327808.0,
+          "process_read": 84013613056.0,
+          "peak_footprint": 15467971816.0,
+          "routed_expert_read_bytes": 29408102400.0,
+          "hit_rate": 0.6857841293719443,
+          "useful_tps": 3.995982923656109,
+          "p95_latency_s": 32.032122679400004
+        }
+      },
+      "decision_supported": false,
+      "median_speed": 1.0222008882801268,
+      "physical_read_saving_pct": 2.9733913942095125,
+      "token_identity_vs_baseline": {
+        "shuffled": true,
+        "family": true,
+        "FIFO": true
+      },
+      "same_decode_work": true,
+      "prompt_reuse": {
+        "shuffled": [
+          0,
+          0,
+          0
+        ],
+        "family": [
+          0,
+          0,
+          0
+        ],
+        "FIFO": [
+          0,
+          0,
+          0
+        ]
+      },
+      "same_prompt_work": true,
+      "p95_ratio": 0.9782544483635497,
+      "worst_sequence_median_latency_ratio": 2.7218361985496684
+    }
+  ]
+}

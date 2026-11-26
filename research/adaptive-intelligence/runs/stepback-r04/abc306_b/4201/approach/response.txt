@@ -1,0 +1,16 @@
+Step 1: Read the 64 binary digits.
+Step 2: Interpret them as a binary number with A_0 as the least significant bit.
+Step 3: Compute the integer and print it.
+
+Final:
+```python
+import sys
+
+tokens = sys.stdin.read().split()
+a = [int(x) for x in tokens[:64]]
+value = 0
+for i, bit in enumerate(a):
+    if bit:
+        value += 1 << i
+print(value)
+```<|end_message|><|content_model_end_sampling|>

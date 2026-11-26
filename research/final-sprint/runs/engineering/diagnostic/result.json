@@ -1,0 +1,73 @@
+{
+  "binary_sha256": "4e0191b26c49a826641f3f52f9f27b4f58071b8699d93a6e71da9c4bcd303c59",
+  "budget_refusal": [
+    "snapshot",
+    "unavailable",
+    "or",
+    "over",
+    "budget"
+  ],
+  "empty_refusal": [
+    "drop",
+    "existing",
+    "snapshot",
+    "or",
+    "check",
+    "source",
+    "and",
+    "budget"
+  ],
+  "long_parent_over_32mib": [
+    "snapshot",
+    "unavailable",
+    "or",
+    "over",
+    "budget"
+  ],
+  "permitted_payload_bytes": 16220412,
+  "replacement_refused": [
+    "drop",
+    "existing",
+    "snapshot",
+    "or",
+    "check",
+    "source",
+    "and",
+    "budget"
+  ],
+  "stale_refused": [
+    "invalid",
+    "snapshot",
+    "handle"
+  ],
+  "same_shape_exact": true,
+  "unrelated_resident_slot_exact": true,
+  "abort": [
+    "busy_refused",
+    "cancelled",
+    "dropped"
+  ],
+  "post_cancel_unrelated_exact": true,
+  "lifecycle_cycles": 110,
+  "retained_bytes": 0,
+  "samples": [
+    {
+      "footprint": 2545634256,
+      "peak_footprint": 2558036968,
+      "rss": 2371928064,
+      "pageins": 49880
+    },
+    {
+      "footprint": 2545634256,
+      "peak_footprint": 2558036968,
+      "rss": 2371928064,
+      "pageins": 49880
+    }
+  ],
+  "disabled_refusal": [
+    "native",
+    "fork",
+    "disabled"
+  ],
+  "status": "passed"
+}

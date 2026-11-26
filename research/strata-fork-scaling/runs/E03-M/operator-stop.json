@@ -1,0 +1,6 @@
+{
+  "status": "stopped",
+  "reason": "Superseded by the Final Research Sprint; preserve completed and partial observations",
+  "completed_pairs": 4,
+  "next": "research/final-sprint"
+}

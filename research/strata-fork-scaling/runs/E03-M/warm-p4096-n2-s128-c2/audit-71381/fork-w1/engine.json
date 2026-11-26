@@ -1,0 +1,21 @@
+{
+  "cmd": [
+    "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/review-fork-build/strata-inkling",
+    "--serve",
+    "--native",
+    "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/atomic-turbine/.work/models/Inkling-2-Mini-SQ-10.strata",
+    "--draft",
+    "off",
+    "--kv",
+    "fp16",
+    "--max-context",
+    "4256",
+    "--chunk",
+    "128",
+    "--parallel",
+    "2",
+    "--no-anti-loop"
+  ],
+  "info": "INFO engine=strata-inkling-0.1.69 arch=inkling2_loop backend=metal model=Inkling-2-Mini-SQ-10.strata layers=24 visits=48 vocab=200058 chunk=128 batch_slots=2 slot_read=1 shared_prefix=0 kv_dtype=fp16 drafter=dspark drafting=off images=0 image_pad=200054 parallel=64 ckpt_key=1",
+  "ready": "READY 4256 stop hold holdb"
+}

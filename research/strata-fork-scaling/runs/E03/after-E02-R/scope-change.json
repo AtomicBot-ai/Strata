@@ -1,0 +1,13 @@
+{
+  "full_grid": "paused",
+  "reason": "operator selected a 5\u201310 minute exploratory extension",
+  "one_matched_pair": {
+    "p": 16384,
+    "n": 8,
+    "s": 128,
+    "seed": 1000
+  },
+  "completed_pairs_reusable": true,
+  "archived_partial": "research/strata-fork-scaling/runs/E03/after-E02-R/interrupted/p16384-n2-shared-block-1-B7",
+  "time_unix_ns": 1795633739316239000
+}

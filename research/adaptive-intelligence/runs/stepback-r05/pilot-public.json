@@ -1,0 +1,1458 @@
+[
+  {
+    "task": "abc306_a",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_a",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_a",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_a",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_a",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_a",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_a",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_a",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_a",
+    "seed": 3299,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_a",
+    "seed": 3299,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_a",
+    "seed": 3299,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_a",
+    "seed": 3299,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_b",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_b",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_b",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_b",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_b",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_b",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_b",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_b",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_b",
+    "seed": 3299,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_b",
+    "seed": 3299,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_b",
+    "seed": 3299,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc306_b",
+    "seed": 3299,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_b",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_b",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_b",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_b",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_b",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_b",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_b",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_b",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_c",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_c",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_c",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_c",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_c",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_c",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_c",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc344_c",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc347_a",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc347_a",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc347_a",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc347_a",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc347_a",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc347_a",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc347_a",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc347_a",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc376_b",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc376_b",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc376_b",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc376_b",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc376_b",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc376_b",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc376_b",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc376_b",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc395_e",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc395_e",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc395_e",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc395_e",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc395_e",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc395_e",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc395_e",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc395_e",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc396_a",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc396_a",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc396_a",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc396_a",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc396_a",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc396_a",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc396_a",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc396_a",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc396_d",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc396_d",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc396_d",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc396_d",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc396_d",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc396_d",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc396_d",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc396_d",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_a",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_a",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_a",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_a",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_a",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_a",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_a",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_a",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_b",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_b",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_b",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_b",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_b",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_b",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_b",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_b",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_c",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_c",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_c",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_c",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_c",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_c",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_c",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_c",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_c",
+    "seed": 3299,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_c",
+    "seed": 3299,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_c",
+    "seed": 3299,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_c",
+    "seed": 3299,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_d",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_d",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_d",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_d",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_d",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_d",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_d",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_d",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_d",
+    "seed": 3299,
+    "mode": "A",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_d",
+    "seed": 3299,
+    "mode": "B",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_d",
+    "seed": 3299,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_d",
+    "seed": 3299,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_e",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_e",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_e",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_e",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_e",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_e",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_e",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_e",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_f",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_f",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_f",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_f",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_f",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc397_f",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_f",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_f",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_g",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_g",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_g",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_g",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_g",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_g",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_g",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc397_g",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc398_a",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_a",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_a",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_a",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_a",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_a",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_a",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_a",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_b",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_b",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_b",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_b",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_b",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_b",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_b",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_b",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_c",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_c",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_c",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_c",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_c",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_c",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc398_c",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_c",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_d",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_d",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_d",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_d",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_d",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_d",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_d",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_d",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc398_g",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc398_g",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc398_g",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc398_g",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc398_g",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc398_g",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc398_g",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc398_g",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc399_a",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc399_a",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc399_a",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc399_a",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc399_a",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc399_a",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc399_a",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc399_a",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc399_d",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc399_d",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc399_d",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc399_d",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc399_d",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc399_d",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc399_d",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc399_d",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc399_e",
+    "seed": 3203,
+    "mode": "A",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc399_e",
+    "seed": 3203,
+    "mode": "B",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc399_e",
+    "seed": 3203,
+    "mode": "C",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc399_e",
+    "seed": 3203,
+    "mode": "D",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc399_e",
+    "seed": 3251,
+    "mode": "A",
+    "chosen": true,
+    "oracle": true
+  },
+  {
+    "task": "abc399_e",
+    "seed": 3251,
+    "mode": "B",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc399_e",
+    "seed": 3251,
+    "mode": "C",
+    "chosen": false,
+    "oracle": false
+  },
+  {
+    "task": "abc399_e",
+    "seed": 3251,
+    "mode": "D",
+    "chosen": false,
+    "oracle": false
+  }
+]

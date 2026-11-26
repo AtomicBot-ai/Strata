@@ -1,0 +1,86 @@
+{
+  "pair": 2,
+  "mode": "off",
+  "wall_s": 150.8568,
+  "capabilities": {
+    "native_fork": false,
+    "backend": null,
+    "active_slots": 2,
+    "max_parents": 0
+  },
+  "automatic_events": [],
+  "answers": [
+    {
+      "question": "Who is the release owner?",
+      "expected": "Atlas",
+      "answer": "Atlas",
+      "usage": {
+        "prompt_tokens": 172,
+        "completion_tokens": 2,
+        "total_tokens": 174,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "correct": true,
+      "finished_s": 40.8857
+    },
+    {
+      "question": "Which TCP port does the service listen on?",
+      "expected": "8080",
+      "answer": "8080",
+      "usage": {
+        "prompt_tokens": 175,
+        "completion_tokens": 5,
+        "total_tokens": 180,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "correct": true,
+      "finished_s": 150.8566
+    },
+    {
+      "question": "Which region is the deployment in?",
+      "expected": "Dublin",
+      "answer": "Dublin",
+      "usage": {
+        "prompt_tokens": 173,
+        "completion_tokens": 3,
+        "total_tokens": 176,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "correct": true,
+      "finished_s": 114.1236
+    },
+    {
+      "question": "What is the retry limit?",
+      "expected": "3",
+      "answer": "3",
+      "usage": {
+        "prompt_tokens": 172,
+        "completion_tokens": 2,
+        "total_tokens": 174,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "correct": true,
+      "finished_s": 114.1235
+    }
+  ]
+}

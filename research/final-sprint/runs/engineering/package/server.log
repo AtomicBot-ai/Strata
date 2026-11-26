@@ -1,0 +1,21 @@
+loading the model (the first start takes a minute or two) ...
+[strata] pictures: scaled down to at most 0.80 MP before the engine reads them (inkling_image_max_mp in the run config, in megapixels, sets another size, 0 turns it off)
+[strata] thinking level: low (the Inkling default, no reasoning_effort in the config; a request, or the Chat settings shared with other apps, can set its own)
+[strata] Monitor: watching GPU 0 (main) (as nvidia-smi numbers them)
+ready: http://127.0.0.1:62235/v1  (OpenAI: /v1/chat/completions, Anthropic: /v1/messages, context 2048 tokens)
+       open http://127.0.0.1:62235/ in a browser to chat; close this window to stop the model
+[strata] thinking budget reached (4 tokens): wrapping up the thinking
+[strata] done: 8 tokens in 1 s (84.6 tok/s) (length, cancel=False)
+
+[strata] stopping (Ctrl+C again to end the engine at once) ...
+[strata] stopped
+loading the model (the first start takes a minute or two) ...
+[strata] pictures: scaled down to at most 0.80 MP before the engine reads them (inkling_image_max_mp in the run config, in megapixels, sets another size, 0 turns it off)
+[strata] thinking level: low (the Inkling default, no reasoning_effort in the config; a request, or the Chat settings shared with other apps, can set its own)
+[strata] Monitor: watching GPU 0 (main) (as nvidia-smi numbers them)
+ready: http://127.0.0.1:62254/v1  (OpenAI: /v1/chat/completions, Anthropic: /v1/messages, context 2048 tokens)
+       open http://127.0.0.1:62254/ in a browser to chat; close this window to stop the model
+[strata] done: 32 tokens in 1 s (64.6 tok/s) (stop, cancel=False)
+
+[strata] stopping (Ctrl+C again to end the engine at once) ...
+[strata] stopped

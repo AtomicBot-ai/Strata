@@ -1,0 +1,39 @@
+mtl: GPU keep-alive every 250 ms for 120 s after the last command buffer (#6078; STRATA_METAL_KEEPALIVE_MS=0 turns it off)
+[ink_metal] loaded /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/atomic-turbine/.work/models/Inkling-2-Mini-SQ-10.strata (build=SQ-10, minor=1, 9.75 GiB, trunk=646, dspark=54, experts=3072, vram_order=3072, sec4_bufs=1) in 0.03s (workSet=37.4 GiB, maxBuf=28.1 GiB)
+[ink_metal] runner ready: slots=1 ctx=2048 batch=256 dspark=1 vision=off mpp=1(trunk=1,hot=0) | KV=224.0 MiB SC=3.7 MiB TotalAlloc=11.82 GiB
+policy pos=18 nodes=3 emit=1 verify_gpu_ms=28.2515 round_ms=34.2487 plain_ms=15.9032
+policy pos=19 nodes=2 emit=1 verify_gpu_ms=22.7843 round_ms=28.0561 plain_ms=15.9032
+policy pos=1008 nodes=5 emit=5 verify_gpu_ms=40.0481 round_ms=46.6233 plain_ms=16.7383
+policy pos=1013 nodes=8 emit=8 verify_gpu_ms=56.1907 round_ms=63.9980 plain_ms=16.7383
+policy pos=1021 nodes=8 emit=8 verify_gpu_ms=56.4537 round_ms=64.4133 plain_ms=16.7383
+policy pos=1029 nodes=8 emit=8 verify_gpu_ms=56.4139 round_ms=64.4450 plain_ms=16.7383
+policy pos=1037 nodes=8 emit=8 verify_gpu_ms=57.2201 round_ms=65.2622 plain_ms=16.7383
+policy pos=1045 nodes=8 emit=8 verify_gpu_ms=56.3831 round_ms=64.4111 plain_ms=16.7383
+policy pos=1053 nodes=8 emit=8 verify_gpu_ms=56.2258 round_ms=64.3738 plain_ms=16.7383
+policy pos=1061 nodes=8 emit=8 verify_gpu_ms=56.1915 round_ms=64.0945 plain_ms=16.7383
+policy pos=1069 nodes=8 emit=8 verify_gpu_ms=56.7312 round_ms=64.6189 plain_ms=16.7383
+policy pos=1077 nodes=8 emit=8 verify_gpu_ms=56.9499 round_ms=64.9506 plain_ms=16.7383
+policy pos=1085 nodes=8 emit=8 verify_gpu_ms=56.2447 round_ms=64.3338 plain_ms=16.7383
+policy pos=1093 nodes=8 emit=8 verify_gpu_ms=56.4925 round_ms=64.5340 plain_ms=16.7383
+policy pos=1101 nodes=8 emit=8 verify_gpu_ms=56.3967 round_ms=64.4339 plain_ms=16.7383
+policy pos=1109 nodes=5 emit=5 verify_gpu_ms=40.0149 round_ms=48.0762 plain_ms=16.7383
+policy pos=1114 nodes=8 emit=8 verify_gpu_ms=56.5081 round_ms=64.5377 plain_ms=16.7383
+policy pos=1122 nodes=8 emit=8 verify_gpu_ms=56.2666 round_ms=64.3223 plain_ms=16.7383
+policy pos=1284 nodes=3 emit=3 verify_gpu_ms=29.5546 round_ms=36.3820 plain_ms=16.9533
+policy pos=1287 nodes=5 emit=3 verify_gpu_ms=39.7867 round_ms=46.7127 plain_ms=16.9533
+policy pos=1290 nodes=6 emit=2 verify_gpu_ms=45.3367 round_ms=52.3408 plain_ms=16.9533
+policy pos=1292 nodes=4 emit=1 verify_gpu_ms=35.3617 round_ms=41.6439 plain_ms=16.9533
+policy pos=1301 nodes=3 emit=3 verify_gpu_ms=29.6030 round_ms=35.8034 plain_ms=16.8543
+policy pos=1304 nodes=5 emit=3 verify_gpu_ms=41.1371 round_ms=48.0068 plain_ms=16.8543
+policy pos=1307 nodes=4 emit=1 verify_gpu_ms=35.3227 round_ms=42.2162 plain_ms=16.8543
+policy pos=1308 nodes=4 emit=1 verify_gpu_ms=35.6608 round_ms=41.9485 plain_ms=16.8543
+policy pos=1317 nodes=4 emit=4 verify_gpu_ms=36.0370 round_ms=42.1968 plain_ms=16.7166
+policy pos=1321 nodes=3 emit=2 verify_gpu_ms=29.3919 round_ms=36.9555 plain_ms=16.7166
+policy pos=1323 nodes=3 emit=2 verify_gpu_ms=29.4234 round_ms=35.7970 plain_ms=16.7166
+policy pos=1325 nodes=2 emit=2 verify_gpu_ms=24.0878 round_ms=30.3699 plain_ms=16.7166
+policy pos=1327 nodes=3 emit=1 verify_gpu_ms=29.4995 round_ms=35.8040 plain_ms=16.7166
+policy pos=1328 nodes=4 emit=1 verify_gpu_ms=34.8055 round_ms=41.1631 plain_ms=16.7166
+policy pos=1337 nodes=3 emit=2 verify_gpu_ms=29.0197 round_ms=37.5188 plain_ms=16.6992
+policy pos=1339 nodes=3 emit=1 verify_gpu_ms=28.8841 round_ms=35.8332 plain_ms=16.6992
+policy pos=1352 nodes=6 emit=1 verify_gpu_ms=44.1015 round_ms=50.8538 plain_ms=16.7137
+policy pos=1369 nodes=5 emit=1 verify_gpu_ms=39.1236 round_ms=45.9089 plain_ms=16.6600

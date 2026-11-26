@@ -1,0 +1,56 @@
+[  2%] Built target strata_gpu_metal
+[ 17%] Built target strata_quant
+[ 19%] Building CXX object CMakeFiles/mtl_rt.dir/src/gguf_lite.cpp.o
+[ 19%] Building OBJCXX object CMakeFiles/mtl_rt.dir/src/mtl_rt.mm.o
+[ 19%] Building CXX object CMakeFiles/mtl_rt.dir/src/ref_quant.cpp.o
+[ 68%] Built target strata_metal_host
+/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/engine/metal/src/mtl_rt.mm:217:11: warning: 'fastMathEnabled' is deprecated: first deprecated in macOS 15.0 - Use mathMode instead [-Wdeprecated-declarations]
+  217 |         o.fastMathEnabled = fast_math;
+      |           ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Metal.framework/Headers/MTLLibrary.h:326:39: note: 'fastMathEnabled' has been explicitly marked deprecated here
+  326 | @property (readwrite, nonatomic) BOOL fastMathEnabled API_DEPRECATED("Use mathMode instead", macos(10.11, 15.0), ios(8.0, 18.0));
+      |                                       ^
+1 warning generated.
+[ 70%] Linking CXX static library libmtl_rt.a
+[ 70%] Built target mtl_rt
+[ 72%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/iq_host.cpp.o
+[ 72%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/missing.cpp.o
+[ 76%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/setup_host.cpp.o
+[ 76%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/mmvq_host.cpp.o
+[ 76%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/stream.cpp.o
+[ 78%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/stubs.cpp.o
+[ 80%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/stubs_0145.cpp.o
+[ 80%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/stubs_0219.cpp.o
+In file included from /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/engine/metal/src/engine/stubs.cpp:68:
+In file included from /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/engine/include/strata/prefill/prefill.hpp:16:
+/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/engine/include/strata/core/expert_source.hpp:1362:13: warning: 'reads' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+ 1362 |     int64_t reads() const { return reads_.load(std::memory_order_relaxed); }
+      |             ^
+/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/engine/include/strata/core/expert_source.hpp:233:21: note: overridden virtual function is here
+  233 |     virtual int64_t reads() const { return 0; }
+      |                     ^
+[ 82%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/stubs_023.cpp.o
+[ 82%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/stubs_025.cpp.o
+[ 85%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/stubs_0291.cpp.o
+In file included from /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/engine/metal/src/engine/stubs_0145.cpp:70:
+In file included from /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/engine/include/strata/prefill/prefill.hpp:16:
+/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/engine/include/strata/core/expert_source.hpp:1362:13: warning: 'reads' overrides a member function but is not marked 'override' [-Winconsistent-missing-override]
+ 1362 |     int64_t reads() const { return reads_.load(std::memory_order_relaxed); }
+      |             ^
+/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/engine/include/strata/core/expert_source.hpp:233:21: note: overridden virtual function is here
+  233 |     virtual int64_t reads() const { return 0; }
+      |                     ^
+[ 87%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/stubs_144.cpp.o
+1 warning generated.
+[ 87%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/stubs_df2.cpp.o
+[ 89%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/stubs_gyro.cpp.o
+[ 91%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/stubs_i8.cpp.o
+[ 91%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/stubs_kv_dma.cpp.o
+1 warning generated.
+[ 93%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/stubs_prompt_f16.cpp.o
+[ 93%] Building CXX object CMakeFiles/strata_metal_kernels.dir/src/engine/window.cpp.o
+[ 95%] Linking CXX static library libstrata_metal_kernels.a
+[ 95%] Built target strata_metal_kernels
+[ 97%] Linking CXX executable strata
+ld: warning: ignoring duplicate libraries: 'libstrata_metal_host.a', 'libstrata_metal_kernels.a'
+[100%] Built target strata

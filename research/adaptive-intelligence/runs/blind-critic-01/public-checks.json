@@ -1,0 +1,34 @@
+{
+  "abc393_b": {
+    "passed": [
+      true,
+      true,
+      true
+    ],
+    "wall_ms": 376.9380409794394
+  },
+  "abc394_d": {
+    "passed": [
+      true,
+      true,
+      true
+    ],
+    "wall_ms": 232.95254199183546
+  },
+  "abc393_e": {
+    "passed": [
+      false,
+      false,
+      false
+    ],
+    "wall_ms": 250.27845799922943
+  },
+  "abc387_f": {
+    "passed": [
+      false,
+      false,
+      false
+    ],
+    "wall_ms": 308.2731250033248
+  }
+}

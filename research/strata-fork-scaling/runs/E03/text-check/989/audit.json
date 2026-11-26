@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "work": "f874f168682276ed5a4f9081e0a3c50c88c70208a619a45ac91caef33c7b4af6",
+  "width": 2,
+  "hash_order": [
+    "replay",
+    "snapshot",
+    "native"
+  ],
+  "branches": [
+    {
+      "branch": 0,
+      "same_shape_exact": true,
+      "sha256": [
+        "1e95e6cf6492f1de39b9d4051c2c70bb7174b36625c84fb52b0e0302a7ff3e0e",
+        "1e95e6cf6492f1de39b9d4051c2c70bb7174b36625c84fb52b0e0302a7ff3e0e",
+        "e9531169f2ef5f2a842d786403a0f29de1d362cd0e34a6d7554c9ba7f667cfa5"
+      ],
+      "native_batching": {
+        "max_abs": 0.6406011581420898,
+        "rmse": 0.15663508512152624,
+        "js": 7.950128470617064e-09,
+        "top10_loss": 0.0,
+        "greedy_loss": 0.0,
+        "top10_overlap": 1.0,
+        "greedy_agreement": true,
+        "exact": false
+      },
+      "candidate": {
+        "max_abs": 0.6406011581420898,
+        "rmse": 0.15663508512152624,
+        "js": 7.950128470617064e-09,
+        "top10_loss": 0.0,
+        "greedy_loss": 0.0,
+        "top10_overlap": 1.0,
+        "greedy_agreement": true,
+        "exact": false
+      }
+    },
+    {
+      "branch": 1,
+      "same_shape_exact": true,
+      "sha256": [
+        "3ae3b8b823e273b5b778ed504793d2639a13422148aa27b309f4abb68bf1de30",
+        "3ae3b8b823e273b5b778ed504793d2639a13422148aa27b309f4abb68bf1de30",
+        "0ca0c53580ac29580a6e9a27841bff570e363e8514b507de52c44e8c3e506172"
+      ],
+      "native_batching": {
+        "max_abs": 3.5324482917785645,
+        "rmse": 1.0532453215290907,
+        "js": 1.9494222474704425e-07,
+        "top10_loss": 0.30000000000000004,
+        "greedy_loss": 0.0,
+        "top10_overlap": 0.7,
+        "greedy_agreement": true,
+        "exact": false
+      },
+      "candidate": {
+        "max_abs": 3.5324482917785645,
+        "rmse": 1.0532453215290907,
+        "js": 1.9494222474704425e-07,
+        "top10_loss": 0.30000000000000004,
+        "greedy_loss": 0.0,
+        "top10_overlap": 0.7,
+        "greedy_agreement": true,
+        "exact": false
+      }
+    }
+  ],
+  "native_candidate_tokens_agree": true
+}

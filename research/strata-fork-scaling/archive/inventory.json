@@ -1,0 +1,60 @@
+{
+  "machine": {
+    "chip": "Apple M4 Max",
+    "gpu_cores": 40,
+    "memory_gib": 48,
+    "hardware_source": "historical machine audit; same local device",
+    "os": "27.2.1",
+    "arch": "arm64"
+  },
+  "build": {
+    "generator": "Unix Makefiles",
+    "type": "Release",
+    "cmake": "4.3.0",
+    "compiler": "Apple clang 21.0.0",
+    "target": "strata-inkling"
+  },
+  "old_base": "26350e4387b8019b0f6825ba78b87eb6360159e7",
+  "archived_commit": "ae7d99efe912fe62df49bf9c8928308a8a9b821b",
+  "upstream": "2af30ccaa0729177c4725ee2073f72bf550e2f86",
+  "port_commit": "fd243cfe43f0bb30ee8741331a69dfc0f02a17ec",
+  "model": {
+    "path": "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/atomic-turbine/.work/models/Inkling-2-Mini-SQ-10.strata",
+    "bytes": 10471526400,
+    "sha256": "ac4d452ad03e4930abd9d46f9c5eec22b2f75a1da45a1e49bd24ccd58b065934",
+    "verified_this_run": true
+  },
+  "tokenizer": {
+    "path": "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/atomic-turbine/.work/inkling-strata/tokenizer.json",
+    "sha256": "7f332727f9a3f093dd452a39cc978e6757627e5dad1b0673aa4e75174f236dd6",
+    "verified_this_run": true
+  },
+  "chat_template": "not_used; token IDs passed directly",
+  "model_mode": "SQ-10 resident, Metal, FP16 KV, draft off",
+  "original_debug_binary": "9d3f426e4a35beb82605e6005bddd809c3e132833c69a9496a9c0111d6866deb",
+  "original_cost_binary_sha256": null,
+  "sha256": {
+    ".work/strata-build/strata-inkling": "5c97fb5d39b3d03466ed100678d2443061e98171ac2cc7aa574bc1d369c57ef7",
+    ".work/strata-build/CMakeCache.txt": "4ee3bc44b9d95661235cbe4c92ad412b397b40a492949d783f1cdcfe6426f277",
+    ".work/strata-scaling/b3-build/strata-inkling": "ae30f3619ff7f43d3573c996f94fd6cfbf99c0c8e6f3c55782e9026d7d130156",
+    ".work/strata-scaling/lab-build/strata-inkling": "8cfec60adae534bc6d2da334d0796a5a5e6329c9655ef82dac1467bb5fe2bcd1",
+    ".work/strata-scaling/b3-build/CMakeCache.txt": "0fcc16c8b1a8a2f8b1fc409d1c31826e6dd8e73007b3c96fc874cb2d0af51a91",
+    ".work/strata-scaling/lab-build/CMakeCache.txt": "16e6665c65721f8d34c15a60e75c9b7febe0d98662ddda5e967464723f5580f7",
+    "research/adaptive-intelligence/runs/stepback-live-01/lock.json": "fdad8179853b9608f06bd9cba4871b8f295f8faf79d465045dfcf2ca96d76287",
+    "research/adaptive-intelligence/runs/branch-debug/raw.jsonl": "0f4e6f8d20ac22b051cdce3ea72727de1927effc9b1b8fed505b4dd17984bba6",
+    "research/adaptive-intelligence/runs/branch-debug/manifest.json": "63bca35c5a7489c3413f2f3618a9465c6c7f230b81bf9799795c1d52c3a62855",
+    "research/adaptive-intelligence/runs/branch-cost/cost.jsonl": "c05c0821dffe1dacb2c28289b2aeefc3d8bf1622a44059b5aec35044a6a67881",
+    "research/adaptive-intelligence/runs/branch-cost-batch-greedy/cost.jsonl": "8828f0e615b933bee5a30807772f4bc009017b14a3eb2cd680bd86ae3ab6583c",
+    "research/adaptive-intelligence/runs/live-fork-gate-01/gate.json": "4f20fab839b32f806a4e35b4c3b92a7fcfa3639b2d21a367d280616eed8908d7",
+    "research/strata-fork-scaling/PROTOCOL.md": "72df04a9b69511867ec35bd71ad3d03528476f7a04cf14a303cc5f4b687b103d",
+    "research/strata-fork-scaling/workloads/historical-trees.json": "f5b3d88183e1d9c8c881ed1b5d30b3440d3120372bd497def9c7f3e5b36a0f58",
+    "research/strata-fork-scaling/archive/historical.patch": "87a8c5c50175eabc8e9001d442225fd8cffcd0fba6e9d223767c9caee2953bd9",
+    "research/strata-fork-scaling/archive/scaling-initial.patch": "c0b5c33320be1949119a1d842f1a32fa5faefdc02b4ab27d782509fb9e988871",
+    "research/strata-fork-scaling/archive/scaling.patch": "8fa8fd83cd971f780f9154daaf4c0d388c11a004433a5917b01ccbc15e4eeb50",
+    "research/adaptive-intelligence/branching/engine.py": "c4b1526031e4603c91d966b173c4286b49ff4436920001f1a39ffed9fbf65c64",
+    "research/adaptive-intelligence/branching/live_gate.py": "40ca4e013c2dd7a97aa4675bf8fd111cdbe742750a852b74f15e9b6378fd76ea",
+    "research/adaptive-intelligence/branching/fixed_cost.py": "30be2c51a7a6ee552e077ad184e3b5dbb85e00db6e3b5dad56cea47b994030df",
+    "research/adaptive-intelligence/branching/search.py": "78c8bdd2ed1e50071e38b048545d7e9e2142da24a1b3b5d9fb6055a2c7b4a493",
+    "research/adaptive-intelligence/branching/live_slots.py": "cd41de2d4d1b28c850070497e217798388ea8f76225b9f5416f601c803212b57"
+  }
+}

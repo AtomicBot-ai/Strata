@@ -1,0 +1,80 @@
+{
+  "order": [
+    [
+      "fork",
+      2
+    ],
+    [
+      "native",
+      2
+    ],
+    [
+      "native",
+      1
+    ]
+  ],
+  "seed": 83102,
+  "modes": {
+    "fork-2": {
+      "wall_s": 16.175218083,
+      "parent_s": 54.722981,
+      "marginal_s": 1.9937451041666667,
+      "create_ms": 116.349875,
+      "restore_ms": 250.931626,
+      "cleanup_ms": 15.754667,
+      "peak_gib": 5.634053625166416,
+      "tokens": [
+        82,
+        14781,
+        82,
+        75,
+        64,
+        82,
+        64,
+        259
+      ],
+      "work": "8748066be8bfceafb17f8e23ac98a1f2f135e85f72ac7aa649bc1cd0e31603ab"
+    },
+    "native-2": {
+      "wall_s": 90.947573292,
+      "parent_s": 54.851063209,
+      "marginal_s": 1.9740659028333332,
+      "create_ms": 0.0,
+      "restore_ms": 0.0,
+      "cleanup_ms": 0.247084,
+      "peak_gib": 4.638615287840366,
+      "tokens": [
+        82,
+        14781,
+        82,
+        75,
+        64,
+        82,
+        64,
+        259
+      ],
+      "work": "8748066be8bfceafb17f8e23ac98a1f2f135e85f72ac7aa649bc1cd0e31603ab"
+    },
+    "native-1": {
+      "wall_s": 22.904773124,
+      "parent_s": 54.787775292,
+      "marginal_s": 2.8584820485,
+      "create_ms": 0.0,
+      "restore_ms": 0.0,
+      "cleanup_ms": 0.240916,
+      "peak_gib": 4.469212055206299,
+      "tokens": [
+        82,
+        14781,
+        82,
+        75,
+        64,
+        82,
+        64,
+        259
+      ],
+      "work": "8748066be8bfceafb17f8e23ac98a1f2f135e85f72ac7aa649bc1cd0e31603ab"
+    }
+  },
+  "endpoints_agree": true
+}

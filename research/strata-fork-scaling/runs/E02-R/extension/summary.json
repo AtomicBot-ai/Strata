@@ -1,0 +1,71 @@
+{
+  "cohorts": [
+    {
+      "cohort": "cohort-001",
+      "finished": [
+        49101,
+        49102,
+        49103,
+        49104
+      ],
+      "planned": [
+        49101,
+        49102,
+        49103,
+        49104
+      ],
+      "status": "native_out_of_envelope",
+      "failures": [
+        {
+          "group": "native",
+          "depth": 0,
+          "metric": "js",
+          "value": 0.0009357114482326425,
+          "limit": 0.000499621038281215
+        },
+        {
+          "group": "candidate",
+          "depth": 0,
+          "metric": "js",
+          "value": 0.0009349269468368294,
+          "limit": 0.000499621038281215
+        }
+      ]
+    },
+    {
+      "cohort": "cohort-002",
+      "finished": [
+        49105,
+        49106,
+        49107,
+        49108
+      ],
+      "planned": [
+        49105,
+        49106,
+        49107,
+        49108
+      ],
+      "status": "native_out_of_envelope",
+      "failures": [
+        {
+          "group": "native",
+          "depth": 512,
+          "metric": "greedy_loss",
+          "value": 0.125,
+          "limit": 0.0
+        },
+        {
+          "group": "candidate",
+          "depth": 512,
+          "metric": "greedy_loss",
+          "value": 0.125,
+          "limit": 0.0
+        }
+      ]
+    }
+  ],
+  "matched_vectors": 448,
+  "exact": 448,
+  "trees": 8
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "profile": "inkling-16384",
+    "stock_s": 41.87807616603095,
+    "fork_s": 5.503563792037312,
+    "pairs_output_match": 0
+  },
+  {
+    "profile": "inkling-32768",
+    "stock_s": 80.49659858399536,
+    "fork_s": 15.028260332997888,
+    "pairs_output_match": 0
+  },
+  {
+    "profile": "qwen-22",
+    "stock_s": 14.658145207969937,
+    "fork_s": 9.451355582976248,
+    "pairs_output_match": 3
+  },
+  {
+    "profile": "qwen-121",
+    "stock_s": 17.876518542005215,
+    "fork_s": 14.416553040966392,
+    "pairs_output_match": 3
+  },
+  {
+    "profile": "agent",
+    "stock_s": 10.138776542036794,
+    "fork_s": 3.8892082079546526,
+    "pairs_output_match": null
+  }
+]

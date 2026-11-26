@@ -1,0 +1,92 @@
+{
+  "native_same_prompt_slots": {
+    "maxabs": 0.0,
+    "rms": 0.0,
+    "same_argmax": true,
+    "exact": true
+  },
+  "native_repeat": [
+    {
+      "maxabs": 0.0,
+      "rms": 0.0,
+      "same_argmax": true,
+      "exact": true
+    },
+    {
+      "maxabs": 0.0,
+      "rms": 0.0,
+      "same_argmax": true,
+      "exact": true
+    }
+  ],
+  "after_restore": [
+    {
+      "maxabs": 0.0,
+      "rms": 0.0,
+      "same_argmax": true,
+      "exact": true
+    },
+    {
+      "maxabs": 0.0,
+      "rms": 0.0,
+      "same_argmax": true,
+      "exact": true
+    }
+  ],
+  "got": {
+    "r0": {
+      "tokens": [
+        68014,
+        68025,
+        220
+      ],
+      "prompt": 79,
+      "reused": 78,
+      "prefill_ms": 23.8,
+      "decode_ms": 49.8,
+      "reason": "length",
+      "end_ns": 273672813671000
+    },
+    "r1": {
+      "tokens": [
+        158,
+        109,
+        94
+      ],
+      "prompt": 79,
+      "reused": 78,
+      "prefill_ms": 23.8,
+      "decode_ms": 51.2,
+      "reason": "length",
+      "end_ns": 273672815137291
+    }
+  },
+  "reference": {
+    "r0": {
+      "tokens": [
+        68014,
+        68025,
+        220
+      ],
+      "prompt": 79,
+      "reused": 78,
+      "prefill_ms": 23.8,
+      "decode_ms": 49.9,
+      "reason": "length",
+      "end_ns": 273673159193250
+    },
+    "r1": {
+      "tokens": [
+        158,
+        109,
+        94
+      ],
+      "prompt": 79,
+      "reused": 78,
+      "prefill_ms": 23.8,
+      "decode_ms": 51.1,
+      "reason": "length",
+      "end_ns": 273673160624458
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "ordinary": {
+    "role": "assistant",
+    "content": "Hello! How can I help you today?"
+  },
+  "demo": {
+    "mode": "native",
+    "tokens": 1070,
+    "prepare_s": 1.9513182920054533,
+    "elapsed_s": 2.68748958397191,
+    "results": [
+      {
+        "question": "Which host address does serve-inkling bind to?",
+        "answer": "127.0.0.1",
+        "expected": "127.0.0.1",
+        "success": true,
+        "request": "chatcmpl-116a0fd05d3948faae32488a",
+        "completion_tokens": 9
+      },
+      {
+        "question": "What TCP port does serve-inkling use by default?",
+        "answer": "8080",
+        "expected": "8080",
+        "success": true,
+        "request": "chatcmpl-978d23c4847b452f8b481974",
+        "completion_tokens": 4
+      },
+      {
+        "question": "Which KV data type does serve-inkling pass to the engine?",
+        "answer": "fp16",
+        "expected": "fp16",
+        "success": true,
+        "request": "chatcmpl-0f238900ce6b468fbc0bef6a",
+        "completion_tokens": 4
+      },
+      {
+        "question": "What value does serve-inkling pass to --chunk?",
+        "answer": "128",
+        "expected": "128",
+        "success": true,
+        "request": "chatcmpl-b12edfaed3294528b5c2cdb3",
+        "completion_tokens": 3
+      }
+    ]
+  },
+  "events": [
+    {
+      "turbine": "checkpoint_created",
+      "tokens": 1070,
+      "snapshot_bytes": 206672056
+    },
+    {
+      "turbine": "checkpoint_restored",
+      "request_id": "116a0fd05d3948faae32488a",
+      "slot": 1,
+      "restore_ms": 14.43,
+      "queue_wait_ms": 2.44
+    },
+    {
+      "turbine": "fork_admitted",
+      "request_id": "116a0fd05d3948faae32488a",
+      "slot": 1,
+      "active_slots": 1,
+      "reused_tokens": 1070
+    },
+    {
+      "turbine": "checkpoint_restored",
+      "request_id": "b12edfaed3294528b5c2cdb3",
+      "slot": 0,
+      "restore_ms": 102.43,
+      "queue_wait_ms": 14.7
+    },
+    {
+      "turbine": "fork_admitted",
+      "request_id": "b12edfaed3294528b5c2cdb3",
+      "slot": 0,
+      "active_slots": 2,
+      "reused_tokens": 1070
+    },
+    {
+      "turbine": "checkpoint_restored",
+      "request_id": "0f238900ce6b468fbc0bef6a",
+      "slot": 0,
+      "restore_ms": 19.35,
+      "queue_wait_ms": 326.67
+    },
+    {
+      "turbine": "fork_admitted",
+      "request_id": "0f238900ce6b468fbc0bef6a",
+      "slot": 0,
+      "active_slots": 2,
+      "reused_tokens": 1070
+    },
+    {
+      "turbine": "checkpoint_restored",
+      "request_id": "978d23c4847b452f8b481974",
+      "slot": 1,
+      "restore_ms": 3.25,
+      "queue_wait_ms": 505.39
+    },
+    {
+      "turbine": "fork_admitted",
+      "request_id": "978d23c4847b452f8b481974",
+      "slot": 1,
+      "active_slots": 2,
+      "reused_tokens": 1070
+    },
+    {
+      "turbine": "checkpoint_dropped"
+    }
+  ],
+  "checks": [
+    "tool call with shared tools",
+    "strict prefix rejection before SSE",
+    "model mismatch",
+    "unknown ID",
+    "single parent",
+    "SSE disconnect with pending deletion",
+    "next parent after cancellation",
+    "restart and disabled fallback"
+  ]
+}

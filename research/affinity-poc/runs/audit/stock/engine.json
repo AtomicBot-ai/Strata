@@ -1,0 +1,42 @@
+{
+  "cmd": [
+    "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/final-sprint/qwen-release/strata",
+    "--serve",
+    "--pack",
+    "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/ssd-qwen-pack",
+    "--native",
+    "/Users/aleksejkalina/code/models/qwen38-iq3/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+    "--ple-gguf",
+    "/Users/aleksejkalina/code/models/qwen38-iq3/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00002-of-00002.gguf",
+    "--expert-profile",
+    "/Users/aleksejkalina/code/models/qwen38-iq3/profile.bin",
+    "--max-context",
+    "512",
+    "--expert-cache",
+    "64",
+    "--batch",
+    "3",
+    "--prefill",
+    "auto",
+    "--spec",
+    "2",
+    "--suffix-draft",
+    "0",
+    "--mmap-experts",
+    "--conversation-cache-mib",
+    "0"
+  ],
+  "env": {
+    "STRATA_METAL_STREAM": "1",
+    "STRATA_METAL_ARENA_GB": "6",
+    "STRATA_METAL_STREAM_FAKE": "0",
+    "STRATA_METAL_BATCH_ROWS": "1",
+    "STRATA_METAL_PREFETCH": "0",
+    "STRATA_METAL_PREFETCH2": "0",
+    "STRATA_METAL_KERNELS": "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/engine/metal/kernels",
+    "STRATA_METAL_ENGINE_KERNELS": "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/Atomic-Turbine/engine/metal/src/engine/msl",
+    "STRATA_METAL_DATA": "/Applications/Strata.app/Contents/Resources/engine-bundle/0.1.65-macos-arm64-metal/metal/data",
+    "TURBINE_QWEN_FORK": "1"
+  },
+  "sha256": "18ce6b114dc0588e88374f20262aac2b297fc01d06d329b8960bcc08d1addfd2"
+}

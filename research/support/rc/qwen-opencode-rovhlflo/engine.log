@@ -1,0 +1,142 @@
+[strata] 2026-11-26 11:33:51 engine started: /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/final-sprint/qwen-release/strata --serve --serve --pack /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/ssd-qwen-pack --native /Users/aleksejkalina/code/models/qwen38-iq3/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf --ple-gguf /Users/aleksejkalina/code/models/qwen38-iq3/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00002-of-00002.gguf --expert-profile /Users/aleksejkalina/code/models/qwen38-iq3/profile.bin --max-context 24576 --expert-cache 64 --batch 3 --prefill auto --spec 2 --suffix-draft 0 --mmap-experts --prompt-cache-root 32 --draft-costs /Users/aleksejkalina/.config/strata/draft-costs/qwen-46a00ff69fea.costs --draft-costs-key engine file 5197336 bytes
+strata generate: memory guard: limit 48.0 GiB (source: meminfo), current 26.7 GiB, reclaimable cache credited 0.0 GiB; available 21.3 GiB (MemAvailable 21.3 GiB), floor 2560 MiB
+strata generate: PCIe probe failed -> pcie_frac default 0.55
+strata generate: CPU expert kernels: the Strata quant layer (NEON)
+strata generate: native pack: /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/ssd-qwen-pack experts (largest blob 2.33 MB), token embedding IQ3_S in mapped host memory (260 MiB, 0.2 s)
+strata generate: 1466 MiB of weights loaded from /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/ssd-qwen-pack in 0.3 s (302 canonical tensors skipped: served natively)
+strata generate: 300 native projection matrices, 1781.11 MiB of weights, in 0.3 s
+strata generate: PLE direct read probe: 128258 rows/s (fine)
+strata generate: the SSD is kept awake while rows are read: one page of the table after 100 ms without a read, until 60 s after the last request (STRATA_SSD_KEEPALIVE=0 turns it off)
+strata generate: profile /Users/aleksejkalina/code/models/qwen38-iq3/profile.bin: 24576 ranked pairs, built for 24576 slots
+strata generate: PLE on, table 320001536 rows of /Users/aleksejkalina/code/models/qwen38-iq3/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00002-of-00002.gguf
+strata generate: --batch: 3 slot sessions on CUDA0 (0.72 GiB each); 31.12 GiB free
+strata generate: --batch 3: the slot sessions take 2.17 GiB of VRAM on CUDA0 that the expert cache would otherwise hold
+strata generate: experimental native Q5_K head, 437043200 bytes, in 0.1 s
+strata generate: GPU 0: Apple M4 Max, compute capability 0.0
+strata generate: experts via mmap (--mmap-experts; the GGUF shards in place, no experts.bin)
+strata generate: CPU pool tasks/phase: 48 (automatic), participating threads: 16
+strata generate: CPU pool: 15 workers by default (16 physical cores, 16 logical processors; bounded by every physical core but the host's)
+strata generate: 15 pool workers on logical processors 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15, the host thread on 0 (draining too) (--host-core first)
+strata generate: CPU workers on logical processors 1-15 (15 workers, the OS did not say which logical processors share a core; host on 0)
+strata aux cpus: not available on this system
+strata generate: expert cache 84 slots, 0.14 GiB of VRAM; policy is
+strata generate: the GPU computes the experts in the cache; it rounds differently from the CPU,
+                 so a reply can differ slightly from a run without the cache (same quality:
+                 bench/results/2026-09-27-cache-parity).
+                 PROFILE, ranked by routing frequency, no eviction.
+strata generate: the profile fill asks for 256 pairs ahead (STRATA_FILL_AHEAD)
+strata generate: pre-filled 84 of 84 slots from the profile in 0.0 s (6099 MB/s); slot 0 verified
+strata generate: routing-aware prefetch on (the next layer's router, file tier)
+strata generate: R4 hit path ON - resident experts are computed on the GPU
+strata generate: 15 expert-pool workers + the host thread
+strata generate: session is up (engine 0.1.69-metal)
+strata generate: token graph hit path: 84 resident experts, decided on the device
+strata serve: the prompt path allocates its own buffers (too few cache slots to borrow)
+mtl: GPU keep-alive every 250 ms for 120 s after the last command buffer (#6078; STRATA_METAL_KEEPALIVE_MS=0 turns it off)
+strata metal: HC read in Q8_0 (STRATA_HC_Q8=0: BF16): 290 matrices, 680 MB, made in 99 ms
+strata metal stream: 789 dense tensors read into memory (2.84 GB, 0.2 s; 290 left out)
+strata metal: decode window on Apple M4 Max: /Users/aleksejkalina/code/models/qwen38-iq3/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf streamed from the SSD (experts) (47.0 GB), 24704 cells, PLE on, ready in 429 ms
+strata metal: 3 batch slots, each with its own running state and K/V (0.47 GB each, 1.42 GB in all)
+strata verify: batch windows of up to 3 sequences, run slot by slot in the Metal window
+strata serve: conversation cache sized from the free RAM: 3328 MiB for up to 4 parked conversations, so an agent's next turn reuses its prompt (--conversation-cache-mib N sets it, 0 turns it off)
+strata serve: conversation cache: no SSD tier: no data folder (--pack is not under <data>/packs; --conversation-spill-dir sets one)
+strata serve: adaptive overlap: off (STRATA_ADAPT_OVERLAP=1 turns it on)
+strata serve: 26096 MiB of VRAM free with everything loaded
+strata serve: draft costs: no table for this machine yet (/Users/aleksejkalina/.config/strata/draft-costs/qwen-46a00ff69fea.costs: no table file yet): it is built from real requests, live costs decide until every window size has 16 own rounds or 100 requests have run
+strata metal stream: 5.23 GB of the host code's device weight copies given back (unused by the Metal window)
+strata metal stream: 5.46 GB allocated before the arena (the process holds 13.76 GB, 9.29 GB resident); RAM 51.5 GB (11.0 GB available, 7.7 GB kept for macOS), GPU working set 40.2 GB
+strata metal stream: planned resident footprint 20.3 GB = arena 6.0 + 13.8 held before it + 0.5 reserved for the n-gram table; cap 40.2 GB = the lesser of the GPU working set 40.2 GB and the RAM 51.5 GB less 11.3 GB left to macOS and its file cache
+strata metal stream: no expert profile at /expert-profile.bin: the arena starts layer-interleaved
+strata metal stream: expert arena 6.00 GB, 3229 slots in 3 size classes, 3229 experts read from the profile's top (0 ranked) in 1.3 s (4.48 GB/s); 6 I/O threads, read-ahead top 0; 1 buffers
+strata metal stream: the arena is small: the prompt's 1.59 GB of buffers are their own allocation, not a region of its slots
+strata metal: prompts on the matrix units in chunks of 1024 (experts v2, QSA v1, matmul2d layout other; 1.59 GB of buffers, in the expert arena while a prompt runs)
+strata metal stream: resident footprint after the fill: the process holds 14.2 GB (14.7 GB resident), planned 20.3 GB, cap 40.2 GB
+turbine: automatic parent saved tokens=554
+strata serve: prompt 592 tokens = 0 reused + 592 read in 10466 ms (56.6 tok/s), 2 generated in 252 ms (7.9 tok/s), drafts accepted 0 of 0, 2 checkpoints
+strata serve: expert tiers: GPU 0 hits this request; since the start RAM 0 blobs, files 0 blobs 149.1 MB read (the GGUF in place)
+strata batch: slot 0 takes 594 tokens (copied in 26.1 ms)
+strata serve: prompt 594 tokens = 593 reused + 1 read in 0 ms (101688.0 tok/s), 1 generated in 145 ms (6.9 tok/s), drafts accepted 0 of 0, 2 checkpoints
+strata serve: expert tiers: GPU 0 hits this request; since the start RAM 0 blobs, files 0 blobs 149.1 MB read (the GGUF in place)
+strata serve: conversation cache: parked 594 tokens in 36.8 ms; parked=1 bytes=362669212 evictions=0 snapshot_bytes=362669212 reused_kv_bytes=0
+turbine: automatic parent saved tokens=1923
+strata batch: the prompt was read in 2 parts, the slots decoding 3267 ms between them
+strata batch: slot 1 takes 1961 tokens (copied in 23.0 ms)
+strata serve: prompt 1961 tokens = 0 reused + 1961 read in 20398 ms (96.1 tok/s), 1 generated in 97 ms (10.3 tok/s), drafts accepted 0 of 0, 2 checkpoints
+strata serve: expert tiers: GPU 0 hits this request; since the start RAM 0 blobs, files 0 blobs 149.1 MB read (the GGUF in place)
+strata batch: 40 windows, avg 1.27 rows, 149.25 ms/window = run 149.24 (CUDA0 GPU-reach wait 0.00 + CPU experts 0.00) + commit 0.00 + emit 0.01 + adapt wait 0.00; per stage (ms/window): CUDA0 wait 0.00 + pool 0.00; per layer-window: CPU experts 0.00, VRAM hits 0.00, PCIe 0.00; routed entries per window: VRAM 0.0 (0.0%), PCIe 0.0 (0.0%), CPU 0.0 (0.0%); adaptive tier: 3 rounds, 0 experts swapped in; 2.2 rows/s over 23222 ms of wall time (admissions included)
+strata serve: conversation cache: parked 1961 tokens in 40.4 ms; parked=2 bytes=744791388 evictions=0 snapshot_bytes=382122176 reused_kv_bytes=0
+strata batch: slot 1 gave back 1974 tokens of this conversation (all it holds) in 16.4 ms
+strata serve: draft costs: calibrated against real requests: 1 rows real 114.41
+strata serve: prompt 1975 tokens = 1974 reused + 1 read in 57 ms (17.6 tok/s), 153 generated in 20695 ms (7.4 tok/s), drafts accepted 0 of 0, 2 checkpoints
+strata serve: expert tiers: GPU 0 hits this request; since the start RAM 0 blobs, files 0 blobs 149.1 MB read (the GGUF in place)
+strata serve: conversation cache: dropped 1 superseded copy of this conversation; parked=1
+strata serve: conversation cache: dropped superseded snapshot 1961 tokens (extended by 2127)
+strata serve: conversation cache: parked 2127 tokens in 48.1 ms; parked=2 bytes=747122164 evictions=0 snapshot_bytes=384452952 reused_kv_bytes=0
+turbine: automatic parent saved tokens=1905
+strata serve: prompt 1999 tokens = 0 reused + 1999 read in 16574 ms (120.6 tok/s), 76 generated in 9313 ms (8.2 tok/s), drafts accepted 0 of 0, 2 checkpoints
+strata serve: expert tiers: GPU 0 hits this request; since the start RAM 0 blobs, files 0 blobs 149.1 MB read (the GGUF in place)
+automatic parent save failed: metal window: a slot copy with a fold pending
+expert stream prompts    6 chunks: 107033 distinct lookups (371.6 per layer), in the arena 0.0404, streamed ahead 0.9123, missed 0.0474; 135612 streamed in; host 4331.4 ms per chunk, of it waiting 4287.8 ms
+expert stream            314 windows: 167472 distinct lookups (533.4 per window), hits 0.6611, read-ahead hits 0.0000 (0 of them late), misses 0.3389 (180.7 per window); read-aheads 0 (0.0 per window, 32830 dropped); 936.3 MB read per window (167833 reads); host 73.17 ms per window, of it waiting 72.86 ms
+stream windows T=1     264 (decode): 129.40 ms each (GPU incl. the host's turns 128.40 ms)
+stream windows T=2     50 (decode): 209.75 ms each (GPU incl. the host's turns 208.38 ms)
+[strata] 2026-11-26 11:35:18 engine started: /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/final-sprint/qwen-release/strata --serve --serve --pack /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/ssd-qwen-pack --native /Users/aleksejkalina/code/models/qwen38-iq3/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf --ple-gguf /Users/aleksejkalina/code/models/qwen38-iq3/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00002-of-00002.gguf --expert-profile /Users/aleksejkalina/code/models/qwen38-iq3/profile.bin --max-context 24576 --expert-cache 64 --batch 3 --prefill auto --spec 2 --suffix-draft 0 --mmap-experts --prompt-cache-root 32 --draft-costs /Users/aleksejkalina/.config/strata/draft-costs/qwen-46a00ff69fea.costs --draft-costs-key engine file 5197336 bytes
+strata generate: memory guard: limit 48.0 GiB (source: meminfo), current 24.6 GiB, reclaimable cache credited 0.0 GiB; available 23.4 GiB (MemAvailable 23.4 GiB), floor 2560 MiB
+strata generate: PCIe probe failed -> pcie_frac default 0.55
+strata generate: CPU expert kernels: the Strata quant layer (NEON)
+strata generate: native pack: /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/ssd-qwen-pack experts (largest blob 2.33 MB), token embedding IQ3_S in mapped host memory (260 MiB, 0.2 s)
+strata generate: 1466 MiB of weights loaded from /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/ssd-qwen-pack in 0.4 s (302 canonical tensors skipped: served natively)
+strata generate: 300 native projection matrices, 1781.11 MiB of weights, in 0.7 s
+strata generate: PLE direct read probe: 127955 rows/s (fine)
+strata generate: the SSD is kept awake while rows are read: one page of the table after 100 ms without a read, until 60 s after the last request (STRATA_SSD_KEEPALIVE=0 turns it off)
+strata generate: profile /Users/aleksejkalina/code/models/qwen38-iq3/profile.bin: 24576 ranked pairs, built for 24576 slots
+strata generate: PLE on, table 320001536 rows of /Users/aleksejkalina/code/models/qwen38-iq3/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00002-of-00002.gguf
+strata generate: --batch: 3 slot sessions on CUDA0 (0.72 GiB each); 31.12 GiB free
+strata generate: --batch 3: the slot sessions take 2.17 GiB of VRAM on CUDA0 that the expert cache would otherwise hold
+strata generate: experimental native Q5_K head, 437043200 bytes, in 0.1 s
+strata generate: GPU 0: Apple M4 Max, compute capability 0.0
+strata generate: experts via mmap (--mmap-experts; the GGUF shards in place, no experts.bin)
+strata generate: CPU pool tasks/phase: 48 (automatic), participating threads: 16
+strata generate: CPU pool: 15 workers by default (16 physical cores, 16 logical processors; bounded by every physical core but the host's)
+strata generate: 15 pool workers on logical processors 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15, the host thread on 0 (draining too) (--host-core first)
+strata generate: CPU workers on logical processors 1-15 (15 workers, the OS did not say which logical processors share a core; host on 0)
+strata aux cpus: not available on this system
+strata generate: expert cache 84 slots, 0.14 GiB of VRAM; policy is
+strata generate: the GPU computes the experts in the cache; it rounds differently from the CPU,
+                 so a reply can differ slightly from a run without the cache (same quality:
+                 bench/results/2026-09-27-cache-parity).
+                 PROFILE, ranked by routing frequency, no eviction.
+strata generate: the profile fill asks for 256 pairs ahead (STRATA_FILL_AHEAD)
+strata generate: pre-filled 84 of 84 slots from the profile in 0.0 s (6123 MB/s); slot 0 verified
+strata generate: routing-aware prefetch on (the next layer's router, file tier)
+strata generate: R4 hit path ON - resident experts are computed on the GPU
+strata generate: 15 expert-pool workers + the host thread
+strata generate: session is up (engine 0.1.69-metal)
+strata generate: token graph hit path: 84 resident experts, decided on the device
+strata serve: the prompt path allocates its own buffers (too few cache slots to borrow)
+mtl: GPU keep-alive every 250 ms for 120 s after the last command buffer (#6078; STRATA_METAL_KEEPALIVE_MS=0 turns it off)
+strata metal: HC read in Q8_0 (STRATA_HC_Q8=0: BF16): 290 matrices, 680 MB, made in 79 ms
+strata metal stream: 789 dense tensors read into memory (2.84 GB, 0.2 s; 290 left out)
+strata metal: decode window on Apple M4 Max: /Users/aleksejkalina/code/models/qwen38-iq3/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf streamed from the SSD (experts) (47.0 GB), 24704 cells, PLE on, ready in 410 ms
+strata metal: 3 batch slots, each with its own running state and K/V (0.47 GB each, 1.42 GB in all)
+strata verify: batch windows of up to 3 sequences, run slot by slot in the Metal window
+strata serve: conversation cache sized from the free RAM: 3072 MiB for up to 4 parked conversations, so an agent's next turn reuses its prompt (--conversation-cache-mib N sets it, 0 turns it off)
+strata serve: conversation cache: no SSD tier: no data folder (--pack is not under <data>/packs; --conversation-spill-dir sets one)
+strata serve: adaptive overlap: off (STRATA_ADAPT_OVERLAP=1 turns it on)
+strata serve: 26096 MiB of VRAM free with everything loaded
+strata serve: draft costs: this machine's table is being built from real requests (/Users/aleksejkalina/.config/strata/draft-costs/qwen-46a00ff69fea.costs; 5 requests so far): live costs decide until every window size has 16 own rounds or 100 requests have run
+strata metal stream: 5.23 GB of the host code's device weight copies given back (unused by the Metal window)
+strata metal stream: 5.46 GB allocated before the arena (the process holds 13.76 GB, 9.29 GB resident); RAM 51.5 GB (11.0 GB available, 7.7 GB kept for macOS), GPU working set 40.2 GB
+strata metal stream: planned resident footprint 20.3 GB = arena 6.0 + 13.8 held before it + 0.5 reserved for the n-gram table; cap 40.2 GB = the lesser of the GPU working set 40.2 GB and the RAM 51.5 GB less 11.3 GB left to macOS and its file cache
+strata metal stream: no expert profile at /expert-profile.bin: the arena starts layer-interleaved
+strata metal stream: expert arena 6.00 GB, 3229 slots in 3 size classes, 3229 experts read from the profile's top (0 ranked) in 1.4 s (3.99 GB/s); 6 I/O threads, read-ahead top 0; 1 buffers
+strata metal stream: the arena is small: the prompt's 1.59 GB of buffers are their own allocation, not a region of its slots
+strata metal: prompts on the matrix units in chunks of 1024 (experts v2, QSA v1, matmul2d layout other; 1.59 GB of buffers, in the expert arena while a prompt runs)
+strata metal stream: resident footprint after the fill: the process holds 14.2 GB (14.4 GB resident), planned 20.3 GB, cap 40.2 GB
+turbine: automatic parent saved tokens=2076
+strata serve: prompt 2146 tokens = 0 reused + 2146 read in 21812 ms (98.4 tok/s), 101 generated in 12636 ms (8.0 tok/s), drafts accepted 0 of 0, 2 checkpoints
+strata serve: expert tiers: GPU 0 hits this request; since the start RAM 0 blobs, files 0 blobs 149.1 MB read (the GGUF in place)
+strata serve: conversation cache: parked 2246 tokens in 41.3 ms; parked=1 bytes=386159056 evictions=0 snapshot_bytes=386159056 reused_kv_bytes=0
+turbine: automatic parent saved tokens=2129
+strata serve: prompt 2251 tokens = 0 reused + 2251 read in 23191 ms (97.1 tok/s), 20 generated in 2625 ms (7.6 tok/s), drafts accepted 0 of 0, 2 checkpoints
+strata serve: expert tiers: GPU 0 hits this request; since the start RAM 0 blobs, files 0 blobs 149.1 MB read (the GGUF in place)

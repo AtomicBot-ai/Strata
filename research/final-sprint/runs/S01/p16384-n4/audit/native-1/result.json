@@ -1,0 +1,159 @@
+{
+  "key": {
+    "config": [
+      16384,
+      4,
+      128,
+      true
+    ],
+    "seed": 83901,
+    "mode": "native",
+    "slots": 2,
+    "width": 1,
+    "diag": true,
+    "work": "a28fde977a27c0ac6a0c0c163da2270de40516465ff08335b19948021fc926d0"
+  },
+  "elapsed_ns": 10151853209,
+  "through_cleanup_ns": 10152112459,
+  "parent_prefill_ns": 25722486542,
+  "initial_parent_in_elapsed": false,
+  "snapshot_create_ns": 0,
+  "restore_ns": 0,
+  "drop_ns": 0,
+  "postrun_slot_clear_ns": 259250,
+  "children_done_ns": 10151853000,
+  "snapshot_bytes": 0,
+  "memory": {
+    "before": {
+      "footprint": 3529608816,
+      "peak_footprint": 3529608816,
+      "rss": 3015180288,
+      "pageins": 7820
+    },
+    "parent": {
+      "footprint": 3723022080,
+      "peak_footprint": 3723038464,
+      "rss": 3116269568,
+      "pageins": 7820
+    },
+    "after_create": {
+      "footprint": 3723022080,
+      "peak_footprint": 3723038464,
+      "rss": 3116269568,
+      "pageins": 7820
+    },
+    "end": {
+      "footprint": 3725577984,
+      "peak_footprint": 3725577984,
+      "rss": 3123937280,
+      "pageins": 7820
+    },
+    "cleared": {
+      "footprint": 3725577984,
+      "peak_footprint": 3725577984,
+      "rss": 3123937280,
+      "pageins": 7820
+    }
+  },
+  "branches": [
+    {
+      "branch": 0,
+      "dispatch_ns": 43000,
+      "first_ns": 25426292,
+      "done_ns": 2518149417,
+      "reused": 16384,
+      "engine_prefill_ms": 19.2,
+      "engine_decode_ms": 2491.5,
+      "endpoint": 82
+    },
+    {
+      "branch": 1,
+      "dispatch_ns": 2518512417,
+      "first_ns": 2578340834,
+      "done_ns": 5084652292,
+      "reused": 16383,
+      "engine_prefill_ms": 38.8,
+      "engine_decode_ms": 2505.1,
+      "endpoint": 82
+    },
+    {
+      "branch": 2,
+      "dispatch_ns": 5084875167,
+      "first_ns": 5112485000,
+      "done_ns": 7628140709,
+      "reused": 16384,
+      "engine_prefill_ms": 19.4,
+      "engine_decode_ms": 2514.3,
+      "endpoint": 34
+    },
+    {
+      "branch": 3,
+      "dispatch_ns": 7628323792,
+      "first_ns": 7655830917,
+      "done_ns": 10151696917,
+      "reused": 16384,
+      "engine_prefill_ms": 19.1,
+      "engine_decode_ms": 2494.8,
+      "endpoint": 67
+    }
+  ],
+  "waves": [
+    {
+      "first_branch": 0,
+      "size": 1,
+      "queue_ns": 43000,
+      "dispatch_to_first_ns": 25383292,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2492723125,
+      "physical": {
+        "footprint": 3720187648,
+        "peak_footprint": 3723333376,
+        "rss": 3118530560,
+        "pageins": 7820
+      }
+    },
+    {
+      "first_branch": 1,
+      "size": 1,
+      "queue_ns": 2518512417,
+      "dispatch_to_first_ns": 59828417,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2506311458,
+      "physical": {
+        "footprint": 3723955968,
+        "peak_footprint": 3723955968,
+        "rss": 3122298880,
+        "pageins": 7820
+      }
+    },
+    {
+      "first_branch": 2,
+      "size": 1,
+      "queue_ns": 5084875167,
+      "dispatch_to_first_ns": 27609833,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2515655709,
+      "physical": {
+        "footprint": 3723955968,
+        "peak_footprint": 3723955968,
+        "rss": 3122315264,
+        "pageins": 7820
+      }
+    },
+    {
+      "first_branch": 3,
+      "size": 1,
+      "queue_ns": 7628323792,
+      "dispatch_to_first_ns": 27507125,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2495866000,
+      "physical": {
+        "footprint": 3725577984,
+        "peak_footprint": 3725577984,
+        "rss": 3123937280,
+        "pageins": 7820
+      }
+    }
+  ],
+  "raw_sha256": "8f2eebbe8ec1468c2b9b7c315eb66b03f5da60c41498dad89dccecea365541a8"
+}

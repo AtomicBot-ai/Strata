@@ -1,0 +1,9 @@
+loading the model (the first start takes a minute or two) ...
+[strata] pictures: scaled down to at most 0.80 MP before the engine reads them (inkling_image_max_mp in the run config, in megapixels, sets another size, 0 turns it off)
+[strata] thinking level: low (the Inkling default, no reasoning_effort in the config; a request, or the Chat settings shared with other apps, can set its own)
+[strata] Monitor: watching GPU 0 (main) (as nvidia-smi numbers them)
+ready: http://127.0.0.1:61947/v1  (OpenAI: /v1/chat/completions, Anthropic: /v1/messages, context 24576 tokens)
+       open http://127.0.0.1:61947/ in a browser to chat; close this window to stop the model
+
+[strata] stopping (Ctrl+C again to end the engine at once) ...
+[strata] stopped

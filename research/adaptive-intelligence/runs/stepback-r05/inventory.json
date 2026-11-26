@@ -1,0 +1,401 @@
+{
+  "fixture_sha": "089a413ef56f2bd5d7aa2328c621ec3847fc900adbfd3e1315894ba98c0d6e09",
+  "candidates": [
+    {
+      "task": "abc398_d",
+      "branch": "parent",
+      "path": "stepback-r03/abc398_d/parent.py",
+      "sha": "363ece32125afefa9356b640b7e97cb9cda6cdaeba3fcba243530312014d29f9"
+    },
+    {
+      "task": "abc398_d",
+      "branch": "child",
+      "path": "stepback-r03/abc398_d/child.py",
+      "sha": "d60b41a02f92170d1ac5e2de0efa662529110ddbbe6f4794acbf69e021616cdf"
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4201/approach",
+      "path": "stepback-r04/abc398_d/4201/approach/candidate.py",
+      "sha": "5f046d63e1474fa76f3fa9e4b2aa3d6db909936868b949a234e848654f0fec39"
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4201/middle",
+      "path": "stepback-r04/abc398_d/4201/middle/candidate.py",
+      "sha": "8c4bc1cd8115e5d3b482f4d15d82fc0246c83d62b48ca80b4b811a4a164628c8"
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4201/code",
+      "path": "stepback-r04/abc398_d/4201/code/candidate.py",
+      "sha": "9d4f67fdb111bb56c13062a36b5c73821f6e9ddab864a212608c4de5608aa495"
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4217/approach",
+      "path": "stepback-r04/abc398_d/4217/approach/candidate.py",
+      "sha": "e27ff34f7a10f8af9885a78493c459f73245e2f0b272a140646aebe2066519d6"
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4217/middle",
+      "path": "stepback-r04/abc398_d/4217/middle/candidate.py",
+      "sha": "4b0b3c9a350806f34cf1a1c1d4d6189fb8899bff4d1cdcec6e783a23038d50a0"
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4217/code",
+      "path": "stepback-r04/abc398_d/4217/code/candidate.py",
+      "sha": "975c6187ed20269b7a2e116238cafd05e6d0de0c8ad27067076e1aa91d6465d1"
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4243/approach",
+      "path": "stepback-r04/abc398_d/4243/approach/candidate.py",
+      "sha": "f09e5941dbddcc88c7d8bd85a4083f3b3cba52e7bb4711fe44365a5a7d8879d1"
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4243/middle",
+      "path": "stepback-r04/abc398_d/4243/middle/candidate.py",
+      "sha": "28dadad519413efc91b34d1ad8d3895b7875e85220037bba8fb08248faeb302b"
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4243/code",
+      "path": "stepback-r04/abc398_d/4243/code/candidate.py",
+      "sha": "982901904de976503a86027d29416d287482ef7081bec668d1a0b07919b9a15d"
+    },
+    {
+      "task": "abc344_b",
+      "branch": "parent",
+      "path": "stepback-r03/abc344_b/parent.py",
+      "sha": "31d8e655de348214ae6cace4563c52b8917a33d8a32301fe218c7ecfc3c68aff"
+    },
+    {
+      "task": "abc344_b",
+      "branch": "child",
+      "path": "stepback-r03/abc344_b/child.py",
+      "sha": "2245ab0fcec669c8b6e6a32b5d3a4b2b162a1bfb4a7fddcc3a301287981c8ea2"
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4201/approach",
+      "path": "stepback-r04/abc344_b/4201/approach/candidate.py",
+      "sha": "f1ddef3dfb8552ef8acebfed21ddb292b70448b7edc455bf5ab2e6b1459c2085"
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4201/middle",
+      "path": "stepback-r04/abc344_b/4201/middle/candidate.py",
+      "sha": "f41308c157092a0ffc82c4b738a5c5281f45e90e9a127d6b6c4bef1217fe6ef6"
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4201/code",
+      "path": "stepback-r04/abc344_b/4201/code/candidate.py",
+      "sha": "2245ab0fcec669c8b6e6a32b5d3a4b2b162a1bfb4a7fddcc3a301287981c8ea2"
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4217/approach",
+      "path": "stepback-r04/abc344_b/4217/approach/candidate.py",
+      "sha": "049c9fb42072f44512fd2a1d203c361cadf926dd1839761a5f3a6eb3f5664b45"
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4217/middle",
+      "path": "stepback-r04/abc344_b/4217/middle/candidate.py",
+      "sha": "3ed14b391b09b87712c97b64bdff98472f27cbdb751a01a9ae08109322132cd9"
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4217/code",
+      "path": "stepback-r04/abc344_b/4217/code/candidate.py",
+      "sha": "bff90ff912937f10d3146dae018a15b2c367683e48440325d19e43b12f15b41a"
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4243/approach",
+      "path": "stepback-r04/abc344_b/4243/approach/candidate.py",
+      "sha": "b8ab721e1efe584c4fbbbdd32f12fd7db60930caef23c27d16d000b82d65d7c7"
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4243/middle",
+      "path": "stepback-r04/abc344_b/4243/middle/candidate.py",
+      "sha": "d9ef7137f1f3dd14a9b511a7c2c579e66a5509cd9ceb7cbcac898ec915faade2"
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4243/code",
+      "path": "stepback-r04/abc344_b/4243/code/candidate.py",
+      "sha": "2b06bc83c01a8b9f7151d17372eb44564be185a0c5d4326127d97f3a550a5091"
+    },
+    {
+      "task": "abc398_c",
+      "branch": "parent",
+      "path": "stepback-r03/abc398_c/parent.py",
+      "sha": "68bbc6cb5920ff07d14b05ca9af0535f423a64bb54658b3030973405d5b19358"
+    },
+    {
+      "task": "abc398_c",
+      "branch": "child",
+      "path": "stepback-r03/abc398_c/child.py",
+      "sha": "570d1d0e33210113dfc7fad69fdd23ba23054ba07a6c3e9244c31c8cf1a05a94"
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4201/approach",
+      "path": "stepback-r04/abc398_c/4201/approach/candidate.py",
+      "sha": "1c7354f676b2513cc472853b288169a9a8a9c5e180adf5a1f1fe94fdfdef9557"
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4201/middle",
+      "path": "stepback-r04/abc398_c/4201/middle/candidate.py",
+      "sha": "e8ee39288c79ea1ebb0361e08ee595d1c50a3da52c2827593190cec373b0f0f1"
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4201/code",
+      "path": "stepback-r04/abc398_c/4201/code/candidate.py",
+      "sha": "7c53e86f5c8c501dd2f1b639adc871bc1822b59293952127b85731493669cae3"
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4217/approach",
+      "path": "stepback-r04/abc398_c/4217/approach/candidate.py",
+      "sha": "0a3781bc27cb6f28eaaee738905e4c84a484473354b814cd8481a3a2e03e32ce"
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4217/middle",
+      "path": "stepback-r04/abc398_c/4217/middle/candidate.py",
+      "sha": "82eb8136577cc742ec6dee4ee001188ad48dd611fbf114558145c11f6135e4da"
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4217/code",
+      "path": "stepback-r04/abc398_c/4217/code/candidate.py",
+      "sha": "de432c6968517294d1912d03b1ce74693f30480576e943ef6a32e1e0b5419ca1"
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4243/approach",
+      "path": "stepback-r04/abc398_c/4243/approach/candidate.py",
+      "sha": "f47db47f942132b567f1289c1658bc76207026d87288137c8640e54fff7adee8"
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4243/middle",
+      "path": "stepback-r04/abc398_c/4243/middle/candidate.py",
+      "sha": "b3c5a2aba3bd6d7de9044836eed97d0b50214c40b906aa2637bc8496f47835d3"
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4243/code",
+      "path": "stepback-r04/abc398_c/4243/code/candidate.py",
+      "sha": "00798fe2c2734275803cbbb67f869184e5dfe6145d7fba54e065daacdc3d74bb"
+    },
+    {
+      "task": "abc306_b",
+      "branch": "parent",
+      "path": "stepback-r03/abc306_b/parent.py",
+      "sha": "145aa3e78b22c836b5fce4e05de54fb013d71917e9389c330e22160610fa8149"
+    },
+    {
+      "task": "abc306_b",
+      "branch": "child",
+      "path": "stepback-r03/abc306_b/child.py",
+      "sha": "4a8aa487b01f5a8c45ed934c749cbb08ed0d7aa901588f6e38b62793143e7f53"
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4201/approach",
+      "path": "stepback-r04/abc306_b/4201/approach/candidate.py",
+      "sha": "5a6e59bb94633797b55b3127c224938f4bf9f0dcf45dfe0c6e704fe5c1414c6b"
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4201/middle",
+      "path": "stepback-r04/abc306_b/4201/middle/candidate.py",
+      "sha": "7498314f4b4eeb69352a9d05b54aac1a0994b8b4cebedbb1d1f50290c0efcc74"
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4201/code",
+      "path": "stepback-r04/abc306_b/4201/code/candidate.py",
+      "sha": "52ca8b9b6a86463ae531c6fac42429e27a1ff8e5b7458fff13c2dff99c18b701"
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4217/approach",
+      "path": "stepback-r04/abc306_b/4217/approach/candidate.py",
+      "sha": "faf24ebfb184a495a4d316f344171b92610da71c41f741d988a882e85d1f740e"
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4217/middle",
+      "path": "stepback-r04/abc306_b/4217/middle/candidate.py",
+      "sha": "145aa3e78b22c836b5fce4e05de54fb013d71917e9389c330e22160610fa8149"
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4217/code",
+      "path": "stepback-r04/abc306_b/4217/code/candidate.py",
+      "sha": "039c3f9d8f9855506408c48ab56d7212a39091369ace22efa934d0909e1cb6b1"
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4243/approach",
+      "path": "stepback-r04/abc306_b/4243/approach/candidate.py",
+      "sha": "e8597804c108a903828123b889cde7eb1e498e7cce20df09b5158a9c6298ea73"
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4243/middle",
+      "path": "stepback-r04/abc306_b/4243/middle/candidate.py",
+      "sha": "781f6b4944c35eb5ca8acc1d074974721da2dd32e7ffe0d3180697907cfbc92e"
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4243/code",
+      "path": "stepback-r04/abc306_b/4243/code/candidate.py",
+      "sha": "d9cf83a714d926caced9b6ba0d842302cfca0817aac909fc410cce57d0ca05c7"
+    },
+    {
+      "task": "abc397_f",
+      "branch": "parent",
+      "path": "stepback-r03/abc397_f/parent.py",
+      "sha": "cf0ef5550c173a24476ef375e5972f2c108de366593983a964b10220fe9a78de"
+    },
+    {
+      "task": "abc397_f",
+      "branch": "child",
+      "path": "stepback-r03/abc397_f/child.py",
+      "sha": "d4699334a9c9d859dc8fd45ff0fbb7e5accb218beab7ce774161f53af2f564c6"
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4201/approach",
+      "path": "stepback-r04/abc397_f/4201/approach/candidate.py",
+      "sha": "1451a5c9626f246c346c3429dea9d43c36d87844201cdce7dc3e14c5724eb08c"
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4201/middle",
+      "path": null,
+      "sha": null
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4201/code",
+      "path": "stepback-r04/abc397_f/4201/code/candidate.py",
+      "sha": "88a5905d601854b782978b7e77ae7f139ac0f164ba66fe600f49aa7d0816627e"
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4217/approach",
+      "path": "stepback-r04/abc397_f/4217/approach/candidate.py",
+      "sha": "085c082ec2620b50e8e45677aa8b71d9068dca3ca7dc2f63c58fd87c5f062620"
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4217/middle",
+      "path": null,
+      "sha": null
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4217/code",
+      "path": "stepback-r04/abc397_f/4217/code/candidate.py",
+      "sha": "7bc620629cf037ac53a0d49c08cd3b334f00393cce533136ebdd598d1249d407"
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4243/approach",
+      "path": "stepback-r04/abc397_f/4243/approach/candidate.py",
+      "sha": "5d8083e944cdf697b4ac5f9cc1e3da361c19a9ed6e32885753247c26256285b4"
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4243/middle",
+      "path": "stepback-r04/abc397_f/4243/middle/candidate.py",
+      "sha": "6f3544234a38c3ac13cc6c502b0e54559e812864a82a18682258fcb48954146a"
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4243/code",
+      "path": "stepback-r04/abc397_f/4243/code/candidate.py",
+      "sha": "6d4214bb56b6554129ccf8091e30e3e76fdeb5bdbd56e26d39c88a9de064da52"
+    },
+    {
+      "task": "abc376_b",
+      "branch": "parent",
+      "path": "stepback-r03/abc376_b/parent.py",
+      "sha": "63992d090861d0cb7243001e1346ebbf9cf3e4db404bba59cee85b7066e1d640"
+    },
+    {
+      "task": "abc376_b",
+      "branch": "child",
+      "path": "stepback-r03/abc376_b/child.py",
+      "sha": "358f4ef1fb9943c60c550d8818233caa90f05c816339226ee04538745090793f"
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4201/approach",
+      "path": "stepback-r04/abc376_b/4201/approach/candidate.py",
+      "sha": "9f335ac3358bf05f3cd892d1f5a3703950fc9eb32e37efc319ba4be4ff2f4136"
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4201/middle",
+      "path": "stepback-r04/abc376_b/4201/middle/candidate.py",
+      "sha": "bba0f89df37f6d29acc9936f1ccb6a190e91635e98a380c50d545719639eb661"
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4201/code",
+      "path": "stepback-r04/abc376_b/4201/code/candidate.py",
+      "sha": "cf50f4a564d0a7b86bab586718e5362bc9c768d98d64c0c00c1321f66239f476"
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4217/approach",
+      "path": "stepback-r04/abc376_b/4217/approach/candidate.py",
+      "sha": "030def397c9fb512ecc7a97f7ec656fd3d5fd2874c1d771b55283152fc84cb60"
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4217/middle",
+      "path": "stepback-r04/abc376_b/4217/middle/candidate.py",
+      "sha": "698e01b05ad95e354492e5b14d2e4fea9700bb6adbe50fd0c21b5fa0c65b3d31"
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4217/code",
+      "path": "stepback-r04/abc376_b/4217/code/candidate.py",
+      "sha": "b3ab16ed9a76674a9485bc6485a95e98620834379407fdb664a4d8bfc2acdb8d"
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4243/approach",
+      "path": "stepback-r04/abc376_b/4243/approach/candidate.py",
+      "sha": "3b66394e89b674847000e677bc857602687d9b37922f126e5e9954c0490c831f"
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4243/middle",
+      "path": "stepback-r04/abc376_b/4243/middle/candidate.py",
+      "sha": "63eac1a6ee4329829f56e61aefa147e266a9ae8bee6f4a2fb1422a879843bab9"
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4243/code",
+      "path": "stepback-r04/abc376_b/4243/code/candidate.py",
+      "sha": "84161d4e9578387b076d81f3a0a394c79a2ffb9a46f8b03997d504d961f46e77"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+[ 31%] Built target strata_zstd_dec
+[ 34%] Building OBJCXX object metal/CMakeFiles/strata_inkling_metal.dir/ink_metal_backend.mm.o
+[ 37%] Linking OBJCXX static library libstrata_inkling_metal.a
+[ 42%] Built target strata_inkling_metal
+[ 74%] Built target strata_quant
+[ 94%] Built target strata_inkling_core
+[ 97%] Linking CXX executable strata-inkling
+[100%] Built target strata-inkling

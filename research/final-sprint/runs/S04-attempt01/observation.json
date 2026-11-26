@@ -1,0 +1,5 @@
+{
+  "valid_for_final_smoke": false,
+  "reason": "The observer executable was named s04_wire.py. Upstream detects Inkling-specific end tokens by executable basename. OpenCode received finish=length and left tool calls in streaming state. The inherited PWD also pointed outside the fixture. No tools executed.",
+  "corrections": ["Retain the strata-inkling executable prefix for the wire observer", "Pass the isolated repository as both cwd and PWD", "Allow the OpenCode v2 subagent tool"]
+}

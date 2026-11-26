@@ -1,0 +1,189 @@
+{
+  "gate": "G0",
+  "verdict": "BLOCKED",
+  "reason": "frozen native logit envelope exceeded at checkpoint 1023, zero-based branch 2",
+  "cells": [
+    {
+      "p": 1024,
+      "n": 2,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 1024,
+      "n": 4,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 1024,
+      "n": 8,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 1024,
+      "n": 1,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 1024,
+      "n": 2,
+      "shared": false,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 4096,
+      "n": 2,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 4096,
+      "n": 4,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 4096,
+      "n": 8,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 4096,
+      "n": 1,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 4096,
+      "n": 2,
+      "shared": false,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 16384,
+      "n": 2,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 16384,
+      "n": 4,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 16384,
+      "n": 8,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 16384,
+      "n": 1,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 16384,
+      "n": 2,
+      "shared": false,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 32768,
+      "n": 2,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 32768,
+      "n": 4,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 32768,
+      "n": 8,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 32768,
+      "n": 1,
+      "shared": true,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    },
+    {
+      "p": 32768,
+      "n": 2,
+      "shared": false,
+      "s": 128,
+      "c": 2,
+      "status": "blocked_before_screening",
+      "measured": false
+    }
+  ],
+  "holdout_runs": 0,
+  "capacity": "not_measured"
+}

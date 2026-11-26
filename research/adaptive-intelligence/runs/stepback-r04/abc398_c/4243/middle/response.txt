@@ -1,0 +1,27 @@
+Step 1: Count the frequency of each integer using a hash map.
+Step 2: Keep only people whose value occurs exactly once, and choose the one with the maximum integer (tie by label if needed, though all values are distinct).
+Step 3: If no unique-value people exist, output -1; otherwise output that person's label.
+
+Final:
+```python
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    n = int(data[0])
+    a = list(map(int, data[1:1 + n]))
+    freq = {}
+    for x in a:
+        freq[x] = freq.get(x, 0) + 1
+    best_val = None
+    best_label = -1
+    for i, x in enumerate(a, start=1):
+        if freq[x] == 1:
+            if best_val is None or x > best_val:
+                best_val = x
+                best_label = i
+    print(best_label)
+
+if __name__ == "__main__":
+    main()
+```<|end_message|><|content_model_end_sampling|>

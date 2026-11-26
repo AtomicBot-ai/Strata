@@ -1,0 +1,62 @@
+{
+  "elapsed_ns": 541600167,
+  "create_ns": 0,
+  "restore_ns": 0,
+  "snapshot_bytes": 0,
+  "memory_before": {
+    "footprint": 2534329224,
+    "peak_footprint": 2534329224,
+    "rss": 2360377344,
+    "pageins": 1
+  },
+  "memory_after": {
+    "footprint": 2534329224,
+    "peak_footprint": 2534329224,
+    "rss": 2360377344,
+    "pageins": 1
+  },
+  "branches": {
+    "0": {
+      "tokens": [
+        837,
+        220,
+        1377,
+        1377,
+        1377,
+        1377,
+        1377,
+        1377,
+        1377
+      ],
+      "prompt": 128,
+      "reused": 0,
+      "prefill_ms": 351.5,
+      "decode_ms": 189.5,
+      "reason": "length",
+      "latency_ns": 541406084
+    },
+    "1": {
+      "tokens": [
+        837,
+        220,
+        1377,
+        1377,
+        1377,
+        1377,
+        1377,
+        1377,
+        1377
+      ],
+      "prompt": 128,
+      "reused": 0,
+      "prefill_ms": 351.5,
+      "decode_ms": 189.5,
+      "reason": "length",
+      "latency_ns": 541597000
+    }
+  },
+  "useful_tokens": 16,
+  "workload_hash": "e78448f5c010a510d7eb7df3b12ef044351ea177b8516e03bf1255bd18c59409",
+  "prefill_tokens": 256,
+  "status": "ok"
+}

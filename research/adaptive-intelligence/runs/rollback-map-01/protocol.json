@@ -1,0 +1,31 @@
+{
+  "math_revision": "6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be",
+  "code_revision": "0fe84c3912ea0c4d4a78037083943e8f0c4dd505",
+  "excluded": [
+    "abc387_a",
+    "abc394_a",
+    "abc394_b",
+    "abc394_c",
+    "abc395_a",
+    "abc395_b",
+    "abc395_c",
+    "test/algebra/2789.json",
+    "test/algebra/425.json",
+    "test/number_theory/1185.json",
+    "test/number_theory/686.json",
+    "test/prealgebra/1238.json",
+    "test/prealgebra/1436.json",
+    "test/prealgebra/1922.json"
+  ],
+  "seeds": [
+    1301,
+    1303,
+    1307
+  ],
+  "draft_seed": 719,
+  "cap": 448,
+  "context": 4096,
+  "first_step": "Step 1:",
+  "binary_sha256": "9d3f426e4a35beb82605e6005bddd809c3e132833c69a9496a9c0111d6866deb",
+  "tokenizer_sha256": "7f332727f9a3f093dd452a39cc978e6757627e5dad1b0673aa4e75174f236dd6"
+}

@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/Applications/OpenCode.app/Contents/Resources/opencode-cli",
+    "run",
+    "--standalone",
+    "--format",
+    "json",
+    "-m",
+    "turbine/inkling",
+    "Fix Strata issue 7119 in terminal/setup.py (function shape_engine_fetch). If shape_engine.ensure emits a concrete failure reason and returns None, the GUI sees only fail()'s message and hint. The current hint refers to an invisible line above. Include the actual emitted reason in that hint, preserve the command-line progress messages and STRATA_ALLOW_NO_ENGINE behavior. Use tools to inspect and edit the actual file."
+  ],
+  "seconds": 10.039875000016764,
+  "exit": 0,
+  "timed_out": false,
+  "tools": [],
+  "text": [],
+  "errors": [],
+  "saves": 0,
+  "restores": 0,
+  "reuse_events": 1,
+  "simultaneous_decode_slots": 2,
+  "engine_peak_bytes": 4474114512,
+  "fixture_base": "e83de74",
+  "diff": ""
+}

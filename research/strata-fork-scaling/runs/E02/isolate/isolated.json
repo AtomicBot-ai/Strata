@@ -1,0 +1,82 @@
+[
+  {
+    "src": 1,
+    "dst": 1,
+    "error": {
+      "maxabs": 0.0,
+      "rms": 0.0,
+      "same_argmax": true,
+      "exact": true
+    },
+    "got": [
+      158,
+      109,
+      94
+    ],
+    "reference": [
+      158,
+      109,
+      94
+    ]
+  },
+  {
+    "src": 1,
+    "dst": 0,
+    "error": {
+      "maxabs": 0.0,
+      "rms": 0.0,
+      "same_argmax": true,
+      "exact": true
+    },
+    "got": [
+      68014,
+      68025,
+      220
+    ],
+    "reference": [
+      68014,
+      68025,
+      220
+    ]
+  },
+  {
+    "src": 0,
+    "dst": 0,
+    "error": {
+      "maxabs": 0.0,
+      "rms": 0.0,
+      "same_argmax": true,
+      "exact": true
+    },
+    "got": [
+      68014,
+      68025,
+      220
+    ],
+    "reference": [
+      68014,
+      68025,
+      220
+    ]
+  },
+  {
+    "src": 0,
+    "dst": 1,
+    "error": {
+      "maxabs": 0.0,
+      "rms": 0.0,
+      "same_argmax": true,
+      "exact": true
+    },
+    "got": [
+      158,
+      109,
+      94
+    ],
+    "reference": [
+      158,
+      109,
+      94
+    ]
+  }
+]

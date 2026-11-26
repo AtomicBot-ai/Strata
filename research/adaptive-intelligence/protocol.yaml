@@ -1,0 +1,23 @@
+experiment: E00-Strata
+date: "2026-11-25"
+hypothesis: The native Inkling Metal release produces the same greedy continuation in two independent processes.
+pinned_source: 26350e4387b8019b0f6825ba78b87eb6360159e7
+model: Inkling-2-Mini-SQ-10.strata
+hardware: Apple M4 Max, 48 GiB unified memory, 40 GPU cores
+prompt: "The first ten positive integers are 1, 2,"
+input_mode: plain token IDs, no chat template or added special tokens
+context_tokens: 512
+chunk_tokens: 128
+max_new_tokens: 16
+parallel_slots: 1
+draft: "off"
+kv: fp16
+temperature: 0
+seed: 42
+launches: 2
+limit_seconds_per_launch: 90
+cache: Fresh engine per run. OS cache uncontrolled and likely warm after SHA-256 verification.
+accept: Same output IDs and completion reason, valid token counts, Metal and no drafter confirmed in INFO.
+metrics: startup to READY, request to first token and to DONE, engine prefill and decode times, process disk-read delta, peak physical footprint, STATS
+offload_gate: Requires explicit resident budget and observable expert misses or byte reads. OS process reads and STATS alone cannot validate this.
+stop: Keep raw protocol on errors or timeout. Stop at the first failed generation or replay mismatch.

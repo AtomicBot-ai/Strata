@@ -1,0 +1,123 @@
+--- a/engine/src/inkling2/ink_backend.h
++++ b/engine/src/inkling2/ink_backend.h
+@@ -158,6 +158,9 @@
+         return 0;
+     }
+ 
++    // Start a new per-slot cost estimate with ms=0, or observe a completed plain decode step.
++    virtual void observe_plain_step(int /*slot*/, double /*ms*/) {}
++
+     // Optional fused on-device greedy speculative step (W=4 Adaptive Beam Tree + zero-logits-D2H verify + commit).
+     // Returns n_emit in 1..min(8, max_emit) on success, 0 to fall back to dspark_draft + forward_batch, or -1 on error.
+     virtual int dspark_spec_step_greedy(
+--- a/engine/src/inkling2/ink_serve.h
++++ b/engine/src/inkling2/ink_serve.h
+@@ -514,6 +514,9 @@
+     // steps: the smoothed tokens per step / (spec step ms / plain step ms) below 0.93 turns drafting off for 40 plain steps, then it probes again. The plain step
+     // time is measured on the first 4 decode steps of the first request and refreshed by every plain step after that.
+     const bool spec_adapt = (spec_env && std::string(spec_env) == "adapt") || cfg.bopts.spec_adapt;
++    const char* cost_env = std::getenv("TURBINE_ADAPTIVE_PLAIN_COST");
++    const bool measured_cost = spec_adapt && use_dspark && std::string(backend.backend_name()) == "metal" &&
++        cost_env && std::string(cost_env) == "1";
+     double gov_t_plain = 0.0, gov_t_spec = 0.0;
+     // one speculative step (the greedy tree step or the sampled block step) took `ms` and produced `n_emit` tokens
+     auto gov_step = [&](ActiveReq& rq, int n_emit, double ms) {
+@@ -746,7 +749,9 @@
+         rq.hist = rq.prompt_ids;
+         rq.next_tok = -1;
+         rq.gov_plain_left = 0; rq.gov_win_steps = 0; rq.gov_win_emit = 0; rq.gov_gain = -1.0;
+-        rq.gov_calib_left = (spec_adapt && gov_t_plain <= 0.0) ? 4 : 0;
++        const bool probe = measured_cost && rq.s.greedy() && !rq.s.penalties();
++        if (measured_cost) backend.observe_plain_step(rq.slot, 0.0);
++        rq.gov_calib_left = (spec_adapt && (gov_t_plain <= 0.0 || probe)) ? 4 : 0;
+         return true;
+     };
+ 
+@@ -995,6 +1000,9 @@
+                         }
+                         rq.cur_pos += kept;
+                         if (fin) finish_req(rq, fin);
++                    }
++                    if (measured_cost && drafted == 0 && kept == 1) {
++                        backend.observe_plain_step(rq.slot, (now_s() - gov_t0) * 1000.0);
+                     }
+                     continue;
+                 }
+@@ -1308,6 +1316,10 @@
+             // one plain decode step: its whole cost, forward + host sampling + output
+             const double ms = (now_s() - t_step0) * 1000.0;
+             auto& rg = reqs[sole_slot];
++            // Ignore the first calibration step, which can include initial graph setup.
++            if (measured_cost && rg.s.greedy() && !rg.s.penalties() && rg.gov_calib_left != 4) {
++                backend.observe_plain_step(rg.slot, ms);
++            }
+             if (rg.gov_calib_left > 0) {
+                 --rg.gov_calib_left;
+                 if (rg.gov_calib_left < 3) gov_t_plain = (gov_t_plain <= 0.0) ? ms : std::min(gov_t_plain, ms);  // the first step may capture the graph
+--- a/engine/src/inkling2/metal/ink_metal_backend.mm
++++ b/engine/src/inkling2/metal/ink_metal_backend.mm
+@@ -113,6 +113,7 @@
+         ckpts_.assign((size_t)par, PromptCkpt{});
+         slot_used_.assign((size_t)par, 0);
+         slot_beam_depth_.assign((size_t)par, runner_.is_apple10 ? 5 : 4);
++        plain_cost_ms_.assign((size_t)par, 0.0);
+         slot_ema_gain_.assign((size_t)par, 1.15);
+         slot_cooldown_.assign((size_t)par, 0);
+         slot_cd_len_.assign((size_t)par, 8);
+@@ -436,6 +437,12 @@
+         return n;
+     }
+ 
++    void observe_plain_step(int slot, double ms) override {
++        double& estimate = plain_cost_ms_[slot];
++        if (ms == 0.0) estimate = 0.0;
++        else if (std::isfinite(ms) && ms > 0.0) estimate = estimate > 0.0 ? 0.9 * estimate + 0.1 * ms : ms;
++    }
++
+     int dspark_spec_step_greedy(
+         int slot,
+         int32_t anchor_tok,
+@@ -472,10 +479,14 @@
+         const double t_step0 = mtl::now_s();
+         const bool is_bf16_trunk = (mod_.man.get("model.llm.layers.0.attn.wq_du.weight").fmt == ink_metal::FMT_BF16);
+         const bool is_sq10 = (mod_.man.build.find("10") != std::string::npos);
+-        const double t_plain_ms = runner_.is_apple10 ? (is_bf16_trunk ? 17.2 : (is_sq10 ? 13.5 : 14.8)) : 41.0;
+-
+-        auto update_gain = [&](int n_emit) {
++        const double default_plain_ms = runner_.is_apple10 ? (is_bf16_trunk ? 17.2 : (is_sq10 ? 13.5 : 14.8)) : 41.0;
++
++        const double t_plain_ms = plain_cost_ms_[slot] > 0.0 ? plain_cost_ms_[slot] : default_plain_ms;
++        static const bool trace = std::getenv("TURBINE_POLICY_TRACE") != nullptr;
++        auto update_gain = [&](int n_emit, int nodes) {
+             const double step_ms = std::max(1.0, (mtl::now_s() - t_step0) * 1e3);
++            if (trace) std::fprintf(stderr, "policy pos=%d nodes=%d emit=%d verify_gpu_ms=%.4f round_ms=%.4f plain_ms=%.4f\n",
++                                    anchor_pos, nodes, n_emit, runner_.last_gpu_ms, step_ms, t_plain_ms);
+             const double step_gain = (double)n_emit * t_plain_ms / step_ms;
+             slot_ema_gain_[slot] = 0.72 * slot_ema_gain_[slot] + 0.28 * step_gain;
+             if (step_gain >= 1.05) {
+@@ -525,7 +536,7 @@
+             last_tree_slot_ = -1;
+             slot_beam_depth_[slot] = std::max(4, std::min(7, acc + 3));
+             if (out_drafted) *out_drafted = rem;
+-            update_gain(1 + acc);
++            update_gain(1 + acc, tm);
+             return 1 + acc;
+         }
+ 
+@@ -575,7 +586,7 @@
+         last_ver_slot_ = -1;
+         slot_beam_depth_[slot] = std::max(4, std::min(7, acc + 3));
+         if (out_drafted) *out_drafted = max_d;
+-        update_gain(1 + acc);
++        update_gain(1 + acc, tm);
+         return 1 + acc;
+     }
+ 
+@@ -674,6 +685,7 @@
+     std::vector<std::vector<float>> frnn_snaps_;
+     std::vector<uint8_t> slot_used_;
+     std::vector<int> slot_beam_depth_;
++    std::vector<double> plain_cost_ms_;
+     std::vector<double> slot_ema_gain_;
+     std::vector<int> slot_cooldown_;
+     std::vector<int> slot_cd_len_;

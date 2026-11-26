@@ -1,0 +1,38 @@
+[
+  {
+    "source": 1,
+    "destination": 0,
+    "endpoint": {
+      "maxabs": 0.0,
+      "rms": 0.0,
+      "same_argmax": true,
+      "exact": true
+    },
+    "nested": {
+      "maxabs": 0.0,
+      "rms": 0.0,
+      "same_argmax": true,
+      "exact": true
+    },
+    "rng_equal": true,
+    "nested_tokens_equal": true
+  },
+  {
+    "source": 0,
+    "destination": 1,
+    "endpoint": {
+      "maxabs": 0.0,
+      "rms": 0.0,
+      "same_argmax": true,
+      "exact": true
+    },
+    "nested": {
+      "maxabs": 0.0,
+      "rms": 0.0,
+      "same_argmax": true,
+      "exact": true
+    },
+    "rng_equal": true,
+    "nested_tokens_equal": true
+  }
+]

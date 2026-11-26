@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "exact": 8,
+  "native_endpoint_agreement": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "panel_sha256": "b865f55bcd96a9fcfe047af1986a821b49fcf12f2ef33766a4b531ab0db35454"
+}

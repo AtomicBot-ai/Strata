@@ -1,0 +1,8 @@
+{
+  "gate_sha256": "43bc8d5496de5b9eb2d17d1c7f5f325c72c7f3b209f1332b311f228d86056be9",
+  "original_protocol_sha256": "72df04a9b69511867ec35bd71ad3d03528476f7a04cf14a303cc5f4b687b103d",
+  "driver_sha256": "16a05d6041b8b06a38fc6cab0a25cba77158dd95fa6bed7a460530eb6e1ecfe5",
+  "baseline_binary_sha256": "ae30f3619ff7f43d3573c996f94fd6cfbf99c0c8e6f3c55782e9026d7d130156",
+  "benchmark_binary_sha256": "8cfec60adae534bc6d2da334d0796a5a5e6329c9655ef82dac1467bb5fe2bcd1",
+  "overhead_source": "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/research/strata-fork-scaling/runs/E02/overhead-ctx256"
+}

@@ -1,0 +1,16 @@
+Step 1: Read all integers from standard input; since N is not given, parse the stream until EOF.
+Step 2: Reverse the list (including the terminating 0) and print each value on its own line.
+Step 3: Ensure the final output prints A_N through A_1 in order.
+
+Final:
+```python
+import sys
+
+def main():
+    values = [int(line) for line in sys.stdin if line.strip()]
+    for v in reversed(values):
+        print(v)
+
+if __name__ == "__main__":
+    main()
+```<|end_message|><|content_model_end_sampling|>

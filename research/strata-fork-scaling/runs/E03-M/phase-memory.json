@@ -1,0 +1,290 @@
+[
+  {
+    "config": [
+      4096,
+      2,
+      128,
+      true,
+      2
+    ],
+    "seed": 72401,
+    "block": 0,
+    "width": {
+      "native": 1,
+      "fork": 2
+    },
+    "modes": {
+      "native": {
+        "seconds": 4.490462084,
+        "phases_s": {
+          "cold_explicit_parent": 0.0,
+          "create": 0.0,
+          "restore": 0.0,
+          "wave_until_first": 0.048860042,
+          "wave_mixed": 0.0,
+          "wave_decode_tail": 4.441494917,
+          "drop": 0.0,
+          "host_residual": 0.000107125
+        },
+        "parent_prepare_s": 6.012313666,
+        "slot_clear_s": 0.000243041,
+        "median_queue_s": 1.1146875835,
+        "branch_engine_prefill_sum_s": 0.0422,
+        "branch_engine_decode_sum_s": 4.4414,
+        "first_wave_engine_prefill_ms": [
+          17.3
+        ],
+        "peak_mib": 2781.8000106811523,
+        "peak_above_parent_mib": 0.21875,
+        "after_create_delta_mib": 0.0,
+        "rss_end_mib": 2619.46875,
+        "payload_mib": 0.0,
+        "branch_prompt_tokens_reused": 8191
+      },
+      "fork": {
+        "seconds": 3.308387875,
+        "phases_s": {
+          "cold_explicit_parent": 0.0,
+          "create": 0.019368416,
+          "restore": 0.018719083,
+          "wave_until_first": 0.019025375,
+          "wave_mixed": 0.025651958,
+          "wave_decode_tail": 3.216479708,
+          "drop": 0.0090555,
+          "host_residual": 8.7835e-05
+        },
+        "parent_prepare_s": 6.008839,
+        "slot_clear_s": 0.000269208,
+        "median_queue_s": 0.038132042,
+        "branch_engine_prefill_sum_s": 0.0423,
+        "branch_engine_decode_sum_s": 6.4401,
+        "first_wave_engine_prefill_ms": [
+          17.1,
+          25.2
+        ],
+        "peak_mib": 3076.7845916748047,
+        "peak_above_parent_mib": 295.29710388183594,
+        "after_create_delta_mib": 291.84397888183594,
+        "rss_end_mib": 2624.421875,
+        "payload_mib": 291.671875,
+        "branch_prompt_tokens_reused": 8192
+      }
+    }
+  },
+  {
+    "config": [
+      4096,
+      8,
+      128,
+      true,
+      2
+    ],
+    "seed": 72401,
+    "block": 0,
+    "width": {
+      "native": 1,
+      "fork": 2
+    },
+    "modes": {
+      "native": {
+        "seconds": 17.982625,
+        "phases_s": {
+          "cold_explicit_parent": 0.0,
+          "create": 0.0,
+          "restore": 0.0,
+          "wave_until_first": 0.19070096,
+          "wave_mixed": 0.0,
+          "wave_decode_tail": 17.791501082,
+          "drop": 0.0,
+          "host_residual": 0.000422958
+        },
+        "parent_prepare_s": 6.013704375,
+        "slot_clear_s": 0.000243209,
+        "median_queue_s": 7.878717229,
+        "branch_engine_prefill_sum_s": 0.1556,
+        "branch_engine_decode_sum_s": 17.791400000000003,
+        "first_wave_engine_prefill_ms": [
+          17.8
+        ],
+        "peak_mib": 2781.7218627929688,
+        "peak_above_parent_mib": 0.42189788818359375,
+        "after_create_delta_mib": 0.0,
+        "rss_end_mib": 2619.46875,
+        "payload_mib": 0.0,
+        "branch_prompt_tokens_reused": 32767
+      },
+      "fork": {
+        "seconds": 13.094140125,
+        "phases_s": {
+          "cold_explicit_parent": 0.0,
+          "create": 0.019760542,
+          "restore": 0.035344835,
+          "wave_until_first": 0.07710925,
+          "wave_mixed": 0.101354459,
+          "wave_decode_tail": 12.856668709,
+          "drop": 0.003604833,
+          "host_residual": 0.000297497
+        },
+        "parent_prepare_s": 6.009665833,
+        "slot_clear_s": 0.000245541,
+        "median_queue_s": 4.932297625,
+        "branch_engine_prefill_sum_s": 0.1688,
+        "branch_engine_decode_sum_s": 25.7427,
+        "first_wave_engine_prefill_ms": [
+          17.3,
+          25.0
+        ],
+        "peak_mib": 3076.9877395629883,
+        "peak_above_parent_mib": 295.34395599365234,
+        "after_create_delta_mib": 291.82833099365234,
+        "rss_end_mib": 2624.578125,
+        "payload_mib": 291.671875,
+        "branch_prompt_tokens_reused": 32768
+      }
+    }
+  },
+  {
+    "config": [
+      16384,
+      2,
+      128,
+      true,
+      2
+    ],
+    "seed": 72401,
+    "block": 0,
+    "width": {
+      "native": 1,
+      "fork": 2
+    },
+    "modes": {
+      "native": {
+        "seconds": 5.038869667,
+        "phases_s": {
+          "cold_explicit_parent": 0.0,
+          "create": 0.0,
+          "restore": 0.0,
+          "wave_until_first": 0.060954542,
+          "wave_mixed": 0.0,
+          "wave_decode_tail": 4.977798167,
+          "drop": 0.0,
+          "host_residual": 0.000116958
+        },
+        "parent_prepare_s": 25.478794125,
+        "slot_clear_s": 0.000257458,
+        "median_queue_s": 1.253233083,
+        "branch_engine_prefill_sum_s": 0.0465,
+        "branch_engine_decode_sum_s": 4.977799999999999,
+        "first_wave_engine_prefill_ms": [
+          19.8
+        ],
+        "peak_mib": 3550.9255599975586,
+        "peak_above_parent_mib": 0.640625,
+        "after_create_delta_mib": 0.0,
+        "rss_end_mib": 3388.359375,
+        "payload_mib": 0.0,
+        "branch_prompt_tokens_reused": 32767
+      },
+      "fork": {
+        "seconds": 3.681706875,
+        "phases_s": {
+          "cold_explicit_parent": 0.0,
+          "create": 0.052194042,
+          "restore": 0.042714708,
+          "wave_until_first": 0.026373708,
+          "wave_mixed": 0.029535042,
+          "wave_decode_tail": 3.516890458,
+          "drop": 0.013911625,
+          "host_residual": 8.7292e-05
+        },
+        "parent_prepare_s": 25.45365375,
+        "slot_clear_s": 0.000259166,
+        "median_queue_s": 0.09495775,
+        "branch_engine_prefill_sum_s": 0.0486,
+        "branch_engine_decode_sum_s": 7.0441,
+        "first_wave_engine_prefill_ms": [
+          19.7,
+          28.9
+        ],
+        "peak_mib": 4230.472938537598,
+        "peak_above_parent_mib": 679.9536056518555,
+        "after_create_delta_mib": 675.8754806518555,
+        "rss_end_mib": 3389.15625,
+        "payload_mib": 675.71875,
+        "branch_prompt_tokens_reused": 32768
+      }
+    }
+  },
+  {
+    "config": [
+      4096,
+      8,
+      128,
+      false,
+      2
+    ],
+    "seed": 72401,
+    "block": 0,
+    "width": {
+      "native": 1,
+      "fork": 2
+    },
+    "modes": {
+      "native": {
+        "seconds": 23.634029417,
+        "phases_s": {
+          "cold_explicit_parent": 0.0,
+          "create": 0.0,
+          "restore": 0.0,
+          "wave_until_first": 6.121540873,
+          "wave_mixed": 0.0,
+          "wave_decode_tail": 17.512050208,
+          "drop": 0.0,
+          "host_residual": 0.000438336
+        },
+        "parent_prepare_s": 0.0,
+        "slot_clear_s": 0.000280958,
+        "median_queue_s": 13.724988625,
+        "branch_engine_prefill_sum_s": 6.0645999999999995,
+        "branch_engine_decode_sum_s": 17.511899999999997,
+        "first_wave_engine_prefill_ms": [
+          5943.8
+        ],
+        "peak_mib": 2781.831214904785,
+        "peak_above_parent_mib": 185.50013732910156,
+        "after_create_delta_mib": 0.0,
+        "rss_end_mib": 2619.609375,
+        "payload_mib": 0.0,
+        "branch_prompt_tokens_reused": 28665
+      },
+      "fork": {
+        "seconds": 19.255948042,
+        "phases_s": {
+          "cold_explicit_parent": 5.955537333,
+          "create": 0.034181541,
+          "restore": 0.059792456,
+          "wave_until_first": 0.081724708,
+          "wave_mixed": 0.102305417,
+          "wave_decode_tail": 13.019548,
+          "drop": 0.002505625,
+          "host_residual": 0.000352962
+        },
+        "parent_prepare_s": 5.955537333,
+        "slot_clear_s": 0.000255916,
+        "median_queue_s": 10.9901969585,
+        "branch_engine_prefill_sum_s": 0.17429999999999998,
+        "branch_engine_decode_sum_s": 26.0703,
+        "first_wave_engine_prefill_ms": [
+          22.3,
+          25.5
+        ],
+        "peak_mib": 2912.5344772338867,
+        "peak_above_parent_mib": 294.90645599365234,
+        "after_create_delta_mib": 291.60958099365234,
+        "rss_end_mib": 2374.96875,
+        "payload_mib": 291.64062118530273,
+        "branch_prompt_tokens_reused": 32760
+      }
+    }
+  }
+]

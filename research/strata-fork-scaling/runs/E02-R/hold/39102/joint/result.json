@@ -1,0 +1,70 @@
+{
+  "seed": 39102,
+  "boundary": 1024,
+  "arm": "joint",
+  "restore": false,
+  "source": null,
+  "work": "b188843f6be06697e6fc3837a06d1cd18307a52636e23d0967daa21176474424",
+  "raw": "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-logits/hold/39102/joint.npy",
+  "sha256": "b3ecba96effa4e3d219d91beba727b5a59ab7cdf85d00c32019047b3c3a1ef29",
+  "binary_sha256": "18b8fd5577c50070d5956cc4ccfb277b68a1562e80847307caeffb1d4195609f",
+  "seconds": 5.033961790963076,
+  "shapes": [
+    [
+      0,
+      0,
+      0,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      0,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      1,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      8,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      8,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      32,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      32,
+      2,
+      2
+    ]
+  ]
+}

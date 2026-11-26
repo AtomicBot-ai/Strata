@@ -1,0 +1,24 @@
+INFO engine=strata-inkling-0.1.65 arch=inkling2_loop backend=metal model=Inkling-2-Mini-SQ-10.strata layers=24 visits=48 vocab=200058 chunk=128 batch_slots=1 slot_read=1 kv_dtype=fp16 drafter=none images=0 image_pad=200054 parallel=64
+READY 512 stop hold holdb
+> STATS
+STATS active_slots=1 max_slots=1 vram_experts=3072 ram_experts=0 total_experts=3072 kv=fp16
+> GEN 16 temperature=0 seed=42 371,150135,150482,151180,161002,149914,220,16,11,220,17,11
+PP 12 12 97.4 123.2
+T 220
+T 18
+T 11
+T 220
+T 19
+T 11
+T 220
+T 20
+T 11
+T 220
+T 21
+T 11
+T 220
+T 22
+T 11
+T 220
+DONE 16 12 97.4 244.3 length
+> QUIT

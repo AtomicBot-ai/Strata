@@ -1,0 +1,254 @@
+{
+  "key": {
+    "config": [
+      4096,
+      8,
+      128,
+      true
+    ],
+    "seed": 70281,
+    "mode": "native",
+    "slots": 2,
+    "width": 1,
+    "diag": false,
+    "work": "bb4b1fd0381fbcd02c69420bf592d51f3d9020a631ad8d959189804813a4687a"
+  },
+  "elapsed_ns": 17981788291,
+  "through_cleanup_ns": 17982023500,
+  "parent_prefill_ns": 5989496166,
+  "initial_parent_in_elapsed": false,
+  "snapshot_create_ns": 0,
+  "restore_ns": 0,
+  "drop_ns": 0,
+  "postrun_slot_clear_ns": 235209,
+  "children_done_ns": 17981788208,
+  "snapshot_bytes": 0,
+  "memory": {
+    "before": {
+      "footprint": 2722368608,
+      "peak_footprint": 2722368608,
+      "rss": 2565046272,
+      "pageins": 14280
+    },
+    "parent": {
+      "footprint": 2916633816,
+      "peak_footprint": 2916633816,
+      "rss": 2742566912,
+      "pageins": 14280
+    },
+    "after_create": {
+      "footprint": 2916633816,
+      "peak_footprint": 2916633816,
+      "rss": 2742566912,
+      "pageins": 14280
+    },
+    "end": {
+      "footprint": 2916355312,
+      "peak_footprint": 2917190896,
+      "rss": 2746777600,
+      "pageins": 14280
+    },
+    "cleared": {
+      "footprint": 2916355312,
+      "peak_footprint": 2917190896,
+      "rss": 2746777600,
+      "pageins": 14280
+    }
+  },
+  "branches": [
+    {
+      "branch": 0,
+      "dispatch_ns": 18541,
+      "first_ns": 18901916,
+      "done_ns": 2254974083,
+      "reused": 4096,
+      "engine_prefill_ms": 17.2,
+      "engine_decode_ms": 2236.1,
+      "endpoint": 82
+    },
+    {
+      "branch": 1,
+      "dispatch_ns": 2255031708,
+      "first_ns": 2302802541,
+      "done_ns": 4522094875,
+      "reused": 4095,
+      "engine_prefill_ms": 34.7,
+      "engine_decode_ms": 2219.3,
+      "endpoint": 64
+    },
+    {
+      "branch": 2,
+      "dispatch_ns": 4522148666,
+      "first_ns": 4544244875,
+      "done_ns": 6761367791,
+      "reused": 4096,
+      "engine_prefill_ms": 17.8,
+      "engine_decode_ms": 2217.1,
+      "endpoint": 82
+    },
+    {
+      "branch": 3,
+      "dispatch_ns": 6761421583,
+      "first_ns": 6783675333,
+      "done_ns": 9012977250,
+      "reused": 4096,
+      "engine_prefill_ms": 18.0,
+      "engine_decode_ms": 2229.3,
+      "endpoint": 64
+    },
+    {
+      "branch": 4,
+      "dispatch_ns": 9013026083,
+      "first_ns": 9034393333,
+      "done_ns": 11244056000,
+      "reused": 4096,
+      "engine_prefill_ms": 17.1,
+      "engine_decode_ms": 2209.6,
+      "endpoint": 82
+    },
+    {
+      "branch": 5,
+      "dispatch_ns": 11244106041,
+      "first_ns": 11265426625,
+      "done_ns": 13495832000,
+      "reused": 4096,
+      "engine_prefill_ms": 17.1,
+      "engine_decode_ms": 2230.4,
+      "endpoint": 70
+    },
+    {
+      "branch": 6,
+      "dispatch_ns": 13495883208,
+      "first_ns": 13517979791,
+      "done_ns": 15728141375,
+      "reused": 4096,
+      "engine_prefill_ms": 17.9,
+      "engine_decode_ms": 2210.2,
+      "endpoint": 82
+    },
+    {
+      "branch": 7,
+      "dispatch_ns": 15728197166,
+      "first_ns": 15749706791,
+      "done_ns": 17981759666,
+      "reused": 4096,
+      "engine_prefill_ms": 17.2,
+      "engine_decode_ms": 2232.0,
+      "endpoint": 82
+    }
+  ],
+  "waves": [
+    {
+      "first_branch": 0,
+      "size": 1,
+      "queue_ns": 18541,
+      "dispatch_to_first_ns": 18883375,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2236072167,
+      "physical": {
+        "footprint": 2912423152,
+        "peak_footprint": 2917190896,
+        "rss": 2743107584,
+        "pageins": 14280
+      }
+    },
+    {
+      "first_branch": 1,
+      "size": 1,
+      "queue_ns": 2255031708,
+      "dispatch_to_first_ns": 47770833,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2219292334,
+      "physical": {
+        "footprint": 2916306160,
+        "peak_footprint": 2917190896,
+        "rss": 2746990592,
+        "pageins": 14280
+      }
+    },
+    {
+      "first_branch": 2,
+      "size": 1,
+      "queue_ns": 4522148666,
+      "dispatch_to_first_ns": 22096209,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2217122916,
+      "physical": {
+        "footprint": 2916306160,
+        "peak_footprint": 2917190896,
+        "rss": 2746990592,
+        "pageins": 14280
+      }
+    },
+    {
+      "first_branch": 3,
+      "size": 1,
+      "queue_ns": 6761421583,
+      "dispatch_to_first_ns": 22253750,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2229301917,
+      "physical": {
+        "footprint": 2916306160,
+        "peak_footprint": 2917190896,
+        "rss": 2746990592,
+        "pageins": 14280
+      }
+    },
+    {
+      "first_branch": 4,
+      "size": 1,
+      "queue_ns": 9013026083,
+      "dispatch_to_first_ns": 21367250,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2209662667,
+      "physical": {
+        "footprint": 2916322544,
+        "peak_footprint": 2917190896,
+        "rss": 2747006976,
+        "pageins": 14280
+      }
+    },
+    {
+      "first_branch": 5,
+      "size": 1,
+      "queue_ns": 11244106041,
+      "dispatch_to_first_ns": 21320584,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2230405375,
+      "physical": {
+        "footprint": 2916355312,
+        "peak_footprint": 2917190896,
+        "rss": 2747039744,
+        "pageins": 14280
+      }
+    },
+    {
+      "first_branch": 6,
+      "size": 1,
+      "queue_ns": 13495883208,
+      "dispatch_to_first_ns": 22096583,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2210161584,
+      "physical": {
+        "footprint": 2916355312,
+        "peak_footprint": 2917190896,
+        "rss": 2746777600,
+        "pageins": 14280
+      }
+    },
+    {
+      "first_branch": 7,
+      "size": 1,
+      "queue_ns": 15728197166,
+      "dispatch_to_first_ns": 21509625,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2232052875,
+      "physical": {
+        "footprint": 2916355312,
+        "peak_footprint": 2917190896,
+        "rss": 2746777600,
+        "pageins": 14280
+      }
+    }
+  ]
+}

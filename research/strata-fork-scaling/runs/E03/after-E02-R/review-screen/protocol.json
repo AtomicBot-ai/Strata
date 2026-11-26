@@ -1,0 +1,36 @@
+{
+  "cells": [
+    [
+      4096,
+      2
+    ],
+    [
+      4096,
+      4
+    ],
+    [
+      4096,
+      8
+    ],
+    [
+      16384,
+      2
+    ],
+    [
+      16384,
+      4
+    ],
+    [
+      16384,
+      8
+    ]
+  ],
+  "diagnostic_only": true,
+  "timing_seed": 1000,
+  "dev_seed": 928,
+  "fixed_suffix": 128,
+  "slots": 2,
+  "paired_blocks": 1,
+  "strict_gate": "all branches, full endpoint FP32",
+  "control": "native tuned on seed 928 vs matched solo-prefill replay; identical inputs to candidate comparison"
+}

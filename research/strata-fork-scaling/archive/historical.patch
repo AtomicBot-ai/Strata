@@ -1,0 +1,357 @@
+diff --git a/engine/src/inkling2/ink_backend.h b/engine/src/inkling2/ink_backend.h
+index f55425a21e6c8eaaa56750b87c3c812d6f29fdb7..86aea219af6cf304f34526ed437f4fa990da5831 100644
+--- a/engine/src/inkling2/ink_backend.h
++++ b/engine/src/inkling2/ink_backend.h
+@@ -44,6 +44,13 @@ struct BackendStats {
+     KvDtype kv_dtype = KvDtype::FP16;
+ };
+ 
++// A process-local, immutable prefix. Restore only into an allocated slot of the owning backend.
++struct InkPrefixCheckpoint {
++    virtual ~InkPrefixCheckpoint() = default;
++    virtual void restore(int slot) const = 0;
++    size_t payload_bytes = 0;
++};
++
+ class InkBackend {
+ public:
+     virtual ~InkBackend() = default;
+@@ -63,6 +70,8 @@ public:
+     virtual void snapshot_slot(int slot) = 0;
+     virtual void rollback_slot(int slot, int keep_len) = 0;
+ 
++    virtual std::unique_ptr<InkPrefixCheckpoint> save_prefix(int, int) { return nullptr; }
++
+     // Batched 48-visit forward across 1..64 active slots!
+     // logits_out: [batch.count_logits(), vocab_unpadded] FP32 (already softcapped by 30*tanh(z/30) and sliced to 200058).
+     virtual bool forward_batch(
+diff --git a/engine/src/inkling2/ink_main.cpp b/engine/src/inkling2/ink_main.cpp
+index 7857e74f95e07d73f74fe23de344c42505cc4880..5d8e2c54fa0b2104ebffb96530078bf892aeb1d5 100644
+--- a/engine/src/inkling2/ink_main.cpp
++++ b/engine/src/inkling2/ink_main.cpp
+@@ -362,6 +362,8 @@ int main(int argc, char** argv) {
+             mode_export = true; export_file = next(); export_dir = next();
+         } else if (a == "--serve") {
+             mode_serve = true;
++        } else if (a == "--research-checkpoint") {
++            cfg.research_checkpoint = true;
+         } else if (a == "--bench") {
+             mode_bench = true;
+         } else if (a == "--selfcheck") {
+diff --git a/engine/src/inkling2/ink_serve.h b/engine/src/inkling2/ink_serve.h
+index 5ad35ef0ff85bfe53028d803dd08b47fb75b1e52..9148a46a5c85ba8c1e59ffc91284b5acd77c572e 100644
+--- a/engine/src/inkling2/ink_serve.h
++++ b/engine/src/inkling2/ink_serve.h
+@@ -19,6 +19,7 @@
+ #include <mutex>
+ #include <numeric>
+ #include <random>
++#include <sstream>
+ #include <string>
+ #include <thread>
+ #include <unordered_map>
+@@ -342,6 +343,7 @@ struct ServeConfig {
+     std::string vision_path;
+     BackendOpts bopts;
+     std::string draft_mode = "auto";  // auto | dspark | off
++    bool research_checkpoint = false;
+     bool force_cpu = false;
+     bool anti_loop = true;
+     std::string version = "0.1.65";
+@@ -354,6 +356,12 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend&
+     const int chunk_sz = std::max(1, cfg.bopts.chunk);
+     const bool use_dspark = (cfg.draft_mode != "off") && mf.m.dspark.present;
+ 
++    if (cfg.research_checkpoint && (P > 2 || cfg.draft_mode != "off" || !cfg.vision_path.empty() ||
++            cfg.bopts.kv_dtype != KvDtype::FP16 || std::string(backend.backend_name()) != "metal")) {
++        proto("ERR research checkpoint requires one or two Metal text slots, --draft off and FP16 KV");
++        return 1;
++    }
++
+     // Probe Vision shard lazily (zero VRAM/RAM until first image request)
+     bool images_ok = false;
+     VisionShardInfo vprobe;
+@@ -494,10 +502,160 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend&
+         return true;
+     };
+ 
++    std::vector<float> logits_buf;
++    std::unique_ptr<InkPrefixCheckpoint> checkpoint;
++    std::vector<int32_t> saved_ids;
++    // Research client observes a completed GPU tick before choosing a checkpoint or cancellation.
++    // With manual stepping disabled the normal serving loop does not wait for acknowledgments.
++    struct LivePoint {
++        std::unique_ptr<InkPrefixCheckpoint> state;
++        std::vector<int32_t> prefix;   // processed tokens, excludes pending
++        std::vector<float> logits;     // distribution which produced pending
++        SampleOpts sampling;
++        int32_t pending = -1;
++    };
++    std::unordered_map<std::string, LivePoint> points;
++    std::vector<int> logit_slots;
++    std::vector<std::string> logit_requests;
++    bool manual = false, tick = false;
+     bool quit_requested = false;
+     auto handle_line = [&](const std::string& line) -> bool {
+         if (line.empty()) return true;
+         if (line == "QUIT") { quit_requested = true; return false; }
++        if (cfg.research_checkpoint && line == "MANUAL") {
++            if (!req_id_to_slot.empty() || checkpoint) { proto("ERR busy"); return true; }
++            manual = true;
++            proto("MANUALOK");
++            return true;
++        }
++        if (manual && line == "ALLOC") {
++            proto("ALLOC %zu", backend.stats().vram_used_bytes);
++            return true;
++        }
++        if (manual && line == "TICK") { tick = true; return true; }
++        if (manual && line.rfind("LIVE", 0) == 0) {
++            std::istringstream in(line);
++            std::string op, key, id, extra;
++            int slot = -1;
++            in >> op >> key;
++            auto point = points.find(key);
++            if (op == "LIVEDROP" && point != points.end()) {
++                points.erase(point);
++                proto("DROPPED");
++                return true;
++            }
++            if (op == "LIVELOGITS") {
++                for (size_t i = 0; i < logit_requests.size(); ++i) {
++                    if (logit_requests[i] != key) continue;
++                    static constexpr char hex[] = "0123456789abcdef";
++                    const auto* bytes = reinterpret_cast<const unsigned char*>(logits_buf.data() + i * V);
++                    std::string result(2 * V * sizeof(float), '0');
++                    for (size_t j = 0; j < result.size()/2; ++j) {
++                        result[2*j] = hex[bytes[j] >> 4];
++                        result[2*j+1] = hex[bytes[j] & 15];
++                    }
++                    std::cout << "LOGITS " << result << std::endl;
++                    return true;
++                }
++                proto("ERR no current logits"); return true;
++            }
++            if (op == "LIVESAVE") {
++                // key is the originating request. Inspect only logits produced by its last tick.
++                auto it = std::find_if(logit_slots.begin(), logit_slots.end(),
++                    [&](int s) { return reqs[s].is_ext_gen && reqs[s].req_id == key; });
++                if (it == logit_slots.end() || logit_requests[it-logit_slots.begin()] != key || points.size() >= 2 || point != points.end()) {
++                    proto("ERR no current distribution or snapshot capacity"); return true;
++                }
++                auto& rq = reqs[*it];
++                LivePoint snap;
++                snap.state = backend.save_prefix(*it, static_cast<int>(rq.cached_prefix.size()));
++                if (!snap.state) { proto("ERR unsupported or empty snapshot"); return true; }
++                snap.pending = rq.next_tok;
++                snap.prefix = rq.cached_prefix;
++                snap.sampling = rq.s;
++                auto first = logits_buf.begin() + (it - logit_slots.begin()) * V;
++                snap.logits.assign(first, first + V);
++                size_t bytes = snap.state->payload_bytes + snap.prefix.size() * sizeof(int32_t) + V * sizeof(float);
++                proto("SAVED %zu %zu %d", snap.prefix.size(), bytes, snap.pending);
++                points.emplace(key, std::move(snap));
++                return true;
++            }
++            if (point == points.end() || !(in >> slot) || slot < 0 || slot >= P || reqs[slot].active) {
++                proto("ERR unknown snapshot or unavailable destination"); return true;
++            }
++            auto& snap = point->second;
++            auto& dst = reqs[slot];
++            if (op == "LIVERESTORE") {
++                snap.state->restore(slot);
++                dst.cached_prefix = snap.prefix;
++                proto("RESTORED %zu", snap.prefix.size());
++                return true;
++            }
++            uint64_t seed = 0;
++            if (op != "LIVEFORK" || !(in >> id >> seed) || (in >> extra) || req_id_to_slot.count(id)) {
++                proto("ERR invalid fork"); return true;
++            }
++            snap.state->restore(slot);
++            dst = ActiveReq{};
++            dst.active = dst.is_ext_gen = true;
++            dst.req_id = id;
++            dst.slot = slot;
++            dst.s = snap.sampling;
++            dst.rng.seed(seed);
++            dst.max_new = cfg.bopts.max_ctx - static_cast<int>(snap.prefix.size());
++            dst.cur_pos = dst.prompt_len = dst.prefill_pos = static_cast<int>(snap.prefix.size());
++            dst.cached_prefix = dst.hist = snap.prefix;
++            // The saved logits already include any repetition penalty from the source history.
++            SampleOpts first = dst.s;
++            first.rep = 1; first.freq = first.pres = 0;
++            dst.next_tok = sample_logits(snap.logits.data(), V, first, dst.hist, dst.rng);
++            dst.hist.push_back(dst.next_tok);
++            dst.gen_ids.push_back(dst.next_tok);
++            dst.generated = 1;
++            dst.t_start = dst.decode_t0 = now_s();
++            req_id_to_slot[id] = slot;
++            proto("FORKED %s %d", id.c_str(), slot);
++            proto("T %s %d", id.c_str(), dst.next_tok);
++            if (is_stop_tok(dst.next_tok)) finish_req(dst, "stop");
++            else if (dst.cur_pos + 1 >= cfg.bopts.max_ctx) finish_req(dst, "length");
++            return true;
++        }
++        if (cfg.research_checkpoint && (line == "SAVE" || line == "RESTORE" || line == "DROP" || line == "LOGITS")) {
++            auto& rq = reqs[0];
++            if (P != 1 || manual) { proto("ERR use named snapshots"); return true; }
++            if (rq.active) { proto("ERR slot busy"); return true; }
++            if (line == "SAVE") {
++                checkpoint.reset();
++                saved_ids.clear();
++                checkpoint = backend.save_prefix(0, static_cast<int>(rq.cached_prefix.size()));
++                if (!checkpoint) { proto("ERR cannot save empty or unsupported prefix"); return true; }
++                saved_ids = rq.cached_prefix;  // excludes the sampled token not yet fed to the model
++                proto("SAVED %zu %zu", saved_ids.size(), checkpoint->payload_bytes + saved_ids.size() * sizeof(int32_t));
++            } else if (line == "DROP") {
++                checkpoint.reset();
++                std::vector<int32_t>().swap(saved_ids);
++                proto("DROPPED");
++            } else if (line == "RESTORE") {
++                if (!checkpoint) { proto("ERR no saved prefix"); return true; }
++                checkpoint->restore(0);
++                rq.cached_prefix = saved_ids;
++                logits_buf.clear();
++                // The next ordinary GEN sets positions, sampler history and independent seed.
++                proto("RESTORED %zu", saved_ids.size());
++            } else {
++                if (logits_buf.size() != static_cast<size_t>(V)) { proto("ERR no logits"); return true; }
++                // Native FP32 bytes are returned only for an explicit diagnostic request.
++                static const char hex[] = "0123456789abcdef";
++                const auto* bytes = reinterpret_cast<const unsigned char*>(logits_buf.data());
++                std::string data(logits_buf.size() * sizeof(float) * 2, '0');
++                for (size_t i = 0; i < data.size() / 2; ++i) {
++                    data[2*i] = hex[bytes[i] >> 4];
++                    data[2*i+1] = hex[bytes[i] & 15];
++                }
++                std::cout << "LOGITS " << data << std::endl;
++            }
++            return true;
++        }
+         if (line == "HELLO") {
+             proto("HELLO ok engine=strata-inkling-%s arch=inkling2_loop backend=%s max_ctx=%d parallel=%d",
+                   cfg.version.c_str(), backend.backend_name(), cfg.bopts.max_ctx, P);
+@@ -558,7 +716,9 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend&
+                     proto("ERR busy: all %d parallel slots active", P);
+                     return true;
+                 }
++                if (manual && req_id_to_slot.count(pg.req_id)) { proto("ERR duplicate request"); return true; }
+                 pg.slot = free_s;
++                if (manual) proto("ADMITTED %s %d", pg.req_id.c_str(), free_s);
+             }
+             if (pg.slot < 0 || pg.slot >= P) {
+                 proto("ERR BGEN: slot %d out of range 0..%d", pg.slot, P - 1);
+@@ -590,16 +750,13 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend&
+     // Main continuous batching event loop!
+     StepBatch batch;
+     std::vector<float> merged_img_embeds;
+-    std::vector<int> logit_slots;
+-    std::vector<float> logits_buf;
+-
+     while (true) {
+         // 1. Drain all queued stdin commands without blocking while any slot is active
+         bool any_active = false;
+         for (const auto& rq : reqs) if (rq.active) { any_active = true; break; }
+ 
+         std::string line;
+-        if (!any_active) {
++        if (!any_active || (manual && !tick)) {
+             if (quit_requested) break;
+             if (!in.wait_next(line)) break;
+             handle_line(line);
+@@ -623,7 +780,11 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend&
+         for (int s = 0; s < P; ++s) {
+             if (reqs[s].active) { ++n_active; sole_slot = s; }
+         }
++        if (manual && quit_requested) break;
++        if (manual && !tick) continue;
++        tick = false;
+         if (n_active == 0) {
++            if (manual) { logit_slots.clear(); logit_requests.clear(); proto("TICKED"); }
+             if (quit_requested || in.is_eof()) break;
+             continue;
+         }
+@@ -749,6 +910,7 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend&
+         batch.capture_taps = use_dspark;
+         merged_img_embeds.clear();
+         logit_slots.clear();
++        logit_requests.clear();
+         int token_budget = std::max(chunk_sz, n_active);
+         std::vector<int> prefill_fed(P, 0);
+         double t_step0 = now_s();
+@@ -806,6 +968,7 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend&
+                 rq.prefill_pos += prefill_fed[s];
+                 rq.cur_pos = rq.prefill_pos;
+                 rq.prompt_ms += step_ms;
++                if (manual && rq.is_ext_gen) proto("PREFILL %s %d %.3f", rq.req_id.c_str(), prefill_fed[s], step_ms);
+                 if (rq.is_solo || !rq.admitted) {
+                     const double ppts = step_ms > 0.0 ? (prefill_fed[s] * 1000.0 / step_ms) : 0.0;
+                     proto("PP %d %d %.1f %.1f", rq.prefill_pos, rq.prompt_len, rq.prompt_ms, ppts);
+@@ -817,6 +980,7 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend&
+         for (int wi = 0; wi < n_want; ++wi) {
+             const int s = logit_slots[wi];
+             auto& rq = reqs[s];
++            if (manual) logit_requests.push_back(rq.req_id);
+             float* lg = logits_buf.data() + static_cast<size_t>(wi) * V;
+             if (!finite_logits(lg, V)) {
+                 finish_req(rq, "nonfinite");
+@@ -880,6 +1044,7 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend&
+                 }
+             }
+         }
++        if (manual) proto("TICKED");
+     }
+     return 0;
+ }
+diff --git a/engine/src/inkling2/metal/ink_metal_backend.mm b/engine/src/inkling2/metal/ink_metal_backend.mm
+index 2d2db81a6410e740bfed1801d7edd4f7055ad737..203d6f6f65eb7ab4a6e8061fa3959f41ff5065d0 100644
+--- a/engine/src/inkling2/metal/ink_metal_backend.mm
++++ b/engine/src/inkling2/metal/ink_metal_backend.mm
+@@ -180,6 +180,46 @@ void rollback_slot(int slot, int keep_len) override {
+         }
+     }
+ 
++    std::unique_ptr<InkPrefixCheckpoint> save_prefix(int slot, int tokens) override {
++        if (runner_.use_dspark || kv_dtype_ != KvDtype::FP16 || (slot < 0 || slot >= runner_.max_slots) ||
++            tokens <= 0 || tokens >= runner_.max_ctx) return nullptr;
++        // forward_batch has finished on the GPU when the idle server accepts SAVE.
++        // Keep the populated physical ring rows, including rows a longer sibling can overwrite.
++        struct Saved final : InkPrefixCheckpoint {
++            struct Slice {
++                uint8_t* base;
++                size_t slot_stride;
++                std::vector<uint8_t> bytes;
++            };
++            ink_metal::InkMetalRunner& runner;
++            ink_metal::InkMetalRunner::SlotSconvSnap conv;
++            std::vector<Slice> kv;
++            explicit Saved(ink_metal::InkMetalRunner& r) : runner(r) {}
++            void restore(int destination) const override {
++                for (const auto& slice : kv)
++                    std::memcpy(slice.base + destination * slice.slot_stride, slice.bytes.data(), slice.bytes.size());
++                runner.restore_slot(destination, conv);
++            }
++        };
++        auto saved = std::make_unique<Saved>(runner_);
++        runner_.snapshot_slot(slot, saved->conv);
++        const auto& sc = saved->conv;
++        saved->payload_bytes = (sc.k.size() + sc.v.size() + sc.attn.size() + sc.mlp.size()) * sizeof(float);
++        const auto& c = mod_.man.c;
++        const size_t row_bytes = (size_t)c.n_kv * c.head_dim * sizeof(uint16_t);
++        for (int v = 0; v < c.n_visits; ++v) {
++            const size_t count = std::min(tokens, runner_.visit_kv_stride[v]) * row_bytes;
++            for (auto* buf : {&runner_.kv_k[v], &runner_.kv_v[v]}) {
++                const size_t stride = row_bytes * runner_.visit_kv_stride[v];
++                auto* base = buf->as<uint8_t>();
++                auto* begin = base + slot * stride;
++                saved->kv.push_back({base, stride, std::vector<uint8_t>(begin, begin + count)});
++                saved->payload_bytes += count;
++            }
++        }
++        return saved;
++    }
++
+     bool forward_batch(const StepBatch& batch, float* logits_out, TapCapture* taps_out, std::string& err) override {
+         if (batch.n_tokens <= 0) return true;
+         // Auto-slice oversized multi-slot prefill batches (e.g. --bench --parallel 64 --prompt-len 64 -> M=4096)

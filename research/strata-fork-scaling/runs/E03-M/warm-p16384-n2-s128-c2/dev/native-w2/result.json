@@ -1,0 +1,96 @@
+{
+  "key": {
+    "config": [
+      16384,
+      2,
+      128,
+      true
+    ],
+    "seed": 70281,
+    "mode": "native",
+    "slots": 2,
+    "width": 2,
+    "diag": false,
+    "work": "66e7b52426d271990ad32e2db3fe93e92fce04a37ac3645fed683389ce8c770e"
+  },
+  "elapsed_ns": 48713804750,
+  "through_cleanup_ns": 48714044542,
+  "parent_prefill_ns": 25498033834,
+  "initial_parent_in_elapsed": false,
+  "snapshot_create_ns": 0,
+  "restore_ns": 0,
+  "drop_ns": 0,
+  "postrun_slot_clear_ns": 239792,
+  "children_done_ns": 48713804625,
+  "snapshot_bytes": 0,
+  "memory": {
+    "before": {
+      "footprint": 3528052336,
+      "peak_footprint": 3528052336,
+      "rss": 3341615104,
+      "pageins": 16939
+    },
+    "parent": {
+      "footprint": 3722891008,
+      "peak_footprint": 3722891008,
+      "rss": 3519348736,
+      "pageins": 16939
+    },
+    "after_create": {
+      "footprint": 3722891008,
+      "peak_footprint": 3722891008,
+      "rss": 3519348736,
+      "pageins": 16939
+    },
+    "end": {
+      "footprint": 3719089920,
+      "peak_footprint": 3724005120,
+      "rss": 3511418880,
+      "pageins": 16939
+    },
+    "cleared": {
+      "footprint": 3719089920,
+      "peak_footprint": 3724005120,
+      "rss": 3511418880,
+      "pageins": 16939
+    }
+  },
+  "branches": [
+    {
+      "branch": 0,
+      "dispatch_ns": 28667,
+      "first_ns": 25795458,
+      "done_ns": 45982435292,
+      "reused": 16384,
+      "engine_prefill_ms": 19.2,
+      "engine_decode_ms": 45956.6,
+      "endpoint": 14781
+    },
+    {
+      "branch": 1,
+      "dispatch_ns": 28667,
+      "first_ns": 46216024792,
+      "done_ns": 48713762583,
+      "reused": 0,
+      "engine_prefill_ms": 46161.3,
+      "engine_decode_ms": 2497.7,
+      "endpoint": 75
+    }
+  ],
+  "waves": [
+    {
+      "first_branch": 0,
+      "size": 2,
+      "queue_ns": 28667,
+      "dispatch_to_first_ns": 25766791,
+      "mixed_ns": 46190229334,
+      "last_first_to_done_ns": 2497737791,
+      "physical": {
+        "footprint": 3719089920,
+        "peak_footprint": 3724005120,
+        "rss": 3511418880,
+        "pageins": 16939
+      }
+    }
+  ]
+}

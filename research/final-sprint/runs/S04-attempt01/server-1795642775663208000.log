@@ -1,0 +1,59 @@
+loading the model (the first start takes a minute or two) ...
+[strata] Monitor: watching GPU 0 (main) (as nvidia-smi numbers them)
+ready: http://127.0.0.1:61836/v1  (OpenAI: /v1/chat/completions, Anthropic: /v1/messages, context 24576 tokens)
+       open http://127.0.0.1:61836/ in a browser to chat; close this window to stop the model
+[strata] thinking limited to 17959 of max_tokens 23945 so the answer has room ("answer_room": false in the config turns this off)
+[strata] thinking limited to 512 of max_tokens 1024 so the answer has room ("answer_room": false in the config turns this off)
+[strata] reading the prompt: 128 of 623 tokens, 3 s so far
+[strata] thinking: 4 of budget 17959 (max 23945) tokens, 14.7 tok/s, 4 s
+[strata] thinking: 8 of budget 17959 (max 23945) tokens, 6.2 tok/s, 5 s
+[strata] thinking: 12 of budget 17959 (max 23945) tokens, 4.9 tok/s, 6 s
+[strata] thinking: 16 of budget 17959 (max 23945) tokens, 4.3 tok/s, 7 s
+[strata] thinking: 20 of budget 17959 (max 23945) tokens, 4.1 tok/s, 8 s
+[strata] thinking: 24 of budget 17959 (max 23945) tokens, 3.9 tok/s, 10 s
+[strata] reading the prompt: 1 of max 1024 tokens, 4.0 tok/s, 10 s
+[strata] thinking: 63 of budget 17959 (max 23945) tokens, 8.8 tok/s, 11 s
+[strata] thinking: 40 of budget 512 (max 1024) tokens, 39.1 tok/s, 11 s
+[strata] done: 68 tokens in 11 s (39.0 tok/s) (length, cancel=False)
+[strata] done: 95 tokens in 11 s (11.9 tok/s) (disconnect, cancel=True)
+[strata] thinking limited to 17920 of max_tokens 23893 so the answer has room ("answer_room": false in the config turns this off)
+[strata] thinking limited to 512 of max_tokens 1024 so the answer has room ("answer_room": false in the config turns this off)
+[strata] reading the prompt: 640 of 675 tokens, 1 s so far
+[strata] thinking: 7 of budget 17920 (max 23893) tokens, 6.8 tok/s, 2 s
+[strata] thinking: 11 of budget 17920 (max 23893) tokens, 5.1 tok/s, 4 s
+[strata] thinking: 15 of budget 17920 (max 23893) tokens, 4.4 tok/s, 5 s
+[strata] thinking: 19 of budget 17920 (max 23893) tokens, 4.1 tok/s, 6 s
+[strata] thinking: 23 of budget 17920 (max 23893) tokens, 3.9 tok/s, 7 s
+[strata] reading the prompt: 1 of max 1024 tokens, 4.0 tok/s, 8 s
+[strata] thinking: 47 of budget 17920 (max 23893) tokens, 6.7 tok/s, 8 s
+[strata] thinking: 40 of budget 512 (max 1024) tokens, 39.3 tok/s, 9 s
+[strata] done: 53 tokens in 9 s (38.7 tok/s) (length, cancel=False)
+[strata] done: 80 tokens in 9 s (10.2 tok/s) (disconnect, cancel=True)
+[strata] thinking limited to 512 of max_tokens 1024 so the answer has room ("answer_room": false in the config turns this off)
+[strata] thinking limited to 17946 of max_tokens 23927 so the answer has room ("answer_room": false in the config turns this off)
+[strata] reading the prompt: 640 of 641 tokens, 1 s so far
+[strata] thinking: 7 of budget 17946 (max 23927) tokens, 6.4 tok/s, 2 s
+[strata] thinking: 11 of budget 17946 (max 23927) tokens, 4.7 tok/s, 4 s
+[strata] thinking: 14 of budget 17946 (max 23927) tokens, 4.2 tok/s, 5 s
+[strata] thinking: 17 of budget 17946 (max 23927) tokens, 3.9 tok/s, 6 s
+[strata] thinking: 20 of budget 17946 (max 23927) tokens, 3.6 tok/s, 7 s
+[strata] thinking: 23 of budget 17946 (max 23927) tokens, 3.5 tok/s, 8 s
+[strata] reading the prompt: 1 of max 1024 tokens, 4.0 tok/s, 8 s
+[strata] thinking: 49 of budget 17946 (max 23927) tokens, 6.4 tok/s, 9 s
+[strata] thinking: 39 of budget 512 (max 1024) tokens, 38.4 tok/s, 9 s
+[strata] thinking: 87 of budget 17946 (max 23927) tokens, 10.1 tok/s, 10 s
+[strata] thinking: 76 of budget 512 (max 1024) tokens, 37.3 tok/s, 10 s
+[strata] thinking: 123 of budget 17946 (max 23927) tokens, 12.8 tok/s, 11 s
+[strata] thinking: 112 of budget 512 (max 1024) tokens, 36.8 tok/s, 11 s
+[strata] thinking: 160 of budget 17946 (max 23927) tokens, 15.0 tok/s, 12 s
+[strata] tool call complete: 149 of max 1024 tokens, 36.8 tok/s, 12 s
+[strata] thinking: 198 of budget 17946 (max 23927) tokens, 17.0 tok/s, 13 s
+[strata] tool call complete: 187 of max 1024 tokens, 37.0 tok/s, 13 s
+[strata] thinking: 236 of budget 17946 (max 23927) tokens, 18.6 tok/s, 14 s
+[strata] tool call complete: 225 of max 1024 tokens, 37.0 tok/s, 14 s
+[strata] done: 248 tokens in 15 s (37.0 tok/s) (length, cancel=False)
+[strata] thinking: 274 of budget 17946 (max 23927) tokens, 20.0 tok/s, 15 s
+[strata] done: 274 tokens in 15 s (20.0 tok/s) (disconnect, cancel=True)
+
+[strata] stopping (Ctrl+C again to end the engine at once) ...
+[strata] stopped

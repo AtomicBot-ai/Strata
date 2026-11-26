@@ -1,0 +1,87 @@
+--- a/engine/src/program/generate.cpp
++++ b/engine/src/program/generate.cpp
+@@ -16901,6 +16901,14 @@
+             if (!sync_all()) { e = "batch slot copy: device sync failed"; return false; }
+             return true;
+         };
++        // Bounded S02 adapter. A third allocated row holds one immutable parent.
++        // It is never admitted as a request. Data movement uses the native Metal implementation.
++#if defined(STRATA_GPU_METAL)
++        const bool sprint_fork = std::getenv("TURBINE_S02_PROBE") != nullptr && o.batch == 3 &&
++                                 !use_mtp && !batch_df2 && !multi_gpu && stages.empty();
++        std::vector<int32_t> sprint_parent;
++        bool sprint_cvec = false;
++#endif
+         auto copy_to_slot = [&](int b, const std::vector<int32_t>& ids, std::string& e) -> bool {
+             const int64_t upto = (int64_t) ids.size();
+ #if defined(STRATA_GPU_METAL)
+@@ -18479,6 +18487,42 @@
+             admit_slot = -1;
+             bool bgen_rewritten = false, bgen_img = false;
+             char* bgen_tail = nullptr;
++#if defined(STRATA_GPU_METAL)
++            if (sprint_fork && (line == "SPRINT_SAVE" || line == "SPRINT_RESTORE" || line == "SPRINT_DROP")) {
++                if (line == "SPRINT_DROP") {
++                    sprint_parent.clear();
++                    std::puts("SDROPPED");
++                } else if (line == "SPRINT_SAVE") {
++                    if (!live_ok || live.empty() || !live_imgs.empty() || !sprint_parent.empty() || nan_flush) {
++                        std::puts("SREFUSED source unavailable");
++                    } else if (!ver.wait_commit(err) || !copy_to_slot(2, live, err)) {
++                        std::fprintf(stderr,"S02 copy failed: %s\n",err.c_str()); return 1;
++                    } else {
++                        sprint_parent = live;
++                        sprint_cvec = cvec_cached;
++                        std::printf("SSAVED %zu\n", sprint_parent.size());
++                    }
++                } else if (sprint_parent.empty()) {
++                    std::puts("SREFUSED empty snapshot");
++                } else {
++                    if (!ver.wait_commit(err) || !strata::metal_engine::window_slot_copy_main(false,2,sprint_parent.size(),false,err)) {
++                        std::fprintf(stderr,"S02 restore failed: %s\n",err.c_str()); return 1;
++                    }
++                    conversations.take_reuse();
++                    live = sprint_parent;
++                    live_imgs.clear();
++                    checks.clear();
++                    tail_ckpt_len = -1;
++                    cvec_cached = sprint_cvec;
++                    live_ok = true;
++                    std::printf("SRESTORED %zu\n", live.size());
++                }
++                std::fflush(stdout); continue;
++            }
++            if (sprint_fork && (line.rfind("BGEN 2 ",0)==0 || line.rfind("BGENI 2 ",0)==0)) {
++                std::puts("ERR reserved snapshot row"); std::fflush(stdout); continue;
++            }
++#endif
+             if (line.rfind("BGEN ", 0) == 0 || line.rfind("BGENI ", 0) == 0) {
+                 const bool bimg = line.rfind("BGENI ", 0) == 0;
+                 char* e1 = nullptr;
+--- a/engine/metal/src/engine/window.cpp
++++ b/engine/metal/src/engine/window.cpp
+@@ -2305,9 +2305,12 @@
+         for (int64_t c = n; c < max_cells_ + 16; ++c) m[c * 3] = m[c * 3 + 1] = m[c * 3 + 2] = (int32_t) (last[0] + (c - n + 1));
+     }
+     const size_t cells = (size_t) std::max<int64_t>(0, std::min<int64_t>(upto, max_cells_));
++    const bool audit_copy = std::getenv("TURBINE_S02_VERIFY_COPY") != nullptr;
++    bool equal = true;
+     auto cp = [&](const mtl::Buffer& live, const mtl::Buffer& stash, size_t n) {
+         n = std::min({n, live.bytes, stash.bytes});
+         if (into_slot) std::memcpy(stash.ptr, live.ptr, n); else std::memcpy(live.ptr, stash.ptr, n);
++        if (audit_copy && n && std::memcmp(live.ptr,stash.ptr,n)) equal=false;
+     };
+     const int hs = into_slot ? hp_ : o.hp;   // the committed history parity of the source
+     if (!kv_only) {
+@@ -2331,6 +2334,11 @@
+     cp(pleHist_, o.pleHist, pleHist_.bytes);
+     if (into_slot) { o.ple_hist = ple_hist_; o.ss->ple_prev[0] = ss_->ple_prev[0]; o.ss->ple_prev[1] = ss_->ple_prev[1]; }
+     else { ple_hist_ = o.ple_hist; ss_->ple_prev[0] = o.ss->ple_prev[0]; ss_->ple_prev[1] = o.ss->ple_prev[1]; }
++    if (audit_copy) {
++        equal = equal && o.hp == hp_ && o.ple_hist == ple_hist_ && o.ss->ple_prev[0] == ss_->ple_prev[0] && o.ss->ple_prev[1] == ss_->ple_prev[1];
++        std::fprintf(stderr,"S02_COPY %d %d %lld exact=%d\n",int(into_slot),b,(long long)upto,int(equal));
++        if (!equal) { err="S02 unequal state bytes"; return false; }
++    }
+     return true;
+ }
+ 

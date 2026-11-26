@@ -1,0 +1,47 @@
+{
+  "author": "Inkling-2-Mini-SQ-10.strata",
+  "binary_sha256": "9d3f426e4a35beb82605e6005bddd809c3e132833c69a9496a9c0111d6866deb",
+  "tokenizer_sha256": "7f332727f9a3f093dd452a39cc978e6757627e5dad1b0673aa4e75174f236dd6",
+  "revision": "0fe84c3912ea0c4d4a78037083943e8f0c4dd505",
+  "sources": {
+    "abc344_a": "diverse-extra2.jsonl",
+    "abc344_d": "diverse-extra2.jsonl",
+    "abc356_a": "diverse-test3.jsonl",
+    "abc356_d": "diverse-test3.jsonl",
+    "abc366_b": "diverse-test4.jsonl",
+    "abc366_f": "diverse-test4.jsonl",
+    "abc375_e": "code5-review-records.jsonl",
+    "abc394_f": "code6-mid.jsonl"
+  },
+  "source_hashes": {
+    "diverse-test4.jsonl": "4a70618f98c38c47b4f8cfafb65ea8c2f0613a64524e5fcb2b479fd0cc8bbd1b",
+    "code5-review-records.jsonl": "a411763add2b507da8b3feb8e00e21d7ab288872f8a40c55da14d89837ce0081",
+    "code6-mid.jsonl": "8fd870481e3ca7352593f5b60236f4260a96ae1cb69ce2a15117082504c818bf",
+    "diverse-test3.jsonl": "d701a6f7f4c55a481b8b623391bda82ec61632c30f8e996dfcaee6ef088cc148",
+    "diverse-extra2.jsonl": "73f152745c6ad97e2acc006b6ccfecaaea88f899245be5a06ff8e8d04e1c4961"
+  },
+  "tasks_sha256": "8e4c0fd6618ea55e15f24170cf5c52d3bd434e35e77ec7973edd009a98039fda",
+  "driver_sha256": "b2a08320b974e37db825480f59f868cd52b41324229106024ea99bda55c0fc1d",
+  "methods": [
+    "direct",
+    "independent_plans",
+    "diverse_plans"
+  ],
+  "seeds": {
+    "plans": [
+      2111,
+      2113,
+      2129
+    ],
+    "code": [
+      2203,
+      2207,
+      2213
+    ]
+  },
+  "plan_cap": 80,
+  "budget_extra": 1024,
+  "budget": "Each branch may process twice the number of tokens in its ordinary input plus 1024. Includes prompts, plan generation and replay. No pooling after EOS. Same per-task cap for each trio.",
+  "endpoint": "At least one program passes all hidden cases. Net newly covered minus newly lost tasks. No selector or test feedback. Inspect implemented algorithm families separately.",
+  "sampling": "Temperature 1, top_k 32, top_p .95, clean Strata slot on each call."
+}

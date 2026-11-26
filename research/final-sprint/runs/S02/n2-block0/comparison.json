@@ -1,0 +1,15 @@
+{
+  "seed": 84201,
+  "order": [
+    "D",
+    "A",
+    "B",
+    "C"
+  ],
+  "token_identity": {
+    "D": true,
+    "A": true,
+    "B": true,
+    "C": true
+  }
+}

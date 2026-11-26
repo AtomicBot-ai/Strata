@@ -1,0 +1,110 @@
+{
+  "key": {
+    "config": [
+      16384,
+      2,
+      128,
+      true
+    ],
+    "seed": 70281,
+    "mode": "fork",
+    "slots": 2,
+    "width": 1,
+    "diag": false,
+    "work": "66e7b52426d271990ad32e2db3fe93e92fce04a37ac3645fed683389ce8c770e"
+  },
+  "elapsed_ns": 5166485375,
+  "through_cleanup_ns": 5166737208,
+  "parent_prefill_ns": 25518197500,
+  "initial_parent_in_elapsed": false,
+  "snapshot_create_ns": 62964375,
+  "restore_ns": 56587209,
+  "drop_ns": 14812917,
+  "postrun_slot_clear_ns": 251833,
+  "children_done_ns": 5151672000,
+  "snapshot_bytes": 708542464,
+  "memory": {
+    "before": {
+      "footprint": 3528265328,
+      "peak_footprint": 3528265328,
+      "rss": 3370500096,
+      "pageins": 78605
+    },
+    "parent": {
+      "footprint": 3723038440,
+      "peak_footprint": 3723038440,
+      "rss": 3542384640,
+      "pageins": 78605
+    },
+    "after_create": {
+      "footprint": 4431810784,
+      "peak_footprint": 4431810784,
+      "rss": 4182671360,
+      "pageins": 78605
+    },
+    "end": {
+      "footprint": 3722677992,
+      "peak_footprint": 4432433376,
+      "rss": 3413966848,
+      "pageins": 78605
+    },
+    "cleared": {
+      "footprint": 3722677992,
+      "peak_footprint": 4432433376,
+      "rss": 3413966848,
+      "pageins": 78605
+    }
+  },
+  "branches": [
+    {
+      "branch": 0,
+      "dispatch_ns": 63015250,
+      "first_ns": 88925333,
+      "done_ns": 2569798583,
+      "reused": 16384,
+      "engine_prefill_ms": 19.7,
+      "engine_decode_ms": 2480.9,
+      "endpoint": 14781
+    },
+    {
+      "branch": 1,
+      "dispatch_ns": 2626447500,
+      "first_ns": 2652252000,
+      "done_ns": 5151641541,
+      "reused": 16384,
+      "engine_prefill_ms": 19.9,
+      "engine_decode_ms": 2499.4,
+      "endpoint": 75
+    }
+  ],
+  "waves": [
+    {
+      "first_branch": 0,
+      "size": 1,
+      "queue_ns": 63015250,
+      "dispatch_to_first_ns": 25910083,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2480873250,
+      "physical": {
+        "footprint": 4427665632,
+        "peak_footprint": 4432433376,
+        "rss": 4127342592,
+        "pageins": 78605
+      }
+    },
+    {
+      "first_branch": 1,
+      "size": 1,
+      "queue_ns": 2626447500,
+      "dispatch_to_first_ns": 25804500,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2499389541,
+      "physical": {
+        "footprint": 4427665632,
+        "peak_footprint": 4432433376,
+        "rss": 4118609920,
+        "pageins": 78605
+      }
+    }
+  ]
+}

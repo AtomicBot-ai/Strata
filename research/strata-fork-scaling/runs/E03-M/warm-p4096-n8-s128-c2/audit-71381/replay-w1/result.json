@@ -1,0 +1,255 @@
+{
+  "key": {
+    "config": [
+      4096,
+      8,
+      128,
+      true
+    ],
+    "seed": 71381,
+    "mode": "replay",
+    "slots": 2,
+    "width": 1,
+    "diag": true,
+    "work": "0f542e7779b0a46319abd7e37972d5ae2c2932cc55184ce92c72b0c234062de7"
+  },
+  "elapsed_ns": 66088755542,
+  "through_cleanup_ns": 66089011250,
+  "parent_prefill_ns": 5995937208,
+  "initial_parent_in_elapsed": false,
+  "snapshot_create_ns": 0,
+  "restore_ns": 0,
+  "drop_ns": 0,
+  "postrun_slot_clear_ns": 255708,
+  "children_done_ns": 66088755333,
+  "snapshot_bytes": 0,
+  "memory": {
+    "before": {
+      "footprint": 2723892272,
+      "peak_footprint": 2723892272,
+      "rss": 2566602752,
+      "pageins": 987
+    },
+    "parent": {
+      "footprint": 2918419648,
+      "peak_footprint": 2918419648,
+      "rss": 2744352768,
+      "pageins": 987
+    },
+    "after_create": {
+      "footprint": 2918419648,
+      "peak_footprint": 2918419648,
+      "rss": 2744352768,
+      "pageins": 987
+    },
+    "end": {
+      "footprint": 2915519680,
+      "peak_footprint": 2920303808,
+      "rss": 2746220544,
+      "pageins": 987
+    },
+    "cleared": {
+      "footprint": 2915519680,
+      "peak_footprint": 2920303808,
+      "rss": 2746220544,
+      "pageins": 987
+    }
+  },
+  "branches": [
+    {
+      "branch": 0,
+      "dispatch_ns": 6008187750,
+      "first_ns": 6027260458,
+      "done_ns": 8245917250,
+      "reused": 4096,
+      "engine_prefill_ms": 17.4,
+      "engine_decode_ms": 2217.7,
+      "endpoint": 157
+    },
+    {
+      "branch": 1,
+      "dispatch_ns": 14261180792,
+      "first_ns": 14280524292,
+      "done_ns": 16503974917,
+      "reused": 4096,
+      "engine_prefill_ms": 17.7,
+      "engine_decode_ms": 2221.9,
+      "endpoint": 65
+    },
+    {
+      "branch": 2,
+      "dispatch_ns": 22514501958,
+      "first_ns": 22533511583,
+      "done_ns": 24762976750,
+      "reused": 4096,
+      "engine_prefill_ms": 17.4,
+      "engine_decode_ms": 2228.5,
+      "endpoint": 82
+    },
+    {
+      "branch": 3,
+      "dispatch_ns": 30779474375,
+      "first_ns": 30798521625,
+      "done_ns": 33029644875,
+      "reused": 4096,
+      "engine_prefill_ms": 17.3,
+      "engine_decode_ms": 2230.0,
+      "endpoint": 69
+    },
+    {
+      "branch": 4,
+      "dispatch_ns": 39039710417,
+      "first_ns": 39058587917,
+      "done_ns": 41292352250,
+      "reused": 4096,
+      "engine_prefill_ms": 17.2,
+      "engine_decode_ms": 2232.6,
+      "endpoint": 82
+    },
+    {
+      "branch": 5,
+      "dispatch_ns": 47304165083,
+      "first_ns": 47323128042,
+      "done_ns": 49556793708,
+      "reused": 4096,
+      "engine_prefill_ms": 17.3,
+      "engine_decode_ms": 2232.8,
+      "endpoint": 64
+    },
+    {
+      "branch": 6,
+      "dispatch_ns": 55567261792,
+      "first_ns": 55586488708,
+      "done_ns": 57819906542,
+      "reused": 4096,
+      "engine_prefill_ms": 17.5,
+      "engine_decode_ms": 2232.4,
+      "endpoint": 157
+    },
+    {
+      "branch": 7,
+      "dispatch_ns": 63839753042,
+      "first_ns": 63858658875,
+      "done_ns": 66088588333,
+      "reused": 4096,
+      "engine_prefill_ms": 17.2,
+      "engine_decode_ms": 2229.0,
+      "endpoint": 384
+    }
+  ],
+  "waves": [
+    {
+      "first_branch": 0,
+      "size": 1,
+      "queue_ns": 6008187750,
+      "dispatch_to_first_ns": 19072708,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2218656792,
+      "physical": {
+        "footprint": 2913864896,
+        "peak_footprint": 2918632640,
+        "rss": 2744565760,
+        "pageins": 987
+      }
+    },
+    {
+      "first_branch": 1,
+      "size": 1,
+      "queue_ns": 14261180792,
+      "dispatch_to_first_ns": 19343500,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2223450625,
+      "physical": {
+        "footprint": 2915486912,
+        "peak_footprint": 2918632640,
+        "rss": 2746187776,
+        "pageins": 987
+      }
+    },
+    {
+      "first_branch": 2,
+      "size": 1,
+      "queue_ns": 22514501958,
+      "dispatch_to_first_ns": 19009625,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2229465167,
+      "physical": {
+        "footprint": 2915503296,
+        "peak_footprint": 2920271040,
+        "rss": 2746204160,
+        "pageins": 987
+      }
+    },
+    {
+      "first_branch": 3,
+      "size": 1,
+      "queue_ns": 30779474375,
+      "dispatch_to_first_ns": 19047250,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2231123250,
+      "physical": {
+        "footprint": 2915503296,
+        "peak_footprint": 2920271040,
+        "rss": 2746204160,
+        "pageins": 987
+      }
+    },
+    {
+      "first_branch": 4,
+      "size": 1,
+      "queue_ns": 39039710417,
+      "dispatch_to_first_ns": 18877500,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2233764333,
+      "physical": {
+        "footprint": 2915503296,
+        "peak_footprint": 2920303808,
+        "rss": 2746204160,
+        "pageins": 987
+      }
+    },
+    {
+      "first_branch": 5,
+      "size": 1,
+      "queue_ns": 47304165083,
+      "dispatch_to_first_ns": 18962959,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2233665666,
+      "physical": {
+        "footprint": 2915519680,
+        "peak_footprint": 2920303808,
+        "rss": 2746220544,
+        "pageins": 987
+      }
+    },
+    {
+      "first_branch": 6,
+      "size": 1,
+      "queue_ns": 55567261792,
+      "dispatch_to_first_ns": 19226916,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2233417834,
+      "physical": {
+        "footprint": 2915519680,
+        "peak_footprint": 2920303808,
+        "rss": 2746220544,
+        "pageins": 987
+      }
+    },
+    {
+      "first_branch": 7,
+      "size": 1,
+      "queue_ns": 63839753042,
+      "dispatch_to_first_ns": 18905833,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2229929458,
+      "physical": {
+        "footprint": 2915519680,
+        "peak_footprint": 2920303808,
+        "rss": 2746220544,
+        "pageins": 987
+      }
+    }
+  ],
+  "raw_sha256": "041af1e1b16db2d2ca2e3f89b1a1c524917b97dbbd7b15909ea0e49a6196565c"
+}

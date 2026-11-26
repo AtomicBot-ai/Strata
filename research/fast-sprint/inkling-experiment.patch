@@ -1,0 +1,84 @@
+--- a/engine/src/inkling2/metal/ink_metal_backend.mm
++++ b/engine/src/inkling2/metal/ink_metal_backend.mm
+@@ -474,8 +474,15 @@
+         const bool is_sq10 = (mod_.man.build.find("10") != std::string::npos);
+         const double t_plain_ms = runner_.is_apple10 ? (is_bf16_trunk ? 17.2 : (is_sq10 ? 13.5 : 14.8)) : 41.0;
+ 
++        static const bool trace = std::getenv("TURBINE_TRACE_VERIFY") != nullptr;
++        auto stamp = [&]() { return trace ? mtl::now_s() : 0.0; };
++        double draft_ms = 0, verify_start = 0, verify_end = 0, state_ms = 0;
+         auto update_gain = [&](int n_emit) {
+             const double step_ms = std::max(1.0, (mtl::now_s() - t_step0) * 1e3);
++            if (trace) {
++                std::fprintf(stderr, "verify_trace draft_ms=%.4f verify_ms=%.4f state_ms=%.4f emit=%d\n",
++                             draft_ms, (verify_end - verify_start) * 1e3, state_ms, n_emit);
++            }
+             const double step_gain = (double)n_emit * t_plain_ms / step_ms;
+             slot_ema_gain_[slot] = 0.72 * slot_ema_gain_[slot] + 0.28 * step_gain;
+             if (step_gain >= 1.05) {
+@@ -489,11 +496,14 @@
+         };
+ 
+         ink_metal::InkDraftTree tree;
+-        const int max_b = (max_emit <= 4) ? std::min(10, max_emit + 2) : 10;
++        static const int budget = std::getenv("TURBINE_NARROW_TREE") ? 6 : 10;
++        const int max_b = (max_emit <= 4) ? std::min(budget, max_emit + 2) : budget;
+         const int dcap = std::max(4, std::min(slot_beam_depth_[slot], std::min(7, max_emit - 1)));
+         const int tm = runner_.dspark_draft_beam_tree(slot, anchor_tok, anchor_pos, max_b, /*dynamic_bayes=*/true, tree, dcap);
+         if (tm <= 1) return 0;
+ 
++        verify_start = stamp();
++        draft_ms = (verify_start - t_step0) * 1e3;
+         if (tree.is_linear) {
+             ink_metal::InkBatchStep st;
+             st.M = tm;
+@@ -506,6 +516,7 @@
+             st.record_verify_ring = true;
+             int32_t ver_ids[32]{};
+             if (!runner_.forward_batch(st, nullptr, ver_ids, err)) return -1;
++            verify_end = stamp();
+ 
+             const int rem = std::min(tm - 1, max_emit - 1);
+             int acc = 0;
+@@ -517,7 +528,11 @@
+                 }
+             }
+             out_emitted[acc] = ver_ids[acc];
+-            if (acc < tm - 1) runner_.restore_verify_step(slot, acc);
++            if (acc < tm - 1) {
++                const double start = stamp();
++                runner_.restore_verify_step(slot, acc);
++                state_ms = (stamp() - start) * 1e3;
++            }
+ 
+             last_ver_slot_ = slot;
+             last_ver_pos0_ = anchor_pos;
+@@ -530,7 +545,10 @@
+         }
+ 
+         // Multi-branch W=4 Beam Tree verify + O(1) GPU commit (exact 0.00000 KLD, zero logits D2H!)
++        const double save_start = stamp();
+         snapshot_slot(slot);
++        verify_start = stamp();
++        state_ms = (verify_start - save_start) * 1e3;
+         ink_metal::InkBatchStep st;
+         st.M = tm;
+         st.slot_ids.assign((size_t)tm, slot);
+@@ -549,6 +567,7 @@
+         st.tree_anc_mask = tree.anc_masks;
+         int32_t ver_ids[32]{};
+         if (!runner_.forward_batch(st, nullptr, ver_ids, err)) return -1;
++        verify_end = stamp();
+ 
+         std::vector<int32_t> path;
+         path.reserve(8);
+@@ -567,7 +586,9 @@
+             cur_node = mc;
+         }
+         out_emitted[acc] = ver_ids[cur_node];
++        const double commit_start = stamp();
+         runner_.commit_tree_path(slot, anchor_pos, path);
++        state_ms += (stamp() - commit_start) * 1e3;
+ 
+         last_tree_slot_ = slot;
+         last_tree_anchor_ = anchor_pos;

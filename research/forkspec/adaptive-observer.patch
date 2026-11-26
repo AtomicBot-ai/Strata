@@ -1,0 +1,23 @@
+--- a/engine/src/inkling2/metal/ink_metal_backend.mm
++++ b/engine/src/inkling2/metal/ink_metal_backend.mm
+@@ -554,6 +554,7 @@
+             st.compute_logits = true;
+             st.record_verify_ring = true;
+             int32_t ver_ids[32]{};
++            observe(slot, anchor_pos, tm);
+             if (!runner_.forward_batch(st, nullptr, ver_ids, err)) return -1;
+ 
+             const int rem = std::min(tm - 1, max_emit - 1);
+@@ -566,7 +567,11 @@
+                 }
+             }
+             out_emitted[acc] = ver_ids[acc];
+-            if (acc < tm - 1) runner_.restore_verify_step(slot, acc);
++            if (acc < tm - 1) {
++                runner_.restore_verify_step(slot, acc);
++                last_ver_pos0_ = anchor_pos;
++                check_rows(slot, anchor_pos + acc + 1);
++            }
+ 
+             last_ver_slot_ = slot;
+             last_ver_pos0_ = anchor_pos;

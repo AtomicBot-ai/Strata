@@ -1,0 +1,26 @@
+{
+  "totals": {
+    "restart": 23,
+    "static": 24,
+    "critic": 24
+  },
+  "pairs": {
+    "static": {
+      "gains": 0,
+      "losses": 0,
+      "ci_pp": [
+        0.0,
+        0.0
+      ]
+    },
+    "restart": {
+      "gains": 1,
+      "losses": 0,
+      "ci_pp": [
+        0.0,
+        8.33
+      ]
+    }
+  },
+  "count": 36
+}

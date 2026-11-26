@@ -1,0 +1,60 @@
+strata generate: memory guard: limit 48.0 GiB (source: meminfo), current 32.0 GiB, reclaimable cache credited 0.0 GiB; available 16.0 GiB (MemAvailable 16.0 GiB), floor 2560 MiB
+strata generate: PCIe probe failed -> pcie_frac default 0.55
+strata generate: CPU expert kernels: the Strata quant layer (NEON)
+strata generate: native pack: /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/ssd-qwen-pack experts (largest blob 2.33 MB), token embedding IQ3_S in mapped host memory (260 MiB, 0.3 s)
+strata generate: 1466 MiB of weights loaded from /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/ssd-qwen-pack in 0.4 s (302 canonical tensors skipped: served natively)
+strata generate: 300 native projection matrices, 1781.11 MiB of weights, in 2.2 s
+strata generate: PLE direct read probe: 126199 rows/s (fine)
+strata generate: the SSD is kept awake while rows are read: one page of the table after 100 ms without a read, until 60 s after the last request (STRATA_SSD_KEEPALIVE=0 turns it off)
+strata generate: profile /Users/aleksejkalina/code/models/qwen38-iq3/profile.bin: 24576 ranked pairs, built for 24576 slots
+strata generate: PLE on, table 320001536 rows of /Users/aleksejkalina/code/models/qwen38-iq3/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00002-of-00002.gguf
+strata generate: --batch: 4 slot sessions on CUDA0 (0.13 GiB each); 33.36 GiB free
+strata generate: --batch 4: the slot sessions take 0.52 GiB of VRAM on CUDA0 that the expert cache would otherwise hold
+strata generate: experimental native Q5_K head, 437043200 bytes, in 0.5 s
+strata generate: GPU 0: Apple M4 Max, compute capability 0.0
+strata generate: experts via mmap (--mmap-experts; the GGUF shards in place, no experts.bin)
+strata generate: CPU pool tasks/phase: 48 (automatic), participating threads: 16
+strata generate: CPU pool: 15 workers by default (16 physical cores, 16 logical processors; bounded by every physical core but the host's)
+strata generate: 15 pool workers on logical processors 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15, the host thread on 0 (draining too) (--host-core first)
+strata generate: CPU workers on logical processors 1-15 (15 workers, the OS did not say which logical processors share a core; host on 0)
+strata aux cpus: not available on this system
+strata generate: expert cache 84 slots, 0.14 GiB of VRAM; policy is
+strata generate: the GPU computes the experts in the cache; it rounds differently from the CPU,
+                 so a reply can differ slightly from a run without the cache (same quality:
+                 bench/results/2026-09-27-cache-parity).
+                 PROFILE, ranked by routing frequency, no eviction.
+strata generate: the profile fill asks for 256 pairs ahead (STRATA_FILL_AHEAD)
+strata generate: pre-filled 84 of 84 slots from the profile in 0.0 s (5218 MB/s); slot 0 verified
+strata generate: routing-aware prefetch on (the next layer's router, file tier)
+strata generate: R4 hit path ON - resident experts are computed on the GPU
+strata generate: 15 expert-pool workers + the host thread
+strata generate: session is up (engine 0.1.69-metal)
+strata generate: token graph hit path: 84 resident experts, decided on the device
+strata serve: the prompt path allocates its own buffers (too few cache slots to borrow)
+mtl: GPU keep-alive every 250 ms for 120 s after the last command buffer (#6078; STRATA_METAL_KEEPALIVE_MS=0 turns it off)
+strata metal: HC read in Q8_0 (STRATA_HC_Q8=0: BF16): 290 matrices, 680 MB, made in 228 ms
+strata metal stream: 789 dense tensors read into memory (2.84 GB, 0.4 s; 290 left out)
+strata metal: decode window on Apple M4 Max: /Users/aleksejkalina/code/models/qwen38-iq3/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf streamed from the SSD (experts) (47.0 GB), 4096 cells, PLE on, ready in 8427 ms
+strata metal: 4 batch slots, each with its own running state and K/V (0.18 GB each, 0.72 GB in all)
+strata verify: batch windows of up to 4 sequences, run slot by slot in the Metal window
+strata serve: adaptive overlap: off (STRATA_ADAPT_OVERLAP=1 turns it on)
+strata serve: 29335 MiB of VRAM free with everything loaded
+strata metal stream: 2.83 GB of the host code's device weight copies given back (unused by the Metal window)
+strata metal stream: 4.47 GB allocated before the arena (the process holds 7.54 GB, 7.56 GB resident); RAM 51.5 GB (13.9 GB available, 7.7 GB kept for macOS), GPU working set 40.2 GB
+strata metal stream: planned resident footprint 14.0 GB = arena 6.0 + 7.5 held before it + 0.5 reserved for the n-gram table; cap 40.2 GB = the lesser of the GPU working set 40.2 GB and the RAM 51.5 GB less 11.3 GB left to macOS and its file cache
+strata metal stream: expert arena 6.00 GB, 3215 slots in 3 size classes, 3215 experts read from the profile's top (24576 ranked) in 1.1 s (4.96 GB/s); 6 I/O threads, read-ahead top 0; 1 buffers
+strata metal stream: the arena is small: the prompt's 1.57 GB of buffers are their own allocation, not a region of its slots
+strata metal: prompts on the matrix units in chunks of 1024 (experts v2, QSA v1, matmul2d layout other; 1.57 GB of buffers, in the expert arena while a prompt runs)
+strata metal stream: resident footprint after the fill: the process holds 13.3 GB (10.8 GB resident), planned 14.0 GB, cap 40.2 GB
+strata serve: prompt 21 tokens = 0 reused + 21 read in 14064 ms (1.5 tok/s), 1 generated in 115 ms (8.7 tok/s), drafts accepted 0 of 0, 0 checkpoints
+strata serve: expert tiers: GPU 0 hits this request; since the start RAM 0 blobs, files 0 blobs 149.1 MB read (the GGUF in place)
+strata serve: prompt 21 tokens = 0 reused + 21 read in 1996 ms (10.5 tok/s), 1 generated in 126 ms (7.9 tok/s), drafts accepted 0 of 0, 0 checkpoints
+strata serve: expert tiers: GPU 0 hits this request; since the start RAM 0 blobs, files 0 blobs 149.1 MB read (the GGUF in place)
+strata batch: slot 0 takes 22 tokens (copied in 5.7 ms)
+strata serve: prompt 22 tokens = 21 reused + 1 read in 0 ms (93388.1 tok/s), 1 generated in 147 ms (6.8 tok/s), drafts accepted 0 of 0, 0 checkpoints
+strata serve: expert tiers: GPU 0 hits this request; since the start RAM 0 blobs, files 0 blobs 149.1 MB read (the GGUF in place)
+strata batch: 5 windows, avg 1.00 rows, 112.81 ms/window = run 112.79 (CUDA0 GPU-reach wait 0.00 + CPU experts 0.00) + commit 0.01 + emit 0.01 + adapt wait 0.01; per stage (ms/window): CUDA0 wait 0.00 + pool 0.00; per layer-window: CPU experts 0.00, VRAM hits 0.00, PCIe 0.00; routed entries per window: VRAM 0.0 (0.0%), PCIe 0.0 (0.0%), CPU 0.0 (0.0%); adaptive tier: 1 rounds, 0 experts swapped in; 8.9 rows/s over 564 ms of wall time (admissions included)
+strata batch: slot 0 takes 22 tokens (copied in 2.0 ms)
+strata serve: prompt 22 tokens = 21 reused + 1 read in 0 ms (128336.8 tok/s), 1 generated in 161 ms (6.2 tok/s), drafts accepted 0 of 0, 0 checkpoints
+strata serve: expert tiers: GPU 0 hits this request; since the start RAM 0 blobs, files 0 blobs 149.1 MB read (the GGUF in place)
+strata batch: 5 windows, avg 1.00 rows, 81.70 ms/window = run 81.68 (CUDA0 GPU-reach wait 0.00 + CPU experts 0.00) + commit 0.01 + emit 0.01 + adapt wait 0.01; per stage (ms/window): CUDA0 wait 0.00 + pool 0.00; per layer-window: CPU experts 0.00, VRAM hits 0.00, PCIe 0.00; routed entries per window: VRAM 0.0 (0.0%), PCIe 0.0 (0.0%), CPU 0.0 (0.0%); adaptive tier: 1 rounds, 0 experts swapped in; 12.2 rows/s over 409 ms of wall time (admissions included)

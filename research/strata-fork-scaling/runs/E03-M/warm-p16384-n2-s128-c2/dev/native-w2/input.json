@@ -1,0 +1,14 @@
+{
+  "config": [
+    16384,
+    2,
+    128,
+    true
+  ],
+  "seed": 70281,
+  "mode": "native",
+  "slots": 2,
+  "width": 2,
+  "diag": false,
+  "work": "66e7b52426d271990ad32e2db3fe93e92fce04a37ac3645fed683389ce8c770e"
+}

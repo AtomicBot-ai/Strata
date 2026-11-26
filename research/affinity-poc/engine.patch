@@ -1,0 +1,152 @@
+diff --git a/engine/metal/src/engine/stream.h b/engine/metal/src/engine/stream.h
+index 35cd0797..9b69f064 100644
+--- a/engine/metal/src/engine/stream.h
++++ b/engine/metal/src/engine/stream.h
+@@ -70,6 +70,13 @@ public:
+     void hold_region(bool hold);
+     void report(FILE* f) const;
+     void reset_stats();
++    // Queried between completed windows, on the host thread that owns where_.
++    uint64_t missing_bytes(int layer, int expert) const {
++        const int slot = where_[layer * 512 + expert];
++        if (slot >= 0 && slots_[slot].state.load() == 0) return 0;
++        const auto& layout = lay_[layer];
++        return layout.gs + layout.us + layout.ds;
++    }
+ 
+ private:
+     uint64_t shrink_to_ = 0;
+diff --git a/engine/metal/src/engine/window.cpp b/engine/metal/src/engine/window.cpp
+index 78a99311..9f49b7ab 100644
+--- a/engine/metal/src/engine/window.cpp
++++ b/engine/metal/src/engine/window.cpp
+@@ -554,7 +554,35 @@ public:
+     }
+     int win_n_[MAXT + 1] = {};
+     double win_ms_[MAXT + 1] = {}, win_gpu_[MAXT + 1] = {};
++    // Qwen Flash-Next PoC: bounded history from completed logical generation steps.
++    int affinity_owner[2] = {-1, -1};
++    struct RouteHistory {
++        int steps = 0;
++        int ids[4][48][TOPK] = {};
++    };
++    RouteHistory affinity_routes[8];
++    long long affinity_cost(int id) const {
++        const auto& h = affinity_routes[id];
++        const int count = std::min(4, h.steps);
++        if (!count || !st_ || !st_->ready()) return -1;
++        uint64_t bytes = 0;
++        for (int i = 0; i < count; ++i)
++            for (int layer = 0; layer < 48; ++layer)
++                for (int expert : h.ids[i][layer])
++                    bytes += st_->missing_bytes(layer, expert);
++        return (long long)(bytes / count);
++    }
+     void at_cut(int s) {
++        if (rows_ && !cut_ids_ && s >= 0 && s < 48) {
++            for (int row = 0; row < seg_T_; ++row) {
++                const int slot = rows_set_[row] - 1;
++                if (slot < 0 || slot >= 2 || affinity_owner[slot] < 0) continue;
++                auto& h = affinity_routes[affinity_owner[slot]];
++                const auto* ids = ids_.as<int32_t>() + row * TOPK;
++                std::copy_n(ids, TOPK, h.ids[h.steps % 4][s]);
++                if (s == 47) ++h.steps;
++            }
++        }
+         st_->at_layer(s, seg_T_, TOPK, cut_ids_ ? cut_ids_ : ids_.as<int32_t>(), st_pred_ && !cut_ids_ ? predL_.as<float>() + (size_t) s * MAXT * 512 : nullptr,
+                       predL2_.ptr && !cut_ids_ ? predL2_.as<float>() + (size_t) s * MAXT * 512 : nullptr);
+     }
+@@ -3684,6 +3712,15 @@ bool window_run_slots(void* w, const int* rows, int S, const int32_t* tokens, co
+     ((Window*) w)->prof_add(true, now_ms() - t0);
+     return ok;
+ }
++void affinity_bind(int slot, int seq) {
++    g_the_window->affinity_owner[slot] = seq;
++}
++void affinity_scores() {
++    std::printf("SCORES");
++    for (int id = 0; id < 8; ++id)
++        std::printf(" %d:%lld", std::min(4, g_the_window->affinity_routes[id].steps), g_the_window->affinity_cost(id));
++    std::puts("");
++}
+ bool window_slot_copy_main(bool into_slot, int slot, int64_t upto, bool kv_only, std::string& err) {
+     if (g_the_window == nullptr || !g_the_window->ready()) { err = "metal window: not up"; return false; }
+     return g_the_window->slot_copy(into_slot, slot, upto, kv_only, err);
+diff --git a/engine/src/program/generate.cpp b/engine/src/program/generate.cpp
+index 33096e00..c663883f 100644
+--- a/engine/src/program/generate.cpp
++++ b/engine/src/program/generate.cpp
+@@ -201,6 +201,8 @@ namespace strata::metal_engine {
+ void set_model_shard(const char* shard1);   // metal/src/engine/window.cpp
+ void set_batch_slots(int n);   // metal/src/engine/window.cpp: how many --batch slots the window keeps state for
+ // batch slot b <-> the main sequence: the running state (unless kv_only) and the first `upto` cells of K/V
++void affinity_bind(int slot, int seq);
++void affinity_scores();
+ bool window_slot_copy_main(bool into_slot, int slot, int64_t upto, bool kv_only, std::string& err);
+ std::string draft_vocab_default();   // metal/src/engine/window.cpp: the packaged default draft subset (data/draft_vocab.bin)
+ bool draft_vocab_whole_head();       // STRATA_METAL_DRAFT_VOCAB=full
+@@ -16182,9 +16184,9 @@ int main(int argc, char** argv) {
+         bool parent_slot_enabled = false;
+ #if defined(STRATA_GPU_METAL)
+         if (const char* fork = std::getenv("TURBINE_QWEN_FORK"); fork && std::string(fork) == "1") {
+-            if (o.batch != 3 || use_mtp || batch_df2 || multi_gpu || !stages.empty() ||
++            if (o.batch != 4 || use_mtp || batch_df2 || multi_gpu || !stages.empty() ||
+                 o.batch_groups > 1 || o.suffix_draft != 0 || o.vision || o.prompt_cache <= 0) {
+-                std::fprintf(stderr, "TURBINE_QWEN_FORK needs --batch 3, text, prompt caching, one Metal device, no drafter\n");
++                std::fprintf(stderr, "Affinity PoC needs --batch 4, text, prompt caching, one Metal device, no drafter\n");
+                 return 1;
+             }
+             parent_slot_enabled = true;
+@@ -16918,13 +16920,16 @@ int main(int argc, char** argv) {
+             return true;
+         };
+ #if defined(STRATA_GPU_METAL)
+-        constexpr int parent_slot = 2;
+-        std::vector<int32_t> parent_ids;
+-        bool parent_cvec = false;
+-        uint64_t parent_generation = 0;
++        struct ParentBank {
++            std::vector<int32_t> ids;
++            bool cvec = false;
++            uint64_t generation = 0;
++        };
++        ParentBank parents[2];
++        int bank = 0;
+         if (parent_slot_enabled) {
+-            std::random_device random;
+-            parent_generation = (uint64_t(random()) << 32) ^ random();
++            std::random_device rd;
++            for (auto& parent : parents) parent.generation = (uint64_t(rd()) << 32) ^ rd();
+         }
+ #endif
+         auto copy_to_slot = [&](int b, const std::vector<int32_t>& ids, std::string& e) -> bool {
+@@ -18506,7 +18511,29 @@ int main(int argc, char** argv) {
+             bool bgen_rewritten = false, bgen_img = false;
+             char* bgen_tail = nullptr;
+ #if defined(STRATA_GPU_METAL)
++            if (parent_slot_enabled && line.rfind("AFF_", 0) == 0) {
++                std::istringstream src(line);
++                std::string op, extra;
++                int slot, seq;
++                src >> op;
++                if (op == "AFF_BANK" && src >> slot && !(src >> extra) && slot >= 0 && slot < 2) {
++                    bank = slot;
++                    std::puts("BANKED");
++                } else if (op == "AFF_BIND" && src >> slot >> seq && !(src >> extra) &&
++                           slot >= 0 && slot < 2 && !bs[slot].active && seq >= -1 && seq < 8) {
++                    strata::metal_engine::affinity_bind(slot, seq);
++                    std::puts("BOUND");
++                } else if (line == "AFF_SCORES") {
++                    strata::metal_engine::affinity_scores();
++                } else std::puts("ERR bad affinity command");
++                std::fflush(stdout);
++                continue;
++            }
+             if (line.rfind("STATE_", 0) == 0) {
++                const int parent_slot = 2 + bank;
++                auto& parent_ids = parents[bank].ids;
++                auto& parent_cvec = parents[bank].cvec;
++                auto& parent_generation = parents[bank].generation;
+                 std::istringstream input(line);
+                 std::string command, location, extra;
+                 uint64_t handle = 0;

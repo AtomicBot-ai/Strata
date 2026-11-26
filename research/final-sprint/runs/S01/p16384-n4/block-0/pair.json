@@ -1,0 +1,68 @@
+{
+  "order": [
+    [
+      "native",
+      2
+    ],
+    [
+      "fork",
+      2
+    ],
+    [
+      "native",
+      1
+    ]
+  ],
+  "seed": 83101,
+  "modes": {
+    "native-2": {
+      "wall_s": 52.513156791,
+      "parent_s": 25.539152,
+      "marginal_s": 1.7821626875,
+      "create_ms": 0.0,
+      "restore_ms": 0.0,
+      "cleanup_ms": 0.243,
+      "peak_gib": 3.6382483392953873,
+      "tokens": [
+        279,
+        76,
+        157,
+        82
+      ],
+      "work": "634343a4a53d9c4ae4726bfd0deb1515e1f987c13f1b1e2f84683cc78fb15e19"
+    },
+    "fork-2": {
+      "wall_s": 7.238257291,
+      "parent_s": 25.372161791,
+      "marginal_s": 1.788792708,
+      "create_ms": 52.349291,
+      "restore_ms": 77.794042,
+      "cleanup_ms": 7.42425,
+      "peak_gib": 4.131168596446514,
+      "tokens": [
+        279,
+        76,
+        157,
+        82
+      ],
+      "work": "634343a4a53d9c4ae4726bfd0deb1515e1f987c13f1b1e2f84683cc78fb15e19"
+    },
+    "native-1": {
+      "wall_s": 10.104793958,
+      "parent_s": 25.464536084,
+      "marginal_s": 2.528802354,
+      "create_ms": 0.0,
+      "restore_ms": 0.0,
+      "cleanup_ms": 0.237125,
+      "peak_gib": 3.467914365231991,
+      "tokens": [
+        279,
+        76,
+        157,
+        82
+      ],
+      "work": "634343a4a53d9c4ae4726bfd0deb1515e1f987c13f1b1e2f84683cc78fb15e19"
+    }
+  },
+  "endpoints_agree": true
+}

@@ -1,0 +1,87 @@
+{
+  "version": "Atomic Turbine 0.1.0",
+  "models": {
+    "object": "list",
+    "data": [
+      {
+        "id": "inkling",
+        "object": "model",
+        "created": 1795643367,
+        "owned_by": "strata",
+        "status": {
+          "value": "loaded"
+        },
+        "max_model_len": 2048,
+        "context_length": 2048,
+        "max_context_length": 2048,
+        "limit": {
+          "context": 2048,
+          "output": 2040
+        },
+        "meta": {
+          "n_ctx": 2048,
+          "llamaswap": {
+            "max_output_tokens": 2040
+          }
+        },
+        "architecture": {
+          "input_modalities": [
+            "text"
+          ],
+          "output_modalities": [
+            "text"
+          ]
+        }
+      }
+    ]
+  },
+  "matched_native_tokens": [
+    239,
+    198,
+    197,
+    197,
+    197,
+    197
+  ],
+  "response": {
+    "id": "chatcmpl-0557999084da4e34aeafb539",
+    "object": "chat.completion",
+    "created": 1795643367,
+    "model": "inkling",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "reasoning_content": "The user asks"
+        },
+        "finish_reason": "length"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 21,
+      "completion_tokens": 8,
+      "total_tokens": 29,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 5
+      }
+    },
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 21,
+      "prompt_ms": 796.5,
+      "prompt_per_token_ms": 37.929,
+      "prompt_per_second": 26.4,
+      "predicted_n": 8,
+      "predicted_ms": 94.6,
+      "predicted_per_token_ms": 11.825,
+      "predicted_per_second": 84.6,
+      "draft_n": 0,
+      "draft_n_accepted": 0
+    }
+  }
+}

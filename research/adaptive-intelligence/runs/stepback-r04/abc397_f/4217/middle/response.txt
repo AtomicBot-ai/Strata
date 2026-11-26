@@ -1,0 +1,92 @@
+Step 1: For each position k, compute left[k] = number of distinct values in A[1..k], and right[k] = number of distinct values in A[k+1..N].
+
+Step 2: Enumerate all splits (i,j) with 1 <= i < j <= N-1; sum = left[i] + left[j] - left[i] + (right[j])? Better: left[i] + (distinct in middle) + right[j]. Compute middle distinct via prefix distinct counts: left[j] - distinct in A[1..i] that also appear in middle is not simple. Use three-way check with sets? Need O(N log N).
+
+Better: For each i, prefix distinct count is easy. For j, distinct in middle = number of values with last occurrence <= j and first occurrence > i. Use BIT/Fenwick for last positions? Simpler: N=3e5, need reliable algorithm.
+
+Alternative: For each i, maintain set of values in A[i+1..N]? O(N^2) too high.
+
+Efficient: For each i, compute prefix distinct d1. For each j>i, count distinct in middle. Precompute next? Use last occurrence positions: distinct in interval (i,j] equals sum over values of indicator first>i and last<=j. This is a 2D dominance count per i—hard.
+
+Simpler correct O(N^2) too high. Need good approach.
+
+Observation: N<=3e5; need near linear. There are three subarrays and i<j. We can enumerate j as right split, and i as left split. For fixed j, best i < j: maximize left[i] + middle_distinct(i,j). Middle_distinct(i,j) depends on i.
+
+Alternative enumerate i as left split; for fixed i, need max over j>i of [distinct in (i,j] + right[j]]. Distinct in (i,j] as function of j for fixed i: values that appear in A[i+1..j]. This changes as we scan j; maintain set of values seen since i. For each j, sum = left[i] + size(set_{i..j}) + right[j]. As j increases, set grows; but left[i] fixed. We can scan j from i+1..N, maintain set, update ans = left[i] + len(set) + right[j]. Total O(N^2) if for every i scan all j. Too high.
+
+Need optimization. Since A_i <= N and N=3e5, maybe use next occurrence to jump. Another angle: count distinct in subarrays across three partitions. Total distinct globally <= N. Sum can be larger due to repetitions across subarrays.
+
+There may be known problem with O(N log N): 3 subarrays max distinct sum. Use dynamic programming with prefix distinct and suffix distinct plus middle distinct. Middle distinct = global distinct in interval. For each interval (i,j], count distinct = ? can be computed via BIT with positions and last occurrence? We need max over i<j of left[i]+mid(i,j)+right[j].
+
+Let's think carefully.
+
+Define prefix distinct P[k] = distinct in A[1..k]. suffix distinct S[k] = distinct in A[k..N] maybe S[k] for k>=1, where right after j = distinct in A[j+1..N] = Q[j].
+
+For fixed i, scan j increasing; maintain set of values in (i,j]; value grows as j moves. right[j] decreases? right[j] as j increases becomes distinct in A[j+1..N], which can increase or decrease? As window shrinks from right? For fixed i, right[j] = distinct in positions j+1..N, which increases as j decreases, decreases as j increases (window shrinks). So along scan j increasing: left[i] fixed; mid increases (set grows); right[j] decreases. Trade-off; max could be computed with two pointers? Since mid increases and right decreases monotonically as j increases for fixed i, sum = const + mid + right[j], not necessarily unimodal? mid increases with j, right decreases with j; sum may not be monotonic but could have peaks. Need scan all j for each i => O(N^2).
+
+Need smarter. N=3e5, maybe O(N log N) using occurrence counts.
+
+Let's search mental known problem: Given sequence, split into 3 parts maximizing sum of distinct counts. This is like 3D knapsack. There may be O(N log N) using persistent segment trees or divide and conquer.
+
+Could use contribution per value: value v contributes 1 to left if appears in left, 1 to middle if appears in middle, 1 to right if appears in right. So total for split (i,j) = sum_v [exists in left] + [exists in middle] + [exists in right]. For each value v, with positions positions P_v (sorted). It contributes 1 to left if min position <= i; 1 to middle if some position in (i,j]; 1 to right if max position > j. Total = over all values v: indicator(minpos <= i) + indicator(exists pos in (i,j]) + indicator(maxpos > j). Nice! This is separable by value. Great.
+
+We need max over i<j of F(i,j) = sum_v (ind_min<=i + ind_mid + ind_max>j).
+
+For each value v, positions sorted p1<...<pm. Conditions:
+- min p1 <= i (left contains v if any occurrence <= i; yes min<=i).
+- middle contains v if exists p in (i,j], i.e. p > i and p <= j.
+- right contains v if max pm > j.
+
+For each value v, as function of (i,j), indicator min<=i depends on i; indicator max>j depends on j; indicator exists in (i,j] is more complex.
+
+Could enumerate splits via i and j with data structure over values. For fixed i, define left_count = #values with minpos <= i (easy prefix). For fixed j, right_count = #values with maxpos > j (suffix). Middle indicator for value v: exists p in (i,j].
+
+Total = left_count(i) + right_count(j) + #values v such that exists p in (i,j].
+
+Need max over i<j. Middle count M(i,j) = number of distinct values with an occurrence in interval (i,j]. Need maximize L[i]+R[j]+M(i,j).
+
+This resembles maximizing with 2D queries. We can scan j and maintain over i? For fixed j, R[j] fixed. Need max over i<j of L[i] + M(i,j). M(i,j) = distinct values with positions in (i,j]. For fixed j, as i increases, window (i,j] shrinks (left bound increases), M(i,j) decreases. L[i] increases. Sum L[i]+M(i,j) maybe unimodal; need max over i in [1,j-1]. We could maintain data structure to answer max L[i]+M(i,j) for i<j.
+
+Can compute M(i,j) using BIT over positions of values? For fixed j, define for each i, set of values with positions in (i,j]. As i decreases, window expands. We need max over i. Since j up to N, maybe compute for each j by iterating i? too high.
+
+Alternative scan i, maintain j? For fixed i, window (i,j] grows as j increases; R[j] decreases. Need max over j>i of L[i] + R[j] + M(i,j). Since L[i] fixed, need max over j of R[j]+M(i,j). For fixed i, as j increases, M increases (grows), R decreases. Sum can peak. Could maintain a data structure as j increases: track current M and R[j], just evaluate each j, O(N) per i -> O(N^2). Need reduce.
+
+Observation: only values present. For fixed i, j ranges i+1..N. Distinct in (i,j] for increasing j: as j grows, M increases; R[j] = #values with maxpos > j. As j increases, R[j] decreases (values whose maxpos <= j get excluded). So S(j)=M(i,j)+R[j]. Need max. Since M increases by number of new values that appear at j (if A[j] not already seen in window), and R[j] decreases by number of values whose maxpos == j (those now have all occurrences <= j). This is a step process; we can scan j and maintain ans for each i? Still O(N^2).
+
+Need global optimization.
+
+Maybe use divide & conquer over i? Let's consider constraints: N=3e5, values <= N. Need O(N log N) or O(N sqrt N). O(N sqrt N) maybe okay but with exact code?
+
+Could use candidate splits from values? Hmm.
+
+Alternative: Since A_i <= N and N=3e5, maybe O(N log N) via segment tree with states.
+
+Let's think of value contribution formulation more. For each value v, let min m_v and max M_v and positions. Indicator left = m_v <= i. Indicator right = M_v > j. Middle = ∃p in (i,j]. Equivalent: number of positions in (i,j] > 0. So M(i,j) = # values v with position count in interval >0. This is exactly distinct in interval. 
+
+We need max over (i,j): L[i]+R[j]+distinct(i,j). 
+
+For fixed i, scan j with running distinct set; each i O(N) -> O(N^2). But maybe exploit that for each value v, it contributes to M(i,j) only for intervals containing at least one occurrence. Could compute max via contribution of each value? 
+
+For value v, positions p. Contribution to total as function of (i,j): 
+left ind: m_v <= i (i >= m_v).
+right ind: M_v > j (j < M_v).
+middle ind: ∃p in (i,j], i.e. i < p <= j for some p. This is equivalent to: max_{p<=j} p > i? Not simple.
+Sum over values; maximizing sum of three terms over i,j is like evaluating F(i,j). F(i,j) is a 2D function. We can compute all F(i,j)? O(N^2) no.
+
+Need smarter. Could use segment tree over positions to compute distinct count in intervals quickly, then brute over i and j? O(N^2 logN) too high. Need optimize.
+
+Maybe there is monotonicity: F(i,j) as i increases (left window expands) L[i] increases; distinct(i,j) decreases (window shrinks); R[j] fixed. Tradeoff. As j increases, distinct increases, R decreases. This is a 2D optimization with unimodality? Might be solvable via binary search / convex optimization.
+
+Let's test whether F is unimodal in i for fixed j. L[i] increases with i (more left distinct). distinct(i,j) decreases with i (window shrinks). Sum L[i]+distinct(i,j) maybe not monotonic; could have peak. Example i increases, left distinct adds values with min=i; middle loses values whose all occurrences <= i. It could oscillate.
+
+Need reliable correct algorithm within time. Since this is a coding task, we can implement an O(N sqrt N) maybe. But the user asked for approach lines and python program. Need ensure correctness.
+
+Could implement O(N^2)? N=3e5 no.
+
+Let's search mentally for known solution: Problem of splitting array into 3 parts maximizing distinct sum. Perhaps use DP with prefix distinct and suffix distinct and middle distinct via two pointers.
+
+One way: For each i, compute prefix distinct P[i]. For each j>i, compute suffix distinct Q[j] (# distinct in A[j+1..N]). Middle distinct can be computed as distinct in (i,j]. Use a BIT over values to maintain distinct in window as we move j. But still O(N^2). However, maybe we can limit i and j via occurrence structure.
+
+Let's analyze more. For fixed j, we need max_{i<j} L[i]+M(i,j). As i increases, L[i] increases by number of values whose min position = i (i.e., new values appearing at i). M(i,j) decreases by number of values whose all positions <= i? Specifically distinct in (i,j]: as i increases to i+1, values with min position <= i that have all occurrences <= i are removed; also values with min position = i+1? if i+1 <= j, new value appears in window? Let's derive: window (i,j] = positions i+1..j. When i increases by 1 (i -> i+1), window loses position i+1 and gains none; distinct count decreases by number of values whose only occurrences in old window are at position i+1 (i.e., values appearing only at position i+1 within window). More precisely distinct(i,j) = distinct in positions i+1..j. Moving i from i to i+1 removes position i+1; distinct decreases by number of values that have no other occurrences in i+2..j. L[i] increases by number of values with min position = i+1? L[i]=distinct in 1..i; moving i->i+1 adds value A[i+1] if not seen before. So F(i+1,j)-F(i,j) = (new left distinct at i+1) + (M(i+1,j)-M(i,j)). Middle decrease can be large (up to #values). Not monotonic.
+
+Maybe for fixed j, as i varies, F can be evaluated via a data structure: For each i, M(i,j) = number of distinct values in positions i+1..j. As i increases, each value v contributes 1 if it has an occurrence in (i,j]. That depends on i and j. For fixed j, value v contributes to M(i,j) iff max occurrence p in (i,j] exists, i.e. p_max(v) >= i+1? Wait if v has an occurrence <= j and > i. Let m = min position of v, M = max position. There exists p in (i,j] iff M <= j? No: need p > i and p <= j. If v's

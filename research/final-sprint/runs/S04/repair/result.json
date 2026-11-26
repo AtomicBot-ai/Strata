@@ -1,0 +1,76 @@
+{
+  "argv": [
+    "/Applications/OpenCode.app/Contents/Resources/opencode-cli",
+    "run",
+    "--standalone",
+    "--format",
+    "json",
+    "-m",
+    "turbine/inkling",
+    "Fix Strata issue 7119 in terminal/setup.py (function shape_engine_fetch). If shape_engine.ensure emits a concrete failure reason and returns None, the GUI sees only fail()'s message and hint. The current hint refers to an invisible line above. Include the actual emitted reason in that hint, preserve the command-line progress messages and STRATA_ALLOW_NO_ENGINE behavior. Use tools to inspect and edit the actual file."
+  ],
+  "seconds": 92.71986874996219,
+  "exit": 0,
+  "timed_out": false,
+  "tools": [
+    {
+      "name": "grep",
+      "state": "completed"
+    },
+    {
+      "name": "read",
+      "state": "completed"
+    },
+    {
+      "name": "grep",
+      "state": "error"
+    },
+    {
+      "name": "grep",
+      "state": "completed"
+    },
+    {
+      "name": "read",
+      "state": "completed"
+    },
+    {
+      "name": "grep",
+      "state": "completed"
+    },
+    {
+      "name": "read",
+      "state": "completed"
+    },
+    {
+      "name": "grep",
+      "state": "completed"
+    },
+    {
+      "name": "read",
+      "state": "completed"
+    },
+    {
+      "name": "read",
+      "state": "completed"
+    },
+    {
+      "name": "edit",
+      "state": "error"
+    },
+    {
+      "name": "edit",
+      "state": "completed"
+    }
+  ],
+  "text": [
+    "Done. In `terminal/setup.py` (`shape_engine_fetch`), the emitted lines now go through a capturing `_emit` that still prints the command-line progress messages via `say`. When `shape_engine.ensure` returns `None` and `STRATA_ALLOW_NO_ENGINE` is not set, the concrete emitted reason (the last message) is prepended to the hint, replacing the invisible \"See the line above.\" phrasing, e.g. `\"<reason> Nothing was downloaded for the model. Run this again when the update feed has it.\"`. The STRATA_ALLOW_NO_ENGINE skip path is unchanged."
+  ],
+  "errors": [],
+  "saves": 0,
+  "restores": 0,
+  "reuse_events": 14,
+  "simultaneous_decode_slots": 2,
+  "engine_peak_bytes": 4476523008,
+  "fixture_base": "e83de74",
+  "diff": " terminal/setup.py | 13 +++++++++++--\n 1 file changed, 11 insertions(+), 2 deletions(-)\n"
+}

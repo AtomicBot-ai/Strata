@@ -1,0 +1,4 @@
+{
+  "status": "failed",
+  "error": "retained footprint above 16 MiB after warm plateau"
+}

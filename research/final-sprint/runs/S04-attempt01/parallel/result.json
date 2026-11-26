@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/Applications/OpenCode.app/Contents/Resources/opencode-cli",
+    "run",
+    "--standalone",
+    "--format",
+    "json",
+    "-m",
+    "turbine/inkling",
+    "Use two explore subagents concurrently (two task calls in one message). Ask one to trace engine selection in terminal/strata_control/shape_engine.py and one to trace manifest validation in terminal/strata_control/engine_component.py. Wait for both and report one finding per file."
+  ],
+  "seconds": 16.07868337497348,
+  "exit": 0,
+  "timed_out": false,
+  "tools": [],
+  "text": [],
+  "errors": [],
+  "saves": 0,
+  "restores": 0,
+  "reuse_events": 1,
+  "simultaneous_decode_slots": 2,
+  "engine_peak_bytes": 4474294736,
+  "fixture_base": "e83de74",
+  "diff": ""
+}

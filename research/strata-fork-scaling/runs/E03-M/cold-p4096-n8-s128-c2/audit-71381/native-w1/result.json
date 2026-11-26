@@ -1,0 +1,255 @@
+{
+  "key": {
+    "config": [
+      4096,
+      8,
+      128,
+      false
+    ],
+    "seed": 71381,
+    "mode": "native",
+    "slots": 2,
+    "width": 1,
+    "diag": true,
+    "work": "bca7f613a48fcfe5f634f269d6dde42002c7a1c208a03aca428312cd4cce5d90"
+  },
+  "elapsed_ns": 23635721541,
+  "through_cleanup_ns": 23635985375,
+  "parent_prefill_ns": 0,
+  "initial_parent_in_elapsed": false,
+  "snapshot_create_ns": 0,
+  "restore_ns": 0,
+  "drop_ns": 0,
+  "postrun_slot_clear_ns": 263834,
+  "children_done_ns": 23635721291,
+  "snapshot_bytes": 0,
+  "memory": {
+    "before": {
+      "footprint": 2724432968,
+      "peak_footprint": 2724432968,
+      "rss": 2567127040,
+      "pageins": 30493
+    },
+    "parent": {
+      "footprint": 2724432968,
+      "peak_footprint": 2724432968,
+      "rss": 2567127040,
+      "pageins": 30493
+    },
+    "after_create": {
+      "footprint": 2724432968,
+      "peak_footprint": 2724432968,
+      "rss": 2567127040,
+      "pageins": 30493
+    },
+    "end": {
+      "footprint": 2919451840,
+      "peak_footprint": 2919451840,
+      "rss": 2397896704,
+      "pageins": 30493
+    },
+    "cleared": {
+      "footprint": 2919451840,
+      "peak_footprint": 2919451840,
+      "rss": 2397896704,
+      "pageins": 30493
+    }
+  },
+  "branches": [
+    {
+      "branch": 0,
+      "dispatch_ns": 32541,
+      "first_ns": 5944783625,
+      "done_ns": 8123377583,
+      "reused": 0,
+      "engine_prefill_ms": 5928.3,
+      "engine_decode_ms": 2177.2,
+      "endpoint": 157
+    },
+    {
+      "branch": 1,
+      "dispatch_ns": 8123598416,
+      "first_ns": 8151623041,
+      "done_ns": 10353505583,
+      "reused": 4095,
+      "engine_prefill_ms": 17.4,
+      "engine_decode_ms": 2200.9,
+      "endpoint": 65
+    },
+    {
+      "branch": 2,
+      "dispatch_ns": 10353677666,
+      "first_ns": 10375706750,
+      "done_ns": 12558995208,
+      "reused": 4095,
+      "engine_prefill_ms": 17.5,
+      "engine_decode_ms": 2182.3,
+      "endpoint": 82
+    },
+    {
+      "branch": 3,
+      "dispatch_ns": 12559163000,
+      "first_ns": 12580575041,
+      "done_ns": 14766129708,
+      "reused": 4095,
+      "engine_prefill_ms": 17.2,
+      "engine_decode_ms": 2184.6,
+      "endpoint": 69
+    },
+    {
+      "branch": 4,
+      "dispatch_ns": 14766297833,
+      "first_ns": 14787731291,
+      "done_ns": 16974133250,
+      "reused": 4095,
+      "engine_prefill_ms": 17.3,
+      "engine_decode_ms": 2185.2,
+      "endpoint": 82
+    },
+    {
+      "branch": 5,
+      "dispatch_ns": 16974298833,
+      "first_ns": 16995802041,
+      "done_ns": 19177861000,
+      "reused": 4095,
+      "engine_prefill_ms": 17.3,
+      "engine_decode_ms": 2181.1,
+      "endpoint": 64
+    },
+    {
+      "branch": 6,
+      "dispatch_ns": 19178073416,
+      "first_ns": 19199728000,
+      "done_ns": 21385114708,
+      "reused": 4095,
+      "engine_prefill_ms": 17.4,
+      "engine_decode_ms": 2184.4,
+      "endpoint": 157
+    },
+    {
+      "branch": 7,
+      "dispatch_ns": 21385281625,
+      "first_ns": 21406691250,
+      "done_ns": 23635560750,
+      "reused": 4095,
+      "engine_prefill_ms": 17.2,
+      "engine_decode_ms": 2227.9,
+      "endpoint": 384
+    }
+  ],
+  "waves": [
+    {
+      "first_branch": 0,
+      "size": 1,
+      "queue_ns": 32541,
+      "dispatch_to_first_ns": 5944751084,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2178593958,
+      "physical": {
+        "footprint": 2915028160,
+        "peak_footprint": 2918190272,
+        "rss": 2745729024,
+        "pageins": 30493
+      }
+    },
+    {
+      "first_branch": 1,
+      "size": 1,
+      "queue_ns": 8123598416,
+      "dispatch_to_first_ns": 28024625,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2201882542,
+      "physical": {
+        "footprint": 2919238848,
+        "peak_footprint": 2919238848,
+        "rss": 2749235200,
+        "pageins": 30493
+      }
+    },
+    {
+      "first_branch": 2,
+      "size": 1,
+      "queue_ns": 10353677666,
+      "dispatch_to_first_ns": 22029084,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2183288458,
+      "physical": {
+        "footprint": 2919238848,
+        "peak_footprint": 2919238848,
+        "rss": 2749235200,
+        "pageins": 30493
+      }
+    },
+    {
+      "first_branch": 3,
+      "size": 1,
+      "queue_ns": 12559163000,
+      "dispatch_to_first_ns": 21412041,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2185554667,
+      "physical": {
+        "footprint": 2919255232,
+        "peak_footprint": 2919255232,
+        "rss": 2747777024,
+        "pageins": 30493
+      }
+    },
+    {
+      "first_branch": 4,
+      "size": 1,
+      "queue_ns": 14766297833,
+      "dispatch_to_first_ns": 21433458,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2186401959,
+      "physical": {
+        "footprint": 2919288000,
+        "peak_footprint": 2919288000,
+        "rss": 2738880512,
+        "pageins": 30493
+      }
+    },
+    {
+      "first_branch": 5,
+      "size": 1,
+      "queue_ns": 16974298833,
+      "dispatch_to_first_ns": 21503208,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2182058959,
+      "physical": {
+        "footprint": 2919435456,
+        "peak_footprint": 2919435456,
+        "rss": 2739126272,
+        "pageins": 30493
+      }
+    },
+    {
+      "first_branch": 6,
+      "size": 1,
+      "queue_ns": 19178073416,
+      "dispatch_to_first_ns": 21654584,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2185386708,
+      "physical": {
+        "footprint": 2919451840,
+        "peak_footprint": 2919451840,
+        "rss": 2739142656,
+        "pageins": 30493
+      }
+    },
+    {
+      "first_branch": 7,
+      "size": 1,
+      "queue_ns": 21385281625,
+      "dispatch_to_first_ns": 21409625,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2228869500,
+      "physical": {
+        "footprint": 2919451840,
+        "peak_footprint": 2919451840,
+        "rss": 2397896704,
+        "pageins": 30493
+      }
+    }
+  ],
+  "raw_sha256": "ae25588418273bf80862888c76ac97e53abe355b78c1c471eb7e0c2264a35994"
+}

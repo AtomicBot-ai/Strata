@@ -1,0 +1,1 @@
+{"outcome":"expected-size assumption failed","expected":"191-token parent fits 32 MiB","actual":"ERR snapshot unavailable or over budget","correction":"Keep 32 MiB as a refusal case for 191 tokens. Test a 63-token parent under the same cap for the positive lifecycle path. The engine and its cap did not change."}

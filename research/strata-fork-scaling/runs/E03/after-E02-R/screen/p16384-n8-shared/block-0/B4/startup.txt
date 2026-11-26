@@ -1,0 +1,2 @@
+INFO engine=strata-inkling-0.1.67 arch=inkling2_loop backend=metal model=Inkling-2-Mini-SQ-10.strata layers=24 visits=48 vocab=200058 chunk=128 batch_slots=2 slot_read=1 shared_prefix=0 kv_dtype=fp16 drafter=dspark drafting=off images=0 image_pad=200054 parallel=64 ckpt_key=1
+READY 16544 stop hold holdb

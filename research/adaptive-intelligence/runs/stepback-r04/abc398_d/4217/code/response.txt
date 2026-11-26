@@ -1,0 +1,33 @@
+Step 1: Track smoke using a set of (r,c) cells. At each t, move every existing cell by the direction of S[t-1], then generate new smoke at (0,0) if no smoke is at (0,0) after the move.
+
+Step 2: After each move, check whether (R,C) is occupied before the generation step (time t+0.5). Collect '1' or '0' for that check.
+
+Step 3: Simulate t=1..N with this set logic; N is up to 2e5 so set operations are efficient enough.
+
+Final:
+```python
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    N = int(data[0]); R = int(data[1]); C = int(data[2]); S = data[3]
+    smoke = {(0,0)}
+    ans = []
+    for t in range(1, N+1):
+        ch = S[t-1]
+        moved = set()
+        for r,c in smoke:
+            if ch == 'N': moved.add((r-1,c))
+            elif ch == 'W': moved.add((r,c-1))
+            elif ch == 'S': moved.add((r+1,c))
+            elif ch == 'E': moved.add((r,c+1))
+        # time t+0.5 check: after movement, before generation
+        ans.append('1' if (R,C) in moved else '0')
+        if (0,0) not in moved:
+            moved.add((0,0))
+        smoke = moved
+    sys.stdout.write(''.join(ans))
+
+if __name__ == '__main__':
+    main()
+```<|end_message|><|content_model_end_sampling|>

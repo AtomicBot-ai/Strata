@@ -1,0 +1,31 @@
+loading the model (the first start takes a minute or two) ...
+[strata] Drafting: none in parallel slots (one token per request and step); a single request still drafts
+[strata] parallel requests: 3 asked, the engine runs 2 (its log says why)
+[strata] Monitor: watching GPU 0 (main) (as nvidia-smi numbers them)
+ready: http://127.0.0.1:58111/v1  (OpenAI: /v1/chat/completions, Anthropic: /v1/messages, context 2048 tokens)
+       open http://127.0.0.1:58111/ in a browser to chat; close this window to stop the model
+{"turbine":"prefix_resume","request_id":"1a8060bc3d52","reused_tokens":0}
+[strata] reading the prompt: 171 of 189 tokens, 5 s so far
+[strata] reading the prompt: 182 of 189 tokens, 6 s so far
+[strata] done: 2 tokens in 7 s (8.9 tok/s) (stop, cancel=False)
+{"turbine":"prefix_resume","request_id":"3f020bd9fab8","reused_tokens":0}
+[strata] reading the prompt: 14 of 15 tokens, 1 s so far
+[strata] done: 2 tokens in 1 s (15.7 tok/s) (stop, cancel=False)
+{"turbine":"prefix_resume","request_id":"0a3454fcd22e","reused_tokens":171}
+[strata] reading the prompt: 182 of 189 tokens, 1 s so far
+[strata] done: 2 tokens in 2 s (10.2 tok/s) (stop, cancel=False)
+{"turbine":"prefix_resume","request_id":"1f9b4d186a58","reused_tokens":8}
+[strata] done: 2 tokens in 1 s (15.3 tok/s) (stop, cancel=False)
+{"turbine":"prefix_resume","request_id":"5bc5aa4d86e2","reused_tokens":182}
+[strata] done: 2 tokens in 0 s (29.9 tok/s) (stop, cancel=False)
+{"turbine":"prefix_resume","request_id":"4a76710ed553","reused_tokens":8}
+[strata] done: 2 tokens in 0 s (53.3 tok/s) (stop, cancel=False)
+{"turbine":"prefix_resume","request_id":"82b4fffc0eb5","reused_tokens":182}
+[strata] done: 2 tokens in 0 s (52.2 tok/s) (stop, cancel=False)
+{"turbine":"prefix_resume","request_id":"4ba0f5540e61","reused_tokens":8}
+[strata] done: 2 tokens in 0 s (53.6 tok/s) (stop, cancel=False)
+{"turbine":"checkpoint_created","tokens":209,"snapshot_bytes":null}
+{"turbine":"checkpoint_dropped"}
+
+[strata] stopping (Ctrl+C again to end the engine at once) ...
+[strata] stopped

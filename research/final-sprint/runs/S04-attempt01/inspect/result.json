@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/Applications/OpenCode.app/Contents/Resources/opencode-cli",
+    "run",
+    "--standalone",
+    "--format",
+    "json",
+    "-m",
+    "turbine/inkling",
+    "Inspect this Strata repository. Use grep and read. Where does shape_engine_fetch install the Inkling engine, and where does it obtain the update feed? Cite the exact files and function names. Keep the answer short."
+  ],
+  "seconds": 13.049862666986883,
+  "exit": 0,
+  "timed_out": false,
+  "tools": [],
+  "text": [],
+  "errors": [],
+  "saves": 0,
+  "restores": 0,
+  "reuse_events": 1,
+  "simultaneous_decode_slots": 2,
+  "engine_peak_bytes": 4358852832,
+  "fixture_base": "e83de74",
+  "diff": ""
+}

@@ -1,0 +1,43 @@
+{
+  "provider": {
+    "turbine": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Atomic Turbine",
+      "options": {
+        "baseURL": "http://127.0.0.1:61932/v1",
+        "apiKey": "local-smoke"
+      },
+      "models": {
+        "inkling": {
+          "name": "Inkling",
+          "limit": {
+            "context": 24576,
+            "output": 1024
+          }
+        }
+      }
+    }
+  },
+  "enabled_providers": [
+    "turbine"
+  ],
+  "model": "turbine/inkling",
+  "small_model": "turbine/inkling",
+  "permission": {
+    "*": "deny",
+    "read": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "edit": "allow",
+    "apply_patch": "allow",
+    "task": {
+      "*": "deny",
+      "explore": "allow"
+    },
+    "subagent": "allow",
+    "external_directory": "deny"
+  },
+  "share": "disabled",
+  "autoupdate": false
+}

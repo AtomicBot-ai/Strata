@@ -1,0 +1,38 @@
+[
+  {
+    "seed": 700,
+    "times_s": [
+      10.0162935,
+      9.836747833
+    ],
+    "reuse": [
+      3069,
+      2046
+    ],
+    "endpoint_tokens_equal": true
+  },
+  {
+    "seed": 701,
+    "times_s": [
+      10.110901583,
+      9.730973208
+    ],
+    "reuse": [
+      3069,
+      2046
+    ],
+    "endpoint_tokens_equal": true
+  },
+  {
+    "seed": 702,
+    "times_s": [
+      10.080215875,
+      9.732762125
+    ],
+    "reuse": [
+      3069,
+      2046
+    ],
+    "endpoint_tokens_equal": true
+  }
+]

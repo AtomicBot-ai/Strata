@@ -1,0 +1,97 @@
+loading the model (the first start takes a minute or two) ...
+[strata] Drafting: none in parallel slots (one token per request and step); a single request still drafts
+[strata] starting the engine: reading the model's weights ...
+[strata] mapping the experts from the model files (about 47 GB, --mmap-experts): they are not loaded into RAM - the OS file cache reads them as the GPU's expert cache fills and as requests need them.
+         YOUR PC CAN BE SLOW OR STOP RESPONDING FOR 1-3 MINUTES NOW - this is normal.
+         Please wait and don't close this window; the server says when it is ready.
+[strata] filling the GPU's expert cache (84 experts, 0.14 GiB of VRAM) ...
+[strata] almost ready ...
+[strata] parallel requests: 3 asked, the engine runs 2 (its log says why)
+[strata] Monitor: watching GPU 0 (main) (as nvidia-smi numbers them)
+ready: http://127.0.0.1:58402/v1  (OpenAI: /v1/chat/completions, Anthropic: /v1/messages, context 24576 tokens)
+       open http://127.0.0.1:58402/ in a browser to chat; close this window to stop the model
+[strata] thinking limited to 17982 of max_tokens 23976 so the answer has room ("answer_room": false in the config turns this off)
+{"turbine":"prefix_resume","request_id":"bca5515e8fc2","reused_tokens":0}
+[strata] thinking limited to 512 of max_tokens 1024 so the answer has room ("answer_room": false in the config turns this off)
+[strata] reading the prompt: 554 of 592 tokens, 6 s so far
+[strata] reading the prompt: 587 of 592 tokens, 10 s so far
+[strata] reading the prompt: 587 of 592 tokens, 10 s so far
+{"turbine":"prefix_resume","request_id":"bca5515e8fc2","reused_tokens":593}
+{"turbine":"prefix_resume","request_id":"f9fcd0ecd179","reused_tokens":0}
+[strata] reading the prompt: 1,024 of 1,967 tokens, 17 s so far
+[strata] thinking: 5 of budget 17982 (max 23976) tokens, 0.7 tok/s, 17 s
+[strata] thinking: 14 of budget 17982 (max 23976) tokens, 1.7 tok/s, 18 s
+[strata] thinking: 23 of budget 17982 (max 23976) tokens, 2.5 tok/s, 20 s
+[strata] thinking: 32 of budget 17982 (max 23976) tokens, 3.1 tok/s, 21 s
+[strata] reading the prompt: 1,929 of 1,967 tokens, 27 s so far
+[strata] thinking: 32 of budget 17982 (max 23976) tokens, 1.6 tok/s, 31 s
+[strata] reading the prompt: 1,962 of 1,967 tokens, 31 s so far
+[strata] thinking: 34 of budget 17982 (max 23976) tokens, 1.6 tok/s, 32 s
+[strata] thinking: 3 of budget 512 (max 1024) tokens, 6.0 tok/s, 32 s
+[strata] thinking: 8 of budget 512 (max 1024) tokens, 5.3 tok/s, 33 s
+[strata] thinking: 39 of budget 17982 (max 23976) tokens, 1.7 tok/s, 33 s
+[strata] answering: 44 of max 23976 tokens, 1.9 tok/s, 34 s
+[strata] thinking: 13 of budget 512 (max 1024) tokens, 4.8 tok/s, 34 s
+[strata] thinking: 18 of budget 512 (max 1024) tokens, 4.8 tok/s, 35 s
+[strata] answering: 49 of max 23976 tokens, 2.0 tok/s, 35 s
+[strata] done: 50 tokens in 35 s (2.0 tok/s) (stop, cancel=False)
+{"turbine":"prefix_resume","request_id":"f9fcd0ecd179","reused_tokens":1987}
+[strata] thinking: 26 of budget 512 (max 1024) tokens, 5.4 tok/s, 36 s
+[strata] thinking: 37 of budget 512 (max 1024) tokens, 6.2 tok/s, 37 s
+[strata] writing a tool call: subagent: 45 of max 1024 tokens, 6.4 tok/s, 38 s
+[strata] writing a tool call: subagent: 54 of max 1024 tokens, 6.6 tok/s, 39 s
+[strata] writing a tool call: subagent: 63 of max 1024 tokens, 6.9 tok/s, 40 s
+[strata] writing a tool call: subagent: 71 of max 1024 tokens, 7.0 tok/s, 41 s
+[strata] writing a tool call: subagent: 78 of max 1024 tokens, 7.0 tok/s, 42 s
+[strata] writing a tool call: subagent: 86 of max 1024 tokens, 7.0 tok/s, 43 s
+[strata] writing a tool call: subagent: 95 of max 1024 tokens, 7.1 tok/s, 45 s
+[strata] writing a tool call: subagent: 104 of max 1024 tokens, 7.2 tok/s, 46 s
+[strata] writing a tool call: subagent: 114 of max 1024 tokens, 7.4 tok/s, 47 s
+[strata] writing a tool call: subagent: 125 of max 1024 tokens, 7.5 tok/s, 48 s
+[strata] writing a tool call: subagent: 134 of max 1024 tokens, 7.6 tok/s, 49 s
+[strata] writing a tool call: subagent: 142 of max 1024 tokens, 7.6 tok/s, 50 s
+[strata] writing a tool call: subagent: 150 of max 1024 tokens, 7.6 tok/s, 51 s
+[strata] writing a tool call: subagent: 158 of max 1024 tokens, 7.6 tok/s, 52 s
+[strata] done: 166 tokens in 53 s (7.5 tok/s) (stop, cancel=False)
+[strata] thinking limited to 512 of max_tokens 1024 so the answer has room ("answer_room": false in the config turns this off)
+{"turbine":"prefix_resume","request_id":"4ffca00b3a8f","reused_tokens":0}
+[strata] reading the prompt: 1,024 of 2,006 tokens, 9 s so far
+[strata] reading the prompt: 1,911 of 2,006 tokens, 15 s so far
+[strata] reading the prompt: 2,001 of 2,006 tokens, 18 s so far
+[strata] thinking: 5 of budget 512 (max 1024) tokens, 9.0 tok/s, 19 s
+[strata] thinking: 14 of budget 512 (max 1024) tokens, 8.5 tok/s, 20 s
+[strata] thinking: 21 of budget 512 (max 1024) tokens, 7.4 tok/s, 21 s
+[strata] thinking: 25 of budget 512 (max 1024) tokens, 6.5 tok/s, 22 s
+[strata] writing a tool call: read: 30 of max 1024 tokens, 5.9 tok/s, 24 s
+[strata] writing a tool call: read: 37 of max 1024 tokens, 6.0 tok/s, 25 s
+[strata] writing a tool call: read: 47 of max 1024 tokens, 6.5 tok/s, 26 s
+[strata] writing a tool call: read: 56 of max 1024 tokens, 6.8 tok/s, 27 s
+[strata] writing a tool call: read: 67 of max 1024 tokens, 7.2 tok/s, 28 s
+[strata] writing a tool call: read: 76 of max 1024 tokens, 7.3 tok/s, 29 s
+[strata] done: 83 tokens in 30 s (7.3 tok/s) (stop, cancel=False)
+[strata] thinking limited to 512 of max_tokens 1024 so the answer has room ("answer_room": false in the config turns this off)
+{"turbine":"prefix_resume","request_id":"ccaded99d1dc","reused_tokens":2088}
+[strata] reading the prompt: 2,158 of 2,163 tokens, 3 s so far
+[strata] thinking: 5 of budget 512 (max 1024) tokens, 8.1 tok/s, 4 s
+[strata] thinking: 13 of budget 512 (max 1024) tokens, 7.7 tok/s, 5 s
+[strata] thinking: 22 of budget 512 (max 1024) tokens, 8.2 tok/s, 6 s
+[strata] answering: 30 of max 1024 tokens, 8.0 tok/s, 7 s
+[strata] answering: 37 of max 1024 tokens, 7.8 tok/s, 8 s
+[strata] answering: 46 of max 1024 tokens, 8.0 tok/s, 9 s
+[strata] answering: 55 of max 1024 tokens, 8.0 tok/s, 10 s
+[strata] answering: 65 of max 1024 tokens, 8.3 tok/s, 11 s
+[strata] answering: 77 of max 1024 tokens, 8.6 tok/s, 12 s
+[strata] answering: 85 of max 1024 tokens, 8.4 tok/s, 13 s
+[strata] answering: 93 of max 1024 tokens, 8.2 tok/s, 14 s
+[strata] done: 97 tokens in 15 s (8.1 tok/s) (stop, cancel=False)
+[strata] thinking limited to 512 of max_tokens 1024 so the answer has room ("answer_room": false in the config turns this off)
+{"turbine":"prefix_resume","request_id":"661c149ef2c7","reused_tokens":2132}
+[strata] reading the prompt: 2,247 of 2,252 tokens, 4 s so far
+[strata] thinking: 5 of budget 512 (max 1024) tokens, 8.7 tok/s, 5 s
+[strata] thinking: 13 of budget 512 (max 1024) tokens, 8.1 tok/s, 6 s
+[strata] thinking: 23 of budget 512 (max 1024) tokens, 8.6 tok/s, 7 s
+[strata] answering: 31 of max 1024 tokens, 8.3 tok/s, 8 s
+[strata] done: 35 tokens in 8 s (8.2 tok/s) (stop, cancel=False)
+
+[strata] stopping (Ctrl+C again to end the engine at once) ...
+[strata] stopped

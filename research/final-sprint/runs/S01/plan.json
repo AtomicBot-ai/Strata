@@ -1,0 +1,26 @@
+{
+  "cells": [
+    [
+      16384,
+      4
+    ],
+    [
+      32768,
+      8
+    ]
+  ],
+  "suffix": 128,
+  "seeds": [
+    83101,
+    83102,
+    83103
+  ],
+  "audit_seed": 83901,
+  "slots": 2,
+  "model": "Inkling-2-Mini SQ-10",
+  "base": "b28ca95",
+  "binary_sha256": "3abd915c8211efc461017b6fc919e05afbf7146cf9d522c30e69b511d76b5ac8",
+  "native_selection": "faster median of three for 1/2 admissions; report both",
+  "marginal": "(time through slot cleanup - completion time of first two children)/(N-2); complementary first-two boundary inside same tree",
+  "memory_budget_bytes": 34359738368
+}

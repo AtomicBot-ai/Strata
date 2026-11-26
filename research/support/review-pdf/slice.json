@@ -1,0 +1,115 @@
+{
+  "clock": "17:24:12",
+  "all": 163,
+  "n": 40,
+  "nt": 24,
+  "levels": {
+    "hard": 13,
+    "medium": 14,
+    "easy": 13
+  },
+  "last": [
+    "abc397_f",
+    3251,
+    "B"
+  ],
+  "stats": {
+    "A": {
+      "passed": 28,
+      "sent": 35,
+      "ms": 8.57,
+      "pruned": 0,
+      "forked": 0,
+      "forkcode": 0,
+      "chosen": 0,
+      "miss": 0,
+      "div": 0,
+      "maxmem": 12.09,
+      "foot": 3.25
+    },
+    "B": {
+      "passed": 32,
+      "sent": 35,
+      "ms": 12.48,
+      "pruned": 0,
+      "forked": 0,
+      "forkcode": 0,
+      "chosen": 0,
+      "miss": 0,
+      "div": 0,
+      "maxmem": 12.09,
+      "foot": 3.25
+    },
+    "C": {
+      "passed": 32,
+      "sent": 35,
+      "ms": 12.55,
+      "pruned": 0,
+      "forked": 42,
+      "forkcode": 1,
+      "chosen": 0,
+      "miss": 0,
+      "div": 3,
+      "maxmem": 12.5,
+      "foot": 3.25
+    },
+    "D": {
+      "passed": 32,
+      "sent": 35,
+      "ms": 12.5,
+      "pruned": 1,
+      "forked": 42,
+      "forkcode": 1,
+      "chosen": 0,
+      "miss": 0,
+      "div": 2,
+      "maxmem": 12.5,
+      "foot": 3.25
+    }
+  },
+  "pairs": {
+    "BA": {
+      "diff": [
+        [
+          "abc397_b",
+          3203,
+          -1
+        ],
+        [
+          "abc397_f",
+          3203,
+          1
+        ],
+        [
+          "abc396_d",
+          3203,
+          1
+        ],
+        [
+          "abc397_c",
+          3203,
+          1
+        ],
+        [
+          "abc397_d",
+          3203,
+          1
+        ],
+        [
+          "abc397_e",
+          3251,
+          1
+        ]
+      ],
+      "ident": 7
+    },
+    "CB": {
+      "diff": [],
+      "ident": 40
+    },
+    "DC": {
+      "diff": [],
+      "ident": 40
+    }
+  }
+}

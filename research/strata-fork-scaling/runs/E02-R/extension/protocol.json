@@ -1,0 +1,14 @@
+{
+  "first_seed": 49101,
+  "cohort_size": 4,
+  "seed_spacing": 4,
+  "boundaries": [
+    1023,
+    1024,
+    1025,
+    2049
+  ],
+  "original_freeze_sha256": "f5ce5d937c08fc29abcb73bd55d3772d78937594d07ffc868659eea296790319",
+  "source_sha256": "499877fbe194abdc1e6da0f408a5287c9cb6d6a65c4f80c9857e81165767fa27",
+  "method": "Same twelve arms per new tree; independent four-tree panels. Report every panel, no refitting or retrospective exclusion. Repeated panels are exploratory external replication, not additional primary holdout."
+}

@@ -1,0 +1,97 @@
+{
+  "completed_jobs": 210,
+  "planned": 288,
+  "paired_quartets": 52,
+  "by_mode": {
+    "D": 53,
+    "A": 53,
+    "C": 52,
+    "B": 52
+  },
+  "groups": {
+    "A_fresh": {
+      "started": 53,
+      "waiting_at_end": 0,
+      "median_queue_s": 0.000697457988280803,
+      "median_active_s": 8.55522454099264,
+      "median_generated_tokens": 407,
+      "end_counts": {
+        "stop": 48,
+        "deadline": 5
+      },
+      "extracted_programs": 48,
+      "selected": 48
+    },
+    "B_fresh": {
+      "started": 150,
+      "waiting_at_end": 58,
+      "median_queue_s": 0.001222145976498723,
+      "median_active_s": 7.009227728995029,
+      "median_generated_tokens": 195.5,
+      "end_counts": {
+        "public_pass": 77,
+        "stop": 47,
+        "deadline": 26
+      },
+      "extracted_programs": 46,
+      "selected": 44
+    },
+    "C_fresh": {
+      "started": 104,
+      "waiting_at_end": 0,
+      "median_queue_s": 0.0009599165059626102,
+      "median_active_s": 12.021785541990539,
+      "median_generated_tokens": 363.5,
+      "end_counts": {
+        "public_pass": 34,
+        "stop": 54,
+        "deadline": 16
+      },
+      "extracted_programs": 54,
+      "selected": 45
+    },
+    "C_child": {
+      "started": 54,
+      "waiting_at_end": 39,
+      "median_queue_s": 5.281271645537345,
+      "median_active_s": 0.2791991670092102,
+      "median_generated_tokens": 12.0,
+      "end_counts": {
+        "public_pass": 49,
+        "deadline": 3,
+        "stop": 2
+      },
+      "extracted_programs": 2,
+      "selected": 1
+    },
+    "D_fresh": {
+      "started": 106,
+      "waiting_at_end": 0,
+      "median_queue_s": 0.0009919169824570417,
+      "median_active_s": 11.77982645801967,
+      "median_generated_tokens": 365.5,
+      "end_counts": {
+        "public_pass": 35,
+        "stop": 55,
+        "deadline": 16
+      },
+      "extracted_programs": 55,
+      "selected": 46
+    },
+    "D_child": {
+      "started": 55,
+      "waiting_at_end": 40,
+      "median_queue_s": 5.0578012090409175,
+      "median_active_s": 0.27165033301571384,
+      "median_generated_tokens": 12,
+      "end_counts": {
+        "public_pass": 49,
+        "deadline": 3,
+        "duplicate_prune": 1,
+        "stop": 2
+      },
+      "extracted_programs": 2,
+      "selected": 1
+    }
+  }
+}

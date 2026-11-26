@@ -1,0 +1,52 @@
+loading the model (the first start takes a minute or two) ...
+[strata] starting the engine: reading the model's weights ...
+[strata] still starting (20 s) - please wait ...
+[strata] loading the experts into RAM (tens of GB) and locking part of them for the GPU.
+         YOUR PC CAN BE SLOW OR STOP RESPONDING FOR 1-3 MINUTES NOW - this is normal.
+         Please wait and don't close this window; the server says when it is ready.
+[strata] filling the GPU's expert cache (84 experts, 0.14 GiB of VRAM) ...
+[strata] almost ready ...
+[strata] parallel requests: 3 asked, the engine runs 2 (its log says why)
+[strata] Monitor: watching GPU 0 (main) (as nvidia-smi numbers them)
+ready: http://127.0.0.1:59571/v1  (OpenAI: /v1/chat/completions, Anthropic: /v1/messages, context 512 tokens)
+       open http://127.0.0.1:59571/ in a browser to chat; close this window to stop the model
+{"turbine":"prefix_resume","request_id":"14b517430082","reused_tokens":0}
+[strata] reading the prompt: 8 of 15 tokens, 8 s so far
+[strata] reading the prompt: 14 of 15 tokens, 9 s so far
+[strata] done: 2 tokens in 10 s (2.9 tok/s) (stop, cancel=False), expert cache 2.0% hit
+{"turbine":"prefix_resume","request_id":"919d736d69aa","reused_tokens":0}
+[strata] reading the prompt: 172 tokens, 10 s so far
+[strata] reading the prompt: 172 tokens, 10 s so far
+[strata] reading the prompt: 173 tokens, 10 s so far
+[strata] reading the prompt: 175 tokens, 10 s so far
+[strata] reading the prompt: 172 tokens, 20 s so far
+[strata] reading the prompt: 173 tokens, 20 s so far
+[strata] reading the prompt: 172 tokens, 20 s so far
+[strata] reading the prompt: 175 tokens, 20 s so far
+[strata] reading the prompt: 173 tokens, 30 s so far
+[strata] reading the prompt: 172 tokens, 30 s so far
+[strata] reading the prompt: 172 tokens, 30 s so far
+[strata] reading the prompt: 175 tokens, 30 s so far
+[strata] reading the prompt: 154 of 175 tokens, 36 s so far
+[strata] reading the prompt: 154 of 175 tokens, 40 s so far
+[strata] reading the prompt: 154 of 175 tokens, 40 s so far
+[strata] reading the prompt: 154 of 175 tokens, 40 s so far
+[strata] reading the prompt: 168 of 175 tokens, 42 s so far
+[strata] reading the prompt: 174 of 175 tokens, 44 s so far
+{"turbine":"prefix_resume","request_id":"919d736d69aa","reused_tokens":175}
+[strata] answering: 2 of max 12 tokens, 2.3 tok/s, 45 s
+{"turbine":"prefix_resume","request_id":"91b9baae2eef","reused_tokens":154}
+[strata] reading the prompt: 166 of 173 tokens, 48 s so far
+[strata] answering: 2 of max 12 tokens, 2.2 tok/s, 49 s
+[strata] answering: 4 of max 12 tokens, 0.8 tok/s, 49 s
+[strata] done: 3 tokens in 50 s (2.0 tok/s) (stop, cancel=False), expert cache 11.0% hit
+[strata] done: 5 tokens in 50 s (0.9 tok/s) (stop, cancel=False), expert cache 1.9% hit
+{"turbine":"prefix_resume","request_id":"517adae4b77e","reused_tokens":154}
+[strata] reading the prompt: 165 of 172 tokens, 52 s so far
+[strata] done: 2 tokens in 53 s (5.2 tok/s) (stop, cancel=False), expert cache 10.2% hit
+{"turbine":"prefix_resume","request_id":"30e95e002c3d","reused_tokens":154}
+[strata] reading the prompt: 165 of 172 tokens, 54 s so far
+[strata] done: 2 tokens in 55 s (5.7 tok/s) (stop, cancel=False), expert cache 11.0% hit
+
+[strata] stopping (Ctrl+C again to end the engine at once) ...
+[strata] stopped

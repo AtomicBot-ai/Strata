@@ -1,0 +1,126 @@
+{
+  "seed": 49102,
+  "boundary": 1024,
+  "arm": "mixed",
+  "restore": true,
+  "source": 0,
+  "work": "aefe438f9c9636aa1a42391b6bbd2b146edf074a661b357bfd022e545d1d3729",
+  "raw": "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-logits/extension/hold/49102/mixed-fork.npy",
+  "sha256": "901eff66f2a3c01faf6dba1eca4fc85f74d8747d503bb3f792367cad7040f390",
+  "binary_sha256": "18b8fd5577c50070d5956cc4ccfb277b68a1562e80847307caeffb1d4195609f",
+  "seconds": 28.209704041015357,
+  "shapes": [
+    [
+      0,
+      0,
+      0,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      0,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      1,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      8,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      8,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      32,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      32,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      128,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      128,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      256,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      256,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      512,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      512,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      1024,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      1024,
+      2,
+      2
+    ]
+  ]
+}

@@ -1,0 +1,174 @@
+{
+  "hardware": "see ../../archive/inventory.json",
+  "input": "research/adaptive-intelligence/runs/branch-debug/raw.jsonl",
+  "binary_sha256": "5c97fb5d39b3d03466ed100678d2443061e98171ac2cc7aa574bc1d369c57ef7",
+  "model_sha256": "ac4d452ad03e4930abd9d46f9c5eec22b2f75a1da45a1e49bd24ccd58b065934",
+  "tokenizer_sha256": "7f332727f9a3f093dd452a39cc978e6757627e5dad1b0673aa4e75174f236dd6",
+  "argv_template": [
+    "--serve",
+    "--native",
+    "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/atomic-turbine/.work/models/Inkling-2-Mini-SQ-10.strata",
+    "--draft",
+    "off",
+    "--kv",
+    "fp16",
+    "--max-context",
+    "4096",
+    "--chunk",
+    "128",
+    "--parallel",
+    "{slots}",
+    "--no-anti-loop"
+  ],
+  "mode_settings": {
+    "replay": {
+      "slots": 1
+    },
+    "batch": {
+      "slots": 2,
+      "temperature": 0
+    },
+    "checkpoint": {
+      "slots": 1,
+      "extra": [
+        "--research-checkpoint"
+      ]
+    }
+  },
+  "clock": "time.monotonic in fixed_cost.py, GPU completed at run_graph",
+  "warmups": 3,
+  "paired": 10,
+  "order_seed": 1125,
+  "blocks": [
+    {
+      "block": "paired-03",
+      "order": [
+        "checkpoint",
+        "batch",
+        "replay"
+      ],
+      "raw": "runs/E00/reproduction/paired-03/cost.jsonl",
+      "sha256": "161ae36352e682e141ffcc971ba6c19ad63b6f1894726e6d381d9929c4a29722"
+    },
+    {
+      "block": "paired-04",
+      "order": [
+        "batch",
+        "checkpoint",
+        "replay"
+      ],
+      "raw": "runs/E00/reproduction/paired-04/cost.jsonl",
+      "sha256": "41822d5ec9cc00a128622441e2685b2f2c0a52301c22699836dbee2cb0eece92"
+    },
+    {
+      "block": "paired-05",
+      "order": [
+        "batch",
+        "checkpoint",
+        "replay"
+      ],
+      "raw": "runs/E00/reproduction/paired-05/cost.jsonl",
+      "sha256": "113176ce326163f40405b9872ffcb7f1b35c39df102d988b6ac0810f453a8bfb"
+    },
+    {
+      "block": "paired-06",
+      "order": [
+        "replay",
+        "batch",
+        "checkpoint"
+      ],
+      "raw": "runs/E00/reproduction/paired-06/cost.jsonl",
+      "sha256": "aeb5171417f46646516cbe6c7af6ce22fd5845d17d9c01a9c71209f047848a65"
+    },
+    {
+      "block": "paired-07",
+      "order": [
+        "checkpoint",
+        "batch",
+        "replay"
+      ],
+      "raw": "runs/E00/reproduction/paired-07/cost.jsonl",
+      "sha256": "6a272ce59a2e49ee4a03dfef23949a5957ed30fc77b1370cb2efedca1c023b4d"
+    },
+    {
+      "block": "paired-08",
+      "order": [
+        "checkpoint",
+        "replay",
+        "batch"
+      ],
+      "raw": "runs/E00/reproduction/paired-08/cost.jsonl",
+      "sha256": "fd61aa55c57ac4d741e4394006bf5a8389ce680d12cdb2b6cf677dbc98490f7d"
+    },
+    {
+      "block": "paired-09",
+      "order": [
+        "replay",
+        "batch",
+        "checkpoint"
+      ],
+      "raw": "runs/E00/reproduction/paired-09/cost.jsonl",
+      "sha256": "1b0e026b2097529776817ca966ac7ccedd756b01c9d2ccb60654c423d3ab8a76"
+    },
+    {
+      "block": "paired-10",
+      "order": [
+        "replay",
+        "batch",
+        "checkpoint"
+      ],
+      "raw": "runs/E00/reproduction/paired-10/cost.jsonl",
+      "sha256": "91413024826b8a7d77ee890033436c5f309dfc6949d8f77815b41ccbeea38d72"
+    },
+    {
+      "block": "paired-11",
+      "order": [
+        "batch",
+        "checkpoint",
+        "replay"
+      ],
+      "raw": "runs/E00/reproduction/paired-11/cost.jsonl",
+      "sha256": "bcbfaca63a1afaf2a88197ff52b83950031d3a3e9c32f55ec8cb42c333083828"
+    },
+    {
+      "block": "paired-12",
+      "order": [
+        "checkpoint",
+        "replay",
+        "batch"
+      ],
+      "raw": "runs/E00/reproduction/paired-12/cost.jsonl",
+      "sha256": "8b0890cdd6fd2de16ad2d7b750888a3ba323210f85fda86b949dce3dd516a0bc"
+    },
+    {
+      "block": "warmup-00",
+      "order": [
+        "checkpoint",
+        "replay",
+        "batch"
+      ],
+      "raw": "runs/E00/reproduction/warmup-00/cost.jsonl",
+      "sha256": "8f6ee691e41753e5877db19a596c44c7b40c70a6bd458ab9108d7e553e0a5460"
+    },
+    {
+      "block": "warmup-01",
+      "order": [
+        "batch",
+        "checkpoint",
+        "replay"
+      ],
+      "raw": "runs/E00/reproduction/warmup-01/cost.jsonl",
+      "sha256": "2c5c9a215230be1987fbca251f18cd72b66da234a4b9133dea751469a580138d"
+    },
+    {
+      "block": "warmup-02",
+      "order": [
+        "batch",
+        "checkpoint",
+        "replay"
+      ],
+      "raw": "runs/E00/reproduction/warmup-02/cost.jsonl",
+      "sha256": "4b0903f1148ebea1df79508119b0002be818375736c8a34a213e401018e08536"
+    }
+  ]
+}

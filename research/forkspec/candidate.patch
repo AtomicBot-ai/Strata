@@ -1,0 +1,154 @@
+--- a/engine/src/inkling2/ink_serve.h
++++ b/engine/src/inkling2/ink_serve.h
+@@ -465,6 +465,7 @@
+     int reused_tokens = 0;                    // prefix tokens reused for this request
+     std::vector<int32_t> shared_prefix;
+     int pin = 0;
++    bool fork_restored = false;
+     bool shared_pending = false;
+     bool ckpt_pending = false;                // true while prefilling up to prompt_len - 1 to save checkpoint
+     double t_start = 0.0;
+@@ -571,14 +572,16 @@
+             return 1;
+         }
+     }
+-    const bool state_enabled = snapshot_mib && !use_dspark && P <= 2 &&
++    const char* fork_env = std::getenv("TURBINE_FORK_DSPARK");
++    const bool fork_dspark = use_dspark && fork_env && std::string(fork_env) == "1";
++    const bool state_enabled = snapshot_mib && (!use_dspark || fork_dspark) && P <= 2 &&
+         std::string(backend.backend_name()) == "metal" && std::string(kv_str) == "fp16" && cfg.vision_path.empty();
+-    proto("INFO engine=strata-inkling-%s arch=inkling2_loop backend=%s model=%s layers=%d visits=%d vocab=%d chunk=%d batch_slots=%d slot_read=1 shared_prefix=%d kv_dtype=%s drafter=%s drafting=%s images=%d image_pad=%d parallel=%d ckpt_key=1 native_fork=%d",
++    proto("INFO engine=strata-inkling-%s arch=inkling2_loop backend=%s model=%s layers=%d visits=%d vocab=%d chunk=%d batch_slots=%d slot_read=1 shared_prefix=%d kv_dtype=%s drafter=%s drafting=%s images=%d image_pad=%d parallel=%d ckpt_key=1 native_fork=%d fork_dspark=%d",
+           cfg.version.c_str(), backend.backend_name(), base.c_str(), c.n_phys, c.n_visits, V, chunk_sz,
+           P, backend.supports_shared_checkpoint() ? 1 : 0, kv_str,
+           mf.m.dspark.present ? "dspark" : "none",
+           use_dspark ? "dspark" : "off",
+-          images_ok ? 1 : 0, c.image_token_id, kMaxParallelSlots, int(state_enabled));
++          images_ok ? 1 : 0, c.image_token_id, kMaxParallelSlots, int(state_enabled), int(state_enabled && fork_dspark));
+     proto("READY %d stop hold holdb", eff_max_ctx);
+ 
+     std::vector<ActiveReq> reqs(P);
+@@ -618,6 +621,11 @@
+     };
+ 
+     auto prepare_req = [&](const ParsedGen& pg, ActiveReq& rq, std::string& err) -> bool {
++        if (state_enabled && fork_dspark && rq.fork_restored &&
++            (!pg.s.greedy() || pg.s.penalties())) {
++            err = "DSpark fork requires greedy generation without penalties";
++            return false;
++        }
+         rq.active = true;
+         rq.is_solo = (pg.cmd == "GEN");
+         rq.is_ext_gen = (pg.cmd == "GENERATE");
+@@ -741,6 +749,7 @@
+         // ckpt=0 (a later pass of one request: the thinking budget's wrap-up, a reply written again): the checkpoint of the
+         // request's first pass, at the end of the prompt the client sends back, stays; this pass's longer prompt would replace it.
+         rq.ckpt_pending = (pg.images.empty() && !pg.no_ckpt && rq.prompt_len >= 16 && reuse < rq.prompt_len - 1);
++        rq.fork_restored = false;
+         rq.prefill_pos = reuse;
+         rq.cur_pos = reuse;
+         rq.hist = rq.prompt_ids;
+@@ -783,6 +792,9 @@
+             auto& rq = reqs[slot];
+             try {
+                 if (op == "STATE_SAVE") {
++                    if (fork_dspark && (!rq.s.greedy() || rq.s.penalties())) {
++                        proto("ERR DSpark fork requires greedy generation without penalties"); return true;
++                    }
+                     const size_t budget = size_t(snapshot_mib) << 20;
+                     const size_t ids_bytes = rq.cached_prefix.size() * sizeof(int32_t);
+                     // A second live image must not make transient memory exceed the configured payload budget.
+@@ -801,6 +813,7 @@
+                     auto ids = saved_ids;
+                     saved->restore(slot);
+                     rq.cached_prefix.swap(ids);
++                    rq.fork_restored = fork_dspark;
+                     rq.prompt_ckpt_prefix.clear();
+                     rq.shared_prefix.clear();
+                     proto("RESTORED %zu", saved_ids.size());
+--- a/engine/src/inkling2/metal/ink_metal_backend.mm
++++ b/engine/src/inkling2/metal/ink_metal_backend.mm
+@@ -200,7 +200,7 @@
+     }
+ 
+     std::unique_ptr<InkPrefixCheckpoint> save_prefix(int slot, int tokens, size_t budget) override {
+-        if (runner_.use_dspark || kv_dtype_ != KvDtype::FP16 || (slot < 0 || slot >= runner_.max_slots) ||
++        if (kv_dtype_ != KvDtype::FP16 || (slot < 0 || slot >= runner_.max_slots) ||
+             tokens <= 0 || tokens >= runner_.max_ctx) return nullptr;
+         // forward_batch has finished on the GPU when the idle server accepts SAVE.
+         // Keep the populated physical ring rows, including rows a longer sibling can overwrite.
+@@ -211,20 +211,22 @@
+                 size_t offset;
+                 size_t length;
+             };
++            MetalInkBackend& backend;
+             ink_metal::InkMetalRunner& runner;
+             ink_metal::InkMetalRunner::SlotSconvSnap conv;
+             std::vector<Slice> kv;
+             uint8_t* storage = nullptr;
+             size_t storage_size = 0;
+             ~Saved() override { if (storage) munmap(storage, storage_size); }
+-            explicit Saved(ink_metal::InkMetalRunner& r) : runner(r) {}
++            explicit Saved(MetalInkBackend& b) : backend(b), runner(b.runner_) {}
+             void restore(int destination) const override {
++                backend.reset_slot(destination);
+                 for (const auto& slice : kv)
+                     std::memcpy(slice.base + destination * slice.slot_stride, storage + slice.offset, slice.length);
+                 runner.restore_slot(destination, conv);
+             }
+         };
+-        auto saved = std::make_unique<Saved>(runner_);
++        auto saved = std::make_unique<Saved>(*this);
+         const auto& c = mod_.man.c;
+         const size_t row_bytes = (size_t)c.n_kv * c.head_dim * sizeof(uint16_t);
+         // Two KV convolution histories and two hidden-state histories, three rows each.
+@@ -232,16 +234,27 @@
+             6ull * c.n_visits * (size_t(c.n_kv) * c.head_dim + c.hidden) * sizeof(float);
+         if (conv_bytes > budget) return nullptr;
+         saved->payload_bytes = conv_bytes;
+-        for (int v = 0; v < c.n_visits; ++v) {
+-            const size_t count = std::min(tokens, runner_.visit_kv_stride[v]) * row_bytes;
+-            for (auto* buf : {&runner_.kv_k[v], &runner_.kv_v[v]}) {
+-                const size_t stride = row_bytes * runner_.visit_kv_stride[v];
+-                auto* base = buf->as<uint8_t>();
+-                if (count > budget - saved->payload_bytes) return nullptr;
+-                saved->kv.push_back({base, stride, saved->storage_size, count});
+-                saved->storage_size += count;
+-                saved->payload_bytes += count;
+-            }
++        auto add = [&](uint8_t* base, size_t stride, size_t count) {
++            if (!base || count > budget - saved->payload_bytes) return false;
++            saved->kv.push_back({base, stride, saved->storage_size, count});
++            saved->storage_size += count;
++            saved->payload_bytes += count;
++            return true;
++        };
++        auto add_kv = [&](auto& k, auto& v, int rows) {
++            const size_t count = std::min(tokens, rows) * row_bytes;
++            const size_t stride = rows * row_bytes;
++            return add(k.template as<uint8_t>(), stride, count) &&
++                   add(v.template as<uint8_t>(), stride, count);
++        };
++        for (int v = 0; v < c.n_visits; ++v)
++            if (!add_kv(runner_.kv_k[v], runner_.kv_v[v], runner_.visit_kv_stride[v])) return nullptr;
++        if (runner_.use_dspark) {
++            for (int layer = 0; layer < 3; ++layer)
++                if (!add_kv(runner_.dsp_ctx_k[layer], runner_.dsp_ctx_v[layer], runner_.dsp_kv_stride[layer]))
++                    return nullptr;
++            const size_t bytes = c.hidden * sizeof(float);
++            if (!add(runner_.dsp_frnn_slot.as<uint8_t>(), bytes, bytes)) return nullptr;
+         }
+         // Release the checkpoint's unified-memory pages at DROP, including short,
+         // repeated snapshots which otherwise fill independent malloc size classes.
+--- a/terminal/serve/server.py
++++ b/terminal/serve/server.py
+@@ -7508,7 +7508,8 @@
+                 if self._authorized() and self._turbine_local():
+                     state = getattr(svc.engine, "checkpoints", None)
+                     enabled = bool(state and state.alive())
+-                    self._json(200, {"native_fork": enabled, "backend": state.family if enabled else None,
++                    self._json(200, {"native_fork": enabled, "fork_dspark": enabled and
++                                     str(svc.engine.info.get("fork_dspark")) == "1", "backend": state.family if enabled else None,
+                                      "active_slots": getattr(svc.engine, "batch", 0), "max_parents": int(enabled)})
+                 return
+             if path.startswith("/tool-media/"):

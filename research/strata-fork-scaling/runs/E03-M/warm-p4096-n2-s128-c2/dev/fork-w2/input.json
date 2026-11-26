@@ -1,0 +1,14 @@
+{
+  "config": [
+    4096,
+    2,
+    128,
+    true
+  ],
+  "seed": 70281,
+  "mode": "fork",
+  "slots": 2,
+  "width": 2,
+  "diag": false,
+  "work": "188b97e7bf99de1951a0d0820b0992b662ddd622c87e752efd6754eb3d0b0946"
+}

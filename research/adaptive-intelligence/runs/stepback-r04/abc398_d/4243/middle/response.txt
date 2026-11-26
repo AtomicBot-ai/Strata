@@ -1,0 +1,41 @@
+Step 1: Track smoke using a set of (r,c) cells. At each t, move every existing cell by the direction of S[t-1], then generate new smoke at (0,0) if no smoke is at (0,0) after the move.
+
+Step 2: Smoke can be produced only by the campfire rule. The set of alive cells is a finite set; for a fixed query cell (R,C), we can track only the smoke that can reach it by forward propagation, but to keep it simple and safe, maintain the full set of cells (it stays bounded by N plus the number of campfire regenerations). At time t+0.5, after the move and generation check, test whether (R,C) is present.
+
+Step 3: For each t from 1 to N, output '1' if (R,C) is in the set after step t, else '0'. Use sets/dicts to avoid slow scans, and keep the number of cells manageable.
+
+Final:
+```python
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    n = int(data[0])
+    R = int(data[1])
+    C = int(data[2])
+    S = data[3]
+    smoke = {(0, 0)}
+    out = []
+    for i, ch in enumerate(S):
+        dr = 0
+        dc = 0
+        if ch == 'N':
+            dr = -1
+        elif ch == 'S':
+            dr = 1
+        elif ch == 'W':
+            dc = -1
+        elif ch == 'E':
+            dc = 1
+        new_smoke = set()
+        for r, c in smoke:
+            new_smoke.add((r + dr, c + dc))
+        if (0, 0) not in new_smoke:
+            new_smoke.add((0, 0))
+        smoke = new_smoke
+        out.append('1' if (R, C) in smoke else '0')
+    sys.stdout.write(''.join(out))
+
+if __name__ == '__main__':
+    main()
+```<|end_message|><|content_model_end_sampling|>

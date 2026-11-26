@@ -1,0 +1,102 @@
+{
+  "cells": [
+    {
+      "config": [
+        4096,
+        2,
+        128,
+        true,
+        2
+      ],
+      "complete_pairs": 1,
+      "complete_trees": 0,
+      "fixed_width_samples": [
+        {
+          "seed": 72401,
+          "block": 0,
+          "ratios": {
+            "1": 0.9923990297700951,
+            "2": 3.3833110484362416
+          }
+        }
+      ]
+    },
+    {
+      "config": [
+        4096,
+        8,
+        128,
+        true,
+        2
+      ],
+      "complete_pairs": 1,
+      "complete_trees": 0,
+      "fixed_width_samples": [
+        {
+          "seed": 72401,
+          "block": 0,
+          "ratios": {
+            "1": 1.0000581219785616,
+            "2": 1.6102328318408765
+          }
+        }
+      ]
+    },
+    {
+      "config": [
+        16384,
+        2,
+        128,
+        true,
+        2
+      ],
+      "complete_pairs": 1,
+      "complete_trees": 0,
+      "fixed_width_samples": [
+        {
+          "seed": 72401,
+          "block": 0,
+          "ratios": {
+            "1": 0.9751708118510806,
+            "2": 13.235936626540916
+          }
+        }
+      ]
+    },
+    {
+      "config": [
+        4096,
+        8,
+        128,
+        false,
+        2
+      ],
+      "complete_pairs": 1,
+      "complete_trees": 0,
+      "fixed_width_samples": [
+        {
+          "seed": 72401,
+          "block": 0,
+          "ratios": {
+            "1": 0.970275760791417,
+            "2": 1.4894745649729666
+          }
+        }
+      ]
+    }
+  ],
+  "contrasts": [],
+  "first_blocks": [
+    {
+      "p": 4096,
+      "resident": true,
+      "seed": 72401,
+      "native": 13.492162916,
+      "fork": 9.78575225
+    }
+  ],
+  "complete_pairs": 4,
+  "endpoint_pairs": 40,
+  "same_shape_exact": 40,
+  "completed": false
+}

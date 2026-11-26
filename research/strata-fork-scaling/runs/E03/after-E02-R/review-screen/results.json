@@ -1,0 +1,22 @@
+[
+  {
+    "p": 4096,
+    "n": 2,
+    "width": 1,
+    "baseline_s": 10.3592765,
+    "fork_s": 9.169956667,
+    "speedup": 1.1296974321896216,
+    "exact_branches": 2,
+    "audit": "p4096-n2-shared/audit.json"
+  },
+  {
+    "p": 4096,
+    "n": 4,
+    "width": 1,
+    "baseline_s": 15.063113042,
+    "fork_s": 12.603888417,
+    "speedup": 1.195116343753331,
+    "exact_branches": 4,
+    "audit": "p4096-n4-shared/audit.json"
+  }
+]

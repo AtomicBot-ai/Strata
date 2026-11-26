@@ -1,0 +1,140 @@
+[
+  {
+    "boundary": 1023,
+    "shape_errors": [
+      [
+        {
+          "maxabs": 0.0,
+          "rms": 0.0,
+          "same_argmax": true,
+          "exact": true
+        },
+        {
+          "maxabs": 0.0,
+          "rms": 0.0,
+          "same_argmax": true,
+          "exact": true
+        },
+        {
+          "maxabs": 0.0,
+          "rms": 0.0,
+          "same_argmax": true,
+          "exact": true
+        },
+        {
+          "maxabs": 0.0,
+          "rms": 0.0,
+          "same_argmax": true,
+          "exact": true
+        }
+      ],
+      [
+        {
+          "maxabs": 0.0,
+          "rms": 0.0,
+          "same_argmax": true,
+          "exact": true
+        },
+        {
+          "maxabs": 0.0,
+          "rms": 0.0,
+          "same_argmax": true,
+          "exact": true
+        },
+        {
+          "maxabs": 0.0,
+          "rms": 0.0,
+          "same_argmax": true,
+          "exact": true
+        },
+        {
+          "maxabs": 0.0,
+          "rms": 0.0,
+          "same_argmax": true,
+          "exact": true
+        }
+      ],
+      [
+        {
+          "maxabs": 0.05683135986328125,
+          "rms": 0.032399670381733865,
+          "same_argmax": true,
+          "exact": false
+        },
+        {
+          "maxabs": 0.034465789794921875,
+          "rms": 0.006335751852426012,
+          "same_argmax": true,
+          "exact": false
+        },
+        {
+          "maxabs": 0.026505470275878906,
+          "rms": 0.005608442257414345,
+          "same_argmax": true,
+          "exact": false
+        },
+        {
+          "maxabs": 0.10077667236328125,
+          "rms": 0.025692259030318194,
+          "same_argmax": true,
+          "exact": false
+        }
+      ],
+      [
+        {
+          "maxabs": 0.0,
+          "rms": 0.0,
+          "same_argmax": true,
+          "exact": true
+        },
+        {
+          "maxabs": 0.0,
+          "rms": 0.0,
+          "same_argmax": true,
+          "exact": true
+        },
+        {
+          "maxabs": 0.00010395050048828125,
+          "rms": 2.0493528235078903e-05,
+          "same_argmax": true,
+          "exact": false
+        },
+        {
+          "maxabs": 5.340576171875e-05,
+          "rms": 8.817358988915133e-06,
+          "same_argmax": true,
+          "exact": false
+        }
+      ],
+      [
+        {
+          "maxabs": 0.056783199310302734,
+          "rms": 0.03237616447622765,
+          "same_argmax": true,
+          "exact": false
+        },
+        {
+          "maxabs": 0.034450531005859375,
+          "rms": 0.006334826365423413,
+          "same_argmax": true,
+          "exact": false
+        },
+        {
+          "maxabs": 0.026523590087890625,
+          "rms": 0.005616691296550972,
+          "same_argmax": true,
+          "exact": false
+        },
+        {
+          "maxabs": 0.10076427459716797,
+          "rms": 0.025682859439452702,
+          "same_argmax": true,
+          "exact": false
+        }
+      ]
+    ],
+    "failing_branches": [
+      2
+    ]
+  }
+]

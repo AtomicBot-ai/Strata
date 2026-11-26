@@ -1,0 +1,5 @@
+-- strata: compiled geometry flash_next (default)
+-- Strata Metal: no ggml in this build (own CPU pool, tests off)
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/final-sprint/qwen-build

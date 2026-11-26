@@ -1,0 +1,255 @@
+{
+  "key": {
+    "config": [
+      4096,
+      8,
+      128,
+      true
+    ],
+    "seed": 71381,
+    "mode": "native",
+    "slots": 2,
+    "width": 1,
+    "diag": true,
+    "work": "0f542e7779b0a46319abd7e37972d5ae2c2932cc55184ce92c72b0c234062de7"
+  },
+  "elapsed_ns": 17954638250,
+  "through_cleanup_ns": 17954879750,
+  "parent_prefill_ns": 6003355042,
+  "initial_parent_in_elapsed": false,
+  "snapshot_create_ns": 0,
+  "restore_ns": 0,
+  "drop_ns": 0,
+  "postrun_slot_clear_ns": 241500,
+  "children_done_ns": 17954638042,
+  "snapshot_bytes": 0,
+  "memory": {
+    "before": {
+      "footprint": 2723892296,
+      "peak_footprint": 2723892296,
+      "rss": 2566586368,
+      "pageins": 36704
+    },
+    "parent": {
+      "footprint": 2916945088,
+      "peak_footprint": 2916945088,
+      "rss": 2742878208,
+      "pageins": 36704
+    },
+    "after_create": {
+      "footprint": 2916945088,
+      "peak_footprint": 2916945088,
+      "rss": 2742878208,
+      "pageins": 36704
+    },
+    "end": {
+      "footprint": 2919746776,
+      "peak_footprint": 2919746776,
+      "rss": 2750431232,
+      "pageins": 36704
+    },
+    "cleared": {
+      "footprint": 2919746776,
+      "peak_footprint": 2919746776,
+      "rss": 2750431232,
+      "pageins": 36704
+    }
+  },
+  "branches": [
+    {
+      "branch": 0,
+      "dispatch_ns": 19167,
+      "first_ns": 19246542,
+      "done_ns": 2245495083,
+      "reused": 4096,
+      "engine_prefill_ms": 17.5,
+      "engine_decode_ms": 2225.1,
+      "endpoint": 157
+    },
+    {
+      "branch": 1,
+      "dispatch_ns": 2245692250,
+      "first_ns": 2287188750,
+      "done_ns": 4496774083,
+      "reused": 4095,
+      "engine_prefill_ms": 34.6,
+      "engine_decode_ms": 2208.6,
+      "endpoint": 65
+    },
+    {
+      "branch": 2,
+      "dispatch_ns": 4496958125,
+      "first_ns": 4518360167,
+      "done_ns": 6746434958,
+      "reused": 4096,
+      "engine_prefill_ms": 17.1,
+      "engine_decode_ms": 2227.2,
+      "endpoint": 82
+    },
+    {
+      "branch": 3,
+      "dispatch_ns": 6746605167,
+      "first_ns": 6768496583,
+      "done_ns": 8976541375,
+      "reused": 4096,
+      "engine_prefill_ms": 17.6,
+      "engine_decode_ms": 2207.1,
+      "endpoint": 69
+    },
+    {
+      "branch": 4,
+      "dispatch_ns": 8976710583,
+      "first_ns": 8998154208,
+      "done_ns": 11225449000,
+      "reused": 4096,
+      "engine_prefill_ms": 17.3,
+      "engine_decode_ms": 2226.3,
+      "endpoint": 82
+    },
+    {
+      "branch": 5,
+      "dispatch_ns": 11225648708,
+      "first_ns": 11246806917,
+      "done_ns": 13465232250,
+      "reused": 4096,
+      "engine_prefill_ms": 17.0,
+      "engine_decode_ms": 2217.5,
+      "endpoint": 64
+    },
+    {
+      "branch": 6,
+      "dispatch_ns": 13465399125,
+      "first_ns": 13487791125,
+      "done_ns": 15715229542,
+      "reused": 4096,
+      "engine_prefill_ms": 18.2,
+      "engine_decode_ms": 2226.2,
+      "endpoint": 157
+    },
+    {
+      "branch": 7,
+      "dispatch_ns": 15715434000,
+      "first_ns": 15736498458,
+      "done_ns": 17954485042,
+      "reused": 4096,
+      "engine_prefill_ms": 16.7,
+      "engine_decode_ms": 2217.1,
+      "endpoint": 384
+    }
+  ],
+  "waves": [
+    {
+      "first_branch": 0,
+      "size": 1,
+      "queue_ns": 19167,
+      "dispatch_to_first_ns": 19227375,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2226248541,
+      "physical": {
+        "footprint": 2914045144,
+        "peak_footprint": 2917338328,
+        "rss": 2744729600,
+        "pageins": 36704
+      }
+    },
+    {
+      "first_branch": 1,
+      "size": 1,
+      "queue_ns": 2245692250,
+      "dispatch_to_first_ns": 41496500,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2209585333,
+      "physical": {
+        "footprint": 2918091992,
+        "peak_footprint": 2918091992,
+        "rss": 2748776448,
+        "pageins": 36704
+      }
+    },
+    {
+      "first_branch": 2,
+      "size": 1,
+      "queue_ns": 4496958125,
+      "dispatch_to_first_ns": 21402042,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2228074791,
+      "physical": {
+        "footprint": 2919714008,
+        "peak_footprint": 2919714008,
+        "rss": 2750398464,
+        "pageins": 36704
+      }
+    },
+    {
+      "first_branch": 3,
+      "size": 1,
+      "queue_ns": 6746605167,
+      "dispatch_to_first_ns": 21891416,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2208044792,
+      "physical": {
+        "footprint": 2919714008,
+        "peak_footprint": 2919714008,
+        "rss": 2750398464,
+        "pageins": 36704
+      }
+    },
+    {
+      "first_branch": 4,
+      "size": 1,
+      "queue_ns": 8976710583,
+      "dispatch_to_first_ns": 21443625,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2227294792,
+      "physical": {
+        "footprint": 2919730392,
+        "peak_footprint": 2919730392,
+        "rss": 2750414848,
+        "pageins": 36704
+      }
+    },
+    {
+      "first_branch": 5,
+      "size": 1,
+      "queue_ns": 11225648708,
+      "dispatch_to_first_ns": 21158209,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2218425333,
+      "physical": {
+        "footprint": 2919746776,
+        "peak_footprint": 2919746776,
+        "rss": 2750431232,
+        "pageins": 36704
+      }
+    },
+    {
+      "first_branch": 6,
+      "size": 1,
+      "queue_ns": 13465399125,
+      "dispatch_to_first_ns": 22392000,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2227438417,
+      "physical": {
+        "footprint": 2919746776,
+        "peak_footprint": 2919746776,
+        "rss": 2750431232,
+        "pageins": 36704
+      }
+    },
+    {
+      "first_branch": 7,
+      "size": 1,
+      "queue_ns": 15715434000,
+      "dispatch_to_first_ns": 21064458,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2217986584,
+      "physical": {
+        "footprint": 2919746776,
+        "peak_footprint": 2919746776,
+        "rss": 2750431232,
+        "pageins": 36704
+      }
+    }
+  ],
+  "raw_sha256": "041af1e1b16db2d2ca2e3f89b1a1c524917b97dbbd7b15909ea0e49a6196565c"
+}

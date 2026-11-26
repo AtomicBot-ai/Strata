@@ -1,0 +1,14 @@
+mtl: GPU keep-alive every 250 ms for 120 s after the last command buffer (#6078; STRATA_METAL_KEEPALIVE_MS=0 turns it off)
+[ink_metal] loaded /Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/atomic-turbine/.work/models/Inkling-2-Mini-SQ-10.strata (build=SQ-10, minor=1, 9.75 GiB, trunk=646, dspark=54, experts=3072, vram_order=3072, sec4_bufs=1) in 0.00s (workSet=37.4 GiB, maxBuf=28.1 GiB)
+[ink_metal] runner ready: slots=1 ctx=2048 batch=256 dspark=1 vision=off mpp=1(trunk=1,hot=0) | KV=224.0 MiB SC=3.7 MiB TotalAlloc=11.82 GiB
+plain request=1 slot=0 pos=15 path=ordinary_forward calib=4 ms=16.0176
+plain request=1 slot=0 pos=16 path=ordinary_forward calib=3 ms=15.8329
+plain request=1 slot=0 pos=17 path=ordinary_forward calib=2 ms=15.7122
+plain request=1 slot=0 pos=18 path=ordinary_forward calib=1 ms=15.6653
+plain request=1 slot=0 pos=21 path=ordinary_forward calib=0 ms=15.6148
+factor request=1 rounds=2 plain=5 probes=4 cooldown=0 ema_ms=15.7862
+plain request=2 slot=0 pos=123 path=ordinary_forward calib=4 ms=16.7202
+plain request=2 slot=0 pos=124 path=ordinary_forward calib=3 ms=16.8822
+plain request=2 slot=0 pos=125 path=ordinary_forward calib=2 ms=17.0525
+plain request=2 slot=0 pos=126 path=ordinary_forward calib=1 ms=16.9151
+factor request=2 rounds=48 plain=4 probes=4 cooldown=0 ema_ms=16.9008

@@ -1,0 +1,70 @@
+{
+  "seed": 28107,
+  "boundary": 1025,
+  "arm": "chunk64",
+  "restore": false,
+  "source": null,
+  "work": "ba8e822be82ce34a1e1e046a5e818d3b1eb497f5d21e1b9cb4b4f329bcb2e309",
+  "raw": "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-logits/cal/28107/chunk64.npy",
+  "sha256": "68509f5500174d4a8918036437d0edc05c884e721bbff648ab9fc730d99b339c",
+  "binary_sha256": "18b8fd5577c50070d5956cc4ccfb277b68a1562e80847307caeffb1d4195609f",
+  "seconds": 5.79029808298219,
+  "shapes": [
+    [
+      0,
+      0,
+      0,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      0,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      1,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      8,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      8,
+      2,
+      2
+    ],
+    [
+      0,
+      0,
+      32,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      32,
+      2,
+      2
+    ]
+  ]
+}

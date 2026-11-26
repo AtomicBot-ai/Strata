@@ -1,0 +1,11 @@
+{
+  "sha256": "e9267ea44bff7865e4bac0a4a45148db971b724269a3fc05d6ef24b4f77983da",
+  "source": "61d705eb19b0037605641cc294d0db5e844bc889",
+  "verified_files": 678,
+  "changed_since_benchmark": [
+    "README.md",
+    "RELEASE_NOTES.md",
+    "fork_demo.py"
+  ],
+  "version": "Atomic Turbine 0.1.0"
+}

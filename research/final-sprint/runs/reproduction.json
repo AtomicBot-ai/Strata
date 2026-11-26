@@ -1,0 +1,60 @@
+{
+  "platform": "macOS arm64 on Apple M4 Max, 48 GiB, system disk0",
+  "source": "Strata b28ca95e3e6847f2d5e317994f253b66716deeaa; use a disposable, separate source checkout for each research engine.",
+  "requirements": [
+    "CMake",
+    "Apple Command Line Tools and metal-cpp headers for Qwen",
+    "Python with numpy and tokenizers and the upstream terminal/requirements.txt",
+    "installed OpenCode 2.0.24 CLI",
+    "local converted model, profile and tokenizer assets from input.json and engine.json"
+  ],
+  "inkling_research": [
+    "git -C \"$INKLING_SRC\" apply \"$WORKSPACE/research/final-sprint/tools/inkling-research.patch\"",
+    "cmake -S \"$INKLING_SRC/engine/src/inkling2\" -B .work/strata-scaling/review-fork-build -DCMAKE_BUILD_TYPE=Release",
+    "cmake --build .work/strata-scaling/review-fork-build --target strata-inkling"
+  ],
+  "qwen_research": [
+    "git -C \"$QWEN_SRC\" apply \"$WORKSPACE/research/adaptive-intelligence/ssd/strata-expert-trace.patch\"",
+    "git -C \"$QWEN_SRC\" apply \"$WORKSPACE/research/final-sprint/tools/qwen-warm-probe.patch\"",
+    "cmake -S \"$QWEN_SRC/engine/metal\" -B .work/final-sprint/qwen-build -DCMAKE_BUILD_TYPE=Release -DMETAL_CPP_DIR=\"$METAL_CPP_DIR\"",
+    "cmake --build .work/final-sprint/qwen-build --target strata",
+    "clang -dynamiclib -O2 research/adaptive-intelligence/ssd/counters.c -framework IOKit -framework CoreFoundation -o .work/ssd-counters.dylib"
+  ],
+  "s04_fixture": {
+    "upstream": "e83de74d7d6207622c7e8f3ae5f8b35dae15d491",
+    "directory": ".work/final-sprint/s04-fixture",
+    "tracked_files": [
+      "LICENSE",
+      "terminal/setup.py",
+      "terminal/strata_cli/update_cmd.py",
+      "terminal/strata_control/shape_engine.py",
+      "terminal/strata_control/engine_component.py"
+    ],
+    "preparation": "Copy these paths from git at the specified revision and commit them in the isolated fixture repository before S04. Use inkling_tokenizer.py to prepare .work/final-sprint/ink-tokenizer."
+  },
+  "run_in_order": [
+    "python3 -B research/final-sprint/tools/s01.py",
+    "python3 -B research/final-sprint/tools/ssd_sprint.py S02",
+    "python3 -B research/final-sprint/tools/ssd_sprint.py S03",
+    "python3 -B research/final-sprint/tools/s04.py",
+    "python3 -B research/final-sprint/tools/s04_verify.py",
+    "python3 -B research/final-sprint/tools/summarize.py"
+  ],
+  "reproduction_note": "Use a fresh output workspace for fresh observations; the scripts reuse completed arms. Do not remove the original evidence. Raw input.json / engine.json files contain the concrete flags and paths used on the test machine.",
+  "release_checks": [
+    "cmake -S Atomic-Turbine/engine/src/inkling2 -B .work/final-sprint/ink-release -DCMAKE_BUILD_TYPE=Release",
+    "cmake --build .work/final-sprint/ink-release --target strata-inkling",
+    "cmake -S Atomic-Turbine/engine/src/inkling2 -B .work/final-sprint/ink-check -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-DTURBINE_TEST_LOGITS",
+    "cmake --build .work/final-sprint/ink-check --target strata-inkling",
+    "cmake -S Atomic-Turbine/engine/metal -B .work/final-sprint/qwen-release -DCMAKE_BUILD_TYPE=Release -DMETAL_CPP_DIR=\"$METAL_CPP_DIR\"",
+    "cmake --build .work/final-sprint/qwen-release --target strata",
+    "python3 -B research/final-sprint/tools/state_regression.py --binary .work/final-sprint/ink-release/strata-inkling",
+    "python3 -B research/final-sprint/tools/state_regression.py --binary .work/final-sprint/ink-check/strata-inkling --diag",
+    "python3 -B research/final-sprint/tools/qwen_state_regression.py .work/final-sprint/qwen-release/strata",
+    "python3 -B research/final-sprint/tools/package_local.py .work/final-sprint/ink-release/strata-inkling .work/final-sprint/qwen-release/strata \"$METAL_CPP_DIR\"",
+    "python3 -B research/final-sprint/tools/package_smoke.py \"$EXTRACTED_PACKAGE\""
+  ],
+  "s04_observer": "Wire observer must be executable and its basename must start with strata-inkling, which the gateway uses for Inkling-specific stop-token handling.",
+  "qwen_arena_unit": "STRATA_METAL_ARENA_GB=6 corresponds to 6.00 decimal GB in the Metal engine log; use the explicit flag rather than the historical arena_gib field label.",
+  "current_fork_commit": "30aa2bf03c623fc7e6454f19740dd37845e99749"
+}

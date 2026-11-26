@@ -1,0 +1,80 @@
+{
+  "version": "Atomic Turbine 0.1.0",
+  "models": {
+    "object": "list",
+    "data": [
+      {
+        "id": "inkling",
+        "object": "model",
+        "created": 1795643402,
+        "owned_by": "strata",
+        "status": {
+          "value": "loaded"
+        },
+        "max_model_len": 2048,
+        "context_length": 2048,
+        "max_context_length": 2048,
+        "limit": {
+          "context": 2048,
+          "output": 2040
+        },
+        "meta": {
+          "n_ctx": 2048,
+          "llamaswap": {
+            "max_output_tokens": 2040
+          }
+        },
+        "architecture": {
+          "input_modalities": [
+            "text"
+          ],
+          "output_modalities": [
+            "text"
+          ]
+        }
+      }
+    ]
+  },
+  "matched_native_tokens": null,
+  "response": {
+    "id": "chatcmpl-bf7b6066944a4f9c9f7193b7",
+    "object": "chat.completion",
+    "created": 1795643403,
+    "model": "inkling",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "hello",
+          "reasoning_content": "The user asks to reply with the word hello. Need answer exactly word hello. No extra. Ensure final only hello."
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 21,
+      "completion_tokens": 32,
+      "total_tokens": 53,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 26
+      }
+    },
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 21,
+      "prompt_ms": 194.9,
+      "prompt_per_token_ms": 9.281,
+      "prompt_per_second": 107.7,
+      "predicted_n": 32,
+      "predicted_ms": 495.7,
+      "predicted_per_token_ms": 15.491,
+      "predicted_per_second": 64.6,
+      "draft_n": 0,
+      "draft_n_accepted": 0
+    }
+  }
+}

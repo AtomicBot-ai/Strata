@@ -1,0 +1,45 @@
+{
+  "repair": {
+    "reason_visible": true,
+    "dangling_reference_removed": true,
+    "terminal_progress": true,
+    "allow_no_engine_preserved": true
+  },
+  "parallel": {
+    "client_calls": [
+      {
+        "status": "completed",
+        "time": {
+          "start": 1795643070054,
+          "end": 1795643200568
+        },
+        "agent": "explore"
+      },
+      {
+        "status": "completed",
+        "time": {
+          "start": 1795643072505,
+          "end": 1795643206128
+        },
+        "agent": "explore"
+      }
+    ],
+    "children": [
+      {
+        "id": "ses_deb551fedffdCPrVCGa6NFetk0",
+        "start": 1795643072563,
+        "end": 1795643206127,
+        "outcome": "succeeded",
+        "directory": "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/final-sprint/s04-fixture"
+      },
+      {
+        "id": "ses_deb551fedffe8KO0EID765hno0",
+        "start": 1795643072566,
+        "end": 1795643200567,
+        "outcome": "succeeded",
+        "directory": "/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/final-sprint/s04-fixture"
+      }
+    ],
+    "successful_child_overlap_ms": 128001
+  }
+}

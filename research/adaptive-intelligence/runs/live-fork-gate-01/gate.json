@@ -1,0 +1,36 @@
+{
+  "binary_sha256": "5c97fb5d39b3d03466ed100678d2443061e98171ac2cc7aa574bc1d369c57ef7",
+  "metal_bytes": 12818617912,
+  "matched": [
+    {
+      "source": 0,
+      "destination": 1,
+      "processed": 1103,
+      "pending": 473,
+      "bytes": 208553764,
+      "tails_logits_sha256": [
+        "aa7bff0911cfac1d623bbcb2196026135f63a4e818082930250ee44bcae87b22",
+        "13e3d569cead23b9f3f202f229c552057903fe0a1baba9bda088c9268dd3408a"
+      ],
+      "live_logits_sha256": [
+        "729b5efcbd55795ea09e0ddabb47d837edc1bfb217b7a1f3110e3fc5d164e003",
+        "729b5efcbd55795ea09e0ddabb47d837edc1bfb217b7a1f3110e3fc5d164e003"
+      ]
+    },
+    {
+      "source": 1,
+      "destination": 0,
+      "processed": 1103,
+      "pending": 473,
+      "bytes": 208553764,
+      "tails_logits_sha256": [
+        "aa7bff0911cfac1d623bbcb2196026135f63a4e818082930250ee44bcae87b22",
+        "13e3d569cead23b9f3f202f229c552057903fe0a1baba9bda088c9268dd3408a"
+      ],
+      "live_logits_sha256": [
+        "729b5efcbd55795ea09e0ddabb47d837edc1bfb217b7a1f3110e3fc5d164e003",
+        "729b5efcbd55795ea09e0ddabb47d837edc1bfb217b7a1f3110e3fc5d164e003"
+      ]
+    }
+  ]
+}

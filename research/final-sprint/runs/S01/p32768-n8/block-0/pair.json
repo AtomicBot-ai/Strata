@@ -1,0 +1,80 @@
+{
+  "order": [
+    [
+      "native",
+      2
+    ],
+    [
+      "native",
+      1
+    ],
+    [
+      "fork",
+      2
+    ]
+  ],
+  "seed": 83101,
+  "modes": {
+    "native-2": {
+      "wall_s": 91.147817084,
+      "parent_s": 54.903376,
+      "marginal_s": 1.9754435695,
+      "create_ms": 0.0,
+      "restore_ms": 0.0,
+      "cleanup_ms": 0.2435,
+      "peak_gib": 4.63896619528532,
+      "tokens": [
+        242,
+        157,
+        65,
+        82,
+        82,
+        157,
+        82,
+        82
+      ],
+      "work": "ee449f19fb9671cc7dc987243cd3642c1f28467aec757604c745c0597019d79d"
+    },
+    "native-1": {
+      "wall_s": 22.935131959,
+      "parent_s": 54.87706875,
+      "marginal_s": 2.8639215973333334,
+      "create_ms": 0.0,
+      "restore_ms": 0.0,
+      "cleanup_ms": 0.262209,
+      "peak_gib": 4.469425722956657,
+      "tokens": [
+        242,
+        157,
+        65,
+        82,
+        82,
+        157,
+        82,
+        82
+      ],
+      "work": "ee449f19fb9671cc7dc987243cd3642c1f28467aec757604c745c0597019d79d"
+    },
+    "fork-2": {
+      "wall_s": 16.124209417,
+      "parent_s": 54.727453167,
+      "marginal_s": 1.9933307291666666,
+      "create_ms": 107.539416,
+      "restore_ms": 231.532374,
+      "cleanup_ms": 13.038084,
+      "peak_gib": 5.632680289447308,
+      "tokens": [
+        242,
+        157,
+        65,
+        82,
+        82,
+        157,
+        82,
+        82
+      ],
+      "work": "ee449f19fb9671cc7dc987243cd3642c1f28467aec757604c745c0597019d79d"
+    }
+  },
+  "endpoints_agree": true
+}

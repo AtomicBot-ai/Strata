@@ -1,0 +1,766 @@
+{
+  "hidden_counts": {
+    "abc306_b": 12,
+    "abc344_b": 12,
+    "abc376_b": 21,
+    "abc397_f": 40,
+    "abc398_c": 40,
+    "abc398_d": 40
+  },
+  "pools": {
+    "parent": {
+      "abc306_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc344_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc376_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc397_f": {
+        "public": true,
+        "hidden": true,
+        "combined": false
+      },
+      "abc398_c": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc398_d": {
+        "public": false,
+        "hidden": false,
+        "combined": false
+      }
+    },
+    "r03_pair": {
+      "abc306_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc344_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc376_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc397_f": {
+        "public": true,
+        "hidden": true,
+        "combined": false
+      },
+      "abc398_c": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc398_d": {
+        "public": true,
+        "hidden": false,
+        "combined": false
+      }
+    },
+    "approach": {
+      "abc306_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc344_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc376_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc397_f": {
+        "public": true,
+        "hidden": true,
+        "combined": false
+      },
+      "abc398_c": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc398_d": {
+        "public": true,
+        "hidden": false,
+        "combined": false
+      }
+    },
+    "middle": {
+      "abc306_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc344_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc376_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc397_f": {
+        "public": true,
+        "hidden": true,
+        "combined": false
+      },
+      "abc398_c": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc398_d": {
+        "public": true,
+        "hidden": false,
+        "combined": false
+      }
+    },
+    "code": {
+      "abc306_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc344_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc376_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc397_f": {
+        "public": true,
+        "hidden": true,
+        "combined": false
+      },
+      "abc398_c": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc398_d": {
+        "public": true,
+        "hidden": false,
+        "combined": false
+      }
+    },
+    "r04_pool": {
+      "abc306_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc344_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc376_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc397_f": {
+        "public": true,
+        "hidden": true,
+        "combined": false
+      },
+      "abc398_c": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc398_d": {
+        "public": true,
+        "hidden": false,
+        "combined": false
+      }
+    },
+    "all": {
+      "abc306_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc344_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc376_b": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc397_f": {
+        "public": true,
+        "hidden": true,
+        "combined": false
+      },
+      "abc398_c": {
+        "public": true,
+        "hidden": true,
+        "combined": true
+      },
+      "abc398_d": {
+        "public": true,
+        "hidden": false,
+        "combined": false
+      }
+    }
+  },
+  "rows": [
+    {
+      "task": "abc398_d",
+      "branch": "parent",
+      "has_code": true,
+      "public": false,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc398_d",
+      "branch": "child",
+      "has_code": true,
+      "public": true,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4201/approach",
+      "has_code": true,
+      "public": false,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4201/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4201/code",
+      "has_code": true,
+      "public": true,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4217/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4217/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4217/code",
+      "has_code": true,
+      "public": true,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4243/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4243/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc398_d",
+      "branch": "4243/code",
+      "has_code": true,
+      "public": true,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc344_b",
+      "branch": "parent",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc344_b",
+      "branch": "child",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4201/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4201/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4201/code",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4217/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4217/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4217/code",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4243/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4243/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc344_b",
+      "branch": "4243/code",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc398_c",
+      "branch": "parent",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc398_c",
+      "branch": "child",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4201/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4201/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4201/code",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4217/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4217/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4217/code",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4243/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4243/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc398_c",
+      "branch": "4243/code",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc306_b",
+      "branch": "parent",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc306_b",
+      "branch": "child",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4201/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4201/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4201/code",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4217/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4217/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4217/code",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4243/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4243/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc306_b",
+      "branch": "4243/code",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc397_f",
+      "branch": "parent",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": false
+    },
+    {
+      "task": "abc397_f",
+      "branch": "child",
+      "has_code": true,
+      "public": false,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4201/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": false
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4201/middle",
+      "has_code": false,
+      "public": false,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4201/code",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": false
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4217/approach",
+      "has_code": true,
+      "public": false,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4217/middle",
+      "has_code": false,
+      "public": false,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4217/code",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": false
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4243/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": false
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4243/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": false
+    },
+    {
+      "task": "abc397_f",
+      "branch": "4243/code",
+      "has_code": true,
+      "public": false,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc376_b",
+      "branch": "parent",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc376_b",
+      "branch": "child",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4201/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4201/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4201/code",
+      "has_code": true,
+      "public": false,
+      "hidden": false,
+      "combined": false
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4217/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4217/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4217/code",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4243/approach",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4243/middle",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    },
+    {
+      "task": "abc376_b",
+      "branch": "4243/code",
+      "has_code": true,
+      "public": true,
+      "hidden": true,
+      "combined": true
+    }
+  ]
+}

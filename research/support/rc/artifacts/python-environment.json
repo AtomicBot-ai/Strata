@@ -1,0 +1,72 @@
+{
+  "charset-normalizer": {
+    "version": "3.5.1",
+    "license": "MIT",
+    "included_in_zip": false
+  },
+  "requests": {
+    "version": "2.34.2",
+    "license": "Apache-2.0",
+    "included_in_zip": false
+  },
+  "numpy": {
+    "version": "2.4.6",
+    "license": "BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0",
+    "included_in_zip": false
+  },
+  "pillow": {
+    "version": "13.0.0",
+    "license": "MIT-CMU",
+    "included_in_zip": false
+  },
+  "tqdm": {
+    "version": "4.70.1",
+    "license": "MPL-2.0 AND MIT",
+    "included_in_zip": false
+  },
+  "urllib3": {
+    "version": "2.8.0",
+    "license": "MIT",
+    "included_in_zip": false
+  },
+  "PyYAML": {
+    "version": "6.0.3",
+    "license": "MIT",
+    "included_in_zip": false
+  },
+  "truststore": {
+    "version": "0.10.5",
+    "license": "MIT",
+    "included_in_zip": false
+  },
+  "Jinja2": {
+    "version": "3.1.6",
+    "license": "",
+    "included_in_zip": false
+  },
+  "MarkupSafe": {
+    "version": "3.0.3",
+    "license": "BSD-3-Clause",
+    "included_in_zip": false
+  },
+  "certifi": {
+    "version": "2026.10.19",
+    "license": "MPL-2.0",
+    "included_in_zip": false
+  },
+  "psutil": {
+    "version": "7.2.2",
+    "license": "BSD-3-Clause",
+    "included_in_zip": false
+  },
+  "regex": {
+    "version": "2026.9.10",
+    "license": "Apache-2.0 AND CNRI-Python",
+    "included_in_zip": false
+  },
+  "idna": {
+    "version": "3.20",
+    "license": "BSD-3-Clause",
+    "included_in_zip": false
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "case": {
+    "p": 4096,
+    "n": 2,
+    "suffix": 128,
+    "c": 2,
+    "seed": 928,
+    "mode": "B3",
+    "width": 1,
+    "shared": true,
+    "stock": false,
+    "teacher": true,
+    "workload_hash": "64d6845ea810dce3d096758d7ce0348815967b5d721779487ae2df545ad1241b",
+    "binary_sha256": "8cfec60adae534bc6d2da334d0796a5a5e6329c9655ef82dac1467bb5fe2bcd1"
+  },
+  "protocol_sha256": "72df04a9b69511867ec35bd71ad3d03528476f7a04cf14a303cc5f4b687b103d",
+  "cache_mode": "warm weights / cold session",
+  "physical_memory_cap_bytes": null,
+  "thermal": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+  "swap": "total = 11264.00M  used = 10256.88M  free = 1007.12M  (encrypted)"
+}

@@ -1,0 +1,43 @@
+{
+  "mode": "ordinary",
+  "tokens": null,
+  "prepare_s": 0.0002038750099018216,
+  "elapsed_s": 9.721389874990564,
+  "results": [
+    {
+      "question": "Which host address does serve-inkling bind to?",
+      "answer": "127.0.0.1",
+      "expected": "127.0.0.1",
+      "success": true,
+      "request": "chatcmpl-3d1c0afe5df2427b8df1f791",
+      "completion_tokens": 9
+    },
+    {
+      "question": "What TCP port does serve-inkling use by default?",
+      "answer": "8080",
+      "expected": "8080",
+      "success": true,
+      "request": "chatcmpl-a3835e5ab7824710bdce2d84",
+      "completion_tokens": 4
+    },
+    {
+      "question": "Which KV data type does serve-inkling pass to the engine?",
+      "answer": "fp16",
+      "expected": "fp16",
+      "success": true,
+      "request": "chatcmpl-f777d1a1a2de474a9056f759",
+      "completion_tokens": 4
+    },
+    {
+      "question": "What value does serve-inkling pass to --chunk?",
+      "answer": "128",
+      "expected": "128",
+      "success": true,
+      "request": "chatcmpl-c5205d30d5174792bb20fb39",
+      "completion_tokens": 3
+    }
+  ],
+  "peak_bytes": 4425011472,
+  "events": [],
+  "pair": 1
+}

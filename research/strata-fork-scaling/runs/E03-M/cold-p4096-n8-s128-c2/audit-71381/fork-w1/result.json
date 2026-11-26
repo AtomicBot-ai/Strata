@@ -1,0 +1,255 @@
+{
+  "key": {
+    "config": [
+      4096,
+      8,
+      128,
+      false
+    ],
+    "seed": 71381,
+    "mode": "fork",
+    "slots": 2,
+    "width": 1,
+    "diag": true,
+    "work": "bca7f613a48fcfe5f634f269d6dde42002c7a1c208a03aca428312cd4cce5d90"
+  },
+  "elapsed_ns": 24207301708,
+  "through_cleanup_ns": 24207548166,
+  "parent_prefill_ns": 5888779250,
+  "initial_parent_in_elapsed": true,
+  "snapshot_create_ns": 26615167,
+  "restore_ns": 71099667,
+  "drop_ns": 2612875,
+  "postrun_slot_clear_ns": 246458,
+  "children_done_ns": 24204688625,
+  "snapshot_bytes": 305807356,
+  "memory": {
+    "before": {
+      "footprint": 2723908680,
+      "peak_footprint": 2738850888,
+      "rss": 2566602752,
+      "pageins": 38367
+    },
+    "parent": {
+      "footprint": 2745797704,
+      "peak_footprint": 2745896008,
+      "rss": 2571829248,
+      "pageins": 38367
+    },
+    "after_create": {
+      "footprint": 3050605880,
+      "peak_footprint": 3050605880,
+      "rss": 2876473344,
+      "pageins": 38367
+    },
+    "end": {
+      "footprint": 2747305056,
+      "peak_footprint": 3050884408,
+      "rss": 2535473152,
+      "pageins": 38367
+    },
+    "cleared": {
+      "footprint": 2747305056,
+      "peak_footprint": 3050884408,
+      "rss": 2535473152,
+      "pageins": 38367
+    }
+  },
+  "branches": [
+    {
+      "branch": 0,
+      "dispatch_ns": 5915455958,
+      "first_ns": 5935737625,
+      "done_ns": 8146286458,
+      "reused": 4095,
+      "engine_prefill_ms": 18.5,
+      "engine_decode_ms": 2209.2,
+      "endpoint": 157
+    },
+    {
+      "branch": 1,
+      "dispatch_ns": 8178745708,
+      "first_ns": 8197963750,
+      "done_ns": 10441299083,
+      "reused": 4095,
+      "engine_prefill_ms": 17.6,
+      "engine_decode_ms": 2242.2,
+      "endpoint": 65
+    },
+    {
+      "branch": 2,
+      "dispatch_ns": 10457890458,
+      "first_ns": 10476619666,
+      "done_ns": 12737895708,
+      "reused": 4095,
+      "engine_prefill_ms": 16.9,
+      "engine_decode_ms": 2260.2,
+      "endpoint": 82
+    },
+    {
+      "branch": 3,
+      "dispatch_ns": 12742532708,
+      "first_ns": 12761497541,
+      "done_ns": 15010493041,
+      "reused": 4095,
+      "engine_prefill_ms": 17.3,
+      "engine_decode_ms": 2247.9,
+      "endpoint": 69
+    },
+    {
+      "branch": 4,
+      "dispatch_ns": 15015176416,
+      "first_ns": 15035335125,
+      "done_ns": 17272105541,
+      "reused": 4095,
+      "engine_prefill_ms": 17.5,
+      "engine_decode_ms": 2235.8,
+      "endpoint": 82
+    },
+    {
+      "branch": 5,
+      "dispatch_ns": 17276823208,
+      "first_ns": 17296439916,
+      "done_ns": 19557579541,
+      "reused": 4095,
+      "engine_prefill_ms": 18.0,
+      "engine_decode_ms": 2260.0,
+      "endpoint": 64
+    },
+    {
+      "branch": 6,
+      "dispatch_ns": 19562283833,
+      "first_ns": 19581797166,
+      "done_ns": 21878220500,
+      "reused": 4095,
+      "engine_prefill_ms": 17.8,
+      "engine_decode_ms": 2295.2,
+      "endpoint": 157
+    },
+    {
+      "branch": 7,
+      "dispatch_ns": 21882919666,
+      "first_ns": 21902464958,
+      "done_ns": 24204535916,
+      "reused": 4095,
+      "engine_prefill_ms": 17.7,
+      "engine_decode_ms": 2301.1,
+      "endpoint": 384
+    }
+  ],
+  "waves": [
+    {
+      "first_branch": 0,
+      "size": 1,
+      "queue_ns": 5915455958,
+      "dispatch_to_first_ns": 20281667,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2210548833,
+      "physical": {
+        "footprint": 3047591224,
+        "peak_footprint": 3050884408,
+        "rss": 2667397120,
+        "pageins": 38367
+      }
+    },
+    {
+      "first_branch": 1,
+      "size": 1,
+      "queue_ns": 8178745708,
+      "dispatch_to_first_ns": 19218042,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2243335333,
+      "physical": {
+        "footprint": 3049229624,
+        "peak_footprint": 3050884408,
+        "rss": 2845016064,
+        "pageins": 38367
+      }
+    },
+    {
+      "first_branch": 2,
+      "size": 1,
+      "queue_ns": 10457890458,
+      "dispatch_to_first_ns": 18729208,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2261276042,
+      "physical": {
+        "footprint": 3049377080,
+        "peak_footprint": 3050884408,
+        "rss": 2845229056,
+        "pageins": 38367
+      }
+    },
+    {
+      "first_branch": 3,
+      "size": 1,
+      "queue_ns": 12742532708,
+      "dispatch_to_first_ns": 18964833,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2248995500,
+      "physical": {
+        "footprint": 3049377080,
+        "peak_footprint": 3050884408,
+        "rss": 2845229056,
+        "pageins": 38367
+      }
+    },
+    {
+      "first_branch": 4,
+      "size": 1,
+      "queue_ns": 15015176416,
+      "dispatch_to_first_ns": 20158709,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2236770416,
+      "physical": {
+        "footprint": 3049393464,
+        "peak_footprint": 3050884408,
+        "rss": 2837397504,
+        "pageins": 38367
+      }
+    },
+    {
+      "first_branch": 5,
+      "size": 1,
+      "queue_ns": 17276823208,
+      "dispatch_to_first_ns": 19616708,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2261139625,
+      "physical": {
+        "footprint": 3049409848,
+        "peak_footprint": 3050884408,
+        "rss": 2837413888,
+        "pageins": 38367
+      }
+    },
+    {
+      "first_branch": 6,
+      "size": 1,
+      "queue_ns": 19562283833,
+      "dispatch_to_first_ns": 19513333,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2296423334,
+      "physical": {
+        "footprint": 3049409848,
+        "peak_footprint": 3050884408,
+        "rss": 2837430272,
+        "pageins": 38367
+      }
+    },
+    {
+      "first_branch": 7,
+      "size": 1,
+      "queue_ns": 21882919666,
+      "dispatch_to_first_ns": 19545292,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2302070958,
+      "physical": {
+        "footprint": 3049409848,
+        "peak_footprint": 3050884408,
+        "rss": 2837430272,
+        "pageins": 38367
+      }
+    }
+  ],
+  "raw_sha256": "ae25588418273bf80862888c76ac97e53abe355b78c1c471eb7e0c2264a35994"
+}

@@ -1,0 +1,36 @@
+loading the model (the first start takes a minute or two) ...
+[strata] starting the engine: reading the model's weights ...
+[strata] still starting (20 s) - please wait ...
+[strata] loading the experts into RAM (tens of GB) and locking part of them for the GPU.
+         YOUR PC CAN BE SLOW OR STOP RESPONDING FOR 1-3 MINUTES NOW - this is normal.
+         Please wait and don't close this window; the server says when it is ready.
+[strata] filling the GPU's expert cache (84 experts, 0.14 GiB of VRAM) ...
+[strata] almost ready ...
+[strata] parallel requests: 3 asked, the engine runs 2 (its log says why)
+[strata] Monitor: watching GPU 0 (main) (as nvidia-smi numbers them)
+ready: http://127.0.0.1:58687/v1  (OpenAI: /v1/chat/completions, Anthropic: /v1/messages, context 512 tokens)
+       open http://127.0.0.1:58687/ in a browser to chat; close this window to stop the model
+{"turbine":"prefix_resume","request_id":"9a567e464779","reused_tokens":0}
+[strata] reading the prompt: 110 tokens, 10 s so far
+[strata] reading the prompt: 110 tokens, 20 s so far
+[strata] reading the prompt: 92 of 110 tokens, 27 s so far
+[strata] reading the prompt: 103 of 110 tokens, 30 s so far
+[strata] reading the prompt: 109 of 110 tokens, 31 s so far
+[strata] done: 2 tokens in 32 s (3.6 tok/s) (stop, cancel=False), expert cache 2.2% hit
+{"turbine":"prefix_resume","request_id":"4683204c5ce8","reused_tokens":0}
+[strata] reading the prompt: 8 of 15 tokens, 2 s so far
+[strata] done: 2 tokens in 3 s (5.5 tok/s) (stop, cancel=False), expert cache 2.0% hit
+{"turbine":"prefix_resume","request_id":"50e65845fc48","reused_tokens":92}
+[strata] reading the prompt: 109 of 110 tokens, 1 s so far
+[strata] done: 2 tokens in 2 s (7.5 tok/s) (stop, cancel=False), expert cache 7.0% hit
+{"turbine":"prefix_resume","request_id":"2346a1dd8aa3","reused_tokens":0}
+[strata] done: 2 tokens in 0 s (47.2 tok/s) (stop, cancel=False), expert cache 10.4% hit
+{"turbine":"prefix_resume","request_id":"078669fea081","reused_tokens":92}
+[strata] done: 2 tokens in 1 s (11.9 tok/s) (stop, cancel=False), expert cache 7.3% hit
+{"turbine":"prefix_resume","request_id":"225f87b57a1c","reused_tokens":0}
+[strata] done: 2 tokens in 0 s (55.6 tok/s) (stop, cancel=False), expert cache 10.7% hit
+{"turbine":"prefix_resume","request_id":"12415af2f427","reused_tokens":92}
+[strata] done: 2 tokens in 1 s (17.6 tok/s) (stop, cancel=False), expert cache 7.1% hit
+
+[strata] stopping (Ctrl+C again to end the engine at once) ...
+[strata] stopped

@@ -1,0 +1,229 @@
+{
+  "pairs": 30,
+  "valid_decisions": 2,
+  "correct_drafts": 6,
+  "cluster_bootstrap_95pp": [
+    -50.0,
+    0.0
+  ],
+  "actions": {
+    "RESTART": 8,
+    "KEEP": 2
+  },
+  "totals": {
+    "critic": 17,
+    "restart": 24,
+    "only_critic": 0,
+    "only_restart": 7,
+    "critic_fixed": 20,
+    "static_fixed": 21,
+    "best_task_fixed": 23,
+    "best_seed_fixed": 24,
+    "restart_fixed": 20
+  },
+  "tasks": [
+    {
+      "task": "test/algebra/1343.json",
+      "domain": "math",
+      "draft": true,
+      "decision": "RESTART",
+      "critic": 3,
+      "restart": 3,
+      "only_critic": 0,
+      "only_restart": 0,
+      "critic_fixed": 3,
+      "static_fixed": 3,
+      "alternatives_fixed": {
+        "KEEP": 3,
+        "RESTART": 3,
+        "STEP2": 3,
+        "STEP3": 3
+      },
+      "best_task_fixed": 3,
+      "best_seed_fixed": 3
+    },
+    {
+      "task": "test/intermediate_algebra/776.json",
+      "domain": "math",
+      "draft": true,
+      "decision": "KEEP",
+      "critic": 3,
+      "restart": 3,
+      "only_critic": 0,
+      "only_restart": 0,
+      "critic_fixed": 3,
+      "static_fixed": 3,
+      "alternatives_fixed": {
+        "KEEP": 3,
+        "RESTART": 3,
+        "STEP2": 3,
+        "STEP3": 3
+      },
+      "best_task_fixed": 3,
+      "best_seed_fixed": 3
+    },
+    {
+      "task": "test/algebra/873.json",
+      "domain": "math",
+      "draft": true,
+      "decision": "RESTART",
+      "critic": 3,
+      "restart": 3,
+      "only_critic": 0,
+      "only_restart": 0,
+      "critic_fixed": 3,
+      "static_fixed": 3,
+      "alternatives_fixed": {
+        "KEEP": 3,
+        "RESTART": 3,
+        "STEP2": 3,
+        "STEP3": 3
+      },
+      "best_task_fixed": 3,
+      "best_seed_fixed": 3
+    },
+    {
+      "task": "test/algebra/776.json",
+      "domain": "math",
+      "draft": true,
+      "decision": "KEEP",
+      "critic": 3,
+      "restart": 3,
+      "only_critic": 0,
+      "only_restart": 0,
+      "critic_fixed": 3,
+      "static_fixed": 3,
+      "alternatives_fixed": {
+        "KEEP": 3,
+        "RESTART": 3,
+        "STEP2": 3,
+        "STEP3": 3
+      },
+      "best_task_fixed": 3,
+      "best_seed_fixed": 3
+    },
+    {
+      "task": "test/prealgebra/1930.json",
+      "domain": "math",
+      "draft": false,
+      "decision": "RESTART",
+      "critic": 0,
+      "restart": 3,
+      "only_critic": 0,
+      "only_restart": 3,
+      "critic_fixed": 0,
+      "static_fixed": 0,
+      "alternatives_fixed": {
+        "KEEP": 0,
+        "RESTART": 0,
+        "STEP2": 0,
+        "STEP3": 0,
+        "CONTINUE": 0
+      },
+      "best_task_fixed": 0,
+      "best_seed_fixed": 0
+    },
+    {
+      "task": "test/precalculus/675.json",
+      "domain": "math",
+      "draft": false,
+      "decision": "RESTART",
+      "critic": 2,
+      "restart": 2,
+      "only_critic": 0,
+      "only_restart": 0,
+      "critic_fixed": 2,
+      "static_fixed": 0,
+      "alternatives_fixed": {
+        "KEEP": 0,
+        "RESTART": 2,
+        "STEP2": 1,
+        "STEP3": 2
+      },
+      "best_task_fixed": 2,
+      "best_seed_fixed": 3
+    },
+    {
+      "task": "abc393_b",
+      "domain": "code",
+      "draft": true,
+      "decision": "RESTART",
+      "critic": 3,
+      "restart": 3,
+      "only_critic": 0,
+      "only_restart": 0,
+      "critic_fixed": 3,
+      "static_fixed": 3,
+      "alternatives_fixed": {
+        "KEEP": 3,
+        "RESTART": 3,
+        "STEP2": 3,
+        "STEP3": 3
+      },
+      "best_task_fixed": 3,
+      "best_seed_fixed": 3
+    },
+    {
+      "task": "abc394_d",
+      "domain": "code",
+      "draft": true,
+      "decision": "RESTART",
+      "critic": 0,
+      "restart": 3,
+      "only_critic": 0,
+      "only_restart": 3,
+      "critic_fixed": 3,
+      "static_fixed": 3,
+      "alternatives_fixed": {
+        "KEEP": 3,
+        "RESTART": 3,
+        "STEP2": 2,
+        "STEP3": 3
+      },
+      "best_task_fixed": 3,
+      "best_seed_fixed": 3
+    },
+    {
+      "task": "abc393_e",
+      "domain": "code",
+      "draft": false,
+      "decision": "RESTART",
+      "critic": 0,
+      "restart": 1,
+      "only_critic": 0,
+      "only_restart": 1,
+      "critic_fixed": 0,
+      "static_fixed": 3,
+      "alternatives_fixed": {
+        "KEEP": 0,
+        "RESTART": 0,
+        "STEP2": 0,
+        "STEP3": 0,
+        "CONTINUE": 3
+      },
+      "best_task_fixed": 3,
+      "best_seed_fixed": 3
+    },
+    {
+      "task": "abc387_f",
+      "domain": "code",
+      "draft": false,
+      "decision": "RESTART",
+      "critic": 0,
+      "restart": 0,
+      "only_critic": 0,
+      "only_restart": 0,
+      "critic_fixed": 0,
+      "static_fixed": 0,
+      "alternatives_fixed": {
+        "KEEP": 0,
+        "RESTART": 0,
+        "STEP2": 0,
+        "STEP3": 0,
+        "CONTINUE": 0
+      },
+      "best_task_fixed": 0,
+      "best_seed_fixed": 0
+    }
+  ]
+}

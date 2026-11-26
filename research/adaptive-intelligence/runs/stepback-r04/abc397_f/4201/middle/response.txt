@@ -1,0 +1,79 @@
+Step 1: For each position k, compute left[k] = number of distinct values in A[1..k], and right[k] = number of distinct values in A[k+1..N].
+
+Step 2: For a split at (i,j), total = left[i] + right[i] + left[j] - left[i] + right[j]... Actually better: middle distinct count = number of distinct values in A[i+1..j] = (number of distinct values in A[1..j]) - (number of distinct values in A[1..i])? No, distinct values are not subtractive. Compute middle via pref[j] minus pref[i] is incorrect for distinct count. Instead, for each j, compute distinct set in A[i+1..j] using a sliding/set approach over i. Simpler: iterate over j and maintain a frequency array over positions 1..j; for each i<j, count = number of values with frequency>0 in window i+1..j. With N up to 3e5, O(N^2) too slow. Need O(N log N).
+
+Step 3: Alternative: For each pair (i,j), total = left[i] + middle(i,j) + right[j]. We can compute right[j] easily. middle(i,j) depends on window. We need max over i<j.
+
+Better approach: Precompute for each j the count of distinct values in suffix A[j+1..N] (right). For left[i], precompute distinct in prefix. For middle, note middle distinct = distinct(A[i+1..j]). Distinct(A[i+1..j]) = distinct(A[1..j]) - distinct values only in prefix? Not easy.
+
+Use this known trick: For each i, define m_i = set of values in A[i+1..N]? Hmm.
+
+Simplest correct efficient: iterate over j from 1 to N-1; maintain set of distinct values in A[1..j]. For i in 1..j-1, middle distinct in A[i+1..j] = distinct in prefix[j] minus distinct in A[1..i]? No because values in prefix[i] may also appear in middle.
+
+Correct: distinct in window (i,j] = count of values that appear in A[i+1..j]. Compute via frequency difference: maintain an array freq over positions up to j, but querying per i is O(distinct prefix) each — too slow.
+
+Alternative: For each value v, compute positions of v. For window (i,j], v appears iff there is position p with i < p <= j. Count = sum over values of indicator. Not separable over i.
+
+Known problem (split into 3 subarrays) can be solved by iterating i and maintaining a dictionary of counts for window starting at i+1 as j grows. For fixed i, iterate j from i+1 to N-1 maintaining a Counter of values in A[i+1..j]; middle count = len(counter); right[j] precomputed; total = left[i] + len(counter) + right[j]; track max. For each i, O(N-i), total O(N^2) worst — too slow for 3e5.
+
+Need better. Use known approach: iterate j, keep a set of values in A[1..j] and a map count of values in A[1..j]. For each i<j, middle distinct = ? Use pref distinct and suffix? 
+
+Actually there is a neat formula: total = left[i] + middle(i,j) + right[j]. middle distinct = number of v such that pos_v in (i,j]. For fixed j, define last? 
+
+Standard solution: For each i, compute left[i]. For each i, compute right-based... Let's just use O(N^2) with early? No.
+
+Known result: max over i,j of left[i] + middle + right[j]. We can brute over j with two pointers: For each j, choose best i by tracking distinct in window (i,j]. The function f(i) = middle distinct for window (i,j] is nonincreasing? As i increases (window shrinks), distinct count decreases. So over i, f(i) decreases; left[i] increases with i. Need maximize left[i] + f(i) + right[j] over i<j. For fixed j, scanning i from j-1 down to 1 maintaining counter from j downwards: maintain frequencies of values in A[i+1..j]. As i decreases by 1, we add A[i+1]; as i increases by 1, remove A[i+1]. Maintain left[i]. We want max over i in [1,j-1] of left[i] + f(i). Iterate i from j-1 down to 1: maintain f(i) (distinct in window i+1..j). At step i, current window = A[i+1..j]. f(i)=len(counter). total=left[i]+f(i)+right[j]. Track max. This is O(N^2) total across j? Each j scans O(j) i's, so O(N^2) = 9e10. Too slow.
+
+We need smarter. Alternative: enumerate i and maintain counter over j as j grows: total over i,j with j>i: left[i] fixed per i; right[j] known. For fixed i, scanning j from i+1 to N-1 maintaining counter; track max of left[i]+len(counter)+right[j]. This is O(N^2). Not acceptable.
+
+There must be known O(N log N) or O(N). Let's derive.
+
+total = distinct(prefix i) + distinct(window i+1..j) + distinct(suffix j+1..N).
+
+Define left distinct L(i), right distinct R(j). middle M(i,j).
+
+Total = L(i) + M(i,j) + R(j).
+
+Since L(i) depends only on i, for fixed i we want maximize M(i,j)+R(j) over j>i. M(i,j) depends on window.
+
+Note M(i,j) = distinct(A[i+1..j]). We can compute using last occurrence: For window (i,j], v appears iff max position of v ≤ j? No, iff there exists position p in (i,j]. That iff min position of v in (i,j] exists. Equivalently, the latest occurrence of v that is ≤ j and > i exists. So M(i,j) = number of v such that there exists p with i<p≤j. Let pos_v list. For fixed j, v appears in window (i,j] iff there is p in (i,j]. The latest occurrence of v ≤ j is some p_v; v appears iff p_v > i (because if p_v > i, then p_v in (i,j]; if p_v ≤ i, then all occurrences ≤ i, none in window). Wait if latest occurrence ≤ j and > i then yes. If latest occurrence ≤ i, all occurrences ≤ i, so none in window. So v appears in (i,j] iff latest occurrence of v that is ≤ j is > i. Define lastpos[j][v]? For fixed j, let q_v = max position of v ≤ j (0 if none). Then v appears in window (i,j] iff q_v > i. Thus M(i,j) = number of values v with q_v > i (and q_v ≤ j, but q_v by definition ≤ j; q_v>0). For fixed j, distinct values in A[1..j] are v with q_v > 0. For i, count = #{v : q_v > i}. Since q_v are values in 1..j.
+
+Then total(i,j) = L(i) + #{v in prefix[j]: q_v > i} + R(j).
+
+For fixed j, let S = set of prefix values v (q_v>0) with q_v = latest position ≤ j. For each i, need #{v: q_v > i}. This is a count over prefix values. Scan i from 1..j-1: maintain counts? We can sort prefix values by q_v; for i increasing, #{q_v > i} = prefix_distinct_count - #{q_v <= i}. Precompute for fixed j: sort distinct q values; for each i, binary search. O(j log j) per j -> O(N^2 log N). Too slow.
+
+But we can maintain for fixed j: as i increases from 1 to j-1, count of q_v > i decreases. Also L(i) is known. Need max of L(i) + count(i) + R(j). Since R(j) fixed per j. For each j, compute max over i<j of L(i) + count_i. L(i) known, count_i decreases as i increases. We can compute by iterating i and maintaining? count_i for i from 1..j-1 can be computed by sorting q_v once per j O(k log k). Total O(N^2 log) too slow.
+
+Alternative: For each value v, it contributes to middle for windows (i,j] where i < last occurrence ≤ j and some occurrence > i. Complex.
+
+Hmm, perhaps O(N^2) is actually acceptable with N=3e5? No.
+
+Need correct efficient. Perhaps there is a known editorial: split into three subarrays maximize sum of distinct counts. This is like maximizing L(i)+M(i,j)+R(j). Known solution: iterate over middle? Let's think with total distinct D = number of distinct in whole array. Actually L(i)+R(j)+M(i,j): The three subarrays partition. Values appearing in multiple subarrays are counted in each (distinct count per subarray sums, not distinct of whole).
+
+Maybe we can transform: For each value v, consider positions. It contributes to distinct counts of subarrays containing any position of v. For split (i,j): v contributes 1 if there is position ≤ i (left) + 1 if position in (i,j] (middle) + 1 if position > j (right). Since each position of v belongs to exactly one of three subarrays, v contributes exactly the number of subarrays that contain at least one position of v, i.e., number of groups (left/middle/right) with nonempty occurrence.
+
+Total = sum over values v of (number of nonempty groups among the three). For each v, number of nonempty groups = 1 if all positions in one group, 2 if in two groups, 3 if in all three. Maximizing over split (i,j) means choosing i,j such that as many values are spread across all three groups.
+
+For each value v with positions, it is in left iff min position ≤ i; middle iff some position in (i,j]; right iff max position > j.
+
+Total = sum_v [ (min_v ≤ i) + (exists p: i<p≤j) + (max_v > j) ].
+
+Define for fixed j: right contribution of v: max_v > j (binary indicator). left: min_v ≤ i. middle: exists p in (i,j].
+
+Total = sum_v min_v≤i + sum_v middle indicator + sum_v max_v>j.
+
+We want max over i<j. This is O(N^2) naive.
+
+Need efficient: For each j, fix j. Then right sum R_j = sum_v (max_v > j) = number of distinct values with max position > j = right distinct? Wait right distinct count = number of v with any position > j = number of v with max position > j (since max position > j iff some position > j). Yes = R(j). Good consistent.
+
+Middle sum for fixed j: number of v with some position in (i,j] = #{v: q_v > i} where q_v = latest position ≤ j. Left sum for fixed i: L(i).
+
+So total(i,j) = L(i) + #{v: q_v > i} + R(j).
+
+Now for fixed j, let distinct values in prefix[j] be v with q_v>0 (q_v ≤ j). As i increases, #{v: q_v > i} decreases. We need max over i<j of L(i)+count(i). Let's compute per j in O(k log k) by sorting q values, but total over all j could be O(N^2 log). However sum of k over all j = sum of distinct prefix sizes = could be O(N^2)? Distinct prefix size grows up to number distinct ≤ N, but for each j, k_j = distinct in prefix[j] which is ≤ N but average could be O(N). Sum k_j over j = O(N^2) worst (e.g. all values distinct, k_j=j, sum ~N^2/2). Not acceptable.
+
+We need another formulation. Since A_i ≤ N, we can use counts array and iterate? For fixed i, total(i,j) = L(i)+M(i,j)+R(j). For fixed i, as j increases, M(i,j) increases (window grows), R(j) decreases (suffix shrinks). So total(i,j) = L(i) + M(i,j) + R(j). M increases with j, R decreases with j. Could still be optimized per i by scanning j and tracking max; total O(N^2). 
+
+But maybe with A_i ≤ N we can use clever data structures: For each j, R(j) = number of distinct in suffix j+1..N. Precompute via last occurrence: distinct in suffix j+1..N = number of values v whose last occurrence ≥ j+1 = number of v with last position ≥ j+1. Let last[v] = max position of v. R(j) = number of v with last[v] ≥ j+1 = number of v with last[v] > j. For fixed j, R(j) = count of last[v] > j. This can be computed by sorting last positions: sort distinct values by last[v]; R(j) = number with last[v] > j. For all j, precompute R(j) by sorting last positions once O(N log N): R(j) for j=1..N-1 = number of v with last[v] ≥ j+1.
+
+M(i,j) = number of v with q_v > i (q_v = latest position ≤ j). Hmm q_v depends on j. Alternative:

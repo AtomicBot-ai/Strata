@@ -1,0 +1,255 @@
+{
+  "key": {
+    "config": [
+      4096,
+      8,
+      128,
+      true
+    ],
+    "seed": 71381,
+    "mode": "fork",
+    "slots": 2,
+    "width": 1,
+    "diag": true,
+    "work": "0f542e7779b0a46319abd7e37972d5ae2c2932cc55184ce92c72b0c234062de7"
+  },
+  "elapsed_ns": 18006173834,
+  "through_cleanup_ns": 18006421125,
+  "parent_prefill_ns": 6007626792,
+  "initial_parent_in_elapsed": false,
+  "snapshot_create_ns": 20461584,
+  "restore_ns": 47297458,
+  "drop_ns": 3481500,
+  "postrun_slot_clear_ns": 247291,
+  "children_done_ns": 18002691834,
+  "snapshot_bytes": 305840128,
+  "memory": {
+    "before": {
+      "footprint": 2723925040,
+      "peak_footprint": 2723925040,
+      "rss": 2566635520,
+      "pageins": 30614
+    },
+    "parent": {
+      "footprint": 2917305536,
+      "peak_footprint": 2917305536,
+      "rss": 2743238656,
+      "pageins": 30614
+    },
+    "after_create": {
+      "footprint": 3222883736,
+      "peak_footprint": 3222883736,
+      "rss": 3048669184,
+      "pageins": 30614
+    },
+    "end": {
+      "footprint": 2919320768,
+      "peak_footprint": 3223145880,
+      "rss": 2750021632,
+      "pageins": 30614
+    },
+    "cleared": {
+      "footprint": 2919320768,
+      "peak_footprint": 3223145880,
+      "rss": 2750021632,
+      "pageins": 30614
+    }
+  },
+  "branches": [
+    {
+      "branch": 0,
+      "dispatch_ns": 20512250,
+      "first_ns": 39669250,
+      "done_ns": 2266566792,
+      "reused": 4096,
+      "engine_prefill_ms": 17.4,
+      "engine_decode_ms": 2225.8,
+      "endpoint": 157
+    },
+    {
+      "branch": 1,
+      "dispatch_ns": 2287923000,
+      "first_ns": 2307255125,
+      "done_ns": 4520943000,
+      "reused": 4096,
+      "engine_prefill_ms": 17.6,
+      "engine_decode_ms": 2212.5,
+      "endpoint": 65
+    },
+    {
+      "branch": 2,
+      "dispatch_ns": 4525382500,
+      "first_ns": 4544118459,
+      "done_ns": 6773766084,
+      "reused": 4096,
+      "engine_prefill_ms": 17.1,
+      "engine_decode_ms": 2228.7,
+      "endpoint": 82
+    },
+    {
+      "branch": 3,
+      "dispatch_ns": 6778380209,
+      "first_ns": 6797366625,
+      "done_ns": 9008104875,
+      "reused": 4096,
+      "engine_prefill_ms": 17.3,
+      "engine_decode_ms": 2209.8,
+      "endpoint": 69
+    },
+    {
+      "branch": 4,
+      "dispatch_ns": 9012782000,
+      "first_ns": 9031419917,
+      "done_ns": 11264851959,
+      "reused": 4096,
+      "engine_prefill_ms": 17.0,
+      "engine_decode_ms": 2232.5,
+      "endpoint": 82
+    },
+    {
+      "branch": 5,
+      "dispatch_ns": 11269407834,
+      "first_ns": 11288803542,
+      "done_ns": 13500325917,
+      "reused": 4096,
+      "engine_prefill_ms": 17.7,
+      "engine_decode_ms": 2210.5,
+      "endpoint": 64
+    },
+    {
+      "branch": 6,
+      "dispatch_ns": 13504813292,
+      "first_ns": 13524197250,
+      "done_ns": 15758020167,
+      "reused": 4096,
+      "engine_prefill_ms": 17.7,
+      "engine_decode_ms": 2232.8,
+      "endpoint": 157
+    },
+    {
+      "branch": 7,
+      "dispatch_ns": 15762530959,
+      "first_ns": 15782033584,
+      "done_ns": 18002540875,
+      "reused": 4096,
+      "engine_prefill_ms": 17.9,
+      "engine_decode_ms": 2219.6,
+      "endpoint": 384
+    }
+  ],
+  "waves": [
+    {
+      "first_branch": 0,
+      "size": 1,
+      "queue_ns": 20512250,
+      "dispatch_to_first_ns": 19157000,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2226897542,
+      "physical": {
+        "footprint": 3219770776,
+        "peak_footprint": 3223145880,
+        "rss": 3050323968,
+        "pageins": 30614
+      }
+    },
+    {
+      "first_branch": 1,
+      "size": 1,
+      "queue_ns": 2287923000,
+      "dispatch_to_first_ns": 19332125,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2213687875,
+      "physical": {
+        "footprint": 3219787160,
+        "peak_footprint": 3223145880,
+        "rss": 3050340352,
+        "pageins": 30614
+      }
+    },
+    {
+      "first_branch": 2,
+      "size": 1,
+      "queue_ns": 4525382500,
+      "dispatch_to_first_ns": 18735959,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2229647625,
+      "physical": {
+        "footprint": 3221409176,
+        "peak_footprint": 3223145880,
+        "rss": 3051962368,
+        "pageins": 30614
+      }
+    },
+    {
+      "first_branch": 3,
+      "size": 1,
+      "queue_ns": 6778380209,
+      "dispatch_to_first_ns": 18986416,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2210738250,
+      "physical": {
+        "footprint": 3221409176,
+        "peak_footprint": 3223145880,
+        "rss": 3051962368,
+        "pageins": 30614
+      }
+    },
+    {
+      "first_branch": 4,
+      "size": 1,
+      "queue_ns": 9012782000,
+      "dispatch_to_first_ns": 18637917,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2233432042,
+      "physical": {
+        "footprint": 3221425560,
+        "peak_footprint": 3223145880,
+        "rss": 3051978752,
+        "pageins": 30614
+      }
+    },
+    {
+      "first_branch": 5,
+      "size": 1,
+      "queue_ns": 11269407834,
+      "dispatch_to_first_ns": 19395708,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2211522375,
+      "physical": {
+        "footprint": 3221458328,
+        "peak_footprint": 3223145880,
+        "rss": 3052011520,
+        "pageins": 30614
+      }
+    },
+    {
+      "first_branch": 6,
+      "size": 1,
+      "queue_ns": 13504813292,
+      "dispatch_to_first_ns": 19383958,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2233822917,
+      "physical": {
+        "footprint": 3221458328,
+        "peak_footprint": 3223145880,
+        "rss": 3052011520,
+        "pageins": 30614
+      }
+    },
+    {
+      "first_branch": 7,
+      "size": 1,
+      "queue_ns": 15762530959,
+      "dispatch_to_first_ns": 19502625,
+      "mixed_ns": 0,
+      "last_first_to_done_ns": 2220507291,
+      "physical": {
+        "footprint": 3221458328,
+        "peak_footprint": 3223145880,
+        "rss": 3052011520,
+        "pageins": 30614
+      }
+    }
+  ],
+  "raw_sha256": "041af1e1b16db2d2ca2e3f89b1a1c524917b97dbbd7b15909ea0e49a6196565c"
+}

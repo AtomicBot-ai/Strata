@@ -1,0 +1,14 @@
+{
+  "config": [
+    4096,
+    2,
+    128,
+    true
+  ],
+  "seed": 71381,
+  "mode": "replay",
+  "slots": 2,
+  "width": 1,
+  "diag": true,
+  "work": "14d9609739868f7966b59c6552b21fe071e45df5b2408a1a645c1225d2793c91"
+}

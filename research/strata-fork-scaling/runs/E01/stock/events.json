@@ -1,0 +1,154 @@
+{
+  "prime": [
+    {
+      "tokens": [
+        69,
+        589,
+        767,
+        220,
+        1377,
+        1377,
+        1377,
+        1377
+      ],
+      "prompt": 1033,
+      "reused": 0,
+      "prefill_ms": 3483.5,
+      "decode_ms": 218.2,
+      "reason": "length",
+      "end_ns": 273598944051625
+    },
+    {
+      "tokens": [
+        88,
+        220,
+        1377,
+        1377,
+        1377,
+        1377,
+        1377,
+        1377
+      ],
+      "prompt": 1033,
+      "reused": 0,
+      "prefill_ms": 3364.2,
+      "decode_ms": 153.0,
+      "reason": "length",
+      "end_ns": 273598977156541
+    }
+  ],
+  "retry": [
+    {
+      "tokens": [
+        69,
+        589,
+        767,
+        220,
+        1377,
+        1377,
+        1377,
+        1377
+      ],
+      "prompt": 1033,
+      "reused": 1032,
+      "prefill_ms": 24.6,
+      "decode_ms": 170.0,
+      "reason": "length",
+      "end_ns": 273599191696125
+    },
+    {
+      "tokens": [
+        88,
+        220,
+        1377,
+        1377,
+        1377,
+        1377,
+        1377,
+        1377
+      ],
+      "prompt": 1033,
+      "reused": 1032,
+      "prefill_ms": 24.6,
+      "decode_ms": 170.0,
+      "reason": "length",
+      "end_ns": 273599191896208
+    }
+  ],
+  "switch": [
+    {
+      "tokens": [
+        88,
+        220,
+        1377,
+        1377,
+        1377,
+        1377,
+        1377,
+        1377
+      ],
+      "prompt": 1033,
+      "reused": 0,
+      "prefill_ms": 3433.2,
+      "decode_ms": 220.8,
+      "reason": "length",
+      "end_ns": 273602851415375
+    },
+    {
+      "tokens": [
+        69,
+        589,
+        767,
+        220,
+        1377,
+        1377,
+        1377,
+        1377
+      ],
+      "prompt": 1033,
+      "reused": 0,
+      "prefill_ms": 3339.9,
+      "decode_ms": 163.5,
+      "reason": "length",
+      "end_ns": 273602886528500
+    }
+  ],
+  "return": [
+    {
+      "tokens": [
+        69,
+        589,
+        767,
+        220,
+        1377,
+        1377,
+        1377,
+        1377
+      ],
+      "prompt": 1033,
+      "reused": 0,
+      "prefill_ms": 3482.2,
+      "decode_ms": 207.1,
+      "reason": "length",
+      "end_ns": 273606579579250
+    },
+    {
+      "tokens": [
+        88,
+        220,
+        1377,
+        1377,
+        1377,
+        1377,
+        1377,
+        1377
+      ],
+      "prompt": 1033,
+      "reused": 0,
+      "prefill_ms": 3383.3,
+      "decode_ms": 151.7,
+      "reason": "length",
+      "end_ns": 273606612754625
+    }
+  ]
+}

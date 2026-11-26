@@ -1,0 +1,146 @@
+[
+  {
+    "id": "abc374_b",
+    "title": "Unvarnished Report",
+    "domain": "code",
+    "level": "easy",
+    "question": "KEYENCE has a culture of reporting things as they are, whether good or bad.\nSo we want to check whether the reported content is exactly the same as the original text.\n\nYou are given two strings S and T, consisting of lowercase English letters.\nIf S and T are equal, print 0; otherwise, print the position of the first character where they differ.\nHere, if the i-th character exists in only one of S and T, consider that the i-th characters are different.\nMore precisely, if S and T are not equal, print the smallest integer i satisfying one of the following conditions:\n\n- 1\\leq i\\leq |S|, 1\\leq i\\leq |T|, and S_i\\neq T_i.\n- |S| < i \\leq |T|.\n- |T| < i \\leq |S|.\n\nHere, |S| and |T| denote the lengths of S and T, respectively, and S_i and T_i denote the i-th characters of S and T, respectively.\n\nInput\n\nThe input is given from Standard Input in the following format:\nS\nT\n\nOutput\n\nIf S and T are equal, print 0; otherwise, print the position of the first character where they differ.\n\nConstraints\n\n\n- S and T are strings of length between 1 and 100, inclusive, consisting of lowercase English letters.\n\nSample Input 1\n\nabcde\nabedc\n\nSample Output 1\n\n3\n\nWe have S= abcde and T= abedc.\nS and T have the same first and second characters, but differ at the third character, so print 3.\n\nSample Input 2\n\nabcde\nabcdefg\n\nSample Output 2\n\n6\n\nWe have S= abcde and T= abcdefg.\nS and T are equal up to the fifth character, but only T has a sixth character, so print 6.\n\nSample Input 3\n\nkeyence\nkeyence\n\nSample Output 3\n\n0\n\nS and T are equal, so print 0.",
+    "public": [
+      {
+        "input": "abcde\nabedc\n",
+        "output": "3\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "abcde\nabcdefg\n",
+        "output": "6\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "keyence\nkeyence\n",
+        "output": "0\n",
+        "testtype": "stdin"
+      }
+    ]
+  },
+  {
+    "id": "abc374_a",
+    "title": "Takahashi san 2",
+    "domain": "code",
+    "level": "easy",
+    "question": "KEYENCE has a culture of addressing everyone with the suffix \"-san,\" regardless of roles, age, or positions.\nYou are given a string S consisting of lowercase English letters.\nIf S ends with san, print Yes; otherwise, print No.\n\nInput\n\nThe input is given from Standard Input in the following format:\nS\n\nOutput\n\nIf S ends with san, print Yes; otherwise, print No.\n\nConstraints\n\n\n- S is a string of length between 4 and 30, inclusive, consisting of lowercase English letters.\n\nSample Input 1\n\ntakahashisan\n\nSample Output 1\n\nYes\n\nThe string S= takahashisan ends with san, so print Yes.\n\nSample Input 2\n\naokikun\n\nSample Output 2\n\nNo\n\nThe string S= aokikun does not end with san, so print No.",
+    "public": [
+      {
+        "input": "takahashisan\n",
+        "output": "Yes\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "aokikun\n",
+        "output": "No\n",
+        "testtype": "stdin"
+      }
+    ]
+  },
+  {
+    "id": "abc374_c",
+    "title": "Separated Lunch",
+    "domain": "code",
+    "level": "medium",
+    "question": "As KEYENCE headquarters have more and more workers, they decided to divide the departments in the headquarters into two groups and stagger their lunch breaks.\nKEYENCE headquarters have N departments, and the number of people in the i-th department (1\\leq i\\leq N) is K_i.\nWhen assigning each department to Group A or Group B, having each group take lunch breaks at the same time, and ensuring that the lunch break times of Group A and Group B do not overlap, find the minimum possible value of the maximum number of people taking a lunch break at the same time.\r\nIn other words, find the minimum possible value of the larger of the following: the total number of people in departments assigned to Group A, and the total number of people in departments assigned to Group B.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN\r\nK_1 K_2 \\ldots K_N\n\nOutput\n\nPrint the minimum possible value of the maximum number of people taking a lunch break at the same time.\n\nConstraints\n\n\n- 2 \\leq N \\leq 20\n- 1 \\leq K_i \\leq 10^8\n- All input values are integers.\n\nSample Input 1\n\n5\r\n2 3 5 10 12\n\nSample Output 1\n\n17\r\n\nWhen assigning departments 1, 2, and 5 to Group A, and departments 3 and 4 to Group B, Group A has a total of 2+3+12=17 people, and Group B has a total of 5+10=15 people. Thus, the maximum number of people taking a lunch break at the same time is 17.\nIt is impossible to assign the departments so that both groups have 16 or fewer people, so print 17.\n\nSample Input 2\n\n2\r\n1 1\n\nSample Output 2\n\n1\r\n\nMultiple departments may have the same number of people.\n\nSample Input 3\n\n6\r\n22 25 26 45 22 31\n\nSample Output 3\n\n89\r\n\nFor example, when assigning departments 1, 4, and 5 to Group A, and departments 2, 3, and 6 to Group B, the maximum number of people taking a lunch break at the same time is 89.",
+    "public": [
+      {
+        "input": "5\n2 3 5 10 12\n",
+        "output": "17\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "2\n1 1\n",
+        "output": "1\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "6\n22 25 26 45 22 31\n",
+        "output": "89\n",
+        "testtype": "stdin"
+      }
+    ]
+  },
+  {
+    "id": "abc374_e",
+    "title": "Sensor Optimization Dilemma 2",
+    "domain": "code",
+    "level": "hard",
+    "question": "The manufacturing of a certain product requires N processes numbered 1,2,\\dots,N.\nFor each process i, there are two types of machines S_i and T_i available for purchase to handle it.\n\n- Machine S_i: Can process A_i products per day per unit, and costs P_i yen per unit.\n- Machine T_i: Can process B_i products per day per unit, and costs Q_i yen per unit.\n\nYou can purchase any number of each machine, possibly zero.\nSuppose that process i can handle W_i products per day as a result of introducing machines.\nHere, we define the production capacity as the minimum of W, that is, \\displaystyle \\min^{N}_{i=1} W_i.\nGiven a total budget of X yen, find the maximum achievable production capacity.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN X\nA_1 P_1 B_1 Q_1\nA_2 P_2 B_2 Q_2\n\\vdots\nA_N P_N B_N Q_N\n\nOutput\n\nPrint the answer as an integer.\n\nConstraints\n\n\n- All input values are integers.\n- 1 \\le N \\le 100\n- 1 \\le A_i,B_i \\le 100\n- 1 \\le P_i,Q_i,X \\le 10^7\n\nSample Input 1\n\n3 22\n2 5 3 6\n1 1 3 3\n1 3 2 4\n\nSample Output 1\n\n4\n\nFor example, by introducing machines as follows, we can achieve a production capacity of 4, which is the maximum possible.\n\n- For process 1, introduce 2 units of machine S_1.\n- This allows processing 4 products per day and costs a total of 10 yen.\n\n\n- For process 2, introduce 1 unit of machine S_2.\n- This allows processing 1 product per day and costs a total of 1 yen.\n\n\n- For process 2, introduce 1 unit of machine T_2.\n- This allows processing 3 products per day and costs a total of 3 yen.\n\n\n- For process 3, introduce 2 units of machine T_3.\n- This allows processing 4 products per day and costs a total of 8 yen.\n\nSample Input 2\n\n1 10000000\n100 1 100 1\n\nSample Output 2\n\n1000000000\n\nSample Input 3\n\n1 1\n1 10000000 1 10000000\n\nSample Output 3\n\n0\n\nThere may be cases where a positive production capacity cannot be achieved.\n\nSample Input 4\n\n10 7654321\n8 6 9 1\n5 6 4 3\n2 4 7 9\n7 8 9 1\n7 9 1 6\n4 8 9 1\n2 2 8 9\n1 6 2 6\n4 2 3 4\n6 6 5 2\n\nSample Output 4\n\n894742",
+    "public": [
+      {
+        "input": "3 22\n2 5 3 6\n1 1 3 3\n1 3 2 4\n",
+        "output": "4\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "1 10000000\n100 1 100 1\n",
+        "output": "1000000000\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "1 1\n1 10000000 1 10000000\n",
+        "output": "0\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "10 7654321\n8 6 9 1\n5 6 4 3\n2 4 7 9\n7 8 9 1\n7 9 1 6\n4 8 9 1\n2 2 8 9\n1 6 2 6\n4 2 3 4\n6 6 5 2\n",
+        "output": "894742\n",
+        "testtype": "stdin"
+      }
+    ]
+  },
+  {
+    "id": "abc374_g",
+    "title": "Only One Product Name",
+    "domain": "code",
+    "level": "hard",
+    "question": "All KEYENCE product names consist of two uppercase English letters.\r\nThey have already used N product names, the i-th of which (1\\leq i\\leq N) is S_i.\r\nOnce a product name is used, it cannot be reused, so they decided to create an NG (Not Good) list to quickly identify previously used product names.\nThe NG list must satisfy the following conditions.\n\n- It consists of one or more strings, each consisting of uppercase English letters.\n- For each already used product name, there exists at least one string in the list that contains the name as a (contiguous) substring.\n- None of the strings in the list contain any length-2 (contiguous) substring that is not an already used product name.\n\nFind the minimum possible number of strings in the NG list.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN\r\nS_1\r\nS_2\r\n\\vdots\r\nS_N\n\nOutput\n\nPrint the minimum possible number of strings in the NG list.\n\nConstraints\n\n\n- 1\\leq N\\leq 26^2\n- N is an integer.\n- Each S_i is a string of length 2 consisting of uppercase English letters.\n- All S_1,S_2,\\ldots,S_N are distinct.\n\nSample Input 1\n\n7\r\nAB\r\nBC\r\nCA\r\nCD\r\nDE\r\nDF\r\nXX\n\nSample Output 1\n\n3\r\n\nOne NG list satisfying the conditions is the one consisting of the following three strings:\n\n- CABCDE\n- DF\n- XX\n\nThis has three strings, and there is no NG list satisfying the conditions with 2 or fewer strings, so print 3.\n\nSample Input 2\n\n5\r\nAC\r\nBC\r\nCD\r\nDE\r\nDF\n\nSample Output 2\n\n2\r\n\nOne NG list satisfying the conditions is the one consisting of the following two strings:\n\n- ACDE\n- BCDF\n\nNote that each used product name may appear in multiple strings in the NG list or multiple times within the same string.\n\nSample Input 3\n\n6\r\nAB\r\nAC\r\nCB\r\nAD\r\nDB\r\nBA\n\nSample Output 3\n\n1\r\n\nFor example, an NG list consisting only of ABACBADB satisfies the conditions.",
+    "public": [
+      {
+        "input": "7\nAB\nBC\nCA\nCD\nDE\nDF\nXX\n",
+        "output": "3\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "5\nAC\nBC\nCD\nDE\nDF\n",
+        "output": "2\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "6\nAB\nAC\nCB\nAD\nDB\nBA\n",
+        "output": "1\n",
+        "testtype": "stdin"
+      }
+    ]
+  },
+  {
+    "id": "abc374_f",
+    "title": "Shipping",
+    "domain": "code",
+    "level": "hard",
+    "question": "KEYENCE is famous for quick delivery.\n\nIn this problem, the calendar proceeds as Day 1, Day 2, Day 3, \\dots.\nThere are orders 1,2,\\dots,N, and it is known that order i will be placed on Day T_i.\r\nFor these orders, shipping is carried out according to the following rules.\n\n- At most K orders can be shipped together.\n- Order i can only be shipped on Day T_i or later.\n- Once a shipment is made, the next shipment cannot be made until X days later.\n- That is, if a shipment is made on Day a, the next shipment can be made on Day a+X.\n\n\n\nFor each day that passes from order placement to shipping, dissatisfaction accumulates by 1 per day.\r\nThat is, if order i is shipped on Day S_i, the dissatisfaction accumulated for that order is (S_i - T_i).\nFind the minimum possible total dissatisfaction accumulated over all orders when you optimally schedule the shipping dates.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN K X\r\nT_1 T_2 \\dots T_N\n\nOutput\n\nPrint the answer as an integer.\n\nConstraints\n\n\n- All input values are integers.\n- 1 \\le K \\le N \\le 100\n- 1 \\le X \\le 10^9\n- 1 \\le T_1 \\le T_2 \\le \\dots \\le T_N \\le 10^{12}\n\nSample Input 1\n\n5 2 3\r\n1 5 6 10 12\n\nSample Output 1\n\n2\r\n\nFor example, by scheduling shipments as follows, we can achieve a total dissatisfaction of 2, which is the minimum possible.\n\n- Ship order 1 on Day 1.\n- This results in dissatisfaction of (1-1) = 0, and the next shipment can be made on Day 4.\n\n\n- Ship orders 2 and 3 on Day 6.\n- This results in dissatisfaction of (6-5) + (6-6) = 1, and the next shipment can be made on Day 9.\n\n\n- Ship order 4 on Day 10.\n- This results in dissatisfaction of (10-10) = 0, and the next shipment can be made on Day 13.\n\n\n- Ship order 5 on Day 13.\n- This results in dissatisfaction of (13-12) = 1, and the next shipment can be made on Day 16.\n\nSample Input 2\n\n1 1 1000000000\r\n1000000000000\n\nSample Output 2\n\n0\n\nSample Input 3\n\n15 4 5\r\n1 3 3 6 6 6 10 10 10 10 15 15 15 15 15\n\nSample Output 3\n\n35",
+    "public": [
+      {
+        "input": "5 2 3\n1 5 6 10 12\n",
+        "output": "2\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "1 1 1000000000\n1000000000000\n",
+        "output": "0\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "15 4 5\n1 3 3 6 6 6 10 10 10 10 15 15 15 15 15\n",
+        "output": "35\n",
+        "testtype": "stdin"
+      }
+    ]
+  }
+]

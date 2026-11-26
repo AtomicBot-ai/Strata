@@ -1,0 +1,13 @@
+{
+  "seed": 84201,
+  "order": [
+    "shuffled",
+    "family",
+    "FIFO"
+  ],
+  "token_identity": {
+    "shuffled": true,
+    "family": true,
+    "FIFO": true
+  }
+}

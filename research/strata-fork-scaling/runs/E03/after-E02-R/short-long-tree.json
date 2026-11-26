@@ -1,0 +1,14 @@
+{
+  "p": 16384,
+  "n": 8,
+  "s": 128,
+  "slot_limit": 2,
+  "paired_blocks": 1,
+  "baseline_width": 1,
+  "dev_elapsed_ns": {
+    "1": 45288287750,
+    "2": 104892021500
+  },
+  "paired_speedup": 1.1441359473847719,
+  "phase": "exploratory"
+}

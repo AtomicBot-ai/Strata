@@ -1,0 +1,7 @@
+WARNING: The directory '/Users/aleksejkalina/Library/Caches/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.
+Ignoring numpy: markers 'python_version >= "3.12"' don't match your environment
+Ignoring numpy: markers 'python_version < "3.11"' don't match your environment
+Ignoring pillow: markers 'python_version < "3.11"' don't match your environment
+Ignoring colorama: markers 'sys_platform == "win32"' don't match your environment
+ERROR: Could not find a version that satisfies the requirement numpy==2.4.6 (from versions: none)
+ERROR: No matching distribution found for numpy==2.4.6

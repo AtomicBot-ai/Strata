@@ -1,0 +1,7 @@
+{"task": "abc393_d", "mode": "draft", "seed": 719, "correct": true}
+{"task": "abc393_d", "mode": "restart", "seed": 1301, "correct": false}
+{"task": "abc393_d", "mode": "restart", "seed": 1303, "correct": false}
+{"task": "abc393_d", "mode": "restart", "seed": 1307, "correct": false}
+{"task": "abc393_d", "mode": "extra_restart", "seed": 2300, "correct": false}
+{"task": "abc393_d", "mode": "extra_restart", "seed": 2301, "correct": false}
+{"task": "abc393_d", "mode": "extra_restart", "seed": 2302, "correct": false}

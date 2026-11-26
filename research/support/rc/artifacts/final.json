@@ -1,0 +1,118 @@
+{
+  "sha256": "e9267ea44bff7865e4bac0a4a45148db971b724269a3fc05d6ef24b4f77983da",
+  "source": "61d705eb19b0037605641cc294d0db5e844bc889",
+  "verified_files": 678,
+  "changed_since_benchmark": [
+    "README.md",
+    "RELEASE_NOTES.md",
+    "fork_demo.py"
+  ],
+  "version": "Atomic Turbine 0.1.0",
+  "ordinary_answer": "Hello! How can I help you today?",
+  "demo": {
+    "mode": "native",
+    "tokens": 1070,
+    "prepare_s": 1.9621740839793347,
+    "elapsed_s": 2.729585999972187,
+    "results": [
+      {
+        "question": "Which host address does serve-inkling bind to?",
+        "answer": "127.0.0.1",
+        "expected": "127.0.0.1",
+        "success": true,
+        "request": "chatcmpl-24aaecdb97d2476fb7344f13",
+        "completion_tokens": 9
+      },
+      {
+        "question": "What TCP port does serve-inkling use by default?",
+        "answer": "8080",
+        "expected": "8080",
+        "success": true,
+        "request": "chatcmpl-089084658e8d4332aab147af",
+        "completion_tokens": 4
+      },
+      {
+        "question": "Which KV data type does serve-inkling pass to the engine?",
+        "answer": "fp16",
+        "expected": "fp16",
+        "success": true,
+        "request": "chatcmpl-6d11f2a81239408b92fa4284",
+        "completion_tokens": 4
+      },
+      {
+        "question": "What value does serve-inkling pass to --chunk?",
+        "answer": "128",
+        "expected": "128",
+        "success": true,
+        "request": "chatcmpl-8af4d1a1df9346b082c2b41e",
+        "completion_tokens": 3
+      }
+    ]
+  },
+  "events": [
+    {
+      "turbine": "checkpoint_created",
+      "tokens": 1070,
+      "snapshot_bytes": 206672056
+    },
+    {
+      "turbine": "checkpoint_restored",
+      "request_id": "8af4d1a1df9346b082c2b41e",
+      "slot": 1,
+      "restore_ms": 14.63,
+      "queue_wait_ms": 2.6
+    },
+    {
+      "turbine": "fork_admitted",
+      "request_id": "8af4d1a1df9346b082c2b41e",
+      "slot": 1,
+      "active_slots": 1,
+      "reused_tokens": 1070
+    },
+    {
+      "turbine": "checkpoint_restored",
+      "request_id": "089084658e8d4332aab147af",
+      "slot": 0,
+      "restore_ms": 115.92,
+      "queue_wait_ms": 15.04
+    },
+    {
+      "turbine": "fork_admitted",
+      "request_id": "089084658e8d4332aab147af",
+      "slot": 0,
+      "active_slots": 2,
+      "reused_tokens": 1070
+    },
+    {
+      "turbine": "checkpoint_restored",
+      "request_id": "6d11f2a81239408b92fa4284",
+      "slot": 1,
+      "restore_ms": 19.56,
+      "queue_wait_ms": 293.26
+    },
+    {
+      "turbine": "fork_admitted",
+      "request_id": "6d11f2a81239408b92fa4284",
+      "slot": 1,
+      "active_slots": 2,
+      "reused_tokens": 1070
+    },
+    {
+      "turbine": "checkpoint_restored",
+      "request_id": "24aaecdb97d2476fb7344f13",
+      "slot": 0,
+      "restore_ms": 19.94,
+      "queue_wait_ms": 448.01
+    },
+    {
+      "turbine": "fork_admitted",
+      "request_id": "24aaecdb97d2476fb7344f13",
+      "slot": 0,
+      "active_slots": 2,
+      "reused_tokens": 1070
+    },
+    {
+      "turbine": "checkpoint_dropped"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "upstream": "b28ca95e3e6847f2d5e317994f253b66716deeaa",
+  "candidate": "cb57b9eb9438b602bf694148ac75a10024c2bd46",
+  "platform": "27.2.1",
+  "architecture": "arm64",
+  "python": "3.11.11",
+  "engine_binaries": {
+    "strata": {
+      "sha256": "eeb621fa50ca1a8fbf38979c4505af610885cca0d36b99896f3ec1856f71c56b",
+      "dependencies": [
+        "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore (compatibility version 1.2.0, current version 1223.10.17)",
+        "/System/Library/Frameworks/Metal.framework/Versions/A/Metal (compatibility version 1.0.0, current version 383.1.0)",
+        "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 5027.1.8)",
+        "/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2200.32.0)",
+        "/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.40.3)",
+        "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.1.8)",
+        "/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)"
+      ],
+      "min_macos": "15.0"
+    },
+    "strata-inkling": {
+      "sha256": "2abbb6a084a2bb3c0d35690fed2083afa0bf8c23b0b5b1727303be11a0f5d1b3",
+      "dependencies": [
+        "/System/Library/Frameworks/Metal.framework/Versions/A/Metal (compatibility version 1.0.0, current version 383.1.0)",
+        "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 5027.1.8)",
+        "/System/Library/Frameworks/MetalPerformanceShaders.framework/Versions/A/MetalPerformanceShaders (compatibility version 1.0.0, current version 130.1.4)",
+        "/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2200.32.0)",
+        "/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.40.3)",
+        "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.1.8)",
+        "/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)"
+      ],
+      "min_macos": "27.2"
+    }
+  }
+}

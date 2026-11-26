@@ -1,0 +1,24 @@
+{
+  "matched_tokens": 32,
+  "peak_bytes": 15792964888,
+  "reserved_slot_inaccessible": true,
+  "stale_handle_rejected": true,
+  "cancelled": true,
+  "drop_acknowledged": true,
+  "cycles": 26,
+  "retained_bytes": 0,
+  "samples": [
+    {
+      "footprint": 13440451960,
+      "peak_footprint": 15792964888,
+      "rss": 13326942208,
+      "pageins": 168702
+    },
+    {
+      "footprint": 13440451960,
+      "peak_footprint": 15792964888,
+      "rss": 13326942208,
+      "pageins": 168702
+    }
+  ]
+}

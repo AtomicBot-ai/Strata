@@ -1,0 +1,86 @@
+diff --git a/engine/src/inkling2/ink_serve.h b/engine/src/inkling2/ink_serve.h
+index b4ac59a..bc996fe 100644
+--- a/engine/src/inkling2/ink_serve.h
++++ b/engine/src/inkling2/ink_serve.h
+@@ -750,12 +750,18 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend&
+ 
+     const bool lab = std::getenv("STRATA_SCALING_LAB") && !use_dspark && P <= 2 &&
+         std::string(backend.backend_name()) == "metal" && cfg.bopts.kv_dtype == KvDtype::FP16 && cfg.vision_path.empty();
++    bool trajectory_trace = false;
+     bool endpoint_logits = false;
+     std::unique_ptr<InkPrefixCheckpoint> saved;
+     std::vector<int32_t> saved_ids;
+     bool quit_requested = false;
+     auto handle_line = [&](const std::string& line) -> bool {
+         if (line.empty()) return true;
++        if (lab && line == "LABTRACE") {
++            trajectory_trace = endpoint_logits = true;
++            proto("TRACEOK");
++            return true;
++        }
+         if (lab && line == "LABLOGITS") { endpoint_logits = true; proto("OK"); return true; }
+         if (lab && line == "LABDROP") { saved.reset(); saved_ids.clear(); proto("DROPPED"); return true; }
+         if (lab && (line.rfind("LABSAVE ", 0) == 0 || line.rfind("LABRESTORE ", 0) == 0)) {
+@@ -876,6 +882,22 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend&
+         return true;
+     };
+ 
++    // Enqueue both addressed requests before the next native scheduler tick.
++    auto dispatch_line = [&](const std::string& line) {
++        if (trajectory_trace && line.rfind("LABPAIR ", 0) == 0) {
++            const size_t split = line.find('|', 8);
++            if (split == std::string::npos || line.compare(8, 5, "BGEN ") ||
++                line.compare(split + 1, 5, "BGEN ")) {
++                proto("ERR expected two BGEN requests");
++                return;
++            }
++            handle_line(line.substr(8, split - 8));
++            handle_line(line.substr(split + 1));
++        } else {
++            handle_line(line);
++        }
++    };
++
+     // Main continuous batching event loop!
+     StepBatch batch;
+     std::vector<float> merged_img_embeds;
+@@ -891,13 +913,13 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend&
+         if (!any_active) {
+             if (quit_requested) break;
+             if (!in.wait_next(line)) break;
+-            handle_line(line);
++            dispatch_line(line);
+             while (!quit_requested && in.poll(line)) {
+-                handle_line(line);
++                dispatch_line(line);
+             }
+         } else {
+             while (!quit_requested && in.poll(line)) {
+-                handle_line(line);
++                dispatch_line(line);
+             }
+         }
+ 
+@@ -1212,14 +1234,20 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend&
+                                     cand.idx.data() + static_cast<size_t>(wi) * InkBackend::kInkCandidates, V, rq.s, rq.rng)
+                 : sample_logits(lg, V, rq.s, rq.hist, rq.rng);
+             if (rq.generated < (int)rq.teacher.size()) tok = rq.teacher[rq.generated];
+-            if (endpoint_logits && lg && rq.generated + 1 == rq.max_new) {
++            const int depth = rq.generated;
++            const bool probe = trajectory_trace && (depth == 0 || depth == 1 || depth == 8 ||
++                depth == 32 || depth == 128 || depth == 256 || depth == 512 || depth == 1024);
++            if (endpoint_logits && lg && (probe || rq.generated + 1 == rq.max_new)) {
+                 static constexpr char hex[] = "0123456789abcdef";
+                 const auto* bytes = reinterpret_cast<const unsigned char*>(lg);
+                 std::string out(2 * V * sizeof(float), '0');
+                 for (size_t j = 0; j < out.size()/2; ++j) {
+                     out[2*j] = hex[bytes[j] >> 4]; out[2*j+1] = hex[bytes[j] & 15];
+                 }
+-                std::cout << "LOGITS " << rq.req_id << " " << out << std::endl;
++                if (trajectory_trace)
++                    std::cout << "RLOG " << s << ' ' << depth << ' ' << n_want << ' ' << batch.n_tokens
++                              << ' ' << out << std::endl;
++                else std::cout << "LOGITS " << rq.req_id << " " << out << std::endl;
+             }
+             rq.hist.push_back(tok);
+             rq.gen_ids.push_back(tok);

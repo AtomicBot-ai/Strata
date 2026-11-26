@@ -1,0 +1,533 @@
+[
+  {
+    "pair": 1,
+    "mode": "off",
+    "wall_s": 162.5671,
+    "capabilities": {
+      "native_fork": false,
+      "backend": null,
+      "active_slots": 2,
+      "max_parents": 0
+    },
+    "automatic_events": [],
+    "answers": [
+      {
+        "question": "Who is the release owner?",
+        "expected": "Atlas",
+        "answer": "Atlas",
+        "usage": {
+          "prompt_tokens": 172,
+          "completion_tokens": 2,
+          "total_tokens": 174,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 77.7923
+      },
+      {
+        "question": "Which TCP port does the service listen on?",
+        "expected": "8080",
+        "answer": "8080",
+        "usage": {
+          "prompt_tokens": 175,
+          "completion_tokens": 5,
+          "total_tokens": 180,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 162.5671
+      },
+      {
+        "question": "Which region is the deployment in?",
+        "expected": "Dublin",
+        "answer": "Dublin",
+        "usage": {
+          "prompt_tokens": 173,
+          "completion_tokens": 3,
+          "total_tokens": 176,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 41.9316
+      },
+      {
+        "question": "What is the retry limit?",
+        "expected": "3",
+        "answer": "3",
+        "usage": {
+          "prompt_tokens": 172,
+          "completion_tokens": 2,
+          "total_tokens": 174,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 162.5529
+      }
+    ]
+  },
+  {
+    "pair": 1,
+    "mode": "on",
+    "wall_s": 54.7153,
+    "capabilities": {
+      "native_fork": true,
+      "backend": "qwen",
+      "active_slots": 2,
+      "max_parents": 1
+    },
+    "automatic_events": [
+      "turbine: automatic parent saved tokens=154",
+      "turbine: automatic parent restored tokens=154",
+      "turbine: automatic parent restored tokens=154",
+      "turbine: automatic parent restored tokens=154"
+    ],
+    "answers": [
+      {
+        "question": "Who is the release owner?",
+        "expected": "Atlas",
+        "answer": "Atlas",
+        "usage": {
+          "prompt_tokens": 172,
+          "completion_tokens": 2,
+          "total_tokens": 174,
+          "prompt_tokens_details": {
+            "cached_tokens": 154
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 47.1785
+      },
+      {
+        "question": "Which TCP port does the service listen on?",
+        "expected": "8080",
+        "answer": "8080",
+        "usage": {
+          "prompt_tokens": 175,
+          "completion_tokens": 5,
+          "total_tokens": 180,
+          "prompt_tokens_details": {
+            "cached_tokens": 154
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 54.7152
+      },
+      {
+        "question": "Which region is the deployment in?",
+        "expected": "Dublin",
+        "answer": "Dublin",
+        "usage": {
+          "prompt_tokens": 173,
+          "completion_tokens": 3,
+          "total_tokens": 176,
+          "prompt_tokens_details": {
+            "cached_tokens": 154
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 54.4085
+      },
+      {
+        "question": "What is the retry limit?",
+        "expected": "3",
+        "answer": "3",
+        "usage": {
+          "prompt_tokens": 172,
+          "completion_tokens": 2,
+          "total_tokens": 174,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 43.7094
+      }
+    ]
+  },
+  {
+    "pair": 2,
+    "mode": "on",
+    "wall_s": 54.9123,
+    "capabilities": {
+      "native_fork": true,
+      "backend": "qwen",
+      "active_slots": 2,
+      "max_parents": 1
+    },
+    "automatic_events": [
+      "turbine: automatic parent saved tokens=154",
+      "turbine: automatic parent restored tokens=154",
+      "turbine: automatic parent restored tokens=154",
+      "turbine: automatic parent restored tokens=154"
+    ],
+    "answers": [
+      {
+        "question": "Who is the release owner?",
+        "expected": "Atlas",
+        "answer": "Atlas",
+        "usage": {
+          "prompt_tokens": 172,
+          "completion_tokens": 2,
+          "total_tokens": 174,
+          "prompt_tokens_details": {
+            "cached_tokens": 154
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 52.5209
+      },
+      {
+        "question": "Which TCP port does the service listen on?",
+        "expected": "8080",
+        "answer": "8080",
+        "usage": {
+          "prompt_tokens": 175,
+          "completion_tokens": 5,
+          "total_tokens": 180,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 49.8096
+      },
+      {
+        "question": "Which region is the deployment in?",
+        "expected": "Dublin",
+        "answer": "Dublin",
+        "usage": {
+          "prompt_tokens": 173,
+          "completion_tokens": 3,
+          "total_tokens": 176,
+          "prompt_tokens_details": {
+            "cached_tokens": 154
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 49.8095
+      },
+      {
+        "question": "What is the retry limit?",
+        "expected": "3",
+        "answer": "3",
+        "usage": {
+          "prompt_tokens": 172,
+          "completion_tokens": 2,
+          "total_tokens": 174,
+          "prompt_tokens_details": {
+            "cached_tokens": 154
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 54.9123
+      }
+    ]
+  },
+  {
+    "pair": 2,
+    "mode": "off",
+    "wall_s": 150.8568,
+    "capabilities": {
+      "native_fork": false,
+      "backend": null,
+      "active_slots": 2,
+      "max_parents": 0
+    },
+    "automatic_events": [],
+    "answers": [
+      {
+        "question": "Who is the release owner?",
+        "expected": "Atlas",
+        "answer": "Atlas",
+        "usage": {
+          "prompt_tokens": 172,
+          "completion_tokens": 2,
+          "total_tokens": 174,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 40.8857
+      },
+      {
+        "question": "Which TCP port does the service listen on?",
+        "expected": "8080",
+        "answer": "8080",
+        "usage": {
+          "prompt_tokens": 175,
+          "completion_tokens": 5,
+          "total_tokens": 180,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 150.8566
+      },
+      {
+        "question": "Which region is the deployment in?",
+        "expected": "Dublin",
+        "answer": "Dublin",
+        "usage": {
+          "prompt_tokens": 173,
+          "completion_tokens": 3,
+          "total_tokens": 176,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 114.1236
+      },
+      {
+        "question": "What is the retry limit?",
+        "expected": "3",
+        "answer": "3",
+        "usage": {
+          "prompt_tokens": 172,
+          "completion_tokens": 2,
+          "total_tokens": 174,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 114.1235
+      }
+    ]
+  },
+  {
+    "pair": 3,
+    "mode": "off",
+    "wall_s": 146.6357,
+    "capabilities": {
+      "native_fork": false,
+      "backend": null,
+      "active_slots": 2,
+      "max_parents": 0
+    },
+    "automatic_events": [],
+    "answers": [
+      {
+        "question": "Who is the release owner?",
+        "expected": "Atlas",
+        "answer": "Atlas",
+        "usage": {
+          "prompt_tokens": 172,
+          "completion_tokens": 2,
+          "total_tokens": 174,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 78.5027
+      },
+      {
+        "question": "Which TCP port does the service listen on?",
+        "expected": "8080",
+        "answer": "8080",
+        "usage": {
+          "prompt_tokens": 175,
+          "completion_tokens": 5,
+          "total_tokens": 180,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 78.8593
+      },
+      {
+        "question": "Which region is the deployment in?",
+        "expected": "Dublin",
+        "answer": "Dublin",
+        "usage": {
+          "prompt_tokens": 173,
+          "completion_tokens": 3,
+          "total_tokens": 176,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 146.6356
+      },
+      {
+        "question": "What is the retry limit?",
+        "expected": "3",
+        "answer": "3",
+        "usage": {
+          "prompt_tokens": 172,
+          "completion_tokens": 2,
+          "total_tokens": 174,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 146.6357
+      }
+    ]
+  },
+  {
+    "pair": 3,
+    "mode": "on",
+    "wall_s": 54.505,
+    "capabilities": {
+      "native_fork": true,
+      "backend": "qwen",
+      "active_slots": 2,
+      "max_parents": 1
+    },
+    "automatic_events": [
+      "turbine: automatic parent saved tokens=154",
+      "turbine: automatic parent restored tokens=154",
+      "turbine: automatic parent restored tokens=154",
+      "turbine: automatic parent restored tokens=154"
+    ],
+    "answers": [
+      {
+        "question": "Who is the release owner?",
+        "expected": "Atlas",
+        "answer": "Atlas",
+        "usage": {
+          "prompt_tokens": 172,
+          "completion_tokens": 2,
+          "total_tokens": 174,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 43.5772
+      },
+      {
+        "question": "Which TCP port does the service listen on?",
+        "expected": "8080",
+        "answer": "8080",
+        "usage": {
+          "prompt_tokens": 175,
+          "completion_tokens": 5,
+          "total_tokens": 180,
+          "prompt_tokens_details": {
+            "cached_tokens": 154
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 54.5048
+      },
+      {
+        "question": "Which region is the deployment in?",
+        "expected": "Dublin",
+        "answer": "Dublin",
+        "usage": {
+          "prompt_tokens": 173,
+          "completion_tokens": 3,
+          "total_tokens": 176,
+          "prompt_tokens_details": {
+            "cached_tokens": 154
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 54.293
+      },
+      {
+        "question": "What is the retry limit?",
+        "expected": "3",
+        "answer": "3",
+        "usage": {
+          "prompt_tokens": 172,
+          "completion_tokens": 2,
+          "total_tokens": 174,
+          "prompt_tokens_details": {
+            "cached_tokens": 154
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0
+          }
+        },
+        "correct": true,
+        "finished_s": 47.1478
+      }
+    ]
+  }
+]

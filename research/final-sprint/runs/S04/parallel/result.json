@@ -1,0 +1,36 @@
+{
+  "argv": [
+    "/Applications/OpenCode.app/Contents/Resources/opencode-cli",
+    "run",
+    "--standalone",
+    "--format",
+    "json",
+    "-m",
+    "turbine/inkling",
+    "Use two explore subagents concurrently (two task calls in one message). Ask one to trace engine selection in terminal/strata_control/shape_engine.py and one to trace manifest validation in terminal/strata_control/engine_component.py. Wait for both and report one finding per file."
+  ],
+  "seconds": 163.6681002920377,
+  "exit": 0,
+  "timed_out": false,
+  "tools": [
+    {
+      "name": "subagent",
+      "state": "completed"
+    },
+    {
+      "name": "subagent",
+      "state": "completed"
+    }
+  ],
+  "text": [
+    "Both subagents completed. Findings:\n\n- **`terminal/strata_control/shape_engine.py`** \u2014 Engine selection is delegated to the signed feed: `choose()` (lines 266\u2013272) filters `feed.shape_engines` by shape and calls `feed.select_engine(mine, hardware)`; `update_one()` and `ensure()` drive it, with refusal in `_test_start()`/`check_geometry()` and shape validation in `valid()`/`root()`.\n- **`terminal/strata_control/engine_component.py`** \u2014 Manifest validation is done by `read_manifest()` (lines 279\u2013349): JSON parse, schema version, id/name/kind agreement, required strings, `backend` in `BACKEND_MATRIX`, file-entry checks (relative paths, 64-hex sha256, bytes), entrypoint membership and uniqueness, archs/min_driver/signature shape. File integrity is checked in `verify()` (lines 447\u2013478) and signature in `verify_signature()` (lines 386\u2013413)."
+  ],
+  "errors": [],
+  "saves": 0,
+  "restores": 0,
+  "reuse_events": 4,
+  "simultaneous_decode_slots": 2,
+  "engine_peak_bytes": 4533359104,
+  "fixture_base": "e83de74",
+  "diff": " terminal/setup.py | 13 +++++++++++--\n 1 file changed, 11 insertions(+), 2 deletions(-)\n"
+}

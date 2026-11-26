@@ -1,0 +1,17 @@
+Step 1: Read all integers from standard input; since N is not given, parse the stream until EOF.
+Step 2: Keep the values in order, find the final 0 terminator, and ensure every earlier value is nonzero.
+Step 3: Print the stored values in reverse order, one integer per line.
+
+Final:
+```python
+import sys
+
+def main():
+    data = sys.stdin.read().split()
+    values = [int(x) for x in data]
+    out = "\n".join(str(x) for x in reversed(values))
+    sys.stdout.write(out + ("\n" if out else ""))
+
+if __name__ == "__main__":
+    main()
+```<|end_message|><|content_model_end_sampling|>

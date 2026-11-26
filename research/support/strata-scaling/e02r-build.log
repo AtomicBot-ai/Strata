@@ -1,0 +1,47 @@
+[ 11%] Building C object CMakeFiles/strata_zstd_dec.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/third_party/zstd-dec/common/entropy_common.c.o
+[ 11%] Building C object CMakeFiles/strata_zstd_dec.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/third_party/zstd-dec/common/debug.c.o
+[ 11%] Building CXX object CMakeFiles/strata_quant.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/src/quant/types.cpp.o
+[ 11%] Building CXX object CMakeFiles/strata_quant.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/src/quant/isa.cpp.o
+[ 14%] Building CXX object CMakeFiles/strata_quant.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/src/quant/dispatch.cpp.o
+[ 17%] Building C object CMakeFiles/strata_zstd_dec.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/third_party/zstd-dec/common/error_private.c.o
+[ 20%] Building C object CMakeFiles/strata_zstd_dec.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/third_party/zstd-dec/common/fse_decompress.c.o
+[ 22%] Building CXX object CMakeFiles/strata_quant.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/src/quant/selfcheck.cpp.o
+[ 25%] Building CXX object CMakeFiles/strata_quant.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/src/quant/act_ref.cpp.o
+[ 28%] Building C object CMakeFiles/strata_zstd_dec.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/third_party/zstd-dec/common/xxhash.c.o
+[ 34%] Building C object CMakeFiles/strata_zstd_dec.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/third_party/zstd-dec/common/zstd_common.c.o
+[ 34%] Building CXX object CMakeFiles/strata_quant.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/src/quant/dot_generic.cpp.o
+[ 37%] Building C object CMakeFiles/strata_zstd_dec.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/third_party/zstd-dec/decompress/huf_decompress.c.o
+[ 40%] Building CXX object CMakeFiles/strata_quant.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/src/quant/dequant.cpp.o
+[ 42%] Building CXX object CMakeFiles/strata_quant.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/src/quant/arm/dot_neon.cpp.o
+[ 45%] Building C object CMakeFiles/strata_zstd_dec.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/third_party/zstd-dec/decompress/zstd_ddict.c.o
+[ 48%] Building C object CMakeFiles/strata_zstd_dec.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/third_party/zstd-dec/decompress/zstd_decompress.c.o
+[ 51%] Building CXX object CMakeFiles/strata_quant.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/src/quant/arm/act_neon.cpp.o
+[ 54%] Building CXX object CMakeFiles/strata_quant.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/src/quant/sk_codecs.cpp.o
+[ 57%] Building C object CMakeFiles/strata_zstd_dec.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/third_party/zstd-dec/decompress/zstd_decompress_block.c.o
+[ 60%] Linking C static library libstrata_zstd_dec.a
+[ 60%] Built target strata_zstd_dec
+[ 62%] Embedding Inkling-2-Mini Metal shaders
+[ 68%] Building OBJCXX object metal/CMakeFiles/strata_inkling_metal.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/metal/src/mtl_rt.mm.o
+[ 68%] Building OBJCXX object metal/CMakeFiles/strata_inkling_metal.dir/ink_metal_backend.mm.o
+[ 71%] Linking CXX static library libstrata_quant.a
+[ 71%] Built target strata_quant
+[ 77%] Building CXX object CMakeFiles/strata_inkling_core.dir/inkling2_loop.cpp.o
+[ 77%] Building CXX object CMakeFiles/strata_inkling_core.dir/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/src/artifact/strata_reader.cpp.o
+[ 80%] Building CXX object CMakeFiles/strata_inkling_core.dir/ink_cpu_backend.cpp.o
+/Users/aleksejkalina/code/atomicbot/atomic-chat-workspace/turbine-intelligence/.work/strata-scaling/e02r-src/engine/metal/src/mtl_rt.mm:217:11: warning: 'fastMathEnabled' is deprecated: first deprecated in macOS 15.0 - Use mathMode instead [-Wdeprecated-declarations]
+  217 |         o.fastMathEnabled = fast_math;
+      |           ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Metal.framework/Headers/MTLLibrary.h:326:39: note: 'fastMathEnabled' has been explicitly marked deprecated here
+  326 | @property (readwrite, nonatomic) BOOL fastMathEnabled API_DEPRECATED("Use mathMode instead", macos(10.11, 15.0), ios(8.0, 18.0));
+      |                                       ^
+[ 82%] Building CXX object CMakeFiles/strata_inkling_core.dir/ink_host_avx2.cpp.o
+[ 85%] Building CXX object CMakeFiles/strata_inkling_core.dir/ink_host_avx512.cpp.o
+[ 88%] Building CXX object CMakeFiles/strata_inkling_core.dir/ink_host_avx512_gate.cpp.o
+1 warning generated.
+[ 91%] Linking OBJCXX static library libstrata_inkling_metal.a
+[ 91%] Built target strata_inkling_metal
+[ 94%] Linking CXX static library libstrata_inkling_core.a
+[ 94%] Built target strata_inkling_core
+[ 97%] Building CXX object CMakeFiles/strata-inkling.dir/ink_main.cpp.o
+[100%] Linking CXX executable strata-inkling
+[100%] Built target strata-inkling

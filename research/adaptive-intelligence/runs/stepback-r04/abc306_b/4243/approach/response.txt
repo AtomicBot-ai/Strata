@@ -1,0 +1,16 @@
+Step 1: Read the 64 binary digits.
+Step 2: Compute the value using each digit times 2^i.
+Step 3: Print the resulting integer.
+
+Final:
+```python
+import sys
+
+s = sys.stdin.read().split()
+a = [int(x) for x in s][:64]
+ans = 0
+for i, v in enumerate(a):
+    if v:
+        ans += 1 << i
+print(ans)
+```<|end_message|><|content_model_end_sampling|>

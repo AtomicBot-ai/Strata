@@ -1,0 +1,25 @@
+Step 1: Read all lines from stdin until end of input.
+Step 2: Process values until reaching the terminating 0; collect the non-zero values in order.
+Step 3: Print the 0 and all non-zero values in reverse order.
+
+Final:
+```python
+import sys
+
+def main():
+    lines = sys.stdin.read().splitlines()
+    values = []
+    for line in lines:
+        if line.strip() == '':
+            continue
+        x = int(line.strip())
+        if x == 0:
+            values.append(0)
+            break
+        values.append(x)
+    for x in reversed(values):
+        print(x)
+
+if __name__ == '__main__':
+    main()
+```<|end_message|><|content_model_end_sampling|>
