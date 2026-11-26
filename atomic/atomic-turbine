@@ -14,7 +14,7 @@ BIN=ROOT/"bin"
 
 def main():
     if len(sys.argv)<2 or sys.argv[1] in ("-h","--help"):
-        print("Atomic Turbine 0.1 (macOS arm64)\n  inkling [native Inkling flags]\n  qwen [native Qwen flags]\n  api [Strata HTTP server flags]\n  serve-inkling --model FILE --tokenizer DIR [--port 8080] [--context 24576] [--snapshot-mib N]\n  --version")
+        print("Atomic Turbine 0.1 (macOS arm64)\n  inkling [native Inkling flags]\n  qwen [native Qwen flags]\n  api [Strata HTTP server flags]\n  serve-flash-next --model-dir DIR --pack DIR [--port 8080] [--context 24576]\n  serve-inkling --model FILE --tokenizer DIR [--port 8080] [--context 24576] [--snapshot-mib N]\n  --version")
         return
     mode,*args=sys.argv[1:]
     if mode=="--version":
@@ -25,27 +25,53 @@ def main():
     server=ROOT/"terminal/serve/server.py"
     if mode=="api":
         os.execv(sys.executable,[sys.executable,str(server),*args])
-    if mode!="serve-inkling":
+    if mode not in ("serve-inkling", "serve-flash-next"):
         raise SystemExit("unknown subcommand: "+mode)
-    p=argparse.ArgumentParser(prog="atomic-turbine serve-inkling")
-    p.add_argument("--model",type=Path,required=True)
-    p.add_argument("--tokenizer",type=Path,required=True)
-    p.add_argument("--port",type=int,default=8080)
-    p.add_argument("--context",type=int,default=24576)
-    p.add_argument("--snapshot-mib", type=int, default=0, help="native snapshot payload budget in MiB (0 disables)")
-    a=p.parse_args(args)
-    if not 0 <= a.snapshot_mib <= 32768:
-        p.error("--snapshot-mib must be between 0 and 32768")
-    if not a.model.is_file() or not (a.tokenizer/"merges.txt").is_file():
-        p.error("provide a readable .strata model and converted tokenizer directory")
-    cfg=dict(exe=str(BIN/"strata-inkling"),arch="inkling2_loop",tokenizer=str(a.tokenizer.resolve()),model_name="inkling",
-             args=["--serve","--native",str(a.model.resolve()),"--draft","off","--kv","fp16","--max-context",str(a.context),
-                   "--parallel","2","--chunk","128"],host="127.0.0.1",port=a.port,open_browser=False)
+    p = argparse.ArgumentParser(prog=f"atomic-turbine {mode}")
+    p.add_argument("--port", type=int, default=8080)
+    p.add_argument("--context", type=int, default=24576)
+    env = os.environ.copy()
+    if mode == "serve-flash-next":
+        p.add_argument("--model-dir", type=Path, required=True)
+        p.add_argument("--pack", type=Path, required=True)
+        a = p.parse_args(args)
+        model_dir = a.model_dir.resolve()
+        pack = a.pack.resolve()
+        first = list(model_dir.glob("*IQ3_XXS-00001-of-00002.gguf"))
+        if len(first) != 1:
+            p.error("--model-dir must contain one Flash-Next IQ3_XXS two-part model")
+        second = first[0].with_name(first[0].name.replace("00001-of-00002", "00002-of-00002"))
+        profile = model_dir / "profile.bin"
+        for path in (second, profile, pack / "dense.bin", pack / "tokenizer" / "merges.txt"):
+            if not path.is_file():
+                p.error(f"missing model or pack file: {path}")
+        cfg = dict(exe=str(BIN / "strata"), tokenizer=str(pack / "tokenizer"), model_name="qwen",
+                   args=["--serve", "--pack", str(pack), "--native", str(first[0]), "--ple-gguf", str(second),
+                         "--expert-profile", str(profile), "--max-context", str(a.context), "--expert-cache", "64",
+                         "--batch", "3", "--prefill", "auto", "--spec", "2", "--suffix-draft", "0", "--mmap-experts"])
+        env.update(TURBINE_QWEN_FORK="1", STRATA_METAL_STREAM="1", STRATA_METAL_ARENA_GB="6",
+                   STRATA_METAL_STREAM_FAKE="0", STRATA_METAL_BATCH_ROWS="1", STRATA_METAL_PREFETCH="0",
+                   STRATA_METAL_PREFETCH2="0")
+        parallel = []  # The physical batch includes the parent. INFO reports the two public slots.
+    else:
+        p.add_argument("--model",type=Path,required=True)
+        p.add_argument("--tokenizer",type=Path,required=True)
+        p.add_argument("--snapshot-mib", type=int, default=0, help="native snapshot payload budget in MiB (0 disables)")
+        a=p.parse_args(args)
+        if not 0 <= a.snapshot_mib <= 32768:
+            p.error("--snapshot-mib must be between 0 and 32768")
+        if not a.model.is_file() or not (a.tokenizer/"merges.txt").is_file():
+            p.error("provide a readable .strata model and converted tokenizer directory")
+        cfg=dict(exe=str(BIN/"strata-inkling"),arch="inkling2_loop",tokenizer=str(a.tokenizer.resolve()),model_name="inkling",
+                 args=["--serve","--native",str(a.model.resolve()),"--draft","off","--kv","fp16","--max-context",str(a.context),
+                       "--parallel","2","--chunk","128"],host="127.0.0.1",port=a.port,open_browser=False)
+        env["TURBINE_SNAPSHOT_MIB"] = str(a.snapshot_mib)
+        parallel = ["--parallel", "2"]
     with tempfile.TemporaryDirectory(prefix="atomic-turbine-") as d:
         path=Path(d)/"config.json";path.write_text(json.dumps(cfg))
         proc=subprocess.Popen([sys.executable,str(server),"--engine","strata","--config",str(path),"--host","127.0.0.1",
-                               "--port",str(a.port),"--parallel","2","--offline","--no-api-key"],
-                              env=dict(os.environ, TURBINE_SNAPSHOT_MIB=str(a.snapshot_mib)))
+                               "--port",str(a.port),*parallel,"--offline","--no-api-key"],
+                              env=env)
         try:
             raise SystemExit(proc.wait())
         except KeyboardInterrupt:

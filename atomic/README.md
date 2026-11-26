@@ -40,7 +40,15 @@ python3 fork_demo.py
 
 ## OpenCode
 
-Для OpenCode задайте в конфигурации проекта локального провайдера и запустите `opencode run -m turbine/inkling "Опиши этот репозиторий"`.
+Для Flash-Next на Mac запустите сервер из распакованного ZIP с активным Python-окружением:
+
+```sh
+./atomic-turbine serve-flash-next --model-dir "$FLASH_NEXT_IQ3_DIR" --pack "$FLASH_NEXT_PACK"
+```
+
+В каталоге модели должны лежать обе части IQ3_XXS и `profile.bin`, в подготовленном пакете Strata — `dense.bin` и `tokenizer/`. Профиль резервирует третий слот для истории и оставляет два для запросов. Для Inkling используйте `serve-inkling` из Quick Start.
+
+В конфигурации проекта OpenCode укажите адрес локального сервера и модель:
 
 ```json
 {
@@ -49,16 +57,30 @@ python3 fork_demo.py
       "npm": "@ai-sdk/openai-compatible",
       "name": "Atomic Turbine",
       "options": {"baseURL": "http://127.0.0.1:8080/v1", "apiKey": "local"},
-      "models": {"inkling": {"name": "Inkling", "limit": {"context": 24576, "output": 1024}}}
+      "models": {"qwen": {"name": "Flash-Next", "limit": {"context": 24576, "output": 1024}}}
     }
   },
   "enabled_providers": ["turbine"],
-  "model": "turbine/inkling",
-  "small_model": "turbine/inkling"
+  "model": "turbine/qwen",
+  "small_model": "turbine/qwen"
 }
 ```
 
-OpenCode использует обычный совместимый API. В этой alpha явное наследование состояния демонстрирует `fork_demo.py`; автоматическое ветвление сессий OpenCode отложено.
+Запустите `opencode run -m turbine/qwen "Разбери этот репозиторий"`. Плагин и дополнительные заголовки не нужны. Для сервера Inkling замените имя модели в конфигурации и команде на `inkling`.
+
+Flash-Next может сохранить состояние перед последним вопросом и продолжить с него, если следующий запрос начинается с тех же токенов. Порог задаёт параметр движка `--prompt-cache-root` (по умолчанию 2048 токенов, ноль отключает автоматический снимок). Если уже доступен более длинный префикс, используется штатный кеш. В ответе HTTP поле `usage.prompt_tokens_details.cached_tokens` учитывает все виды повторного использования. Только строка `turbine: automatic parent restored tokens=N` в журнале движка подтверждает чтение из резервного слота. Явный checkpoint владеет слотом до освобождения.
+
+OpenCode выбирает историю и системные инструкции для каждого агента. Одинаковое имя репозитория или файл в середине двух запросов сами по себе не дают общего состояния. Время работы зависит от фактических запросов клиента.
+
+## Flash-Next на CUDA и HIP из исходников
+
+Соберите цель `strata` из этого форка для своей карты. В рабочем JSON-конфиге Strata задайте `exe` с путём к собранному бинарнику, `model_name` со значением `qwen` и `env.TURBINE_QWEN_FORK` со строковым значением `"1"`. В `args` нужны `--batch 3`, `--suffix-draft 0`, один GPU, текстовый профиль с выключенным drafter, фиксированной ёмкостью KV и включённым кешем запросов. Запустите сервер из корня форка:
+
+```sh
+python terminal/serve/server.py --engine strata --config qwen.json --host 127.0.0.1 --port 8080 --offline
+```
+
+В OpenCode используется тот же провайдер `turbine/qwen`. Для проверки сборки на конкретной карте выполните `python atomic/bench/qwen_auto.py qwen.json` при остановленном сервере. Тест запускает модель с короткой историей, проверяет попадания, промах и совместимость явного снимка. Статусы физических GPU перечислены в `RELEASE_STATUS.md` исходной ветки.
 
 ## Ветвление через нативный протокол Inkling
 
