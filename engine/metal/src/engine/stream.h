@@ -70,6 +70,12 @@ public:
     void hold_region(bool hold);
     void report(FILE* f) const;
     void reset_stats();
+    struct ReadCounts { uint64_t hits, misses, bytes; double wait_ms; };
+    ReadCounts read_counts() const { return {hits_, misses_, bytes_read_.load(), wait_ms_}; }
+    uint64_t expert_bytes(int layer) const {
+        const auto& x = lay_[(size_t)layer];
+        return x.gs + x.us + x.ds;
+    }
 
 private:
     uint64_t shrink_to_ = 0;

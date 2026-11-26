@@ -555,8 +555,24 @@ public:
     int win_n_[MAXT + 1] = {};
     double win_ms_[MAXT + 1] = {}, win_gpu_[MAXT + 1] = {};
     void at_cut(int s) {
-        st_->at_layer(s, seg_T_, TOPK, cut_ids_ ? cut_ids_ : ids_.as<int32_t>(), st_pred_ && !cut_ids_ ? predL_.as<float>() + (size_t) s * MAXT * 512 : nullptr,
+        const auto* ids = cut_ids_ ? cut_ids_ : ids_.as<int32_t>();
+        static const bool trace = std::getenv("STRATA_SSD_TRACE_ROWS") != nullptr;
+        const bool capture = trace && rows_ && (seg_T_ == 1 || seg_T_ == 2);
+        ExpertStream::ReadCounts before{};
+        if (capture) before = st_->read_counts();
+        st_->at_layer(s, seg_T_, TOPK, ids, st_pred_ && !cut_ids_ ? predL_.as<float>() + (size_t) s * MAXT * 512 : nullptr,
                       predL2_.ptr && !cut_ids_ ? predL2_.as<float>() + (size_t) s * MAXT * 512 : nullptr);
+        if (capture) {
+            const auto after = st_->read_counts();
+            std::fprintf(stderr, "SSD_ROUTE %d %d %llu %llu %llu %llu %.6f",
+                         s, seg_T_, (unsigned long long)st_->expert_bytes(s),
+                         (unsigned long long)(after.hits - before.hits),
+                         (unsigned long long)(after.misses - before.misses),
+                         (unsigned long long)(after.bytes - before.bytes),
+                         after.wait_ms - before.wait_ms);
+            for (int i = 0; i < seg_T_ * TOPK; ++i) std::fprintf(stderr, " %d", (int)ids[i]);
+            std::fputc('\n', stderr);
+        }
     }
 private:
     std::vector<float> ple_hist_;    // NG_HIST x hc_dim normalized rows, row-fastest
