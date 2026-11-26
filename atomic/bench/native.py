@@ -19,8 +19,10 @@ def read_peak(pid):
 
 def measure(binary, config, family, prefix, children, limit, fork, folder):
     binary = binary.resolve()
-    argv = list(config["args"])
-    argv[argv.index("--max-context")+1] = str(len(prefix) + limit + 128)
+    argv = [os.path.expandvars(value) for value in config["args"]]
+    if any(value.startswith("$") for value in argv):
+        raise ValueError("set the model and pack environment variables named in the profile")
+    argv[argv.index("--max-context")+1] = str(len(prefix) + limit + 128 if family == "inkling" else 512)
     env = {**os.environ, **config.get("env", {})}
     if family == "qwen":
         argv[argv.index("--batch")+1] = "3" if fork else "2"
@@ -132,23 +134,27 @@ def main():
     parser.add_argument("stock", type=Path)
     parser.add_argument("candidate", type=Path)
     parser.add_argument("out", type=Path)
-    parser.add_argument("--jobs", type=Path, help="Qwen input JSON, four tokenized prompts")
+    parser.add_argument("--jobs", type=Path, default=Path(__file__).with_name("qwen-prompts.json"),
+                        help="Qwen input JSON, four tokenized prompts")
     args = parser.parse_args()
     cfg = json.loads(args.config.read_text())
+    cfg = cfg.get(args.family, cfg)
     is_ink = args.family == "inkling"
-    for count, branches in ([(16384, 4), (32768, 8)] if is_ink else [(22, 4), (128, 4)]):
+    qwen = None if is_ink else json.loads(args.jobs.read_text())
+    profiles = [(16384, 4), (32768, 8)] if is_ink else [(22, 4), (len(qwen["long"]["prefix"]), 4)]
+    for count, branches in profiles:
         for pair in range(3):
             rng = random.Random(83101 + pair)
             if is_ink:
                 prefix = [rng.randrange(1000, 50000) for _ in range(count)]
                 suffixes = [[60000+i] for i in range(branches)]
-            else:
-                jobs = json.loads(args.jobs.read_text())["jobs"]
-                seed = jobs["0"]["ids"][:22]
-                prefix = (seed*6)[:count]
+            elif count == 22:
+                jobs = qwen["jobs"]
+                prefix = jobs["0"]["ids"][:22]
                 suffixes = [jobs[str(i)]["ids"][22:] for i in range(branches)]
-                if count > 22:
-                    suffixes = [s*8 for s in suffixes]
+            else:
+                prefix = qwen["long"]["prefix"]
+                suffixes = qwen["long"]["suffixes"]
             runs = []
             for fork in ((False, True) if pair % 2 == 0 else (True, False)):
                 binary = args.candidate if fork else args.stock

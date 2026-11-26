@@ -1,0 +1,459 @@
+{
+  "agent/stock": [
+    {
+      "mode": "ordinary",
+      "tokens": null,
+      "prepare_s": 0.00013854197459295392,
+      "elapsed_s": 12.339098458993249,
+      "results": [
+        {
+          "question": "Which host address does serve-inkling bind to?",
+          "answer": "127.0.0.1",
+          "expected": "127.0.0.1",
+          "success": true,
+          "request": "chatcmpl-5119800efadb44ddb8b2c335",
+          "completion_tokens": 9
+        },
+        {
+          "question": "What TCP port does serve-inkling use by default?",
+          "answer": "8080",
+          "expected": "8080",
+          "success": true,
+          "request": "chatcmpl-17822424f33e47b5bd6043b1",
+          "completion_tokens": 4
+        },
+        {
+          "question": "Which KV data type does serve-inkling pass to the engine?",
+          "answer": "fp16",
+          "expected": "fp16",
+          "success": true,
+          "request": "chatcmpl-065ae088659e41eaa1fe7acb",
+          "completion_tokens": 4
+        },
+        {
+          "question": "What value does serve-inkling pass to --chunk?",
+          "answer": "128",
+          "expected": "128",
+          "success": true,
+          "request": "chatcmpl-f1969328be8443a5b84b82bb",
+          "completion_tokens": 3
+        }
+      ],
+      "peak_bytes": 4421587192,
+      "events": [],
+      "pair": 0
+    },
+    {
+      "mode": "ordinary",
+      "tokens": null,
+      "prepare_s": 0.0002038750099018216,
+      "elapsed_s": 9.721389874990564,
+      "results": [
+        {
+          "question": "Which host address does serve-inkling bind to?",
+          "answer": "127.0.0.1",
+          "expected": "127.0.0.1",
+          "success": true,
+          "request": "chatcmpl-3d1c0afe5df2427b8df1f791",
+          "completion_tokens": 9
+        },
+        {
+          "question": "What TCP port does serve-inkling use by default?",
+          "answer": "8080",
+          "expected": "8080",
+          "success": true,
+          "request": "chatcmpl-a3835e5ab7824710bdce2d84",
+          "completion_tokens": 4
+        },
+        {
+          "question": "Which KV data type does serve-inkling pass to the engine?",
+          "answer": "fp16",
+          "expected": "fp16",
+          "success": true,
+          "request": "chatcmpl-f777d1a1a2de474a9056f759",
+          "completion_tokens": 4
+        },
+        {
+          "question": "What value does serve-inkling pass to --chunk?",
+          "answer": "128",
+          "expected": "128",
+          "success": true,
+          "request": "chatcmpl-c5205d30d5174792bb20fb39",
+          "completion_tokens": 3
+        }
+      ],
+      "peak_bytes": 4425011472,
+      "events": [],
+      "pair": 1
+    },
+    {
+      "mode": "ordinary",
+      "tokens": null,
+      "prepare_s": 0.0003030000370927155,
+      "elapsed_s": 10.138776542036794,
+      "results": [
+        {
+          "question": "Which host address does serve-inkling bind to?",
+          "answer": "127.0.0.1",
+          "expected": "127.0.0.1",
+          "success": true,
+          "request": "chatcmpl-2bccef5bcc0a4d038ac84741",
+          "completion_tokens": 9
+        },
+        {
+          "question": "What TCP port does serve-inkling use by default?",
+          "answer": "8080",
+          "expected": "8080",
+          "success": true,
+          "request": "chatcmpl-c5e046985fa04a878a498f73",
+          "completion_tokens": 4
+        },
+        {
+          "question": "Which KV data type does serve-inkling pass to the engine?",
+          "answer": "fp16",
+          "expected": "fp16",
+          "success": true,
+          "request": "chatcmpl-33cec7c7456c4eca851c9d9c",
+          "completion_tokens": 4
+        },
+        {
+          "question": "What value does serve-inkling pass to --chunk?",
+          "answer": "128",
+          "expected": "128",
+          "success": true,
+          "request": "chatcmpl-d1c54c0121804ba8808d466b",
+          "completion_tokens": 3
+        }
+      ],
+      "peak_bytes": 4421800208,
+      "events": [],
+      "pair": 2
+    }
+  ],
+  "agent/fork": [
+    {
+      "mode": "native",
+      "tokens": 1070,
+      "prepare_s": 3.491855582979042,
+      "elapsed_s": 4.200892125023529,
+      "results": [
+        {
+          "question": "Which host address does serve-inkling bind to?",
+          "answer": "127.0.0.1",
+          "expected": "127.0.0.1",
+          "success": true,
+          "request": "chatcmpl-fc31f527b8984f94add28bff",
+          "completion_tokens": 9
+        },
+        {
+          "question": "What TCP port does serve-inkling use by default?",
+          "answer": "8080",
+          "expected": "8080",
+          "success": true,
+          "request": "chatcmpl-323ae4c5c52a45cbb5a56eb3",
+          "completion_tokens": 4
+        },
+        {
+          "question": "Which KV data type does serve-inkling pass to the engine?",
+          "answer": "fp16",
+          "expected": "fp16",
+          "success": true,
+          "request": "chatcmpl-644e6ea90e064210a27c3d46",
+          "completion_tokens": 4
+        },
+        {
+          "question": "What value does serve-inkling pass to --chunk?",
+          "answer": "128",
+          "expected": "128",
+          "success": true,
+          "request": "chatcmpl-617bfe3d768444d9a82b221e",
+          "completion_tokens": 3
+        }
+      ],
+      "peak_bytes": 4634251728,
+      "events": [
+        {
+          "turbine": "checkpoint_created",
+          "tokens": 1070,
+          "snapshot_bytes": 206672056
+        },
+        {
+          "turbine": "checkpoint_restored",
+          "request_id": "fc31f527b8984f94add28bff",
+          "slot": 0,
+          "restore_ms": 7.65,
+          "queue_wait_ms": 6.32
+        },
+        {
+          "turbine": "fork_admitted",
+          "request_id": "fc31f527b8984f94add28bff",
+          "slot": 0,
+          "active_slots": 1,
+          "reused_tokens": 1070
+        },
+        {
+          "turbine": "checkpoint_restored",
+          "request_id": "323ae4c5c52a45cbb5a56eb3",
+          "slot": 1,
+          "restore_ms": 97.51,
+          "queue_wait_ms": 8.06
+        },
+        {
+          "turbine": "fork_admitted",
+          "request_id": "323ae4c5c52a45cbb5a56eb3",
+          "slot": 1,
+          "active_slots": 2,
+          "reused_tokens": 1070
+        },
+        {
+          "turbine": "checkpoint_restored",
+          "request_id": "644e6ea90e064210a27c3d46",
+          "slot": 1,
+          "restore_ms": 19.34,
+          "queue_wait_ms": 334.09
+        },
+        {
+          "turbine": "fork_admitted",
+          "request_id": "644e6ea90e064210a27c3d46",
+          "slot": 1,
+          "active_slots": 2,
+          "reused_tokens": 1070
+        },
+        {
+          "turbine": "checkpoint_restored",
+          "request_id": "617bfe3d768444d9a82b221e",
+          "slot": 0,
+          "restore_ms": 20.19,
+          "queue_wait_ms": 485.9
+        },
+        {
+          "turbine": "fork_admitted",
+          "request_id": "617bfe3d768444d9a82b221e",
+          "slot": 0,
+          "active_slots": 2,
+          "reused_tokens": 1070
+        },
+        {
+          "turbine": "checkpoint_dropped"
+        }
+      ],
+      "pair": 0
+    },
+    {
+      "mode": "native",
+      "tokens": 1070,
+      "prepare_s": 3.186691582959611,
+      "elapsed_s": 3.8892082079546526,
+      "results": [
+        {
+          "question": "Which host address does serve-inkling bind to?",
+          "answer": "127.0.0.1",
+          "expected": "127.0.0.1",
+          "success": true,
+          "request": "chatcmpl-c5bf9e0592444beebd538a1d",
+          "completion_tokens": 9
+        },
+        {
+          "question": "What TCP port does serve-inkling use by default?",
+          "answer": "8080",
+          "expected": "8080",
+          "success": true,
+          "request": "chatcmpl-7157641e6c7644d9aca661b7",
+          "completion_tokens": 4
+        },
+        {
+          "question": "Which KV data type does serve-inkling pass to the engine?",
+          "answer": "fp16",
+          "expected": "fp16",
+          "success": true,
+          "request": "chatcmpl-4535b9de23f046fb847b27f8",
+          "completion_tokens": 4
+        },
+        {
+          "question": "What value does serve-inkling pass to --chunk?",
+          "answer": "128",
+          "expected": "128",
+          "success": true,
+          "request": "chatcmpl-31fb58a0919344869a0bb94b",
+          "completion_tokens": 3
+        }
+      ],
+      "peak_bytes": 4632105424,
+      "events": [
+        {
+          "turbine": "checkpoint_created",
+          "tokens": 1070,
+          "snapshot_bytes": 206672056
+        },
+        {
+          "turbine": "checkpoint_restored",
+          "request_id": "7157641e6c7644d9aca661b7",
+          "slot": 0,
+          "restore_ms": 5.27,
+          "queue_wait_ms": 6.29
+        },
+        {
+          "turbine": "fork_admitted",
+          "request_id": "7157641e6c7644d9aca661b7",
+          "slot": 0,
+          "active_slots": 1,
+          "reused_tokens": 1070
+        },
+        {
+          "turbine": "checkpoint_restored",
+          "request_id": "4535b9de23f046fb847b27f8",
+          "slot": 1,
+          "restore_ms": 101.25,
+          "queue_wait_ms": 8.02
+        },
+        {
+          "turbine": "fork_admitted",
+          "request_id": "4535b9de23f046fb847b27f8",
+          "slot": 1,
+          "active_slots": 2,
+          "reused_tokens": 1070
+        },
+        {
+          "turbine": "checkpoint_restored",
+          "request_id": "c5bf9e0592444beebd538a1d",
+          "slot": 0,
+          "restore_ms": 3.04,
+          "queue_wait_ms": 295.45
+        },
+        {
+          "turbine": "fork_admitted",
+          "request_id": "c5bf9e0592444beebd538a1d",
+          "slot": 0,
+          "active_slots": 2,
+          "reused_tokens": 1070
+        },
+        {
+          "turbine": "checkpoint_restored",
+          "request_id": "31fb58a0919344869a0bb94b",
+          "slot": 1,
+          "restore_ms": 19.63,
+          "queue_wait_ms": 411.89
+        },
+        {
+          "turbine": "fork_admitted",
+          "request_id": "31fb58a0919344869a0bb94b",
+          "slot": 1,
+          "active_slots": 2,
+          "reused_tokens": 1070
+        },
+        {
+          "turbine": "checkpoint_dropped"
+        }
+      ],
+      "pair": 1
+    },
+    {
+      "mode": "native",
+      "tokens": 1070,
+      "prepare_s": 2.672040250035934,
+      "elapsed_s": 3.3841309580020607,
+      "results": [
+        {
+          "question": "Which host address does serve-inkling bind to?",
+          "answer": "127.0.0.1",
+          "expected": "127.0.0.1",
+          "success": true,
+          "request": "chatcmpl-b671e31204d04114b90135c1",
+          "completion_tokens": 9
+        },
+        {
+          "question": "What TCP port does serve-inkling use by default?",
+          "answer": "8080",
+          "expected": "8080",
+          "success": true,
+          "request": "chatcmpl-a3332bee60434aa8b23f0658",
+          "completion_tokens": 4
+        },
+        {
+          "question": "Which KV data type does serve-inkling pass to the engine?",
+          "answer": "fp16",
+          "expected": "fp16",
+          "success": true,
+          "request": "chatcmpl-0fb617ee2c1b40ad8ec62ca6",
+          "completion_tokens": 4
+        },
+        {
+          "question": "What value does serve-inkling pass to --chunk?",
+          "answer": "128",
+          "expected": "128",
+          "success": true,
+          "request": "chatcmpl-39739dc7420a4614b85763ef",
+          "completion_tokens": 3
+        }
+      ],
+      "peak_bytes": 4632203752,
+      "events": [
+        {
+          "turbine": "checkpoint_created",
+          "tokens": 1070,
+          "snapshot_bytes": 206672056
+        },
+        {
+          "turbine": "checkpoint_restored",
+          "request_id": "0fb617ee2c1b40ad8ec62ca6",
+          "slot": 0,
+          "restore_ms": 5.42,
+          "queue_wait_ms": 6.28
+        },
+        {
+          "turbine": "fork_admitted",
+          "request_id": "0fb617ee2c1b40ad8ec62ca6",
+          "slot": 0,
+          "active_slots": 1,
+          "reused_tokens": 1070
+        },
+        {
+          "turbine": "checkpoint_restored",
+          "request_id": "39739dc7420a4614b85763ef",
+          "slot": 1,
+          "restore_ms": 116.76,
+          "queue_wait_ms": 7.89
+        },
+        {
+          "turbine": "fork_admitted",
+          "request_id": "39739dc7420a4614b85763ef",
+          "slot": 1,
+          "active_slots": 2,
+          "reused_tokens": 1070
+        },
+        {
+          "turbine": "checkpoint_restored",
+          "request_id": "b671e31204d04114b90135c1",
+          "slot": 0,
+          "restore_ms": 20.22,
+          "queue_wait_ms": 303.64
+        },
+        {
+          "turbine": "fork_admitted",
+          "request_id": "b671e31204d04114b90135c1",
+          "slot": 0,
+          "active_slots": 1,
+          "reused_tokens": 1070
+        },
+        {
+          "turbine": "checkpoint_restored",
+          "request_id": "a3332bee60434aa8b23f0658",
+          "slot": 1,
+          "restore_ms": 86.88,
+          "queue_wait_ms": 327.06
+        },
+        {
+          "turbine": "fork_admitted",
+          "request_id": "a3332bee60434aa8b23f0658",
+          "slot": 1,
+          "active_slots": 2,
+          "reused_tokens": 1070
+        },
+        {
+          "turbine": "checkpoint_dropped"
+        }
+      ],
+      "pair": 2
+    }
+  ]
+}

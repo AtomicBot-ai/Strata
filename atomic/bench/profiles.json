@@ -1,0 +1,54 @@
+{
+  "inkling": {
+    "args": [
+      "--serve",
+      "--native",
+      "$INKLING_MODEL",
+      "--draft",
+      "off",
+      "--kv",
+      "fp16",
+      "--max-context",
+      "24576",
+      "--chunk",
+      "128",
+      "--parallel",
+      "2"
+    ]
+  },
+  "qwen": {
+    "args": [
+      "--serve",
+      "--pack",
+      "$QWEN_PACK",
+      "--native",
+      "$QWEN_GGUF_1",
+      "--ple-gguf",
+      "$QWEN_GGUF_2",
+      "--expert-profile",
+      "$QWEN_PROFILE",
+      "--max-context",
+      "2048",
+      "--expert-cache",
+      "64",
+      "--batch",
+      "3",
+      "--prefill",
+      "auto",
+      "--spec",
+      "2",
+      "--suffix-draft",
+      "0",
+      "--mmap-experts"
+    ],
+    "env": {
+      "STRATA_METAL_STREAM": "1",
+      "STRATA_METAL_ARENA_GB": "6",
+      "STRATA_METAL_STREAM_FAKE": "0",
+      "STRATA_METAL_BATCH_ROWS": "1",
+      "STRATA_METAL_PREFETCH": "0",
+      "STRATA_METAL_PREFETCH2": "0",
+      "TURBINE_QWEN_FORK": "1"
+    }
+  }
+}

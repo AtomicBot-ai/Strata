@@ -46,7 +46,7 @@ def run(base, model, ordinary=False):
                          {"X-Turbine-Checkpoint": checkpoint["id"]} if checkpoint else {})
             answer = reply["choices"][0]["message"]["content"]
             return {"question": question, "answer": answer, "expected": expected,
-                    "success": expected in (answer or "").lower(), "request": reply["id"],
+                    "success": (answer or "").strip().lower() == expected, "request": reply["id"],
                     "completion_tokens": reply["usage"]["completion_tokens"]}
         with ThreadPoolExecutor(max_workers=4) as pool:
             results = list(pool.map(branch, QUESTIONS))

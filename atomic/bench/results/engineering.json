@@ -1,0 +1,507 @@
+{
+  "build": {
+    "upstream": "b28ca95e3e6847f2d5e317994f253b66716deeaa",
+    "candidate": "a5ac3d037ce4bc6494efd9eb558d62c6a6627154",
+    "platform": "27.2.1",
+    "architecture": "arm64",
+    "python": "3.11.11",
+    "engine_binaries": {
+      "strata": {
+        "sha256": "eeb621fa50ca1a8fbf38979c4505af610885cca0d36b99896f3ec1856f71c56b",
+        "dependencies": [
+          "/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore (compatibility version 1.2.0, current version 1223.10.17)",
+          "/System/Library/Frameworks/Metal.framework/Versions/A/Metal (compatibility version 1.0.0, current version 383.1.0)",
+          "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 5027.1.8)",
+          "/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2200.32.0)",
+          "/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.40.3)",
+          "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.1.8)",
+          "/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)"
+        ],
+        "min_macos": "15.0"
+      },
+      "strata-inkling": {
+        "sha256": "2abbb6a084a2bb3c0d35690fed2083afa0bf8c23b0b5b1727303be11a0f5d1b3",
+        "dependencies": [
+          "/System/Library/Frameworks/Metal.framework/Versions/A/Metal (compatibility version 1.0.0, current version 383.1.0)",
+          "/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 5027.1.8)",
+          "/System/Library/Frameworks/MetalPerformanceShaders.framework/Versions/A/MetalPerformanceShaders (compatibility version 1.0.0, current version 130.1.4)",
+          "/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2200.32.0)",
+          "/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.40.3)",
+          "/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 5027.1.8)",
+          "/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)"
+        ],
+        "min_macos": "27.2"
+      }
+    },
+    "hardware": "Apple M4 Max",
+    "unified_memory_gib": 48
+  },
+  "packaged_http": {
+    "ordinary": {
+      "role": "assistant",
+      "content": "Hello! How can I help you today?"
+    },
+    "demo": {
+      "mode": "native",
+      "tokens": 1070,
+      "prepare_s": 1.9513182920054533,
+      "elapsed_s": 2.68748958397191,
+      "results": [
+        {
+          "question": "Which host address does serve-inkling bind to?",
+          "answer": "127.0.0.1",
+          "expected": "127.0.0.1",
+          "success": true,
+          "request": "chatcmpl-116a0fd05d3948faae32488a",
+          "completion_tokens": 9
+        },
+        {
+          "question": "What TCP port does serve-inkling use by default?",
+          "answer": "8080",
+          "expected": "8080",
+          "success": true,
+          "request": "chatcmpl-978d23c4847b452f8b481974",
+          "completion_tokens": 4
+        },
+        {
+          "question": "Which KV data type does serve-inkling pass to the engine?",
+          "answer": "fp16",
+          "expected": "fp16",
+          "success": true,
+          "request": "chatcmpl-0f238900ce6b468fbc0bef6a",
+          "completion_tokens": 4
+        },
+        {
+          "question": "What value does serve-inkling pass to --chunk?",
+          "answer": "128",
+          "expected": "128",
+          "success": true,
+          "request": "chatcmpl-b12edfaed3294528b5c2cdb3",
+          "completion_tokens": 3
+        }
+      ]
+    },
+    "events": [
+      {
+        "turbine": "checkpoint_created",
+        "tokens": 1070,
+        "snapshot_bytes": 206672056
+      },
+      {
+        "turbine": "checkpoint_restored",
+        "request_id": "116a0fd05d3948faae32488a",
+        "slot": 1,
+        "restore_ms": 14.43,
+        "queue_wait_ms": 2.44
+      },
+      {
+        "turbine": "fork_admitted",
+        "request_id": "116a0fd05d3948faae32488a",
+        "slot": 1,
+        "active_slots": 1,
+        "reused_tokens": 1070
+      },
+      {
+        "turbine": "checkpoint_restored",
+        "request_id": "b12edfaed3294528b5c2cdb3",
+        "slot": 0,
+        "restore_ms": 102.43,
+        "queue_wait_ms": 14.7
+      },
+      {
+        "turbine": "fork_admitted",
+        "request_id": "b12edfaed3294528b5c2cdb3",
+        "slot": 0,
+        "active_slots": 2,
+        "reused_tokens": 1070
+      },
+      {
+        "turbine": "checkpoint_restored",
+        "request_id": "0f238900ce6b468fbc0bef6a",
+        "slot": 0,
+        "restore_ms": 19.35,
+        "queue_wait_ms": 326.67
+      },
+      {
+        "turbine": "fork_admitted",
+        "request_id": "0f238900ce6b468fbc0bef6a",
+        "slot": 0,
+        "active_slots": 2,
+        "reused_tokens": 1070
+      },
+      {
+        "turbine": "checkpoint_restored",
+        "request_id": "978d23c4847b452f8b481974",
+        "slot": 1,
+        "restore_ms": 3.25,
+        "queue_wait_ms": 505.39
+      },
+      {
+        "turbine": "fork_admitted",
+        "request_id": "978d23c4847b452f8b481974",
+        "slot": 1,
+        "active_slots": 2,
+        "reused_tokens": 1070
+      },
+      {
+        "turbine": "checkpoint_dropped"
+      }
+    ],
+    "checks": [
+      "tool call with shared tools",
+      "strict prefix rejection before SSE",
+      "model mismatch",
+      "unknown ID",
+      "single parent",
+      "SSE disconnect with pending deletion",
+      "next parent after cancellation",
+      "restart and disabled fallback"
+    ]
+  },
+  "qwen_http": {
+    "demo": {
+      "mode": "native",
+      "tokens": 808,
+      "prepare_s": 18.3589652919909,
+      "elapsed_s": 30.75577962497482,
+      "results": [
+        {
+          "question": "Which host address does serve-inkling bind to?",
+          "answer": "127.0.0.1",
+          "expected": "127.0.0.1",
+          "success": true,
+          "request": "chatcmpl-112192f6607d4235920c6d21",
+          "completion_tokens": 10
+        },
+        {
+          "question": "What TCP port does serve-inkling use by default?",
+          "answer": "8080",
+          "expected": "8080",
+          "success": true,
+          "request": "chatcmpl-fc2427f5580a446f968118dc",
+          "completion_tokens": 5
+        },
+        {
+          "question": "Which KV data type does serve-inkling pass to the engine?",
+          "answer": "fp16",
+          "expected": "fp16",
+          "success": true,
+          "request": "chatcmpl-7db03d8e455343c3b613f4c8",
+          "completion_tokens": 4
+        },
+        {
+          "question": "What value does serve-inkling pass to --chunk?",
+          "answer": "128",
+          "expected": "128",
+          "success": true,
+          "request": "chatcmpl-f1ecdea1dfe441b4a730f9c1",
+          "completion_tokens": 4
+        }
+      ]
+    },
+    "events": [
+      {
+        "turbine": "checkpoint_created",
+        "tokens": 808,
+        "snapshot_bytes": null
+      },
+      {
+        "turbine": "checkpoint_restored",
+        "request_id": "7db03d8e455343c3b613f4c8",
+        "slot": 0,
+        "restore_ms": 1.92,
+        "queue_wait_ms": 0.18
+      },
+      {
+        "turbine": "fork_admitted",
+        "request_id": "7db03d8e455343c3b613f4c8",
+        "slot": 0,
+        "active_slots": 1,
+        "reused_tokens": 808
+      },
+      {
+        "turbine": "checkpoint_restored",
+        "request_id": "112192f6607d4235920c6d21",
+        "slot": 1,
+        "restore_ms": 158.74,
+        "queue_wait_ms": 2873.21
+      },
+      {
+        "turbine": "fork_admitted",
+        "request_id": "112192f6607d4235920c6d21",
+        "slot": 1,
+        "active_slots": 2,
+        "reused_tokens": 808
+      },
+      {
+        "turbine": "checkpoint_restored",
+        "request_id": "f1ecdea1dfe441b4a730f9c1",
+        "slot": 0,
+        "restore_ms": 129.13,
+        "queue_wait_ms": 5716.87
+      },
+      {
+        "turbine": "fork_admitted",
+        "request_id": "f1ecdea1dfe441b4a730f9c1",
+        "slot": 0,
+        "active_slots": 2,
+        "reused_tokens": 808
+      },
+      {
+        "turbine": "checkpoint_restored",
+        "request_id": "fc2427f5580a446f968118dc",
+        "slot": 0,
+        "restore_ms": 127.92,
+        "queue_wait_ms": 9055.28
+      },
+      {
+        "turbine": "fork_admitted",
+        "request_id": "fc2427f5580a446f968118dc",
+        "slot": 0,
+        "active_slots": 2,
+        "reused_tokens": 808
+      },
+      {
+        "turbine": "checkpoint_dropped"
+      }
+    ]
+  },
+  "state_regressions": {
+    "inkling": {
+      "binary_sha256": "2abbb6a084a2bb3c0d35690fed2083afa0bf8c23b0b5b1727303be11a0f5d1b3",
+      "budget_refusal": [
+        "snapshot",
+        "unavailable",
+        "or",
+        "over",
+        "budget"
+      ],
+      "empty_refusal": [
+        "drop",
+        "existing",
+        "snapshot",
+        "or",
+        "check",
+        "source",
+        "and",
+        "budget"
+      ],
+      "long_parent_over_32mib": [
+        "snapshot",
+        "unavailable",
+        "or",
+        "over",
+        "budget"
+      ],
+      "permitted_payload_bytes": 16220412,
+      "replacement_refused": [
+        "drop",
+        "existing",
+        "snapshot",
+        "or",
+        "check",
+        "source",
+        "and",
+        "budget"
+      ],
+      "stale_refused": [
+        "invalid",
+        "snapshot",
+        "handle"
+      ],
+      "abort": [
+        "busy_refused",
+        "cancelled",
+        "dropped"
+      ],
+      "lifecycle_cycles": 110,
+      "retained_bytes": 0,
+      "samples": [
+        {
+          "footprint": 2524105680,
+          "peak_footprint": 2536491984,
+          "rss": 2350153728,
+          "pageins": 18272
+        },
+        {
+          "footprint": 2524105680,
+          "peak_footprint": 2536491984,
+          "rss": 2350153728,
+          "pageins": 18272
+        }
+      ],
+      "disabled_refusal": [
+        "native",
+        "fork",
+        "disabled"
+      ],
+      "status": "passed"
+    },
+    "qwen": {
+      "matched_tokens": 32,
+      "peak_bytes": 15792964888,
+      "reserved_slot_inaccessible": true,
+      "stale_handle_rejected": true,
+      "cancelled": true,
+      "drop_acknowledged": true,
+      "cycles": 26,
+      "retained_bytes": 0,
+      "samples": [
+        {
+          "footprint": 13440451960,
+          "peak_footprint": 15792964888,
+          "rss": 13326942208,
+          "pageins": 168702
+        },
+        {
+          "footprint": 13440451960,
+          "peak_footprint": 15792964888,
+          "rss": 13326942208,
+          "pageins": 168702
+        }
+      ]
+    },
+    "inkling_same_shape_tokens": [
+      239,
+      198,
+      197,
+      197,
+      197,
+      197
+    ]
+  },
+  "opencode": {
+    "client": "OpenCode 2.0.24",
+    "returncode": 0,
+    "answer": [
+      "8080"
+    ],
+    "tools": [
+      "glob",
+      "subagent"
+    ],
+    "hooks": [
+      {
+        "agent": "build",
+        "kind": "primary",
+        "session": "ses_de916794fffeghHQCzoahFauBp",
+        "tools": "48bdd7f7c88b31661c0dae460652c7aca5eb3cf7f05dad5e6a54bc7249040919",
+        "first": "2d083b4b85902a479c681c012d423c17ae46ec04cf39d51f70b3ae707d2ac269"
+      },
+      {
+        "agent": "title",
+        "kind": "title",
+        "session": "ses_de916794fffeghHQCzoahFauBp",
+        "tools": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "first": "ae7876249311aed10982998353b74a26c4d22780662bb0fbc230158ab0d67dee"
+      },
+      {
+        "agent": "build",
+        "kind": "primary",
+        "session": "ses_de916794fffeghHQCzoahFauBp",
+        "tools": "48bdd7f7c88b31661c0dae460652c7aca5eb3cf7f05dad5e6a54bc7249040919",
+        "first": "2d083b4b85902a479c681c012d423c17ae46ec04cf39d51f70b3ae707d2ac269"
+      },
+      {
+        "agent": "explore",
+        "kind": "primary",
+        "session": "ses_de916459dffei6sSrK4hqBGSVT",
+        "tools": "48bdd7f7c88b31661c0dae460652c7aca5eb3cf7f05dad5e6a54bc7249040919",
+        "first": "8bb94c3e0bde468ab583f1edff59a4c07f34aef8a6c3fec39aaeb73a5a907b89"
+      },
+      {
+        "agent": "explore",
+        "kind": "primary",
+        "session": "ses_de916459dffei6sSrK4hqBGSVT",
+        "tools": "48bdd7f7c88b31661c0dae460652c7aca5eb3cf7f05dad5e6a54bc7249040919",
+        "first": "8bb94c3e0bde468ab583f1edff59a4c07f34aef8a6c3fec39aaeb73a5a907b89"
+      },
+      {
+        "agent": "build",
+        "kind": "primary",
+        "session": "ses_de916794fffeghHQCzoahFauBp",
+        "tools": "48bdd7f7c88b31661c0dae460652c7aca5eb3cf7f05dad5e6a54bc7249040919",
+        "first": "2d083b4b85902a479c681c012d423c17ae46ec04cf39d51f70b3ae707d2ac269"
+      }
+    ]
+  },
+  "python_packages": {
+    "charset-normalizer": {
+      "version": "3.5.1",
+      "license": "MIT",
+      "included_in_zip": false
+    },
+    "requests": {
+      "version": "2.34.2",
+      "license": "Apache-2.0",
+      "included_in_zip": false
+    },
+    "numpy": {
+      "version": "2.4.6",
+      "license": "BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0",
+      "included_in_zip": false
+    },
+    "pillow": {
+      "version": "13.0.0",
+      "license": "MIT-CMU",
+      "included_in_zip": false
+    },
+    "tqdm": {
+      "version": "4.70.1",
+      "license": "MPL-2.0 AND MIT",
+      "included_in_zip": false
+    },
+    "urllib3": {
+      "version": "2.8.0",
+      "license": "MIT",
+      "included_in_zip": false
+    },
+    "PyYAML": {
+      "version": "6.0.3",
+      "license": "MIT",
+      "included_in_zip": false
+    },
+    "truststore": {
+      "version": "0.10.5",
+      "license": "MIT",
+      "included_in_zip": false
+    },
+    "Jinja2": {
+      "version": "3.1.6",
+      "license": "",
+      "included_in_zip": false
+    },
+    "MarkupSafe": {
+      "version": "3.0.3",
+      "license": "BSD-3-Clause",
+      "included_in_zip": false
+    },
+    "certifi": {
+      "version": "2026.10.19",
+      "license": "MPL-2.0",
+      "included_in_zip": false
+    },
+    "psutil": {
+      "version": "7.2.2",
+      "license": "BSD-3-Clause",
+      "included_in_zip": false
+    },
+    "regex": {
+      "version": "2026.9.10",
+      "license": "Apache-2.0 AND CNRI-Python",
+      "included_in_zip": false
+    },
+    "idna": {
+      "version": "3.20",
+      "license": "BSD-3-Clause",
+      "included_in_zip": false
+    }
+  },
+  "tokenizer_files_matched": 5,
+  "targeted_cases": [
+    "StateLifecycle (4 cases)",
+    "TestRealTemplatePrefixChain.test_with_tools_every_prompt_starts_with_the_one_before",
+    "BatchOwnership.test_a_cancel_in_the_middle_of_the_prompt_read_then_reuse",
+    "ChatToolResults.test_http_engine_receives_the_ordered_prompt"
+  ]
+}
