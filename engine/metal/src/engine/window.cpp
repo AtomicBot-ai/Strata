@@ -287,6 +287,7 @@ public:
     bool run_slots(const int* rows, int S, const int32_t* tokens, const int64_t* pos, int32_t* out, std::string& err);
     // slot b's state <-> the main one (the GPU is idle between windows): the running state and the first `upto` cells of K/V
     bool slot_copy(bool into_slot, int b, int64_t upto, bool kv_only, std::string& err);
+    void finish_pending_fold();
     void activate(int set);
     void set_max_t(int t) { max_t_ = std::min(t, MAXT); }
     // ---- the MTP draft layer (mtp.hpp's math on mac-kern's kernels; the MTP GGUF from tools/mtp_pack.py)
@@ -2275,7 +2276,8 @@ bool Window::slot_copy(bool into_slot, int b, int64_t upto, bool kv_only, std::s
     if (b < 0 || b >= n_slots()) { err = "metal window: no such batch slot"; return false; }
     activate(0);
     SeqSet& o = *sets_[(size_t) b + 1];
-    if (pend_fold_ > 0 || o.pend_fold > 0) { err = "metal window: a slot copy with a fold pending"; return false; }
+    finish_pending_fold();
+    if (o.pend_fold > 0) { err = "metal window: a slot copy with a fold pending"; return false; }
     if (into_slot && mrope_on() && o.mrope.bytes > 0) {
         // the slot's positions from the request's table: its cells [0, upto) as they are (the K/V rows hold them rotated
         // already), then the text after them, one position a cell on from the last one (a prompt never ends in an image,
@@ -2351,15 +2353,18 @@ void Window::bind_draft(strata::core::QsaState& st) {
     bind_qsa(st, mkq_[0], mvq_[0], mksc_[0], mvsc_[0], nullptr, nullptr, nullptr, max_cells_);
 }
 
+void Window::finish_pending_fold() {
+    if (pend_fold_ == 0) return;
+    std::vector<mtl::Dispatch> ds;
+    nb_ = false;
+    fold(ds, pend_fold_, 1 - hp_);
+    cx_->run_graph(ds);
+    pend_fold_ = 0;
+}
+
 bool Window::checkpoint_save(strata::core::ConversationCheckpoint& c, std::string& err) {
     (void) err;
-    if (pend_fold_ > 0) {   // the last commit's fold first: the checkpoint is the state after it
-        std::vector<mtl::Dispatch> ds;
-        nb_ = false;
-        fold(ds, pend_fold_, 1 - hp_);
-        cx_->run_graph(ds);
-        pend_fold_ = 0;
-    }
+    finish_pending_fold();
     // The checkpoint is the shared contract (core/conversation_state.cpp's conversation_state_sizes), the one the CUDA indexer
     // keeps: the raw tail is idx_block - 1 = 3 rows a layer and block_pos is a scratch int32 a layer.  This window's ring has
     // 4 rows (slot = cell % 4), but row 3 is written by the cell that completes the block before it is read, so it never
@@ -3137,13 +3142,7 @@ bool Window::prompt_chunk(const int32_t* tokens, int Tn, int64_t pos0, std::stri
     if (Tn < 1 || Tn > p.MT) { err = "metal prompt: chunk size out of range"; return false; }
     if (pos0 + Tn + 1 >= max_cells_) { err = "metal prompt: the chunk runs past the context"; return false; }
     if (stream_ && !st_->ready() && !stream_arena(err)) return false;
-    if (pend_fold_ > 0) {   // the last decode window's commit, still pending
-        std::vector<mtl::Dispatch> fd;
-        nb_ = false;
-        fold(fd, pend_fold_, 1 - hp_);
-        cx_->run_graph(fd);
-        pend_fold_ = 0;
-    }
+    finish_pending_fold();
     const int T = Tn;
     // ---- the embeddings into every stream, the PLE rows
     {

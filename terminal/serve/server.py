@@ -334,6 +334,7 @@ from serve import lastrun  # noqa: E402
 from serve import hy4_kind  # noqa: E402
 from serve import hy4_dialect  # noqa: E402
 from serve import inkling_kind  # noqa: E402
+from serve import turbine_state
 from serve import inkling_dialect  # noqa: E402
 from serve.webfiles import subtree_file as web_subtree_file  # noqa: E402
 from strata_control import engine_component  # noqa: E402
@@ -1017,6 +1018,11 @@ class StrataEngine:
         # it runs (INFO batch_slots=N: it may have fewer than asked, or none, when they do not fit)
         asked = next((int(args[args.index(k) + 1]) for k in ("--batch", "--slots", "--parallel") if k in args), 0)
         self.batch = int(self.info.get("batch_slots") or 0)
+        self.checkpoints = None
+        if self.batch == 2 and str(self.info.get("native_fork")) == "1" and self.inkling_engine:
+            self.checkpoints = turbine_state.Checkpoints(self, "inkling")
+        if self.batch == 2 and str(self.info.get("native_parent_fork")) == "1":
+            self.checkpoints = turbine_state.Checkpoints(self, "qwen")
         if asked and self.batch != asked:
             print(f"[strata] parallel requests: {asked} asked, the engine runs {self.batch or 'one at a time'} "
                   "(its log says why)", flush=True)
@@ -1640,6 +1646,9 @@ class StrataEngine:
             elif line.startswith("RESUME "):          # #4636: the reused prefix (the Monitor's Context gauge); read only there
                 try:
                     self.reused = int(line.split()[1])
+                    if getattr(self, "checkpoints", None) and not getattr(cancel, "_turbine_lease", None):
+                        turbine_state.event("prefix_resume", request_id=getattr(cancel, "_strata_request_id", None),
+                                            reused_tokens=self.reused)
                 except (IndexError, ValueError):
                     pass
             elif line.startswith("DONE"):
@@ -1647,6 +1656,9 @@ class StrataEngine:
                 self._last_done = line
             elif line.startswith("BADM "):
                 f = line.split()
+                expected = getattr(cancel, "_turbine_slot", None)
+                if expected and f[1:2] != [str(expected[1])]:
+                    raise self._silent("native fork admitted an unexpected slot")
                 self._ctl_result = ("badm", len(f) >= 3 and f[2] == "1")
                 return
             elif line.startswith("BCOK "):               # STRATA_COALESCE_PREFILL: <slot> <tokens>: the slot holds a waiting prompt
@@ -2119,6 +2131,9 @@ class StrataEngine:
                 first_at = time.time()
             pending.append(t)
         prompt, left = list(ids), int(max_new)
+        fork = getattr(cancel, "_turbine_lease", None)
+        if fork and (embeddings or self.checkpoints is not fork[0]):
+            raise turbine_state.CheckpointError(409, "checkpoint engine or input changed")
 
         def leg_keys() -> str:
             """The budget's hold counts what this pass still has: a leg that starts after `out` tokens of it holds the rest (at least one);
@@ -2131,7 +2146,7 @@ class StrataEngine:
         carry = {}          # #1869: the figures of the legs that ended in a hand-back to the solo path (the final DONE adds to them)
         yielded_legs = []    # prompt reads that gave way before producing output
         ok = yield from self._take_control(cancel, len(prompt), new=True,
-                                           prompt=prompt if (COALESCE_PREFILL > 1 and not embeddings) else None)
+                                           prompt=prompt if (COALESCE_PREFILL > 1 and not embeddings and not fork) else None)
         if not ok:
             self._release_preslot(cancel)
             return
@@ -2163,7 +2178,7 @@ class StrataEngine:
                     solo = alone and left > 1 and not embeddings and self._inkling_route(prompt) == 0
                 else:
                     solo = alone and left > 1 and not (not embeddings and self._turn_in_slot(prompt))
-                if solo:
+                if solo and not fork:
                     if getattr(self, "inkling_engine", False) and self.batch:
                         if (self.batch == 1 and not self._side_note_said and len(self.slot_held[0]) >= self.SIDE_REQUEST_MIN
                                 and len(prompt) < self.SIDE_REQUEST_MIN and self._slot_prefix(0, prompt, {}) < self.INKLING_ROUTE_MIN):
@@ -2321,7 +2336,14 @@ class StrataEngine:
                         raise QueueWaitExpired("the inference queue wait deadline expired; retry later")
                     self.slot_live[slot] = live
                     self._last_done = None                  # (#879: this admission's DONE decides below)
-                    if COALESCE_PREFILL > 1 and not embeddings:
+                    if fork:
+                        restore_start = time.monotonic()
+                        fork[0].restore(fork[1], slot, prompt)
+                        cancel._turbine_slot = (born, slot)
+                        turbine_state.event("checkpoint_restored", request_id=live["request_id"], slot=slot,
+                                            restore_ms=round((time.monotonic()-restore_start)*1000, 2),
+                                            queue_wait_ms=round((restore_start-cancel._turbine_start)*1000, 2))
+                    if COALESCE_PREFILL > 1 and not embeddings and not fork:
                         self._coalesce(cancel, prompt)
                     self._send(f"{head} {','.join(str(int(t)) for t in prompt)}")
                     if deadline is not None:
@@ -2340,7 +2362,7 @@ class StrataEngine:
 
                     def ask():        # as give_way above, for the slot this admission reads into
                         nonlocal asked
-                        if (not asked and not embeddings and yields < self.YIELDS_MAX and
+                        if (not fork and not asked and not embeddings and yields < self.YIELDS_MAX and
                                 self._shorter_waiting(len(prompt))):
                             self._send_for(born, f"BYIELD {slot}")
                             asked = True
@@ -2352,7 +2374,7 @@ class StrataEngine:
                     try:
                         for x in self._control(cancel, arrived, on_quiet=lambda: (ask(), note_progress()),
                                                want_lp=want_lp, lines_q=lines_q):
-                            while pending:
+                            while pending and not fork:
                                 t = pending.pop(0)
                                 out.append(t)
                                 yield t
@@ -2382,6 +2404,14 @@ class StrataEngine:
                     cont = bool(self._ctl_result and self._ctl_result[1])
                     admission_pending = cont
                     phase = "slot" if cont else "none"
+                    if fork and not cancel.is_set():
+                        reused = (self.last or {}).get("reused", 0)
+                        if reused < len(fork[1].ids):
+                            turbine_state.event("fork_rejected", request_id=live["request_id"],
+                                                reason="native_prefix_not_reused", reused_tokens=reused)
+                            raise turbine_state.CheckpointError(409, "engine did not reuse the restored prefix")
+                        turbine_state.event("fork_admitted", request_id=live["request_id"], slot=slot,
+                                            active_slots=sum(self.slot_busy), reused_tokens=reused)
                     while pending:
                         t = pending.pop(0)
                         out.append(t)
@@ -2431,7 +2461,7 @@ class StrataEngine:
                                 stop_sent = True
                             continue
                         yield t
-                        if not going_solo and not stop_sent and self._may_go_solo(int(max_new) - len(out), solo_again,
+                        if not fork and not going_solo and not stop_sent and self._may_go_solo(int(max_new) - len(out), solo_again,
                                                                                   embeddings):
                             self._send_for(born, f"BSTOP {slot}")   # alone now: on with the drafts (below)
                             going_solo = True
@@ -5851,6 +5881,29 @@ class Service:
 
     PREFIX_END = "\u0001strata-prefix-end\u0001"          # marks where a message's shared part ends in the rendered prompt
 
+    def prefix_history_ids(self, msgs, tools, kwargs, *, checkpoint=False):
+        """The ids the rendered `msgs` start with (a message's trailing marker cut at PREFIX_END when it is there)."""
+        marked, marked_tools, changed = mark_think_literals(msgs, tools, self.literals)
+        effort = kwargs.get("reasoning_effort")
+        off = kwargs.get("enable_thinking") is False        # render_prompt's rule for #458's effort_end
+        kw = ({k: v for k, v in kwargs.items() if k not in ("reasoning_effort", "enable_thinking")}
+              if self.effort_end and (off or effort not in (None, "", "xhigh", "high")) else dict(kwargs))
+        kw["add_generation_prompt"] = False
+        if self.inkling:
+            kw = inkling_dialect.template_kwargs(kw)
+            marked = inkling_dialect.prepare_messages(marked, has_tools=checkpoint and bool(tools),
+                                                       thinking=checkpoint and bool(kw["enable_thinking"]))
+        text = self.template.render(marked, tools=marked_tools, **kw)
+        if checkpoint and self.inkling:
+            text = inkling_dialect.strip_history_marker(text)
+        cut = -1 if checkpoint else text.find(self.PREFIX_END)
+        if cut >= 0:
+            text = text[:cut]
+        if changed:
+            text, plain = unmark_think_literals(text, self.literals)
+            return self.tok.encode(text, parse_special=True, plain=plain)
+        return self.tok.encode(text, parse_special=True)
+
     def resolve_prefix(self, spec, messages, tools, kwargs, ids, has_images=False) -> dict:
         """R1: `"strata_prefix"` marks the start of the prompt as a shared read-only prefix: a long document that many
         short questions follow.  Three ways to say where it ends: `{"messages": K}` (the first K messages), `{"message":
@@ -5881,26 +5934,6 @@ class Service:
                 n += 1
             return n
 
-        def head_ids(msgs):
-            """The ids the rendered `msgs` start with (a message's trailing marker cut at PREFIX_END when it is there)."""
-            marked, marked_tools, changed = mark_think_literals(msgs, tools, self.literals)
-            effort = kwargs.get("reasoning_effort")
-            off = kwargs.get("enable_thinking") is False        # render_prompt's rule for #458's effort_end
-            kw = ({k: v for k, v in kwargs.items() if k not in ("reasoning_effort", "enable_thinking")}
-                  if self.effort_end and (off or effort not in (None, "", "xhigh", "high")) else dict(kwargs))
-            kw["add_generation_prompt"] = False
-            if self.inkling:
-                marked = inkling_dialect.prepare_messages(marked)
-                kw = inkling_dialect.template_kwargs(kw)
-            text = self.template.render(marked, tools=marked_tools, **kw)
-            cut = text.find(self.PREFIX_END)
-            if cut >= 0:
-                text = text[:cut]
-            if changed:
-                text, plain = unmark_think_literals(text, self.literals)
-                return self.tok.encode(text, parse_special=True, plain=plain)
-            return self.tok.encode(text, parse_special=True)
-
         if "tokens" in spec:
             n = spec["tokens"]
         elif "messages" in spec:
@@ -5909,7 +5942,7 @@ class Service:
                 print(f"[strata] strata_prefix.messages={k} ignored: the request has {len(messages)} message(s) and the "
                       "prefix must leave at least the last one", flush=True)
                 return {}
-            head = head_ids(messages[:k])
+            head = self.prefix_history_ids(messages[:k], tools, kwargs)
             n = lcp(head, ids)
         else:
             i, chars = spec["message"], spec["chars"]
@@ -5918,7 +5951,7 @@ class Service:
                 print(f"[strata] strata_prefix ignored: message {i} has no text of {chars} characters", flush=True)
                 return {}
             cut = messages[:i] + [{**messages[i], "content": text[:chars] + self.PREFIX_END}]
-            head = head_ids(cut)
+            head = self.prefix_history_ids(cut, tools, kwargs)
             n = lcp(head, ids)
         if n < 1 or n >= len(ids) - 1:
             print(f"[strata] strata_prefix {what} ignored: it leaves no usable prefix of the {len(ids)}-token prompt "
@@ -6142,7 +6175,7 @@ class Service:
         par = bool(getattr(self.engine, "batch", 0))
         st = {} if par else self.status
         rate = collections.deque(maxlen=32) if par else self.rate
-        request_id = uuid.uuid4().hex[:12]
+        request_id = getattr(cancel, "_turbine_request_id", None) or uuid.uuid4().hex[:12]
         setattr(cancel, "_strata_request_id", request_id)
         deadline = time.monotonic() + self.queue_timeout_s if self.queue_timeout_s is not None else None
         if deadline is not None:
@@ -6929,7 +6962,8 @@ def prompt_progress(svc: Service):
 def openai_chunks(svc: Service, req: dict, ids, thinking, tools, max_new, cancel, run=None, force=None):
     """`run`: the events to send instead of Service.run's (run_with_mcp); its ("mcp", {...}) items become chunks with
     an empty delta and a `strata_mcp` field, which only the web app reads.  `force`: see Service.run."""
-    cid, created = "chatcmpl-" + uuid.uuid4().hex[:24], int(time.time())
+    cid = "chatcmpl-" + (getattr(cancel, "_turbine_request_id", None) or uuid.uuid4().hex[:24])
+    created = int(time.time())
     model = svc.model_for(req)
     # llama.cpp's flag, and its default: a client that wants prompt progress asks for it, and nothing changes for one
     # that does not.  Strata already sends a keep-alive comment on every PP line, so this only fills that line in.
@@ -7470,6 +7504,13 @@ def make_handler(svc: Service):
             path = self.path.split("?")[0].rstrip("/")
             if path.startswith("/v1/") and self._foreign_page(body=False):
                 return
+            if path == "/v1/turbine/capabilities":
+                if self._authorized() and self._turbine_local():
+                    state = getattr(svc.engine, "checkpoints", None)
+                    enabled = bool(state and state.alive())
+                    self._json(200, {"native_fork": enabled, "backend": state.family if enabled else None,
+                                     "active_slots": getattr(svc.engine, "batch", 0), "max_parents": int(enabled)})
+                return
             if path.startswith("/tool-media/"):
                 if not self._authorized():
                     return
@@ -7884,6 +7925,41 @@ def make_handler(svc: Service):
             else:
                 self._json(404, {"error": {"message": "not found"}})
 
+        def _turbine_local(self):
+            if self.server.server_address[0] not in ("127.0.0.1", "::1") or self._foreign_origin():
+                self._json(403, {"error": {"message": "native checkpoints require a local trusted listener"}})
+                return False
+            return True
+
+        def _checkpoint_state(self, status):
+            state = getattr(svc.engine, "checkpoints", None)
+            if not state or not state.alive():
+                raise turbine_state.CheckpointError(status, "no native checkpoint on this engine")
+            return state
+
+        def _checkpoint_identity(self, req):
+            if req.get("model") != svc.model:
+                raise turbine_state.CheckpointError(409, "checkpoint requires the exact loaded model name")
+            return (svc.model, svc.tok, svc.template)
+
+        def do_DELETE(self):
+            path = self.path.partition("?")[0]
+            if not path.startswith("/v1/turbine/checkpoints/"):
+                self.send_error(404)
+                return
+            if self._foreign_page(body=False) or not self._authorized() or not self._turbine_local():
+                return
+            try:
+                state = self._checkpoint_state(404)
+                status = state.delete(path.rsplit("/", 1)[1], self.key_id)
+                if status == 202:
+                    self._json(202, {"status": "pending_drop"})
+                else:
+                    self.send_response(204)
+                    self.end_headers()
+            except turbine_state.CheckpointError as e:
+                self._json(e.status, {"error": {"message": str(e)}})
+
         def do_POST(self):
             try:
                 self._post()
@@ -7897,6 +7973,13 @@ def make_handler(svc: Service):
             path = V1_V1_ALIASES.get(path, path)         # an Anthropic client given ".../v1" as its base posts /v1/v1/messages
             if path.startswith("/v1/") and self._foreign_page():
                 return
+            checkpoint_id = self.headers.get("X-Turbine-Checkpoint")
+            if checkpoint_id is not None or path == "/v1/turbine/checkpoints":
+                if not self._turbine_local():
+                    return
+                if checkpoint_id is not None and path != "/v1/chat/completions":
+                    self._json(400, {"error": {"message": "checkpoint header requires chat/completions"}})
+                    return
             if path == "/settings":
                 self._settings()
                 return
@@ -7936,7 +8019,7 @@ def make_handler(svc: Service):
                 return
             reserved = False
             try:
-                if path in ("/v1/chat/completions", "/v1/messages", "/v1/responses"):
+                if path in ("/v1/chat/completions", "/v1/messages", "/v1/responses", "/v1/turbine/checkpoints"):
                     reserved = svc.reserve_inference()
                     if reserved is None:
                         error = {"type": "server_error", "code": "server_draining",
@@ -7955,6 +8038,36 @@ def make_handler(svc: Service):
                 req = json.loads(self._body() or b"{}")
                 if not isinstance(req, dict):
                     raise ValueError("send a JSON object")
+                if path == "/v1/turbine/checkpoints":
+                    state = self._checkpoint_state(409)
+                    identity = self._checkpoint_identity(req)
+                    req = svc.with_shared(req, "openai")
+                    messages, tools, kw = openai_to_messages(req)
+                    if tool_choice_of(req.get("tool_choice"))[0] == "none":
+                        tools = None
+                    require_messages(messages)
+                    if any(not isinstance(m.get("content"), str) for m in messages):
+                        raise ValueError("checkpoint creation requires text messages")
+                    ids = svc.prefix_history_ids(messages, tools, kw, checkpoint=True)
+                    if not 0 < len(ids) < svc.engine.max_context:
+                        raise ValueError("checkpoint prefix exceeds context or is empty")
+                    cancel = threading.Event()
+                    self._watch_client(cancel)
+                    gate = svc.key_limits
+                    if gate is not None:
+                        deadline = None if svc.queue_timeout_s is None else time.monotonic() + svc.queue_timeout_s
+                        gate.acquire(self.key_id, cancel=cancel, deadline=deadline)
+                    try:
+                        created = state.create(ids, self.key_id, identity)
+                    finally:
+                        if gate is not None:
+                            gate.release(self.key_id)
+                    try:
+                        self._json(201, created)
+                    except (ConnectionError, TimeoutError):
+                        state.delete(created["id"], self.key_id)
+                        raise
+                    return
                 if path.startswith("/v1/responses/"):        # retrieve/delete/cancel/compact: nothing is stored
                     self._json(404, responses_error_body("this server keeps no responses (stateless); send the "
                                                          "whole conversation to POST /v1/responses", code="not_found"))
@@ -8032,6 +8145,9 @@ def make_handler(svc: Service):
                     self._images(req)
                 else:
                     self._json(404, {"error": {"message": "not found"}})
+            except turbine_state.CheckpointError as e:
+                turbine_state.event("fork_rejected", status=e.status, reason=str(e))
+                self._json(e.status, {"error": {"type": "checkpoint_error", "message": str(e)}})
             except EngineNonFinite as e:                    # #879, twice: not the request's fault
                 print(f"[strata] 503: {e}", flush=True)
                 self._json(503, responses_error_body(str(e), "server_error") if path == "/v1/responses"
@@ -8090,6 +8206,11 @@ def make_handler(svc: Service):
                 self._json(500, responses_error_body(message, "server_error") if path == "/v1/responses"
                            else {"error": {"type": "server_error", "message": message}})
             finally:
+                cancel = self.cancel_event
+                if getattr(cancel, "_turbine_lease", None):
+                    state, parent = cancel._turbine_lease
+                    cancel._turbine_lease = None
+                    state.finish(parent, getattr(cancel, "_turbine_slot", None))
                 if reserved:
                     svc.release_inference()
                 svc.drop_embeddings()                        # the images' file of a request that never got to run()
@@ -8349,6 +8470,9 @@ def make_handler(svc: Service):
             bias_api.normalize(req.get("logit_bias"), len(getattr(svc.tok, "tokens", ())) or None)
             messages, tools, kw = openai_to_messages(req)
             require_messages(messages)                # an empty conversation is a 400, as OpenAI answers it, not a reply to nothing
+            if self.headers.get("X-Turbine-Checkpoint") is not None and any(
+                    not isinstance(m.get("content"), str) for m in messages):
+                raise ValueError("native checkpoint branches require text messages")
             self._no_local_images(messages)
             if tool_choice_of(req.get("tool_choice"))[0] == "none":   # as the Responses route: no tools are offered
                 tools = None
@@ -8398,6 +8522,14 @@ def make_handler(svc: Service):
             cancel = threading.Event()
             self._watch_client(cancel)                       # #430 #431 (#1999: before prepare, which can take long)
             ids, thinking, max_new = svc.prepare(messages, tools, kw, max_new, force=force, req=req, cancel=cancel)
+            checkpoint = self.headers.get("X-Turbine-Checkpoint")
+            if checkpoint is not None:
+                state = self._checkpoint_state(404)
+                identity = self._checkpoint_identity(req)
+                parent = state.acquire(checkpoint, self.key_id, identity, ids)
+                cancel._turbine_lease = (state, parent)
+                cancel._turbine_start = time.monotonic()
+                cancel._turbine_request_id = uuid.uuid4().hex[:24]
             _debug_req("openai", req, messages, tools, max_new, thinking, len(ids))
             run = run_with_mcp(svc, svc.mcp, messages, tools, kw, ids, thinking, max_new, max_req, req, cancel,
                                {t["name"] for t in extra}) if use_mcp else None

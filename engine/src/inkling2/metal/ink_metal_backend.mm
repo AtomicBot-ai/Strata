@@ -1,3 +1,4 @@
+#include <sys/mman.h>
 // engine/src/inkling2/metal/ink_metal_backend.mm - InkBackend plugin for Apple Silicon Metal (strata-inkling)
 // MIT License - Copyright (c) 2026 Strata contributors
 #include "../ink_backend.h"
@@ -196,6 +197,62 @@ public:
             const size_t D = (size_t)mod_.man.c.hidden;
             std::memcpy(runner_.dsp_frnn_slot.as<float>() + (size_t)slot * D, frnn_snaps_[slot].data(), D * 4);
         }
+    }
+
+    std::unique_ptr<InkPrefixCheckpoint> save_prefix(int slot, int tokens, size_t budget) override {
+        if (runner_.use_dspark || kv_dtype_ != KvDtype::FP16 || (slot < 0 || slot >= runner_.max_slots) ||
+            tokens <= 0 || tokens >= runner_.max_ctx) return nullptr;
+        // forward_batch has finished on the GPU when the idle server accepts SAVE.
+        // Keep the populated physical ring rows, including rows a longer sibling can overwrite.
+        struct Saved final : InkPrefixCheckpoint {
+            struct Slice {
+                uint8_t* base;
+                size_t slot_stride;
+                size_t offset;
+                size_t length;
+            };
+            ink_metal::InkMetalRunner& runner;
+            ink_metal::InkMetalRunner::SlotSconvSnap conv;
+            std::vector<Slice> kv;
+            uint8_t* storage = nullptr;
+            size_t storage_size = 0;
+            ~Saved() override { if (storage) munmap(storage, storage_size); }
+            explicit Saved(ink_metal::InkMetalRunner& r) : runner(r) {}
+            void restore(int destination) const override {
+                for (const auto& slice : kv)
+                    std::memcpy(slice.base + destination * slice.slot_stride, storage + slice.offset, slice.length);
+                runner.restore_slot(destination, conv);
+            }
+        };
+        auto saved = std::make_unique<Saved>(runner_);
+        const auto& c = mod_.man.c;
+        const size_t row_bytes = (size_t)c.n_kv * c.head_dim * sizeof(uint16_t);
+        // Two KV convolution histories and two hidden-state histories, three rows each.
+        const size_t conv_bytes = runner_.sc_hist_k.empty() ? 0 :
+            6ull * c.n_visits * (size_t(c.n_kv) * c.head_dim + c.hidden) * sizeof(float);
+        if (conv_bytes > budget) return nullptr;
+        saved->payload_bytes = conv_bytes;
+        for (int v = 0; v < c.n_visits; ++v) {
+            const size_t count = std::min(tokens, runner_.visit_kv_stride[v]) * row_bytes;
+            for (auto* buf : {&runner_.kv_k[v], &runner_.kv_v[v]}) {
+                const size_t stride = row_bytes * runner_.visit_kv_stride[v];
+                auto* base = buf->as<uint8_t>();
+                if (count > budget - saved->payload_bytes) return nullptr;
+                saved->kv.push_back({base, stride, saved->storage_size, count});
+                saved->storage_size += count;
+                saved->payload_bytes += count;
+            }
+        }
+        // Release the checkpoint's unified-memory pages at DROP, including short,
+        // repeated snapshots which otherwise fill independent malloc size classes.
+        runner_.snapshot_slot(slot, saved->conv);
+        void* region = mmap(nullptr, saved->storage_size, PROT_READ | PROT_WRITE,
+                            MAP_PRIVATE | MAP_ANON, -1, 0);
+        if (region == MAP_FAILED) return nullptr;
+        saved->storage = static_cast<uint8_t*>(region);
+        for (const auto& slice : saved->kv)
+            std::memcpy(saved->storage + slice.offset, slice.base + slot * slice.slot_stride, slice.length);
+        return saved;
     }
 
     // Prompt-end conversation checkpoint (#6627), the same contract as the CUDA / HIP / CPU backends: save_prompt_checkpoint(slot, n)

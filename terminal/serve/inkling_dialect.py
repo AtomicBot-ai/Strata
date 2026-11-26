@@ -517,6 +517,11 @@ def _mark_forced_thinking(messages: list[dict]) -> list[dict]:
     return out
 
 
+def strip_history_marker(prompt: str) -> str:
+    """Restore the empty thinking turn after rendering the template."""
+    return prompt.replace(_EMPTY_THINK_MARK, "")
+
+
 def finish_prompt(prompt: str, *, has_tools: bool = False, forced: bool = False, thinking: bool = False) -> str:
     """Append an explicit non-thinking turn opener to a rendered Inkling-2-Mini prompt (#6612, #6620, #6627).
 
@@ -531,8 +536,7 @@ def finish_prompt(prompt: str, *, has_tools: bool = False, forced: bool = False,
     With `thinking` (a level above 0) nothing is appended: the model opens its own thinking turn, then its answer or a call.
     Idempotent if the prompt already carries an opener or when a forced tool-call opener will be appended.
     """
-    if _EMPTY_THINK_MARK in prompt:
-        prompt = prompt.replace(_EMPTY_THINK_MARK, "")
+    prompt = strip_history_marker(prompt)
     if not prompt or forced or thinking:
         return prompt
     empty_think = f"{MSG_MODEL}{CONTENT_THINK}{END_MSG}"
