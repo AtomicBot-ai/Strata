@@ -1,3 +1,4 @@
+#include <sstream>
 // engine/src/inkling2/ink_serve.h - Continuous-Batching (1..64 slots) `--serve` Protocol Engine for strata-inkling
 // Speaks Strata's native line protocol (INFO / READY / GEN / BGEN / BCO / STOP / BSTOP / BYIELD / QUIT -> PP / T / DONE / BADM / BT / BDONE / BCOK / IMG / ERR)
 // PLUS extended protocol commands (HELLO / GENERATE <req_id> / CANCEL <req_id> / STATS) on the same non-blocking stdin loop.
@@ -274,6 +275,7 @@ inline bool detect_repetition_loop(const std::vector<int32_t>& gen_ids) noexcept
 }
 
 struct ParsedGen {
+    std::vector<int32_t> teacher;
     std::string cmd;      // GEN, BGEN, GENERATE
     int slot = 0;         // for BGEN <slot> ...
     std::string req_id;   // for GENERATE <req_id> ...
@@ -364,6 +366,9 @@ inline bool parse_gen_cmd(const std::string& line, ParsedGen& r, std::string& er
         }
         else if (key == "prefill") r.prefill_only = (d != 0.0);
         else if (key == "slot_read") r.slot_read = (d != 0.0);
+        else if (key == "teacher" && std::getenv("STRATA_SCALING_LAB")) {
+            if (!parse_id_list(val, r.teacher, err)) return false;
+        }
         else if (key == "ckpt") r.no_ckpt = (d == 0.0);
         else if (key == "image") r.images.push_back(pct_decode(val));
         else if (key == "hold") {
@@ -440,6 +445,7 @@ private:
 };
 
 struct ActiveReq {
+    std::vector<int32_t> teacher;
     bool active = false;
     bool is_solo = false;       // GEN vs BGEN / GENERATE
     bool is_ext_gen = false;    // GENERATE <req_id>
@@ -604,6 +610,12 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
     };
 
     auto prepare_req = [&](const ParsedGen& pg, ActiveReq& rq, std::string& err) -> bool {
+        rq.teacher = pg.teacher;
+        if (!rq.teacher.empty() && (use_dspark || rq.teacher.size() + 1 != (size_t)pg.max_new ||
+            std::any_of(rq.teacher.begin(), rq.teacher.end(), [&](int t){ return t < 0 || t >= V || is_stop_tok(t); }))) {
+            err = "invalid teacher trajectory";
+            return false;
+        }
         rq.active = true;
         rq.is_solo = (pg.cmd == "GEN");
         rq.is_ext_gen = (pg.cmd == "GENERATE");
@@ -736,9 +748,41 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
         return true;
     };
 
+    const bool lab = std::getenv("STRATA_SCALING_LAB") && !use_dspark && P <= 2 &&
+        std::string(backend.backend_name()) == "metal" && cfg.bopts.kv_dtype == KvDtype::FP16 && cfg.vision_path.empty();
+    bool endpoint_logits = false;
+    std::unique_ptr<InkPrefixCheckpoint> saved;
+    std::vector<int32_t> saved_ids;
     bool quit_requested = false;
     auto handle_line = [&](const std::string& line) -> bool {
         if (line.empty()) return true;
+        if (lab && line == "LABLOGITS") { endpoint_logits = true; proto("OK"); return true; }
+        if (lab && line == "LABDROP") { saved.reset(); saved_ids.clear(); proto("DROPPED"); return true; }
+        if (lab && (line.rfind("LABSAVE ", 0) == 0 || line.rfind("LABRESTORE ", 0) == 0)) {
+            std::istringstream input(line);
+            std::string op, extra;
+            int slot = -1;
+            if (!(input >> op >> slot) || input >> extra || slot < 0 || slot >= P || reqs[slot].active) {
+                proto("ERR invalid or busy slot");
+                return true;
+            }
+            auto& rq = reqs[slot];
+            if (op == "LABSAVE") {
+                auto state = backend.save_prefix(slot, (int)rq.cached_prefix.size());
+                if (!state) { proto("ERR cannot save"); return true; }
+                saved = std::move(state);
+                saved_ids = rq.cached_prefix;
+                proto("SAVED %zu %zu", saved_ids.size(), saved->payload_bytes + saved_ids.size() * sizeof(int32_t));
+            } else {
+                if (!saved) { proto("ERR no checkpoint"); return true; }
+                saved->restore(slot);
+                rq.cached_prefix = saved_ids;
+                rq.prompt_ckpt_prefix.clear();
+                rq.shared_prefix.clear();
+                proto("RESTORED %zu", saved_ids.size());
+            }
+            return true;
+        }
         if (line == "QUIT") { quit_requested = true; return false; }
         if (line == "HELLO") {
             proto("HELLO ok engine=strata-inkling-%s arch=inkling2_loop backend=%s max_ctx=%d parallel=%d",
@@ -1063,7 +1107,7 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
         const int n_want = batch.count_logits();
         // Candidate rows (the 128 best logits of each wanted row, exact) instead of the full 200058-float rows, when the backend can and
         // no wanted slot needs its whole row (a penalty changes logits anywhere in it).  Many slots: 64 rows are 51 MB per step otherwise.
-        bool use_cand = cand_ok && n_want > 0 && backend.supports_candidates();
+        bool use_cand = !endpoint_logits && cand_ok && n_want > 0 && backend.supports_candidates();
         for (int wi = 0; use_cand && wi < n_want; ++wi) if (reqs[logit_slots[wi]].s.penalties()) use_cand = false;
         std::string ferr;
         CandRows cand;
@@ -1167,6 +1211,16 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
                 ? sample_candidates(cand.val.data() + static_cast<size_t>(wi) * InkBackend::kInkCandidates,
                                     cand.idx.data() + static_cast<size_t>(wi) * InkBackend::kInkCandidates, V, rq.s, rq.rng)
                 : sample_logits(lg, V, rq.s, rq.hist, rq.rng);
+            if (rq.generated < (int)rq.teacher.size()) tok = rq.teacher[rq.generated];
+            if (endpoint_logits && lg && rq.generated + 1 == rq.max_new) {
+                static constexpr char hex[] = "0123456789abcdef";
+                const auto* bytes = reinterpret_cast<const unsigned char*>(lg);
+                std::string out(2 * V * sizeof(float), '0');
+                for (size_t j = 0; j < out.size()/2; ++j) {
+                    out[2*j] = hex[bytes[j] >> 4]; out[2*j+1] = hex[bytes[j] & 15];
+                }
+                std::cout << "LOGITS " << rq.req_id << " " << out << std::endl;
+            }
             rq.hist.push_back(tok);
             rq.gen_ids.push_back(tok);
             rq.next_tok = tok;
