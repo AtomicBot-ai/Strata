@@ -16190,6 +16190,11 @@ int main(int argc, char** argv) {
             parent_slot_enabled = true;
         }
         const int request_slots = parent_slot_enabled ? parent_slot : std::max(o.batch, 0);
+        // Keep the same physical sessions and admission limit for a matched control.
+        const char* auto_parent = std::getenv("TURBINE_QWEN_AUTO_PARENT");
+        const bool auto_parent_enabled = parent_slot_enabled && (!auto_parent || std::string(auto_parent) != "0");
+        const char* snap_trace = std::getenv("TURBINE_QWEN_SNAPSHOT_TRACE");
+        const bool trace_parent = parent_slot_enabled && snap_trace && std::string(snap_trace) == "1";
         // what the server's Monitor tab shows (servers before 0.1.8 skip unknown lines until READY)
         {
             size_t free_b = 0, total_b = 0;
@@ -19460,7 +19465,7 @@ int main(int argc, char** argv) {
                                  k + 1, (long long) (k < now.size() ? now[k].start : -1));
                 }
             }
-            const bool automatic = parent_slot_enabled && parent_ids.empty() && !geni && req_imgs.empty() &&
+            const bool automatic = auto_parent_enabled && parent_ids.empty() && !geni && req_imgs.empty() &&
                                    o.prompt_cache_root > 0;
             const bool parent_match = automatic && parent_cvec == want_cvec &&
                                       (int64_t) automatic_ids.size() > std::max(resume, slot_tokens) &&
@@ -19956,6 +19961,7 @@ int main(int argc, char** argv) {
                 return 1;
             }
             if (parent_match && !incoming && !borrow) {
+                const auto copy_start = Clock::now();
                 if (!copy_parent_state(false, automatic_ids, err)) {
                     std::fprintf(stderr, "automatic parent restore failed: %s\n", err.c_str());
                     return 1;
@@ -19970,6 +19976,17 @@ int main(int argc, char** argv) {
                 resume = (int64_t) live.size();
                 from_live = true;
                 std::fprintf(stderr, "turbine: automatic parent restored tokens=%lld\n", (long long) resume);
+                if (trace_parent)
+                    std::fprintf(stderr, "turbine: snapshot_restore slot=%d tokens=%lld ms=%.3f\n", admit_slot,
+                                 (long long) resume, std::chrono::duration<double, std::milli>(Clock::now() - copy_start).count());
+            } else if (trace_parent && auto_parent_enabled) {
+                size_t lcp = 0;
+                while (lcp < automatic_ids.size() && lcp < ids.size() && automatic_ids[lcp] == ids[lcp]) ++lcp;
+                const char* why = !automatic ? "ineligible" : automatic_ids.empty() ? "empty"
+                    : parent_cvec != want_cvec ? "configuration" : lcp < automatic_ids.size() ? "prefix"
+                    : automatic_ids.size() >= ids.size() ? "no_suffix" : "other_cache";
+                std::fprintf(stderr, "turbine: snapshot_miss slot=%d reason=%s root=%zu lcp=%zu\n",
+                             admit_slot, why, automatic_ids.size(), lcp);
             }
             if (slot_source >= 0) {
                 lent_slot = -1;   // (a longer start than the main session's)
@@ -21726,6 +21743,7 @@ int main(int argc, char** argv) {
                 at = to;
                 if (to == auto_at) {
                     std::vector<int32_t> prefix(ids.begin(), ids.begin() + to);
+                    const auto copy_start = Clock::now();
                     if (!copy_parent_state(true, prefix, err)) {
                         std::fprintf(stderr, "automatic parent save failed: %s\n", err.c_str());
                         return 1;
@@ -21733,6 +21751,9 @@ int main(int argc, char** argv) {
                     automatic_ids.swap(prefix);
                     parent_cvec = want_cvec;
                     std::fprintf(stderr, "turbine: automatic parent saved tokens=%lld\n", (long long) to);
+                    if (trace_parent)
+                        std::fprintf(stderr, "turbine: snapshot_save slot=%d tokens=%lld ms=%.3f\n", admit_slot,
+                                     (long long) to, std::chrono::duration<double, std::milli>(Clock::now() - copy_start).count());
                 }
                 if ((to == turn_at || to == root_at || to == message_at || to == pin_at) &&
                     !checkpoint_at(to, nullptr, to == message_at && to != turn_at && to != root_at && to != pin_at)) {   // the tail kind leaves first
