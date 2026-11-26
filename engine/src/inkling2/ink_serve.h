@@ -476,6 +476,9 @@ struct ActiveReq {
     bool admitted = false;
     bool slot_read = false;
     // STRATA_INK_SPEC=adapt governor state (measurement experiment, see run_serve_loop)
+    int rounds = 0, ordinary = 0, cooldown = 0, probes = 0;
+    uint64_t policy_request = 0;
+    double observed_ms = 0.0;
     int gov_plain_left = 0;    // plain decode steps still to run before the next speculative probe
     int gov_calib_left = 0;    // plain steps to run first to learn what one plain step costs
     int gov_win_steps = 0;     // speculative steps in the current window
@@ -514,6 +517,22 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
     // steps: the smoothed tokens per step / (spec step ms / plain step ms) below 0.93 turns drafting off for 40 plain steps, then it probes again. The plain step
     // time is measured on the first 4 decode steps of the first request and refreshed by every plain step after that.
     const bool spec_adapt = (spec_env && std::string(spec_env) == "adapt") || cfg.bopts.spec_adapt;
+    auto enabled = [](const char* name) { auto* v = std::getenv(name); return v && std::string(v) == "1"; };
+    const bool measure_cost = spec_adapt && enabled("FORKSPEC_MEASURE_COST");
+    const bool warm_four = spec_adapt && enabled("FORKSPEC_WARM_FOUR");
+    const bool trace_steps = enabled("FORKSPEC_POLICY_TRACE");
+    uint64_t admission_id = 0;
+    auto ordinary_step = [&](ActiveReq& rq, bool cooldown, double ms) {
+        ++rq.ordinary;
+        if (cooldown) ++rq.cooldown;
+        if (rq.gov_calib_left) ++rq.probes;
+        if (trace_steps) std::fprintf(stderr, "plain request=%llu slot=%d pos=%d path=%s calib=%d ms=%.4f\n",
+            (unsigned long long)rq.policy_request, rq.slot, rq.cur_pos, cooldown ? "fused_cooldown" : "ordinary_forward", rq.gov_calib_left, ms);
+        if (measure_cost && rq.ordinary > 1 && std::isfinite(ms) && ms > 0.0) {
+            rq.observed_ms = rq.observed_ms ? 0.9 * rq.observed_ms + 0.1 * ms : ms;
+            backend.set_plain_cost(rq.slot, rq.observed_ms);
+        }
+    };
     double gov_t_plain = 0.0, gov_t_spec = 0.0;
     // one speculative step (the greedy tree step or the sampled block step) took `ms` and produced `n_emit` tokens
     auto gov_step = [&](ActiveReq& rq, int n_emit, double ms) {
@@ -592,6 +611,8 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
 
     auto finish_req = [&](ActiveReq& rq, const char* reason) {
         const double dec_ms = (rq.decode_t0 > 0.0) ? (now_s() - rq.decode_t0) * 1000.0 : 0.0;
+        std::fprintf(stderr, "factor request=%llu rounds=%d plain=%d probes=%d cooldown=%d ema_ms=%.4f\n",
+                     (unsigned long long)rq.policy_request, rq.rounds, rq.ordinary, rq.probes, rq.cooldown, rq.observed_ms);
         if (rq.is_solo) {
             // Emit full 9-field DONE line so server.py _parse_done() records drafts_accepted, drafts_offered, reused (#6633, #6627)!
             proto("DONE %d %d %.1f %.1f %s %d %d %d",
@@ -746,7 +767,11 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
         rq.hist = rq.prompt_ids;
         rq.next_tok = -1;
         rq.gov_plain_left = 0; rq.gov_win_steps = 0; rq.gov_win_emit = 0; rq.gov_gain = -1.0;
-        rq.gov_calib_left = (spec_adapt && gov_t_plain <= 0.0) ? 4 : 0;
+        rq.policy_request = ++admission_id;
+        rq.rounds = rq.ordinary = rq.cooldown = rq.probes = 0;
+        rq.observed_ms = 0.0;
+        backend.set_plain_cost(rq.slot, 0.0);
+        rq.gov_calib_left = (spec_adapt && (gov_t_plain <= 0.0 || warm_four)) ? 4 : 0;
         return true;
     };
 
@@ -965,6 +990,8 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
                     return 1;
                 }
                 if (n_emit > 0) {
+                    if (backend.last_step_was_plain()) ordinary_step(rq, true, (now_s() - gov_t0) * 1000);
+                    else ++rq.rounds;
                     rq.drafts_offered += drafted;
                     if (spec_adapt) gov_step(rq, n_emit, (now_s() - gov_t0) * 1000.0);
                     int kept = 0;
@@ -1018,6 +1045,7 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
                     proto("ERR fatal GPU error: %s", ferr.c_str());
                     return 1;
                 }
+                ++rq.rounds;
                 rq.drafts_offered += nd;
                 int accepted = 0;
                 bool done = false;
@@ -1261,6 +1289,8 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
             rq.next_tok = tok;
             ++rq.generated;
 
+            if (!just_finished_prefill && n_active == 1 && n_want == 1)
+                ordinary_step(rq, false, (now_s() - t_step0) * 1000);
             const bool stop = is_stop_tok(tok);
             const bool hit_len = (rq.generated >= rq.max_new) || (rq.cur_pos + 1 >= eff_max_ctx);
             const bool hit_hold = (rq.s.hold_budget > 0 && rq.generated >= rq.s.hold_budget && tok != rq.s.hold_token_id);

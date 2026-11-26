@@ -158,6 +158,9 @@ public:
         return 0;
     }
 
+    virtual void set_plain_cost(int, double) {}
+    virtual bool last_step_was_plain() const { return false; }
+
     // Optional fused on-device greedy speculative step (W=4 Adaptive Beam Tree + zero-logits-D2H verify + commit).
     // Returns n_emit in 1..min(8, max_emit) on success, 0 to fall back to dspark_draft + forward_batch, or -1 on error.
     virtual int dspark_spec_step_greedy(
