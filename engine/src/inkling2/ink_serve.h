@@ -749,9 +749,8 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
         rq.hist = rq.prompt_ids;
         rq.next_tok = -1;
         rq.gov_plain_left = 0; rq.gov_win_steps = 0; rq.gov_win_emit = 0; rq.gov_gain = -1.0;
-        const bool probe = measured_cost && rq.s.greedy() && !rq.s.penalties();
         if (measured_cost) backend.observe_plain_step(rq.slot, 0.0);
-        rq.gov_calib_left = (spec_adapt && (gov_t_plain <= 0.0 || probe)) ? 4 : 0;
+        rq.gov_calib_left = (spec_adapt && gov_t_plain <= 0.0) ? 4 : 0;
         return true;
     };
 
