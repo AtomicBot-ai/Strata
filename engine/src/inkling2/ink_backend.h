@@ -158,6 +158,9 @@ public:
         return 0;
     }
 
+    // Start a new per-slot cost estimate with ms=0, or observe a completed plain decode step.
+    virtual void observe_plain_step(int /*slot*/, double /*ms*/) {}
+
     // Optional fused on-device greedy speculative step (W=4 Adaptive Beam Tree + zero-logits-D2H verify + commit).
     // Returns n_emit in 1..min(8, max_emit) on success, 0 to fall back to dspark_draft + forward_batch, or -1 on error.
     virtual int dspark_spec_step_greedy(

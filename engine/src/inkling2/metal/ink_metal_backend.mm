@@ -113,6 +113,7 @@ public:
         ckpts_.assign((size_t)par, PromptCkpt{});
         slot_used_.assign((size_t)par, 0);
         slot_beam_depth_.assign((size_t)par, runner_.is_apple10 ? 5 : 4);
+        plain_cost_ms_.assign((size_t)par, 0.0);
         slot_ema_gain_.assign((size_t)par, 1.15);
         slot_cooldown_.assign((size_t)par, 0);
         slot_cd_len_.assign((size_t)par, 8);
@@ -436,6 +437,12 @@ public:
         return n;
     }
 
+    void observe_plain_step(int slot, double ms) override {
+        double& estimate = plain_cost_ms_[slot];
+        if (ms == 0.0) estimate = 0.0;
+        else if (std::isfinite(ms) && ms > 0.0) estimate = estimate > 0.0 ? 0.9 * estimate + 0.1 * ms : ms;
+    }
+
     int dspark_spec_step_greedy(
         int slot,
         int32_t anchor_tok,
@@ -472,10 +479,14 @@ public:
         const double t_step0 = mtl::now_s();
         const bool is_bf16_trunk = (mod_.man.get("model.llm.layers.0.attn.wq_du.weight").fmt == ink_metal::FMT_BF16);
         const bool is_sq10 = (mod_.man.build.find("10") != std::string::npos);
-        const double t_plain_ms = runner_.is_apple10 ? (is_bf16_trunk ? 17.2 : (is_sq10 ? 13.5 : 14.8)) : 41.0;
+        const double default_plain_ms = runner_.is_apple10 ? (is_bf16_trunk ? 17.2 : (is_sq10 ? 13.5 : 14.8)) : 41.0;
 
-        auto update_gain = [&](int n_emit) {
+        const double t_plain_ms = plain_cost_ms_[slot] > 0.0 ? plain_cost_ms_[slot] : default_plain_ms;
+        static const bool trace = std::getenv("TURBINE_POLICY_TRACE") != nullptr;
+        auto update_gain = [&](int n_emit, int nodes) {
             const double step_ms = std::max(1.0, (mtl::now_s() - t_step0) * 1e3);
+            if (trace) std::fprintf(stderr, "policy pos=%d nodes=%d emit=%d verify_gpu_ms=%.4f round_ms=%.4f plain_ms=%.4f\n",
+                                    anchor_pos, nodes, n_emit, runner_.last_gpu_ms, step_ms, t_plain_ms);
             const double step_gain = (double)n_emit * t_plain_ms / step_ms;
             slot_ema_gain_[slot] = 0.72 * slot_ema_gain_[slot] + 0.28 * step_gain;
             if (step_gain >= 1.05) {
@@ -525,7 +536,7 @@ public:
             last_tree_slot_ = -1;
             slot_beam_depth_[slot] = std::max(4, std::min(7, acc + 3));
             if (out_drafted) *out_drafted = rem;
-            update_gain(1 + acc);
+            update_gain(1 + acc, tm);
             return 1 + acc;
         }
 
@@ -575,7 +586,7 @@ public:
         last_ver_slot_ = -1;
         slot_beam_depth_[slot] = std::max(4, std::min(7, acc + 3));
         if (out_drafted) *out_drafted = max_d;
-        update_gain(1 + acc);
+        update_gain(1 + acc, tm);
         return 1 + acc;
     }
 
@@ -674,6 +685,7 @@ private:
     std::vector<std::vector<float>> frnn_snaps_;
     std::vector<uint8_t> slot_used_;
     std::vector<int> slot_beam_depth_;
+    std::vector<double> plain_cost_ms_;
     std::vector<double> slot_ema_gain_;
     std::vector<int> slot_cooldown_;
     std::vector<int> slot_cd_len_;

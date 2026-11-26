@@ -514,6 +514,9 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
     // steps: the smoothed tokens per step / (spec step ms / plain step ms) below 0.93 turns drafting off for 40 plain steps, then it probes again. The plain step
     // time is measured on the first 4 decode steps of the first request and refreshed by every plain step after that.
     const bool spec_adapt = (spec_env && std::string(spec_env) == "adapt") || cfg.bopts.spec_adapt;
+    const char* cost_env = std::getenv("TURBINE_ADAPTIVE_PLAIN_COST");
+    const bool measured_cost = spec_adapt && use_dspark && std::string(backend.backend_name()) == "metal" &&
+        cost_env && std::string(cost_env) == "1";
     double gov_t_plain = 0.0, gov_t_spec = 0.0;
     // one speculative step (the greedy tree step or the sampled block step) took `ms` and produced `n_emit` tokens
     auto gov_step = [&](ActiveReq& rq, int n_emit, double ms) {
@@ -746,7 +749,9 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
         rq.hist = rq.prompt_ids;
         rq.next_tok = -1;
         rq.gov_plain_left = 0; rq.gov_win_steps = 0; rq.gov_win_emit = 0; rq.gov_gain = -1.0;
-        rq.gov_calib_left = (spec_adapt && gov_t_plain <= 0.0) ? 4 : 0;
+        const bool probe = measured_cost && rq.s.greedy() && !rq.s.penalties();
+        if (measured_cost) backend.observe_plain_step(rq.slot, 0.0);
+        rq.gov_calib_left = (spec_adapt && (gov_t_plain <= 0.0 || probe)) ? 4 : 0;
         return true;
     };
 
@@ -995,6 +1000,9 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
                         }
                         rq.cur_pos += kept;
                         if (fin) finish_req(rq, fin);
+                    }
+                    if (measured_cost && drafted == 0 && kept == 1) {
+                        backend.observe_plain_step(rq.slot, (now_s() - gov_t0) * 1000.0);
                     }
                     continue;
                 }
@@ -1308,6 +1316,10 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
             // one plain decode step: its whole cost, forward + host sampling + output
             const double ms = (now_s() - t_step0) * 1000.0;
             auto& rg = reqs[sole_slot];
+            // Ignore the first calibration step, which can include initial graph setup.
+            if (measured_cost && rg.s.greedy() && !rg.s.penalties() && rg.gov_calib_left != 4) {
+                backend.observe_plain_step(rg.slot, ms);
+            }
             if (rg.gov_calib_left > 0) {
                 --rg.gov_calib_left;
                 if (rg.gov_calib_left < 3) gov_t_plain = (gov_t_plain <= 0.0) ? ms : std::min(gov_t_plain, ms);  // the first step may capture the graph
