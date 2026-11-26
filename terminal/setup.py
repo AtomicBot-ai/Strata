@@ -9504,12 +9504,21 @@ def shape_engine_fetch(a):
     name = shape_engine.shown(shape, title)                          # what a person reads: the model's title (shape_engine.USE_TITLE)
     from strata_cli import update_cmd
     source = update_cmd._feed_source(argparse.Namespace(feed=getattr(a, "feed", None)), EC.components_dir())
-    exe = shape_engine.ensure(shape, source, emit=lambda m: say("  " + m), title=title)
+    emitted = []
+
+    def _emit(m):
+        emitted.append(m)
+        say("  " + m)
+
+    exe = shape_engine.ensure(shape, source, emit=_emit, title=title)
     if exe is None:
         if os.environ.get("STRATA_ALLOW_NO_ENGINE") == "1":
             warn(shape_engine.WORDS["setup_skip"].format(model=name))
             return None
-        fail(shape_engine.WORDS["setup_failed"].format(model=name), shape_engine.WORDS["setup_failed_hint"])
+        hint = shape_engine.WORDS["setup_failed_hint"]
+        if emitted:                              # the concrete failure reason emitted by shape_engine.ensure
+            hint = f"{emitted[-1]} {hint.replace('See the line above.', '', 1).strip()}"
+        fail(shape_engine.WORDS["setup_failed"].format(model=name), hint)
     found = shape_engine.find(shape, full=False, title=title)
     ok(shape_engine.WORDS["setup_ok"].format(model=name, version=found.version, folder=found.root))
     return found
