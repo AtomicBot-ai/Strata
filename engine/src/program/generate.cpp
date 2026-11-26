@@ -16177,20 +16177,19 @@ int main(int argc, char** argv) {
             if (!(o.batch > 0 && o.batch_groups > 1 && !stages.empty() && piped_mtp && ver.deferred_commit_on())) return false;
             return (o.batch / o.batch_groups) * pm_slot_rows() <= batch_max_t();
         }();
-        // The optional parent uses the third already allocated Metal session. Only
+        // The optional parent uses the third already allocated device session. Only
         // the other two sessions are exposed to requests and coalesced prompt reads.
+        constexpr int parent_slot = 2;
         bool parent_slot_enabled = false;
-#if defined(STRATA_GPU_METAL)
         if (const char* fork = std::getenv("TURBINE_QWEN_FORK"); fork && std::string(fork) == "1") {
-            if (o.batch != 3 || use_mtp || batch_df2 || multi_gpu || !stages.empty() ||
-                o.batch_groups > 1 || o.suffix_draft != 0 || o.vision || o.prompt_cache <= 0) {
-                std::fprintf(stderr, "TURBINE_QWEN_FORK needs --batch 3, text, prompt caching, one Metal device, no drafter\n");
+            if (o.batch != parent_slot + 1 || bslot_ss.size() != 1 || bslot_ss.front().size() != 3 || use_mtp || batch_df2 || multi_gpu || !stages.empty() ||
+                o.batch_groups > 1 || o.suffix_draft != 0 || o.vision || o.prompt_cache <= 0 || kvg.on) {
+                std::fprintf(stderr, "TURBINE_QWEN_FORK needs --batch 3, text, prompt caching, one GPU, fixed KV capacity, no drafter\n");
                 return 1;
             }
             parent_slot_enabled = true;
         }
-#endif
-        const int request_slots = parent_slot_enabled ? 2 : std::max(o.batch, 0);
+        const int request_slots = parent_slot_enabled ? parent_slot : std::max(o.batch, 0);
         // what the server's Monitor tab shows (servers before 0.1.8 skip unknown lines until READY)
         {
             size_t free_b = 0, total_b = 0;
@@ -16917,8 +16916,16 @@ int main(int argc, char** argv) {
             if (!sync_all()) { e = "batch slot copy: device sync failed"; return false; }
             return true;
         };
+        auto copy_parent_state = [&](bool save, const std::vector<int32_t>& tokens, std::string& why) {
+            if (!ver.wait_commit(why)) return false;
 #if defined(STRATA_GPU_METAL)
-        constexpr int parent_slot = 2;
+            return strata::metal_engine::window_slot_copy_main(save, parent_slot, tokens.size(), false, why);
+#else
+            return direct_slot_copy(save, parent_slot, tokens, why);
+#endif
+        };
+        // An explicit handle owns the row until DROP. Otherwise ordinary chat may reuse it.
+        std::vector<int32_t> automatic_ids;
         std::vector<int32_t> parent_ids;
         bool parent_cvec = false;
         uint64_t parent_generation = 0;
@@ -16926,7 +16933,6 @@ int main(int argc, char** argv) {
             std::random_device random;
             parent_generation = (uint64_t(random()) << 32) ^ random();
         }
-#endif
         auto copy_to_slot = [&](int b, const std::vector<int32_t>& ids, std::string& e) -> bool {
             const int64_t upto = (int64_t) ids.size();
 #if defined(STRATA_GPU_METAL)
@@ -18505,7 +18511,6 @@ int main(int argc, char** argv) {
             admit_slot = -1;
             bool bgen_rewritten = false, bgen_img = false;
             char* bgen_tail = nullptr;
-#if defined(STRATA_GPU_METAL)
             if (line.rfind("STATE_", 0) == 0) {
                 std::istringstream input(line);
                 std::string command, location, extra;
@@ -18531,12 +18536,12 @@ int main(int argc, char** argv) {
                         // Stage host allocations first. A failed device copy is fatal because
                         // it may have changed only part of the destination GPU state.
                         std::vector<int32_t> ids(save_parent ? live : parent_ids);
-                        if (!ver.wait_commit(err) ||
-                            !strata::metal_engine::window_slot_copy_main(save_parent, parent_slot, ids.size(), false, err)) {
+                        if (!copy_parent_state(save_parent, ids, err)) {
                             std::fprintf(stderr, "native parent state copy failed: %s\n", err.c_str());
                             return 1;
                         }
                         if (save_parent) {
+                            automatic_ids.clear();
                             parent_ids.swap(ids);
                             parent_cvec = cvec_cached;
                             ++parent_generation;
@@ -18558,7 +18563,6 @@ int main(int argc, char** argv) {
                 std::fflush(stdout);
                 continue;
             }
-#endif
             if (line.rfind("BGEN ", 0) == 0 || line.rfind("BGENI ", 0) == 0) {
                 const bool bimg = line.rfind("BGENI ", 0) == 0;
                 char* e1 = nullptr;
@@ -19324,6 +19328,8 @@ int main(int argc, char** argv) {
             // state, so nothing that may hold it is continued: the live session, every checkpoint, every parked
             // conversation and every idle batch slot go, and this prompt is read from token 0 (resume == 0 below)
             if (nan_flush) {
+                automatic_ids.clear();
+                parent_ids.clear();
                 nan_flush = false;
                 if (nf_prompt_windows) {
                     nf_prompt_windows = false;
@@ -19453,6 +19459,15 @@ int main(int argc, char** argv) {
                                          "(its embeddings changed): it cannot be reused (#2228)\n", (long long) deep,
                                  k + 1, (long long) (k < now.size() ? now[k].start : -1));
                 }
+            }
+            const bool automatic = parent_slot_enabled && parent_ids.empty() && !geni && req_imgs.empty() &&
+                                   o.prompt_cache_root > 0;
+            const bool parent_match = automatic && parent_cvec == want_cvec &&
+                                      (int64_t) automatic_ids.size() > std::max(resume, slot_tokens) &&
+                                      starts_with(automatic_ids, {});
+            if (parent_match) {
+                slot_tokens = (int64_t) automatic_ids.size();
+                slot_source = -1;
             }
             const auto parked = conversations.best(ids, req_imgs, want_cvec);
             // STRATA_SLOT_READ (opt-in: =1, with STRATA_PIPED_MTP; asked for by the server with slot_read=1, which then
@@ -19939,6 +19954,22 @@ int main(int argc, char** argv) {
                        !swapped_parked && !park_current(incoming ? incoming->bytes() : 0)) {
                 std::printf("ERR %s\n", err.c_str());
                 return 1;
+            }
+            if (parent_match && !incoming && !borrow) {
+                if (!copy_parent_state(false, automatic_ids, err)) {
+                    std::fprintf(stderr, "automatic parent restore failed: %s\n", err.c_str());
+                    return 1;
+                }
+                conversations.take_reuse();
+                live = automatic_ids;
+                live_imgs.clear();
+                checks.clear();
+                tail_ckpt_len = -1;
+                lent_slot = -1;
+                cvec_cached = parent_cvec;
+                resume = (int64_t) live.size();
+                from_live = true;
+                std::fprintf(stderr, "turbine: automatic parent restored tokens=%lld\n", (long long) resume);
             }
             if (slot_source >= 0) {
                 lent_slot = -1;   // (a longer start than the main session's)
@@ -21599,8 +21630,14 @@ int main(int argc, char** argv) {
                     std::fprintf(stderr, "strata serve: pin=%lld: the cache has no checkpoint there to pin (it resumed from "
                                  "%lld)\n", (long long) req_pin, (long long) read_from);
             }
+            // Before the final user instruction, the chat history is shared by sibling requests.
+            const int64_t auto_at = automatic && req_ckpt && req_pin == 0
+                ? strata::program::message_checkpoint_boundary(ids, read_from, turn_at, o.turn_token,
+                                                                o.prompt_cache_root, n)
+                : -1;
             std::vector<int64_t> cuts = {reread_to, root_at, message_at, turn_at, n - 1};
-            if (pin_at >= 0) {
+            if (auto_at >= 0 || pin_at >= 0) {
+                cuts.push_back(auto_at);
                 cuts.push_back(pin_at);
                 std::sort(cuts.begin(), cuts.end());   // the skipped -1s first, n - 1 still last
             }
@@ -21687,6 +21724,16 @@ int main(int argc, char** argv) {
                     break;
                 }
                 at = to;
+                if (to == auto_at) {
+                    std::vector<int32_t> prefix(ids.begin(), ids.begin() + to);
+                    if (!copy_parent_state(true, prefix, err)) {
+                        std::fprintf(stderr, "automatic parent save failed: %s\n", err.c_str());
+                        return 1;
+                    }
+                    automatic_ids.swap(prefix);
+                    parent_cvec = want_cvec;
+                    std::fprintf(stderr, "turbine: automatic parent saved tokens=%lld\n", (long long) to);
+                }
                 if ((to == turn_at || to == root_at || to == message_at || to == pin_at) &&
                     !checkpoint_at(to, nullptr, to == message_at && to != turn_at && to != root_at && to != pin_at)) {   // the tail kind leaves first
                     if (!ckpt_why.empty() || !checkpoint_failure_is_survivable()) {   // #3350: only an unwell GPU ends the request
