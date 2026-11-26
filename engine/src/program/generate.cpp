@@ -16901,6 +16901,14 @@ int main(int argc, char** argv) {
             if (!sync_all()) { e = "batch slot copy: device sync failed"; return false; }
             return true;
         };
+        // Bounded S02 adapter. A third allocated row holds one immutable parent.
+        // It is never admitted as a request. Data movement uses the native Metal implementation.
+#if defined(STRATA_GPU_METAL)
+        const bool sprint_fork = std::getenv("TURBINE_S02_PROBE") != nullptr && o.batch == 3 &&
+                                 !use_mtp && !batch_df2 && !multi_gpu && stages.empty();
+        std::vector<int32_t> sprint_parent;
+        bool sprint_cvec = false;
+#endif
         auto copy_to_slot = [&](int b, const std::vector<int32_t>& ids, std::string& e) -> bool {
             const int64_t upto = (int64_t) ids.size();
 #if defined(STRATA_GPU_METAL)
@@ -18479,6 +18487,42 @@ int main(int argc, char** argv) {
             admit_slot = -1;
             bool bgen_rewritten = false, bgen_img = false;
             char* bgen_tail = nullptr;
+#if defined(STRATA_GPU_METAL)
+            if (sprint_fork && (line == "SPRINT_SAVE" || line == "SPRINT_RESTORE" || line == "SPRINT_DROP")) {
+                if (line == "SPRINT_DROP") {
+                    sprint_parent.clear();
+                    std::puts("SDROPPED");
+                } else if (line == "SPRINT_SAVE") {
+                    if (!live_ok || live.empty() || !live_imgs.empty() || !sprint_parent.empty() || nan_flush) {
+                        std::puts("SREFUSED source unavailable");
+                    } else if (!ver.wait_commit(err) || !copy_to_slot(2, live, err)) {
+                        std::fprintf(stderr,"S02 copy failed: %s\n",err.c_str()); return 1;
+                    } else {
+                        sprint_parent = live;
+                        sprint_cvec = cvec_cached;
+                        std::printf("SSAVED %zu\n", sprint_parent.size());
+                    }
+                } else if (sprint_parent.empty()) {
+                    std::puts("SREFUSED empty snapshot");
+                } else {
+                    if (!ver.wait_commit(err) || !strata::metal_engine::window_slot_copy_main(false,2,sprint_parent.size(),false,err)) {
+                        std::fprintf(stderr,"S02 restore failed: %s\n",err.c_str()); return 1;
+                    }
+                    conversations.take_reuse();
+                    live = sprint_parent;
+                    live_imgs.clear();
+                    checks.clear();
+                    tail_ckpt_len = -1;
+                    cvec_cached = sprint_cvec;
+                    live_ok = true;
+                    std::printf("SRESTORED %zu\n", live.size());
+                }
+                std::fflush(stdout); continue;
+            }
+            if (sprint_fork && (line.rfind("BGEN 2 ",0)==0 || line.rfind("BGENI 2 ",0)==0)) {
+                std::puts("ERR reserved snapshot row"); std::fflush(stdout); continue;
+            }
+#endif
             if (line.rfind("BGEN ", 0) == 0 || line.rfind("BGENI ", 0) == 0) {
                 const bool bimg = line.rfind("BGENI ", 0) == 0;
                 char* e1 = nullptr;

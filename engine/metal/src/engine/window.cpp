@@ -555,8 +555,24 @@ public:
     int win_n_[MAXT + 1] = {};
     double win_ms_[MAXT + 1] = {}, win_gpu_[MAXT + 1] = {};
     void at_cut(int s) {
-        st_->at_layer(s, seg_T_, TOPK, cut_ids_ ? cut_ids_ : ids_.as<int32_t>(), st_pred_ && !cut_ids_ ? predL_.as<float>() + (size_t) s * MAXT * 512 : nullptr,
+        const auto* ids = cut_ids_ ? cut_ids_ : ids_.as<int32_t>();
+        static const bool trace = std::getenv("STRATA_SSD_TRACE_ROWS") != nullptr;
+        const bool capture = trace && rows_ && (seg_T_ == 1 || seg_T_ == 2);
+        ExpertStream::ReadCounts before{};
+        if (capture) before = st_->read_counts();
+        st_->at_layer(s, seg_T_, TOPK, ids, st_pred_ && !cut_ids_ ? predL_.as<float>() + (size_t) s * MAXT * 512 : nullptr,
                       predL2_.ptr && !cut_ids_ ? predL2_.as<float>() + (size_t) s * MAXT * 512 : nullptr);
+        if (capture) {
+            const auto after = st_->read_counts();
+            std::fprintf(stderr, "SSD_ROUTE %d %d %llu %llu %llu %llu %.6f",
+                         s, seg_T_, (unsigned long long)st_->expert_bytes(s),
+                         (unsigned long long)(after.hits - before.hits),
+                         (unsigned long long)(after.misses - before.misses),
+                         (unsigned long long)(after.bytes - before.bytes),
+                         after.wait_ms - before.wait_ms);
+            for (int i = 0; i < seg_T_ * TOPK; ++i) std::fprintf(stderr, " %d", (int)ids[i]);
+            std::fputc('\n', stderr);
+        }
     }
 private:
     std::vector<float> ple_hist_;    // NG_HIST x hc_dim normalized rows, row-fastest
@@ -2289,9 +2305,12 @@ bool Window::slot_copy(bool into_slot, int b, int64_t upto, bool kv_only, std::s
         for (int64_t c = n; c < max_cells_ + 16; ++c) m[c * 3] = m[c * 3 + 1] = m[c * 3 + 2] = (int32_t) (last[0] + (c - n + 1));
     }
     const size_t cells = (size_t) std::max<int64_t>(0, std::min<int64_t>(upto, max_cells_));
+    const bool audit_copy = std::getenv("TURBINE_S02_VERIFY_COPY") != nullptr;
+    bool equal = true;
     auto cp = [&](const mtl::Buffer& live, const mtl::Buffer& stash, size_t n) {
         n = std::min({n, live.bytes, stash.bytes});
         if (into_slot) std::memcpy(stash.ptr, live.ptr, n); else std::memcpy(live.ptr, stash.ptr, n);
+        if (audit_copy && n && std::memcmp(live.ptr,stash.ptr,n)) equal=false;
     };
     const int hs = into_slot ? hp_ : o.hp;   // the committed history parity of the source
     if (!kv_only) {
@@ -2315,6 +2334,11 @@ bool Window::slot_copy(bool into_slot, int b, int64_t upto, bool kv_only, std::s
     cp(pleHist_, o.pleHist, pleHist_.bytes);
     if (into_slot) { o.ple_hist = ple_hist_; o.ss->ple_prev[0] = ss_->ple_prev[0]; o.ss->ple_prev[1] = ss_->ple_prev[1]; }
     else { ple_hist_ = o.ple_hist; ss_->ple_prev[0] = o.ss->ple_prev[0]; ss_->ple_prev[1] = o.ss->ple_prev[1]; }
+    if (audit_copy) {
+        equal = equal && o.hp == hp_ && o.ple_hist == ple_hist_ && o.ss->ple_prev[0] == ss_->ple_prev[0] && o.ss->ple_prev[1] == ss_->ple_prev[1];
+        std::fprintf(stderr,"S02_COPY %d %d %lld exact=%d\n",int(into_slot),b,(long long)upto,int(equal));
+        if (!equal) { err="S02 unequal state bytes"; return false; }
+    }
     return true;
 }
 
