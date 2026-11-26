@@ -171,11 +171,45 @@ public:
         }
     }
 
+    // Test observer only. Compare an old K row still required by the next query.
+    std::vector<uint16_t> before_k_[2];
+    int observed_pos_ = -1;
+    uint16_t* probe_row(int slot, int future, bool draft) {
+        const auto& c = mod_.man.c;
+        int index = 0;
+        if (!draft) while (!c.is_swa[c.phys_for_visit(index)]) ++index;
+        int stride = draft ? runner_.dsp_kv_stride[0] : runner_.visit_kv_stride[index];
+        auto& k = draft ? runner_.dsp_ctx_k[0] : runner_.kv_k[index];
+        return k.as<uint16_t>() + (size_t(slot) * stride + future % stride) * c.n_kv * c.head_dim;
+    }
+    void observe(int slot, int pos, int count) {
+        observed_pos_ = -1;
+        if (!std::getenv("FORKSPEC_OBSERVE") || pos < 1030 || count < 4) return;
+        observed_pos_ = pos + count - 1;
+        const auto& c = mod_.man.c;
+        for (int d = 0; d <= 1; ++d) {
+            auto* row = probe_row(slot, observed_pos_, d);
+            before_k_[d].assign(row, row + c.n_kv * c.head_dim);
+        }
+    }
+    void check_rows(int slot, int keep) {
+        if (observed_pos_ < keep + 1) return;
+        for (int d = 0; d <= 1; ++d) {
+            auto& row = before_k_[d];
+            auto* actual = probe_row(slot, observed_pos_, d);
+            int changed = 0;
+            for (size_t i = 0; i < row.size(); ++i) changed += row[i] != actual[i];
+            std::fprintf(stderr, "ring_probe draft=%d slot=%d anchor=%d keep=%d future=%d stride=%d changed=%d words=%zu\n",
+                         d, slot, last_ver_pos0_, keep, observed_pos_, d ? runner_.dsp_kv_stride[0] : mod_.man.c.swa_win, changed, row.size());
+        }
+        observed_pos_ = -1;
+    }
     void rollback_slot(int slot, int keep_len) override {
         if (slot < 0 || slot >= (int)snaps_.size()) return;
         // O(1) ZERO-REPLAY partial-accept rollback via ShortConv verify ring (linear verify!)
         if (slot == last_ver_slot_ && keep_len > last_ver_pos0_ && keep_len <= last_ver_pos0_ + last_ver_m_) {
             runner_.restore_verify_step(slot, keep_len - last_ver_pos0_ - 1);
+            check_rows(slot, keep_len);
             return;
         }
         // O(1) ZERO-REPLAY early-stop rollback for multi-branch tree commit!
@@ -383,6 +417,7 @@ public:
                 last_ver_slot_ = st.slot_ids[0];
                 last_ver_pos0_ = st.pos[0];
                 last_ver_m_ = st.M;
+                if (runner_.use_dspark) observe(st.slot_ids[0], st.pos[0], st.M);
             }
         }
         const int D = mod_.man.c.hidden;
@@ -446,6 +481,7 @@ public:
         int32_t tmp[7]{};
         int n = runner_.dspark_draft_block8(slot, anchor_tok, anchor_pos, tmp, req);
         for (int i = 0; i < n; ++i) out_draft_ids[i] = tmp[i];
+        if (n && std::getenv("FORKSPEC_FORCE_REJECT")) out_draft_ids[0] = 17;
         return n;
     }
 
