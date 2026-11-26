@@ -22,7 +22,6 @@ class Parent:
     ids: tuple
     owner: object
     identity: tuple
-    born: int
     id: str = field(default_factory=lambda: secrets.token_urlsafe(24))
     handle: int = 0
     leases: int = 0
@@ -71,7 +70,7 @@ class Checkpoints:
         with self.lock:
             if self.parent:
                 raise CheckpointError(409, "a checkpoint is already active")
-            p = Parent(tuple(ids), owner, identity, self.born)
+            p = Parent(tuple(ids), owner, identity)
             self.parent = p
         try:
             with e._exclusive_control():
@@ -100,6 +99,10 @@ class Checkpoints:
                 else:
                     self.exchange(f"GEN 1 temperature=0 {tokens}", "DONE", ("PP", "T", "RESUME", "REUSED"))
                     saved = self.exchange("STATE_SAVE MAIN", "SAVED")
+                fields_needed = 3 if self.family == "inkling" else 2
+                if len(saved) != fields_needed or not all(field.isdecimal() for field in saved):
+                    e._end_out_of_step(self.born, "malformed native snapshot acknowledgement")
+                    raise CheckpointError(503, "malformed native snapshot acknowledgement")
                 p.handle, count = map(int, saved[:2])
                 if count != len(ids):
                     self.exchange(f"STATE_DROP {p.handle}", "DROPPED")
@@ -161,8 +164,21 @@ class Checkpoints:
 
     def drop(self, p):
         if self.alive():
-            with self.engine._exclusive_control():
-                self.exchange(f"STATE_DROP {p.handle}", "DROPPED")
+            try:
+                with self.engine._exclusive_control():
+                    self.exchange(f"STATE_DROP {p.handle}", "DROPPED")
+            except CheckpointError:
+                # The engine may still own this handle. Retire the generation before admitting a new parent.
+                self.engine._end_out_of_step(self.born, "native checkpoint drop was not acknowledged")
+                self.parent = None
+                event("checkpoint_invalidated", reason="drop_unconfirmed")
+                raise
+            except ValueError:
+                # Admission still owns the wire. Keep the parent closed and try again after the current exchange.
+                p.timer = threading.Timer(1, self.expire, args=(p,))
+                p.timer.daemon = True
+                p.timer.start()
+                return
         self.parent = None
         event("checkpoint_dropped")
 
@@ -178,4 +194,4 @@ class Checkpoints:
             p = self.lookup(ident, owner)
             p.timer.cancel()
             self.expire(p)
-            return 202 if p.leases else 204
+            return 202 if self.parent is p else 204
