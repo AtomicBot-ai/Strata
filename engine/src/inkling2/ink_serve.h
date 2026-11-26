@@ -465,6 +465,7 @@ struct ActiveReq {
     int reused_tokens = 0;                    // prefix tokens reused for this request
     std::vector<int32_t> shared_prefix;
     int pin = 0;
+    bool fork_restored = false;
     bool shared_pending = false;
     bool ckpt_pending = false;                // true while prefilling up to prompt_len - 1 to save checkpoint
     double t_start = 0.0;
@@ -571,14 +572,16 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
             return 1;
         }
     }
-    const bool state_enabled = snapshot_mib && !use_dspark && P <= 2 &&
+    const char* fork_env = std::getenv("TURBINE_FORK_DSPARK");
+    const bool fork_dspark = use_dspark && fork_env && std::string(fork_env) == "1";
+    const bool state_enabled = snapshot_mib && (!use_dspark || fork_dspark) && P <= 2 &&
         std::string(backend.backend_name()) == "metal" && std::string(kv_str) == "fp16" && cfg.vision_path.empty();
-    proto("INFO engine=strata-inkling-%s arch=inkling2_loop backend=%s model=%s layers=%d visits=%d vocab=%d chunk=%d batch_slots=%d slot_read=1 shared_prefix=%d kv_dtype=%s drafter=%s drafting=%s images=%d image_pad=%d parallel=%d ckpt_key=1 native_fork=%d",
+    proto("INFO engine=strata-inkling-%s arch=inkling2_loop backend=%s model=%s layers=%d visits=%d vocab=%d chunk=%d batch_slots=%d slot_read=1 shared_prefix=%d kv_dtype=%s drafter=%s drafting=%s images=%d image_pad=%d parallel=%d ckpt_key=1 native_fork=%d fork_dspark=%d",
           cfg.version.c_str(), backend.backend_name(), base.c_str(), c.n_phys, c.n_visits, V, chunk_sz,
           P, backend.supports_shared_checkpoint() ? 1 : 0, kv_str,
           mf.m.dspark.present ? "dspark" : "none",
           use_dspark ? "dspark" : "off",
-          images_ok ? 1 : 0, c.image_token_id, kMaxParallelSlots, int(state_enabled));
+          images_ok ? 1 : 0, c.image_token_id, kMaxParallelSlots, int(state_enabled), int(state_enabled && fork_dspark));
     proto("READY %d stop hold holdb", eff_max_ctx);
 
     std::vector<ActiveReq> reqs(P);
@@ -618,6 +621,11 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
     };
 
     auto prepare_req = [&](const ParsedGen& pg, ActiveReq& rq, std::string& err) -> bool {
+        if (state_enabled && fork_dspark && rq.fork_restored &&
+            (!pg.s.greedy() || pg.s.penalties())) {
+            err = "DSpark fork requires greedy generation without penalties";
+            return false;
+        }
         rq.active = true;
         rq.is_solo = (pg.cmd == "GEN");
         rq.is_ext_gen = (pg.cmd == "GENERATE");
@@ -741,6 +749,7 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
         // ckpt=0 (a later pass of one request: the thinking budget's wrap-up, a reply written again): the checkpoint of the
         // request's first pass, at the end of the prompt the client sends back, stays; this pass's longer prompt would replace it.
         rq.ckpt_pending = (pg.images.empty() && !pg.no_ckpt && rq.prompt_len >= 16 && reuse < rq.prompt_len - 1);
+        rq.fork_restored = false;
         rq.prefill_pos = reuse;
         rq.cur_pos = reuse;
         rq.hist = rq.prompt_ids;
@@ -783,6 +792,9 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
             auto& rq = reqs[slot];
             try {
                 if (op == "STATE_SAVE") {
+                    if (fork_dspark && (!rq.s.greedy() || rq.s.penalties())) {
+                        proto("ERR DSpark fork requires greedy generation without penalties"); return true;
+                    }
                     const size_t budget = size_t(snapshot_mib) << 20;
                     const size_t ids_bytes = rq.cached_prefix.size() * sizeof(int32_t);
                     // A second live image must not make transient memory exceed the configured payload budget.
@@ -801,6 +813,7 @@ inline int run_serve_loop(const ServeConfig& cfg, InkModelFile& mf, InkBackend& 
                     auto ids = saved_ids;
                     saved->restore(slot);
                     rq.cached_prefix.swap(ids);
+                    rq.fork_restored = fork_dspark;
                     rq.prompt_ckpt_prefix.clear();
                     rq.shared_prefix.clear();
                     proto("RESTORED %zu", saved_ids.size());

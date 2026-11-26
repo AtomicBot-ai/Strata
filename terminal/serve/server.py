@@ -7508,7 +7508,8 @@ def make_handler(svc: Service):
                 if self._authorized() and self._turbine_local():
                     state = getattr(svc.engine, "checkpoints", None)
                     enabled = bool(state and state.alive())
-                    self._json(200, {"native_fork": enabled, "backend": state.family if enabled else None,
+                    self._json(200, {"native_fork": enabled, "fork_dspark": enabled and
+                                     str(svc.engine.info.get("fork_dspark")) == "1", "backend": state.family if enabled else None,
                                      "active_slots": getattr(svc.engine, "batch", 0), "max_parents": int(enabled)})
                 return
             if path.startswith("/tool-media/"):

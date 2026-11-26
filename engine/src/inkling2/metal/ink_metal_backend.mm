@@ -200,7 +200,7 @@ public:
     }
 
     std::unique_ptr<InkPrefixCheckpoint> save_prefix(int slot, int tokens, size_t budget) override {
-        if (runner_.use_dspark || kv_dtype_ != KvDtype::FP16 || (slot < 0 || slot >= runner_.max_slots) ||
+        if (kv_dtype_ != KvDtype::FP16 || (slot < 0 || slot >= runner_.max_slots) ||
             tokens <= 0 || tokens >= runner_.max_ctx) return nullptr;
         // forward_batch has finished on the GPU when the idle server accepts SAVE.
         // Keep the populated physical ring rows, including rows a longer sibling can overwrite.
@@ -211,20 +211,22 @@ public:
                 size_t offset;
                 size_t length;
             };
+            MetalInkBackend& backend;
             ink_metal::InkMetalRunner& runner;
             ink_metal::InkMetalRunner::SlotSconvSnap conv;
             std::vector<Slice> kv;
             uint8_t* storage = nullptr;
             size_t storage_size = 0;
             ~Saved() override { if (storage) munmap(storage, storage_size); }
-            explicit Saved(ink_metal::InkMetalRunner& r) : runner(r) {}
+            explicit Saved(MetalInkBackend& b) : backend(b), runner(b.runner_) {}
             void restore(int destination) const override {
+                backend.reset_slot(destination);
                 for (const auto& slice : kv)
                     std::memcpy(slice.base + destination * slice.slot_stride, storage + slice.offset, slice.length);
                 runner.restore_slot(destination, conv);
             }
         };
-        auto saved = std::make_unique<Saved>(runner_);
+        auto saved = std::make_unique<Saved>(*this);
         const auto& c = mod_.man.c;
         const size_t row_bytes = (size_t)c.n_kv * c.head_dim * sizeof(uint16_t);
         // Two KV convolution histories and two hidden-state histories, three rows each.
@@ -232,16 +234,27 @@ public:
             6ull * c.n_visits * (size_t(c.n_kv) * c.head_dim + c.hidden) * sizeof(float);
         if (conv_bytes > budget) return nullptr;
         saved->payload_bytes = conv_bytes;
-        for (int v = 0; v < c.n_visits; ++v) {
-            const size_t count = std::min(tokens, runner_.visit_kv_stride[v]) * row_bytes;
-            for (auto* buf : {&runner_.kv_k[v], &runner_.kv_v[v]}) {
-                const size_t stride = row_bytes * runner_.visit_kv_stride[v];
-                auto* base = buf->as<uint8_t>();
-                if (count > budget - saved->payload_bytes) return nullptr;
-                saved->kv.push_back({base, stride, saved->storage_size, count});
-                saved->storage_size += count;
-                saved->payload_bytes += count;
-            }
+        auto add = [&](uint8_t* base, size_t stride, size_t count) {
+            if (!base || count > budget - saved->payload_bytes) return false;
+            saved->kv.push_back({base, stride, saved->storage_size, count});
+            saved->storage_size += count;
+            saved->payload_bytes += count;
+            return true;
+        };
+        auto add_kv = [&](auto& k, auto& v, int rows) {
+            const size_t count = std::min(tokens, rows) * row_bytes;
+            const size_t stride = rows * row_bytes;
+            return add(k.template as<uint8_t>(), stride, count) &&
+                   add(v.template as<uint8_t>(), stride, count);
+        };
+        for (int v = 0; v < c.n_visits; ++v)
+            if (!add_kv(runner_.kv_k[v], runner_.kv_v[v], runner_.visit_kv_stride[v])) return nullptr;
+        if (runner_.use_dspark) {
+            for (int layer = 0; layer < 3; ++layer)
+                if (!add_kv(runner_.dsp_ctx_k[layer], runner_.dsp_ctx_v[layer], runner_.dsp_kv_stride[layer]))
+                    return nullptr;
+            const size_t bytes = c.hidden * sizeof(float);
+            if (!add(runner_.dsp_frnn_slot.as<uint8_t>(), bytes, bytes)) return nullptr;
         }
         // Release the checkpoint's unified-memory pages at DROP, including short,
         // repeated snapshots which otherwise fill independent malloc size classes.
