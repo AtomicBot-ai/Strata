@@ -1,3 +1,7 @@
+## Atomic Turbine v0.1 alpha · macOS arm64 / Metal
+
+Этот форк Strata добавляет локальное ветвление состояния Inkling и Qwen. Запуск API, четыре параллельные логические задачи и ограничения — в [Quick Start](atomic/README.md). [Статус релиза и результаты](RELEASE_STATUS.md).
+
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="app/host/public/brand/strata-lockup-dark.svg">

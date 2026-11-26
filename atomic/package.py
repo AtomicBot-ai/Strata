@@ -20,7 +20,7 @@ def copy(source, destination):
 def assemble(folder, args):
     copy(args.inkling, folder / "bin/strata-inkling")
     copy(args.qwen, folder / "bin/strata")
-    for name in ("atomic-turbine", "README.md", "THIRD_PARTY.md"):
+    for name in ("atomic-turbine", "fork_demo.py", "README.md", "RELEASE_NOTES.md", "THIRD_PARTY.md"):
         copy(REPO / "atomic" / name, folder / name)
     copy(REPO / "LICENSE", folder / "LICENSE")
 
@@ -42,7 +42,7 @@ def assemble(folder, args):
     for name in ("draft_vocab.bin", "expert-profile.bin"):
         copy(REPO / "terminal/data" / name, metal / "data" / name)
 
-    exclude = shutil.ignore_patterns("__pycache__", "*.pyc", "test_*.py", "tests", "experimental-speed-projection")
+    exclude = shutil.ignore_patterns("__pycache__", "*.pyc", "test_*.py", "tests", "fixtures", "experimental-speed-projection")
     for name in ("serve", "tools", "strata_control", "strata_cli", "data"):
         shutil.copytree(REPO / "terminal" / name, folder / "terminal" / name, ignore=exclude)
     for name in ("requirements.txt", "strata.py"):
@@ -81,6 +81,10 @@ def main():
                 raise ValueError(f"ZIP checksum failed for {bad_member}")
         destination = args.output / archive.name
         os.replace(archive, destination)
+        checksum = hashlib.sha256(destination.read_bytes()).hexdigest()
+        sidecar = staging / (archive.name + ".sha256")
+        sidecar.write_text(f"{checksum}  {archive.name}\n")
+        os.replace(sidecar, destination.with_suffix(".zip.sha256"))
     print(destination.resolve())
 
 
