@@ -35,3 +35,4 @@
 - [research/final-sprint-inkling](https://github.com/AtomicBot-ai/Strata/tree/research/final-sprint-inkling) · `bf6c7c3fdd`
 - [research/final-sprint-qwen](https://github.com/AtomicBot-ai/Strata/tree/research/final-sprint-qwen) · `572c6198ae`
 - [research/final-sprint-opencode-fixture](https://github.com/AtomicBot-ai/Strata/tree/research/final-sprint-opencode-fixture) · `679dc4748f`
+- [research/flash-next-auto-parent-trace-wip](https://github.com/AtomicBot-ai/Strata/tree/research/flash-next-auto-parent-trace-wip) · `071de979d3` · промежуточный снимок параллельной работы; готовность не проверялась.
