@@ -1,0 +1,151 @@
+{
+  "model": "Qwen3.8-Flash-Next IQ3_XXS",
+  "engine_commit": "d53a525ac91149c2c7406aa8659c3d02717d4b1a",
+  "mac_package_commit": "e9559eaac6e6a787a4b7853d554ee2c6cfb37c83",
+  "mac_zip_sha256": "e2d17d1bfe6ccb69b5023951802b36d3dfcfe7b055df44e01ad3aa27e39d7f00",
+  "native_test": {
+    "runner": "python atomic/bench/qwen_auto.py qwen.json",
+    "minimum_prefix_tokens": 32,
+    "metal_m4_max": {
+      "reused_tokens": [
+        57,
+        57,
+        57,
+        57,
+        0
+      ],
+      "first_tokens": [
+        248046,
+        248046,
+        248046,
+        248046,
+        248046
+      ],
+      "events": [
+        "turbine: automatic parent saved tokens=57",
+        "turbine: automatic parent restored tokens=57",
+        "turbine: automatic parent restored tokens=57",
+        "turbine: automatic parent restored tokens=57",
+        "turbine: automatic parent restored tokens=57",
+        "turbine: automatic parent saved tokens=57"
+      ],
+      "explicit_restore_tokens": 4
+    },
+    "cuda_rtx_5090_laptop": {
+      "reused_tokens": [
+        57,
+        57,
+        57,
+        57,
+        0
+      ],
+      "first_tokens": [
+        248046,
+        248046,
+        248046,
+        248046,
+        248046
+      ],
+      "confirmed_automatic_restores": 4,
+      "explicit_restore_tokens": 4,
+      "os": "Ubuntu 26.04 on WSL2",
+      "cuda_toolkit": "12.9",
+      "cmake_target": "strata",
+      "cmake_cuda_architectures": "120"
+    }
+  },
+  "opencode": {
+    "version": "2.0.24",
+    "platform": "Mac, M4 Max",
+    "provider": "turbine/qwen",
+    "checkpoint_plugin": false,
+    "minimum_prefix_tokens": 32,
+    "context": 24576,
+    "tools": [
+      "subagent"
+    ],
+    "answer": [
+      "8080"
+    ],
+    "engine_starts": 1,
+    "automatic_saves": 5,
+    "automatic_restores": 0,
+    "requests": [
+      {
+        "tokens": 592,
+        "cached": 0
+      },
+      {
+        "tokens": 594,
+        "cached": 593
+      },
+      {
+        "tokens": 1967,
+        "cached": 0
+      },
+      {
+        "tokens": 1988,
+        "cached": 1987
+      },
+      {
+        "tokens": 2006,
+        "cached": 0
+      },
+      {
+        "tokens": 2163,
+        "cached": 2088
+      },
+      {
+        "tokens": 2252,
+        "cached": 2132
+      }
+    ]
+  },
+  "zip_smoke": {
+    "command": "serve-flash-next --model-dir MODEL --pack PACK --context 4096",
+    "minimum_prefix_tokens": 2048,
+    "requests": [
+      {
+        "answer": "green",
+        "cached": 0
+      },
+      {
+        "answer": "blue",
+        "cached": 2261
+      }
+    ],
+    "native_fork": true,
+    "active_slots": 2
+  },
+  "amd_hip": "Source path only; no AMD build or device run.",
+  "cuda_http": {
+    "gateway": "local Mac, inference process on MSI over SSH stdio",
+    "client": "ordinary chat/completions",
+    "minimum_prefix_tokens": 32,
+    "active_slots": 2,
+    "answers": [
+      {
+        "answer": "red",
+        "cached": 0
+      },
+      {
+        "answer": "green",
+        "cached": 92
+      },
+      {
+        "answer": "blue",
+        "cached": 92
+      },
+      {
+        "answer": "yellow",
+        "cached": 92
+      }
+    ],
+    "events": [
+      "turbine: automatic parent saved tokens=92",
+      "turbine: automatic parent restored tokens=92",
+      "turbine: automatic parent restored tokens=92",
+      "turbine: automatic parent restored tokens=92"
+    ]
+  }
+}
